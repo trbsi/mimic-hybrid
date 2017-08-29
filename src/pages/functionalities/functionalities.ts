@@ -37,8 +37,8 @@ export class FunctionalitiesPage {
         { title: data[1], component: GoogleLoginPage },
         { title: data[2], component: TwitterLoginPage },
         { title: data[3], component: ContactCardPage },
-        { title: data[5], component: VideoPlaylistPage },
-        { title: data[6], component: AdsPage }
+        { title: data[4], component: VideoPlaylistPage },
+        { title: data[5], component: AdsPage }
       ];
     });
   }

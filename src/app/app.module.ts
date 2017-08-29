@@ -36,7 +36,6 @@ import { ShowHideInput } from '../components/show-hide-password/show-hide-input'
 import { ColorRadio } from '../components/color-radio/color-radio';
 import { CounterInput } from '../components/counter-input/counter-input';
 import { Rating } from '../components/rating/rating';
-import { GoogleMap } from '../components/google-map/google-map';
 
 import { FeedService } from '../pages/feed/feed.service';
 import { ListingService } from '../pages/listing/listing.service';
@@ -48,7 +47,6 @@ import { ScheduleService } from '../pages/schedule/schedule.service';
 import { FacebookLoginService } from '../pages/facebook-login/facebook-login.service';
 import { GoogleLoginService } from '../pages/google-login/google-login.service';
 import { TwitterLoginService } from '../pages/twitter-login/twitter-login.service';
-import { GoogleMapsService } from '../pages/maps/maps.service';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
@@ -71,7 +69,6 @@ import { EmailComposer } from '@ionic-native/email-composer';
 
 // Functionalities
 import { FunctionalitiesPage } from '../pages/functionalities/functionalities';
-import { MapsPage } from '../pages/maps/maps';
 import { FacebookLoginPage } from '../pages/facebook-login/facebook-login';
 import { GoogleLoginPage } from '../pages/google-login/google-login';
 import { TwitterLoginPage } from '../pages/twitter-login/twitter-login';
@@ -112,7 +109,6 @@ export function createTranslateLoader(http: Http) {
     FiltersPage,
     TermsOfServicePage,
     PrivacyPolicyPage,
-    MapsPage,
     FunctionalitiesPage,
     FacebookLoginPage,
     GoogleLoginPage,
@@ -129,7 +125,6 @@ export function createTranslateLoader(http: Http) {
     ColorRadio,
     CounterInput,
     Rating,
-    GoogleMap
   ],
   imports: [
     BrowserModule,
@@ -169,7 +164,6 @@ export function createTranslateLoader(http: Http) {
     FiltersPage,
     TermsOfServicePage,
     PrivacyPolicyPage,
-    MapsPage,
     FunctionalitiesPage,
     FacebookLoginPage,
     GoogleLoginPage,
@@ -191,7 +185,6 @@ export function createTranslateLoader(http: Http) {
     FacebookLoginService,
     GoogleLoginService,
     TwitterLoginService,
-    GoogleMapsService,
 		LanguageService,
 
 	  SplashScreen,

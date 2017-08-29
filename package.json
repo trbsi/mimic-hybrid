@@ -60,6 +60,7 @@
         "cordova-plugin-globalization": "^1.0.7",
         "cordova-plugin-googleplus": "^5.1.1",
         "cordova-plugin-inappbrowser": "^1.7.1",
+        "cordova-plugin-ionic": "^1.1.8",
         "cordova-plugin-nativestorage": "^2.2.2",
         "cordova-plugin-splashscreen": "^4.0.3",
         "cordova-plugin-statusbar": "^2.2.3",
@@ -118,6 +119,11 @@
             },
             "com.synconset.imagepicker": {
                 "PHOTO_LIBRARY_USAGE_DESCRIPTION": " "
+            },
+            "cordova-plugin-ionic": {
+                "APP_ID": "62f3e944",
+                "CHANNEL_NAME": "Master",
+                "UPDATE_METHOD": "auto"
             }
         },
         "platforms": [

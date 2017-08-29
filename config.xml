@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.startapplabs.ion2FullApp.elite" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.mimic.MimicApp" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>ion2-FullApp ELITE</name>
     <description>The Best Ionic 2 Starter app - ELITE version</description>
     <author email="hi@ionicthemes.com" href="https://ionicthemes.com/">Ionic Themes</author>
@@ -91,8 +91,8 @@
     <plugin name="cordova-plugin-device" spec="^1.1.6" />
     <plugin name="cordova-plugin-email-composer" spec="^0.8.7" />
     <plugin name="cordova-plugin-facebook4" spec="^1.9.1">
-        <variable name="APP_ID" value="826720427470540" />
-        <variable name="APP_NAME" value="Ion2FullApp" />
+        <variable name="APP_ID" value="770098823161620" />
+        <variable name="APP_NAME" value="Mimic" />
     </plugin>
     <plugin name="cordova-plugin-geolocation" spec="^2.4.3">
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value=" " />

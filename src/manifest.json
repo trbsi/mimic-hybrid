@@ -1,10 +1,10 @@
 {
-  "name": "ion2-fullapp",
-  "short_name": "ion2FullApp",
+  "name": "mimic",
+  "short_name": "Mimic",
   "start_url": "index.html",
   "display": "standalone",
   "icons": [{
-    "src": "assets/img/appicon.png",
+    "src": "assets/images/icon.png",
     "sizes": "512x512",
     "type": "image/png"
   }],

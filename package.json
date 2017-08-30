@@ -1,7 +1,7 @@
 {
-    "name": "ion2-fullapp-ELITE",
-    "author": "Ionic Themes",
-    "homepage": "https://ionicthemes.com",
+    "name": "Mimic",
+    "author": "Mimic",
+    "homepage": "http://www.gomimic.com",
     "private": true,
     "scripts": {
         "clean": "ionic-app-scripts clean",

@@ -3,3 +3,7 @@ https://css-tricks.com/centering-css-complete-guide/
 
 Test app in ionic browser
 https://stackoverflow.com/questions/40815183/ionic-2-cordova-is-not-available-make-sure-to-include-cordova-js-or-run-in-a-d
+
+INSTALL/UNISTALL PLUGIN
+cordova plugin add cordova-plugin-inappbrowser
+cordova plugin rm cordova-plugin-inappbrowser

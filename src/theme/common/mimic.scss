@@ -10,11 +10,13 @@
 	justify-content: center;
 }
 
-hr {
+hr.split-line {
+    display: block; 
     border: 0;
     border-top: 1px solid white;
     padding: 0;
     margin: 0;
     width: 600%;
     margin-left: -300%;
+    background: white;
 }

@@ -34,7 +34,6 @@ export class LoginPage {
       password: new FormControl('test', Validators.required)
     });
 
-  //  alert(window.screen.height);
   }
 
   doLogin(){

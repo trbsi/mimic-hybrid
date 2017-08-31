@@ -6,7 +6,8 @@
 .auth-content
 {
 	padding: 16px 6%;
-	background-color: color($colors, background, base);
+	background-color: color($colors, mimic, base);
+	text-align: center;
 
 	.scroll-content
 	{

@@ -3,6 +3,7 @@ import { NavController, LoadingController } from 'ionic-angular';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 
 import { TabsNavigationPage } from '../tabs-navigation/tabs-navigation';
+import { ListingPage } from '../listing/listing';
 import { SignupPage } from '../signup/signup';
 import { ForgotPasswordPage } from '../forgot-password/forgot-password';
 
@@ -27,7 +28,7 @@ export class LoginPage {
     public twitterLoginService: TwitterLoginService,
     public loadingCtrl: LoadingController
   ) {
-    this.main_page = { component: TabsNavigationPage };
+    this.main_page = { component: ListingPage };
 
     this.login = new FormGroup({
       email: new FormControl('', Validators.required),

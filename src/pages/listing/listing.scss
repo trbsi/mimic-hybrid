@@ -14,6 +14,66 @@ listing-page {
 	$categories-grid-padding: 10px;
 	$categories-horizontal-list-padding: 10px;
 
+	//bottom and up mimic info with hasthags and profile, set it to absolute so you can move it
+	.list, .list-ios
+	{
+		margin: 0!important; 
+	    position: absolute;
+	    width: 100%; 
+	}
+
+	//-----mimic info style-----
+	.item-ios
+	{
+	    background-color: color($colors, mimic, base);	
+	    color: white;
+
+	    p
+	    {
+	    	color: white;
+	    }
+	}
+
+	.list-ios > .item-block:first-child
+	{
+		border: none;
+	}
+	//-----mimic info style-----
+
+	//bottom mimic info with hashtags and profile
+	.bottom-mimic-info
+	{
+		bottom: 0px;
+	}
+
+	.top-slides
+	{	
+		//stick my slide to the bottom of split sreen
+		.slide-zoom
+		{
+			position: absolute;
+		    bottom: -1px;
+		}
+
+		//my slide needs to stick to the bottom of split screen, this was getting in my way
+		.swiper-slide 
+		{
+			font-size: 0px;
+		}
+	}
+
+
+	.bottom-slides
+	{
+		//stik my slide to top of split sreen
+		.slide-zoom
+		{
+			position: absolute;
+    		top: 0;
+		}
+	}
+
+    
 	.listing-header
 	{
 		.header-logo
@@ -24,6 +84,7 @@ listing-page {
 
 	.listing-content
 	{
+		background-color: color($colors, mimic, base);
 		.image-heading
 		{
 			height: $categories-heading-image-height;

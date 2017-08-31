@@ -35,7 +35,7 @@ import { ShowHideContainer } from '../components/show-hide-password/show-hide-co
 import { ShowHideInput } from '../components/show-hide-password/show-hide-input';
 import { ColorRadio } from '../components/color-radio/color-radio';
 import { CounterInput } from '../components/counter-input/counter-input';
-import { Rating } from '../components/rating/rating';
+import { Rating }  from '../components/rating/rating';
 
 import { FeedService } from '../pages/feed/feed.service';
 import { ListingService } from '../pages/listing/listing.service';

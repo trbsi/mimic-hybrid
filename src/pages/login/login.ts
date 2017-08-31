@@ -33,6 +33,8 @@ export class LoginPage {
       email: new FormControl('', Validators.required),
       password: new FormControl('test', Validators.required)
     });
+
+  //  alert(window.screen.height);
   }
 
   doLogin(){

@@ -87,6 +87,7 @@
     <preference name="TwitterConsumerKey" value="OvntIH1oTeYf4bXJdaCG8Sok9" />
     <preference name="TwitterConsumerSecret" value="Mhxi6A36dPSVCcPMMXisWH5HJqlJhF0vgSgUQAryEojRbdLNuL" />
     <engine name="android" spec="^6.2.3" />
+    <engine name="browser" spec="^4.1.0" />
     <plugin name="cordova-plugin-admob-free" spec="^0.9.0" />
     <plugin name="cordova-plugin-apprate" spec="^1.3.0" />
     <plugin name="cordova-plugin-console" spec="^1.0.7" />

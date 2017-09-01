@@ -12,16 +12,16 @@
     </ion-header>
     -->
 <ion-content class="listing-content">
-    <div class="split">
-        <ion-list>
+    <div class="split" style="position: relative;">
+        <ion-list style="top: 15%">
             <ion-item> 
-                <ion-avatar item-start>
+                <ion-avatar  item-start (click)="openUserProfile(1)">
                     <img src="http://i.dailymail.co.uk/i/pix/2016/05/23/22/348B850600000578-3605456-image-m-32_1464040491071.jpg">
                 </ion-avatar>
-                <h2>My Neighbor Totoro</h2>
+                <h2 (click)="openUserProfile(1)">My Neighbor Totoro</h2>
                 <p>Hayao Miyazaki • 1988</p>
-                <button ion-button clear item-end>View</button>
-            </ion-item>
+                <button ion-button clear item-end><ion-icon name="arrow-dropup-circle"></ion-icon><div>32k</div></button>
+        </ion-item>
         </ion-list>
         <ion-slides class="top-slides" >
             <ion-slide>http://i.dailymail.co.uk/i/pix/2016/05/23/22/348B850600000578-3605456-image-m-32_1464040491071.jpg
@@ -35,7 +35,7 @@
             </ion-slide>
         </ion-slides>
     </div>
-    <div class="split">
+    <div class="split" style="position: relative;">
         <ion-slides class="bottom-slides">
             <ion-slide>
                 <img src="https://ifsstech.files.wordpress.com/2008/10/169.jpg">
@@ -47,15 +47,31 @@
                 <img src="http://www.qsl.net/dl8ybm/pic/testbild16-9.png">
             </ion-slide>
         </ion-slides>
-        <ion-list class="bottom-mimic-info">
+        <ion-list style="bottom: 15%">
             <ion-item>
-                <ion-avatar item-start>
+                <ion-avatar item-start (click)="openUserProfile(1)">
                     <img src="http://i.dailymail.co.uk/i/pix/2016/05/23/22/348B850600000578-3605456-image-m-32_1464040491071.jpg">
                 </ion-avatar>
-                <h2>My Neighbor Totoro</h2>
+                <h2 (click)="openUserProfile(1)">My Neighbor Totoro</h2>
                 <p>Hayao Miyazaki • 1988</p>
-                <button ion-button clear item-end>View</button>
+                <button ion-button clear item-end><ion-icon name="arrow-dropup"></ion-icon><div>32k</div></button>
             </ion-item>
         </ion-list>
     </div>
-</ion-content>
+
+ <ion-fab bottom right style="bottom: -20px;">
+    <button ion-fab mini class="menu-btn"><ion-icon name="add"></ion-icon></button>
+    <ion-fab-list side="top">
+      <!--<button ion-fab><ion-icon name="home"></ion-icon><div class="label">Home</div></button> --> <!-- Home -->
+      <button ion-fab><ion-icon name="refresh"></ion-icon><div class="label">Refresh</div></button> <!-- Refresh -->
+      <button ion-fab (click)="openPage('profile')"><ion-icon name="person"></ion-icon><div class="label">Profile</div></button> <!-- Profile -->
+      <button ion-fab (click)="refresh()"><ion-icon name="search"></ion-icon><div class="label">Search</div></button> <!-- Search -->
+      <button ion-fab><ion-icon name="add"></ion-icon><div class="label">Add Mimic</div></button> <!-- Add Mimic -->
+    </ion-fab-list>
+  </ion-fab>
+
+ <ion-fab bottom center style="bottom: -20px;">
+    <button ion-fab class="menu-btn"><ion-icon name="undo"></ion-icon></button>
+  </ion-fab>
+</ion-content>  
+

@@ -7,3 +7,9 @@ https://stackoverflow.com/questions/40815183/ionic-2-cordova-is-not-available-ma
 INSTALL/UNISTALL PLUGIN
 cordova plugin add cordova-plugin-inappbrowser
 cordova plugin rm cordova-plugin-inappbrowser
+
+Add floating button label
+https://github.com/ionic-team/ionic/issues/8425
+
+Ion icons
+https://ionicframework.com/docs/ionicons/

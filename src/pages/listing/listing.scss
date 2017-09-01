@@ -14,37 +14,108 @@ listing-page {
 	$categories-grid-padding: 10px;
 	$categories-horizontal-list-padding: 10px;
 
+	//-----menu-----
+	.menu-btn
+	{
+	    background: #f9c21e;
+	    box-shadow: 0px 0px 10px 0px black;
+	}
+
+	.fab, .fab-ios
+	{
+		.button-inner
+		{
+			display: flex;
+		}
+
+		background-color: color($colors, mimic, base);	
+		color: white;
+	}
+
+	ion-fab {
+	    button {
+	        box-shadow: 0 4px 10px #6b6b6b;
+	    }
+
+	    ion-fab-list button[ion-fab] {
+	        text-align: center;
+	        overflow: visible;
+
+	        div.label {
+	        	color: black;
+	          position: absolute;
+	          right: 48px;
+	          background: rgba(248, 248, 248, 1);
+	          height: 24px;
+	          line-height: 16px;
+	          padding-left: 8px;
+	          padding-right: 8px;
+	          padding-top: 5px;
+	          padding-bottom: 5px;
+	          border-radius: 5px;
+	          box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.14), 0 4px 5px rgba(0, 0, 0, 0.1);
+	        }
+	    }
+		.fab {
+		  contain: initial;
+		}
+	    .button-inner {
+	        overflow: visible;
+	    }
+	}
+	//------menu------
+
+	//-----mimic info style-----
+
 	//bottom and up mimic info with hasthags and profile, set it to absolute so you can move it
 	.list, .list-ios
 	{
 		margin: 0!important; 
 	    position: absolute;
 	    width: 100%; 
-	}
-
-	//-----mimic info style-----
-	.item-ios
-	{
+	    z-index: 1000;
 	    background-color: color($colors, mimic, base);	
-	    color: white;
 
-	    p
-	    {
-	    	color: white;
-	    }
+	    //background color of mimic info
+		ion-app.ios 
+		{
+			background-color: color($colors, mimic, base);	
+		}
+
+
+		.item, .item-ios
+		{
+		    background-color: color($colors, mimic, base);	
+		    color: white;
+
+		    p
+		    {
+		    	color: white;
+		    }
+		}
 	}
 
+	//remove border from mimic info
 	.list-ios > .item-block:first-child
 	{
 		border: none;
 	}
+	
 	//-----mimic info style-----
 
-	//bottom mimic info with hashtags and profile
-	.bottom-mimic-info
+
+	//-----upvote button area-----
+	.item-ios .item-button 
 	{
-		bottom: 0px;
+		height: 30px;
 	}
+
+	.button-inner
+	{
+		display: block;
+	}
+	//-----upvote button area-----
+
 
 	.top-slides
 	{	

@@ -6,6 +6,7 @@ import 'rxjs/Rx';
 
 import { ListingModel } from './listing.model';
 import { ListingService } from './listing.service';
+import { ProfilePage } from '../profile/profile';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class ListingPage {
   }
 
 
-  ionViewDidLoad() {
+    ionViewDidLoad() {
     this.loading.present();
     this.listingService
       .getData()
@@ -36,12 +37,46 @@ export class ListingPage {
         this.listing.categories = data.categories;
         this.loading.dismiss();
       });
-  }
+    }
 
 
-  goToFeed(category: any) {
+    goToFeed(category: any) {
     console.log("Clicked goToFeed", category);
     this.nav.push(FeedPage, { category: category });
-  }
+    }
 
+    /**
+     * Open specific page
+     * @param string page Which page to open
+     */
+    openPage(page) {
+        switch (page) {
+            case "profile":
+                this.nav.push(ProfilePage, {
+                  //user: item
+                });
+                break;
+            
+            default:
+                // code...
+                break;
+        }
+    }
+
+    /**
+     * refresh mimic page
+     */
+    refresh()
+    {
+
+    }
+
+    /**
+     * Open user profile
+     * @param int id User id
+     */
+    openUserProfile(id)
+    {   
+        alert(id);
+    }
 }

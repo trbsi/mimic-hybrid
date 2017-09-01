@@ -15,18 +15,45 @@
     <div class="overlay" *ngIf="mainMenuOpened"></div>
     <div class="split" style="position: relative;">
         <ion-list style="top: 15%">
-            <ion-item> 
+            <ion-item>
                 <ion-avatar  item-start (click)="openUserProfile(1)">
                     <img src="http://i.dailymail.co.uk/i/pix/2016/05/23/22/348B850600000578-3605456-image-m-32_1464040491071.jpg">
                 </ion-avatar>
                 <h2 (click)="openUserProfile(1)">My Neighbor Totoro</h2>
                 <p>Hayao Miyazaki • 1988</p>
-                <button ion-button clear item-end><ion-icon name="arrow-dropup-circle"></ion-icon><div>32k</div></button>
-        </ion-item>
+                <button ion-button clear item-end>
+                    <ion-icon name="arrow-dropup-circle"></ion-icon>
+                    <div>32k</div>
+                </button>
+            </ion-item>
         </ion-list>
         <ion-slides class="top-slides" >
-            <ion-slide>http://i.dailymail.co.uk/i/pix/2016/05/23/22/348B850600000578-3605456-image-m-32_1464040491071.jpg
-                <img src="https://designshack.net/wp-content/uploads/16-9.jpg">
+            <ion-slide>
+                <div class="video-player-container">
+                    <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event)">
+                        <vg-buffering></vg-buffering>
+                        <vg-overlay-play></vg-overlay-play>
+                        <vg-controls [vgAutohide]="true" [vgAutohideTime]="2">
+                        <ion-row class="controls-row">
+                            <ion-col no-padding width-18>
+                                <vg-time-display [vgProperty]="'current'" [vgFormat]="'mm:ss'"></vg-time-display>
+                            </ion-col>
+                            <ion-col no-padding width-64>
+                                <vg-scrub-bar>
+                                    <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                                    <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+                                </vg-scrub-bar>
+                            </ion-col>
+                            <ion-col no-padding width-18>
+                                <vg-time-display [vgProperty]="'left'" [vgFormat]="'mm:ss'"></vg-time-display>
+                            </ion-col>
+                        </ion-row>
+                        </vg-controls>
+                        <video class="expand-horizontally" #player_video [vgMedia]="player_video" id="player-video" preload="auto">
+                        <source *ngFor="let video of video_playlist_model.selected_video.sources" [src]="video.src" [type]="video.type">
+                        </video>
+                    </vg-player>
+                </div>
             </ion-slide>
             <ion-slide>
                 <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Aspect_ratio_16_9_example.jpg">
@@ -55,24 +82,44 @@
                 </ion-avatar>
                 <h2 (click)="openUserProfile(1)">My Neighbor Totoro</h2>
                 <p>Hayao Miyazaki • 1988</p>
-                <button ion-button clear item-end (click)="openUserProfile(1)"><ion-icon name="arrow-dropup"></ion-icon><div>32k</div></button>
+                <button ion-button clear item-end (click)="openUserProfile(1)">
+                    <ion-icon name="arrow-dropup"></ion-icon>
+                    <div>32k</div>
+                </button>
             </ion-item>
         </ion-list>
     </div>
-
- <ion-fab bottom right #fab style="bottom: -20px;">
-    <button ion-fab mini class="menu-btn" (click)="mainMenuOpened = !mainMenuOpened"><ion-icon name="add"></ion-icon></button>
-    <ion-fab-list side="top">
-      <!--<button ion-fab><ion-icon name="home"></ion-icon><div class="label">Home</div></button> --> <!-- Home -->
-      <button ion-fab><ion-icon name="refresh"></ion-icon><div class="label">Refresh</div></button> <!-- Refresh -->
-      <button ion-fab (click)="openPage('profile', fab)"><ion-icon name="person"></ion-icon><div class="label">Profile</div></button> <!-- Profile -->
-      <button ion-fab (click)="refresh()"><ion-icon name="search"></ion-icon><div class="label">Search</div></button> <!-- Search -->
-      <button ion-fab><ion-icon name="add"></ion-icon><div class="label">Add Mimic</div></button> <!-- Add Mimic -->
-    </ion-fab-list>
-  </ion-fab>
-
- <ion-fab bottom center style="bottom: -20px;">
-    <button ion-fab class="menu-btn"><ion-icon name="undo"></ion-icon></button>
-  </ion-fab>
-</ion-content>  
-
+    <ion-fab bottom right #fab style="bottom: -20px;">
+        <button ion-fab mini class="menu-btn" (click)="mainMenuOpened = !mainMenuOpened">
+            <ion-icon name="add"></ion-icon>
+        </button>
+        <ion-fab-list side="top">
+            <!--<button ion-fab><ion-icon name="home"></ion-icon><div class="label">Home</div></button> --> <!-- Home -->
+            <button ion-fab>
+                <ion-icon name="refresh"></ion-icon>
+                <div class="label">Refresh</div>
+            </button>
+            <!-- Refresh -->
+            <button ion-fab (click)="openPage('profile', fab)">
+                <ion-icon name="person"></ion-icon>
+                <div class="label">Profile</div>
+            </button>
+            <!-- Profile -->
+            <button ion-fab (click)="refresh()">
+                <ion-icon name="search"></ion-icon>
+                <div class="label">Search</div>
+            </button>
+            <!-- Search -->
+            <button ion-fab>
+                <ion-icon name="add"></ion-icon>
+                <div class="label">Add Mimic</div>
+            </button>
+            <!-- Add Mimic -->
+        </ion-fab-list>
+    </ion-fab>
+    <ion-fab bottom center style="bottom: -20px;">
+        <button ion-fab class="menu-btn">
+            <ion-icon name="undo"></ion-icon>
+        </button>
+    </ion-fab>
+</ion-content>

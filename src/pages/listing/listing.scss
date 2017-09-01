@@ -14,6 +14,15 @@ listing-page {
 	$categories-grid-padding: 10px;
 	$categories-horizontal-list-padding: 10px;
 
+	div.overlay
+	{
+		background-color: rgba(0,0,0,0.6); 
+		height: 100%; 
+		width: 100%; 
+		position: absolute;
+		z-index: 20; 
+	}
+
 	//-----menu-----
 	.menu-btn
 	{
@@ -73,7 +82,7 @@ listing-page {
 		margin: 0!important; 
 	    position: absolute;
 	    width: 100%; 
-	    z-index: 1000;
+	    z-index: 10;
 	    background-color: color($colors, mimic, base);	
 
 	    //background color of mimic info

@@ -7,7 +7,7 @@ import 'rxjs/Rx';
 import { ListingModel } from './listing.model';
 import { ListingService } from './listing.service';
 import { ProfilePage } from '../profile/profile';
-
+import { FabContainer } from 'ionic-angular';
 
 @Component({
   selector: 'listing-page',
@@ -16,6 +16,7 @@ import { ProfilePage } from '../profile/profile';
 export class ListingPage {
   listing: ListingModel = new ListingModel();
   loading: any;
+  mainMenuOpened: boolean;
 
   constructor(
     public nav: NavController,
@@ -23,6 +24,7 @@ export class ListingPage {
     public loadingCtrl: LoadingController
   ) {
     this.loading = this.loadingCtrl.create();
+    this.mainMenuOpened = false;
   }
 
 
@@ -49,7 +51,9 @@ export class ListingPage {
      * Open specific page
      * @param string page Which page to open
      */
-    openPage(page) {
+    openPage(page: string, fab: FabContainer) {
+        this.mainMenuOpened = false;
+        fab.close();
         switch (page) {
             case "profile":
                 this.nav.push(ProfilePage, {

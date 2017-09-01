@@ -12,6 +12,7 @@
     </ion-header>
     -->
 <ion-content class="listing-content">
+    <div class="overlay" *ngIf="mainMenuOpened"></div>
     <div class="split" style="position: relative;">
         <ion-list style="top: 15%">
             <ion-item> 
@@ -59,12 +60,12 @@
         </ion-list>
     </div>
 
- <ion-fab bottom right style="bottom: -20px;">
-    <button ion-fab mini class="menu-btn"><ion-icon name="add"></ion-icon></button>
+ <ion-fab bottom right #fab style="bottom: -20px;">
+    <button ion-fab mini class="menu-btn" (click)="mainMenuOpened = !mainMenuOpened"><ion-icon name="add"></ion-icon></button>
     <ion-fab-list side="top">
       <!--<button ion-fab><ion-icon name="home"></ion-icon><div class="label">Home</div></button> --> <!-- Home -->
       <button ion-fab><ion-icon name="refresh"></ion-icon><div class="label">Refresh</div></button> <!-- Refresh -->
-      <button ion-fab (click)="openPage('profile')"><ion-icon name="person"></ion-icon><div class="label">Profile</div></button> <!-- Profile -->
+      <button ion-fab (click)="openPage('profile', fab)"><ion-icon name="person"></ion-icon><div class="label">Profile</div></button> <!-- Profile -->
       <button ion-fab (click)="refresh()"><ion-icon name="search"></ion-icon><div class="label">Search</div></button> <!-- Search -->
       <button ion-fab><ion-icon name="add"></ion-icon><div class="label">Add Mimic</div></button> <!-- Add Mimic -->
     </ion-fab-list>

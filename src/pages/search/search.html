@@ -9,7 +9,8 @@
   [(ngModel)]="myInput"
   [showCancelButton]="true"
   (ionInput)="onInput($event)"
-  (ionCancel)="onCancel($event)">
+  (ionCancel)="onCancel($event)"
+  placeholder="Search for @username or #hashtag">
 </ion-searchbar>
   <div class="list-mini">
     <ion-list>

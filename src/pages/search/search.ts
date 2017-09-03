@@ -3,20 +3,20 @@ import { NavController, LoadingController } from 'ionic-angular';
 
 import 'rxjs/Rx';
 
-import { List2Model } from './list-2.model';
-import { List2Service } from './list-2.service';
+import { SearchModel } from './search.model';
+import { SearchService } from './search.service';
 
 @Component({
-  selector: 'list-2-page',
-  templateUrl: 'list-2.html'
+  selector: 'searcg-page',
+  templateUrl: 'search.html'
 })
-export class List2Page {
-  list2: List2Model = new List2Model();
+export class Search {
+  list2: SearchModel = new SearchModel();
   loading: any;
 
   constructor(
     public nav: NavController,
-    public list2Service: List2Service,
+    public list2Service: SearchService,
     public loadingCtrl: LoadingController
   ) {
     this.loading = this.loadingCtrl.create();

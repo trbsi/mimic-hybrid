@@ -13,7 +13,6 @@
       </ion-avatar>
       <h2 class="item-title">{{notification.name}}</h2>
       <p class="item-description">{{notification.message}}</p>
-      <ion-note class="item-time" item-right>{{notification.date}}</ion-note>
     </ion-item>
     <ion-item-divider class="notifications-divider">Yesterday</ion-item-divider>
     <ion-item class="notification-item" *ngFor="let notification of notifications.yesterday">

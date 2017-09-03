@@ -10,6 +10,8 @@ import { FabContainer } from 'ionic-angular';
 import { VgAPI } from 'videogular2/core';
 import { VideoPlaylistModel } from '../video-playlist/video-playlist.model';
 
+import { Search } from '../search/search'; 
+
 import { ViewChild } from '@angular/core';
 import { Slides } from 'ionic-angular';
 
@@ -73,7 +75,7 @@ export class ListingPage {
                 this.refresh();
                 break;
             case "search":
-                this.refresh();
+                this.nav.push(Search);
                 break;
             case "add-mimic":
                 this.refresh();

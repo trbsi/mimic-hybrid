@@ -5,14 +5,18 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { Http } from '@angular/http';
 
+//USING
+import { Search } from '../pages/search/search';
 import { ListingPage } from '../pages/listing/listing';
+import { LoginPage } from '../pages/login/login';
+import { ProfilePage } from '../pages/profile/profile';
+import { SearchService } from '../pages/search/search.service';
+
 import { FeedPage } from '../pages/feed/feed';
 import { FollowersPage } from '../pages/followers/followers';
 import { LayoutsPage } from '../pages/layouts/layouts';
 import { FormsPage } from '../pages/forms/forms';
-import { LoginPage } from '../pages/login/login';
 import { NotificationsPage } from '../pages/notifications/notifications';
-import { ProfilePage } from '../pages/profile/profile';
 import { TabsNavigationPage } from '../pages/tabs-navigation/tabs-navigation';
 import { WalkthroughPage } from '../pages/walkthrough/walkthrough';
 import { SettingsPage } from '../pages/settings/settings';
@@ -21,7 +25,6 @@ import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
 import { SchedulePage } from '../pages/schedule/schedule';
 import { AdsPage } from '../pages/ads/ads';
 import { List1Page } from '../pages/list-1/list-1';
-import { List2Page } from '../pages/list-2/list-2';
 import { GridPage } from '../pages/grid/grid';
 import { FormLayoutPage } from '../pages/form-layout/form-layout';
 import { FiltersPage } from '../pages/filters/filters';
@@ -42,7 +45,6 @@ import { ListingService } from '../pages/listing/listing.service';
 import { ProfileService } from '../pages/profile/profile.service';
 import { NotificationsService } from '../pages/notifications/notifications.service';
 import { List1Service } from '../pages/list-1/list-1.service';
-import { List2Service } from '../pages/list-2/list-2.service';
 import { ScheduleService } from '../pages/schedule/schedule.service';
 import { FacebookLoginService } from '../pages/facebook-login/facebook-login.service';
 import { GoogleLoginService } from '../pages/google-login/google-login.service';
@@ -87,15 +89,22 @@ export function createTranslateLoader(http: Http) {
 
 @NgModule({
   declarations: [
-    MyApp,
+    //USING
+    Search,
     ListingPage,
+    MyApp,
+    LoginPage,
+    ProfilePage,
+    FacebookLoginPage,
+    GoogleLoginPage,
+    TwitterLoginPage,
+    VideoPlaylistPage,
+
     FeedPage,
     FollowersPage,
     LayoutsPage,
     FormsPage,
-    LoginPage,
     NotificationsPage,
-    ProfilePage,
     TabsNavigationPage,
     WalkthroughPage,
     SettingsPage,
@@ -103,21 +112,15 @@ export function createTranslateLoader(http: Http) {
     ForgotPasswordPage,
     SchedulePage,
     List1Page,
-    List2Page,
     GridPage,
     FormLayoutPage,
     FiltersPage,
     TermsOfServicePage,
     PrivacyPolicyPage,
     FunctionalitiesPage,
-    FacebookLoginPage,
-    GoogleLoginPage,
     ContactCardPage,
-    TwitterLoginPage,
-		AdsPage,
-		FormValidationsPage,
-		VideoPlaylistPage,
-
+	AdsPage,
+	FormValidationsPage,
     PreloadImage,
     BackgroundImage,
     ShowHideContainer,
@@ -142,15 +145,23 @@ export function createTranslateLoader(http: Http) {
   ],
   bootstrap: [IonicApp],
   entryComponents: [
+  //USING
     MyApp,
+    Search,
     ListingPage,
+    LoginPage,
+    ProfilePage,
+    FacebookLoginPage,
+    GoogleLoginPage,
+    TwitterLoginPage,
+    VideoPlaylistPage,
+
+    ContactCardPage,
     FeedPage,
     FollowersPage,
     LayoutsPage,
     FormsPage,
-    LoginPage,
     NotificationsPage,
-    ProfilePage,
     TabsNavigationPage,
     WalkthroughPage,
     SettingsPage,
@@ -158,34 +169,30 @@ export function createTranslateLoader(http: Http) {
     SignupPage,
     SchedulePage,
     List1Page,
-    List2Page,
     GridPage,
     FormLayoutPage,
     FiltersPage,
     TermsOfServicePage,
     PrivacyPolicyPage,
     FunctionalitiesPage,
-    FacebookLoginPage,
-    GoogleLoginPage,
-    ContactCardPage,
-    TwitterLoginPage,
-		AdsPage,
-		FormValidationsPage,
-		VideoPlaylistPage
+	AdsPage,
+	FormValidationsPage,
   ],
   providers: [
-    FeedService,
-    ListingService,
+      //USING
+    SearchService,
     ProfileService,
-    NotificationsService,
-    List1Service,
-    List2Service,
-    ScheduleService,
-
     FacebookLoginService,
     GoogleLoginService,
     TwitterLoginService,
-		LanguageService,
+        LanguageService,
+
+    FeedService,
+    ListingService,
+    NotificationsService,
+    List1Service,
+    ScheduleService,
+
 
 	  SplashScreen,
 	  StatusBar,

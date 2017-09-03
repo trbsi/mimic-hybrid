@@ -3,6 +3,6 @@ export class ListModel {
   image: string;
   description: string;
 }
-export class List2Model {
+export class SearchModel { 
   items: Array<ListModel>;
 }

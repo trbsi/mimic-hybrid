@@ -21,7 +21,7 @@
                 </ion-avatar>
                 <h2 (click)="openUserProfile(1)">My Neighbor Totoro</h2>
                 <p>Hayao Miyazaki • 1988</p>
-                <button ion-button clear item-end>
+                <button ion-button clear item-end (click)="upvote(1)">
                     <ion-icon name="arrow-dropup-circle"></ion-icon>
                     <div>32k</div>
                 </button>
@@ -46,7 +46,7 @@
                             </ion-col>
                         </ion-row>
                         </vg-controls>
-                        <video  #mediaOne [vgMedia]="mediaOne" class="expand-horizontally" #player_video [vgMedia]="player_video" id="player-video" preload="auto">
+                        <video  #originalX [vgMedia]="originalX" class="expand-horizontally" #player_video [vgMedia]="player_video" id="player-video" preload="auto">
                         <source *ngFor="let video of video_playlist_model.selected_video.sources" [src]="video.src" [type]="video.type">
                         </video>
                     </vg-player>
@@ -80,7 +80,7 @@
                             </ion-col>
                         </ion-row>
                         </vg-controls>
-                        <video #mediaTwo [vgMedia]="mediaTwo" class="expand-horizontally" #player_video [vgMedia]="player_video" id="player-video" preload="auto">
+                        <video #responseX [vgMedia]="responseX" class="expand-horizontally" #player_video [vgMedia]="player_video" id="player-video" preload="auto">
                         <source *ngFor="let video of video_playlist_model.selected_video.sources" [src]="video.src" [type]="video.type">
                         </video>
                     </vg-player>
@@ -100,7 +100,7 @@
                 </ion-avatar>
                 <h2 (click)="openUserProfile(1)">My Neighbor Totoro</h2>
                 <p>Hayao Miyazaki • 1988</p>
-                <button ion-button clear item-end (click)="openUserProfile(1)">
+                <button ion-button clear item-end (click)="upvote(1)">
                     <ion-icon name="arrow-dropup"></ion-icon>
                     <div>32k</div>
                 </button>

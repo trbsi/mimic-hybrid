@@ -92,6 +92,15 @@ export class ListingPage {
         alert(id);
     }    
 
+    /**
+     * Upvote mimic
+     * @param int id Id of a mimic
+     */
+    upvote(id)
+    {
+
+    }
+
     //SLIDES
     /**
      * When side has been changed

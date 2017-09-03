@@ -5,6 +5,12 @@
 </ion-header>
 
 <ion-content class="list-mini-content">
+<ion-searchbar
+  [(ngModel)]="myInput"
+  [showCancelButton]="true"
+  (ionInput)="onInput($event)"
+  (ionCancel)="onCancel($event)">
+</ion-searchbar>
   <div class="list-mini">
     <ion-list>
       <button class="list-item" ion-item detail-none *ngFor="let item of list2.items; let i = index">

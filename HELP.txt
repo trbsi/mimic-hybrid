@@ -13,3 +13,6 @@ https://github.com/ionic-team/ionic/issues/8425
 
 Ion icons
 https://ionicframework.com/docs/ionicons/
+
+focus on search bar
+https://forum.ionicframework.com/t/focus-the-ion-searchbar-on-ionviewdidenter/100193/2

@@ -29,28 +29,6 @@
         </ion-list>
         <ion-slides class="top-slides"  (ionSlideDidChange)="slideChanged('original')">
             <ion-slide>
-                <div class="video-player-container">
-                    <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event, 'original')">
-                        <vg-buffering></vg-buffering>
-                        <vg-overlay-play></vg-overlay-play>
-                        <vg-controls [vgAutohide]="false" [vgAutohideTime]="2">
-                        <ion-row class="controls-row">
-                            <ion-col no-padding width-18>
-                                <vg-time-display [vgProperty]="'left'" [vgFormat]="'mm:ss'"></vg-time-display>
-                            </ion-col>
-                            <ion-col no-padding width-64>
-                                <vg-scrub-bar>
-                                    <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
-                                    <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
-                                </vg-scrub-bar>
-                            </ion-col>
-                        </ion-row>
-                        </vg-controls>
-                        <video  #originalX [vgMedia]="originalX" class="expand-horizontally" #player_video [vgMedia]="player_video" id="player-video" preload="auto">
-                        <source *ngFor="let video of video_playlist_model.selected_video.sources" [src]="video.src" [type]="video.type">
-                        </video>
-                    </vg-player>
-                </div>
             </ion-slide>
             <ion-slide>
                 <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Aspect_ratio_16_9_example.jpg">

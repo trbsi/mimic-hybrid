@@ -11,49 +11,51 @@ import { FabContainer } from 'ionic-angular';
 import { VgAPI } from 'videogular2/core';
 import { VideoPlaylistModel } from '../video-playlist/video-playlist.model';
 
+import { ViewChild } from '@angular/core';
+import { Slides } from 'ionic-angular';
+
 @Component({
   selector: 'listing-page',
   templateUrl: 'listing.html',
 })
 export class ListingPage {
-  listing: ListingModel = new ListingModel();
-  loading: any;
-  mainMenuOpened: boolean;
+    listing: ListingModel = new ListingModel();
+    loading: any;
+    mainMenuOpened: boolean;
 
-  //VIDEO
-  start_playing: boolean = false;
-  videoOriginal: VgAPI;
-  videoResponse: VgAPI;
-  video_playlist_model: VideoPlaylistModel = new VideoPlaylistModel();
+    //VIDEO
+    start_playing: boolean = false;
+    videoOriginal: VgAPI;
+    videoResponse: VgAPI;
+    video_playlist_model: VideoPlaylistModel = new VideoPlaylistModel();
 
-  constructor(
+    @ViewChild(Slides) slides: Slides;
+
+    constructor(
     public nav: NavController,
     public listingService: ListingService,
     public loadingCtrl: LoadingController
-  ) {
-    this.loading = this.loadingCtrl.create();
-    this.mainMenuOpened = false;
-  }
-
-
-    ionViewDidLoad() {
-    this.loading.present();
-    this.listingService
-      .getData()
-      .then(data => {
-        this.listing.banner_image = data.banner_image;
-        this.listing.banner_title = data.banner_title;
-        this.listing.populars = data.populars;
-        this.listing.categories = data.categories;
-        this.loading.dismiss();
-      });
+    ) 
+    {
+        this.loading = this.loadingCtrl.create();
+        this.mainMenuOpened = false;
     }
 
 
-    goToFeed(category: any) {
-    console.log("Clicked goToFeed", category);
-    this.nav.push(FeedPage, { category: category });
+    ionViewDidLoad() 
+    {
+        this.loading.present();
+        this.listingService
+        .getData()
+        .then(data => {
+            this.listing.banner_image = data.banner_image;
+            this.listing.banner_title = data.banner_title;
+            this.listing.populars = data.populars;
+            this.listing.categories = data.categories;
+            this.loading.dismiss();
+        });
     }
+
 
     /**
      * Open specific page
@@ -109,12 +111,18 @@ export class ListingPage {
     slideChanged(type) {
         switch (type) {
             case "original":
-                this.videoOriginal.pause();
+                if(this.videoOriginal != undefined) {
+                    this.videoOriginal.pause();
+                }
                 break;
             case "response":
-                this.videoResponse.pause();
+                if(this.videoResponse != undefined) {
+                    this.videoResponse.pause();
+                }
                 break;
         }
+
+        console.log(this.slides.isEnd());
     }
 
 

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
 
-import { FeedPage } from '../feed/feed';
 import 'rxjs/Rx';
 
 import { ListingModel } from './listing.model';
@@ -62,27 +61,43 @@ export class ListingPage {
      * @param string page Which page to open
      */
     openPage(page: string, fab: FabContainer) {
-        this.mainMenuOpened = false;
-        fab.close();
+        this.closeFab(fab);
+
         switch (page) {
             case "profile":
                 this.nav.push(ProfilePage, {
                   //user: item
                 });
                 break;
-            
-            default:
-                // code...
+            case "refresh":
+                this.refresh();
+                break;
+            case "search":
+                this.refresh();
+                break;
+            case "add-mimic":
+                this.refresh();
                 break;
         }
     }
 
     /**
+     * Close FAB menu
+     * @param FabContainer dab
+     */
+    closeFab(fab: FabContainer)
+    {
+        this.mainMenuOpened = false;
+        fab.close();
+    }
+
+
+   /**
      * refresh mimic page
      */
     refresh()
     {
-
+        alert('refresh'); 
     }
 
     /**
@@ -100,7 +115,7 @@ export class ListingPage {
      */
     upvote(id)
     {
-
+        alert(id);
     }
 
     //SLIDES

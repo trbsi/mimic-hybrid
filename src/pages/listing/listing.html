@@ -27,16 +27,16 @@
                 </button>
             </ion-item>
         </ion-list>
-        <ion-slides class="top-slides" >
+        <ion-slides class="top-slides"  (ionSlideDidChange)="slideChanged('original')">
             <ion-slide>
                 <div class="video-player-container">
-                    <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event)">
+                    <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event, 'original')">
                         <vg-buffering></vg-buffering>
                         <vg-overlay-play></vg-overlay-play>
-                        <vg-controls [vgAutohide]="true" [vgAutohideTime]="2">
+                        <vg-controls [vgAutohide]="false" [vgAutohideTime]="2">
                         <ion-row class="controls-row">
                             <ion-col no-padding width-18>
-                                <vg-time-display [vgProperty]="'current'" [vgFormat]="'mm:ss'"></vg-time-display>
+                                <vg-time-display [vgProperty]="'left'" [vgFormat]="'mm:ss'"></vg-time-display>
                             </ion-col>
                             <ion-col no-padding width-64>
                                 <vg-scrub-bar>
@@ -44,12 +44,9 @@
                                     <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
                                 </vg-scrub-bar>
                             </ion-col>
-                            <ion-col no-padding width-18>
-                                <vg-time-display [vgProperty]="'left'" [vgFormat]="'mm:ss'"></vg-time-display>
-                            </ion-col>
                         </ion-row>
                         </vg-controls>
-                        <video class="expand-horizontally" #player_video [vgMedia]="player_video" id="player-video" preload="auto">
+                        <video  #mediaOne [vgMedia]="mediaOne" class="expand-horizontally" #player_video [vgMedia]="player_video" id="player-video" preload="auto">
                         <source *ngFor="let video of video_playlist_model.selected_video.sources" [src]="video.src" [type]="video.type">
                         </video>
                     </vg-player>
@@ -64,12 +61,33 @@
         </ion-slides>
     </div>
     <div class="split" style="position: relative;">
-        <ion-slides class="bottom-slides">
+        <ion-slides class="bottom-slides"  (ionSlideDidChange)="slideChanged('response')">
             <ion-slide>
-                <img src="https://ifsstech.files.wordpress.com/2008/10/169.jpg">
+                <div class="video-player-container">
+                    <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event, 'response')">
+                        <vg-buffering></vg-buffering>
+                        <vg-overlay-play></vg-overlay-play>
+                        <vg-controls [vgAutohide]="false" [vgAutohideTime]="2">
+                        <ion-row class="controls-row">
+                            <ion-col no-padding width-18>
+                                <vg-time-display [vgProperty]="'left'" [vgFormat]="'mm:ss'"></vg-time-display>
+                            </ion-col>
+                            <ion-col no-padding width-64>
+                                <vg-scrub-bar>
+                                    <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                                    <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+                                </vg-scrub-bar>
+                            </ion-col>
+                        </ion-row>
+                        </vg-controls>
+                        <video #mediaTwo [vgMedia]="mediaTwo" class="expand-horizontally" #player_video [vgMedia]="player_video" id="player-video" preload="auto">
+                        <source *ngFor="let video of video_playlist_model.selected_video.sources" [src]="video.src" [type]="video.type">
+                        </video>
+                    </vg-player>
+                </div>
             </ion-slide>
             <ion-slide>
-                <img src="https://pharmaphorum.com/wp-content/uploads/2016/05/1.jpg">
+                <img src="http://11986-presscdn-0-77.pagely.netdna-cdn.com/wp-content/uploads/2016/03/widescreen-iphone-photo.jpg">
             </ion-slide>
             <ion-slide>
                 <img src="http://www.qsl.net/dl8ybm/pic/testbild16-9.png">

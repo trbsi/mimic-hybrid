@@ -244,7 +244,7 @@ listing-page {
 			}
 
 			vg-controls {
-				background: rgba(color($colors, mimic, base), .8);
+				background: rgba(color($colors, mimic, base), 0);
 				height: $player-controls-height;
 
 				.controls-row
@@ -254,10 +254,11 @@ listing-page {
 
 					vg-time-display {
 						height: 100%;
-					  width: 100%;
-					  line-height: $player-controls-height;
+						width: 100%;
+						line-height: $player-controls-height;
 						font-size: 1.2rem;
 						font-weight: 500;
+					  	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 					}
 
 					vg-scrub-bar {

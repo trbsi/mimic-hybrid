@@ -20,8 +20,10 @@ export class ListingPage {
   loading: any;
   mainMenuOpened: boolean;
 
+  //VIDEO
   start_playing: boolean = false;
-  api: VgAPI;
+  videoOriginal: VgAPI;
+  videoResponse: VgAPI;
   video_playlist_model: VideoPlaylistModel = new VideoPlaylistModel();
 
   constructor(
@@ -88,56 +90,50 @@ export class ListingPage {
     openUserProfile(id)
     {   
         alert(id);
-    }
+    }    
 
-
-    createLoader(){
-        this.loading = this.loadingCtrl.create();
-    }
-
-    presentLoader(){
-        // Check if the current instance is usable
-        if (this.loading === undefined || (this.loading !== undefined && this.loading.instance === null)){
-            // If it's not usable, then create a new one
-            this.createLoader();
+    //SLIDES
+    /**
+     * When side has been changed
+     * @param string type "original" or "response"
+     */
+    slideChanged(type) {
+        switch (type) {
+            case "original":
+                this.videoOriginal.pause();
+                break;
+            case "response":
+                this.videoResponse.pause();
+                break;
         }
-
-        this.loading.present();
     }
 
-    dismissLoader(){
+
+    //VIDEOS
+    /**
+     * When player is ready initalize it
+     * @param {VgAPI}  api 
+     * @param string type "original" or "response"
+     */
+    onPlayerReady(api: VgAPI, type) {
+        switch (type) {
+            case "original":
+                this.videoOriginal = api;
+                break;
+            case "response":
+                this.videoResponse = api;
+                break;
+        }
+        
+    }
+
+    dismissLoader()
+    {
         // Check if the current instance is usable
         if (this.loading !== undefined){
             // If it's not usable, then create a new one
             this.loading.dismiss();
         }
     }
-
-    playMedia(media) {
-    // Check if this media is not the same we are currently playing
-    if(media !== this.video_playlist_model.selected_video)
-    {
-      this.presentLoader();
-          // Change sources
-          this.video_playlist_model.selected_video = media;
-          // When changing sources we wait until the metadata is loaded and then we start playing the video
-    }
-    }
-
-    onPlayerReady(api: VgAPI) {
-    this.api = api;
-        this.api.getDefaultMedia().subscriptions.loadedMetadata.subscribe(this.playVideo.bind(this));
-    }
-
-  playVideo() {
-        if(this.start_playing)
-        {
-            this.dismissLoader();
-        this.api.play();
-        }
-        else
-        {
-            this.start_playing = true;
-        }
-  }
+    //VIDEOS
 }

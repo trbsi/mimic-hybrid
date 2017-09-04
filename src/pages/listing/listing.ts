@@ -31,6 +31,7 @@ export class ListingPage {
     video_playlist_model:VideoPlaylistModel = new VideoPlaylistModel();
 
     @ViewChild(Slides) slides:Slides;
+   // @ViewChild('myInput') myInput: ElementRef;
 
     constructor(public nav:NavController,
                 public listingService:ListingService,
@@ -41,6 +42,13 @@ export class ListingPage {
 
 
     ionViewDidLoad() {
+        //calclate mimic info position
+        
+
+/*resize() {
+    this.myInput.nativeElement.style.height = this.myInput.nativeElement.scrollHeight + 'px';
+}*/
+
         this.loading.present();
         this.listingService
             .getData()

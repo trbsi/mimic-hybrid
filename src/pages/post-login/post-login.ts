@@ -12,7 +12,7 @@ import { ListingPage } from '../listing/listing';
 export class PostLogin {
 
     submit_username:FormGroup;
-    @ViewChild('usernameInput') usernameInput;
+    //@ViewChild('usernameInput') usernameInput;
 
     constructor(public nav:NavController, private alertCtrl:AlertController) {
         this.submit_username = new FormGroup({
@@ -23,16 +23,22 @@ export class PostLogin {
 
     ionViewDidLoad() {
 
-        setTimeout(() => {
+        /*setTimeout(() => {
             this.usernameInput.setFocus();
-        }, 1000);
+        }, 1000);*/
 
     }
 
+    /**
+     * Submit username
+     */
     submitUsername() {
         this.nav.setRoot(ListingPage);
     }
 
+    /**
+     * Logout
+     */
     logout() {
         let alert = this.alertCtrl.create({
             title: 'Logout',

@@ -14,14 +14,14 @@
 <ion-content class="listing-content">
     <div class="overlay" *ngIf="mainMenuOpened"></div>
     <div class="split" style="position: relative;">
-        <ion-list style="top: 15%">
+        <ion-list style="top: 10%" class="mimic-info" direction="y">
             <ion-item>
                 <ion-avatar item-start (click)="openUserProfile(1)">
                     <img src="http://i.dailymail.co.uk/i/pix/2016/05/23/22/348B850600000578-3605456-image-m-32_1464040491071.jpg">
                 </ion-avatar>
                 <h2 (click)="openUserProfile(1)">My Neighbor Totoro</h2>
 
-                <p>#mama #tata #ovaj #onaj #iqwokeuplikethis #somestupidhashtags</p>
+                <p style="font-size: 10px">#mama #tata #ovaj #onaj #iqwokeuplikethis #somestupidhashtags</p>
                 <button ion-button clear item-end (click)="upvote(1)">
                     <ion-icon name="arrow-dropup-circle" class="upvote-button"></ion-icon>
                     <div>32k</div>
@@ -98,7 +98,7 @@
                 <img src="http://www.qsl.net/dl8ybm/pic/testbild16-9.png">
             </ion-slide>
         </ion-slides>
-        <ion-list style="bottom: 15%">
+        <ion-list style="bottom: 10%" class="mimic-info">
             <ion-item>
                 <ion-avatar item-start (click)="openUserProfile(1)">
                     <img src="http://i.dailymail.co.uk/i/pix/2016/05/23/22/348B850600000578-3605456-image-m-32_1464040491071.jpg">

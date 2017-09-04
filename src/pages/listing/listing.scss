@@ -31,7 +31,6 @@ $playlist-item-play-icon-height: 3rem;
     border-radius: 50%;
   }
 }
-
 //VIDEO
 
 listing-page {
@@ -96,7 +95,6 @@ listing-page {
   //------menu------
 
   //-----mimic info style-----
-
   //bottom and up mimic info with hasthags and profile, set it to absolute so you can move it
   .list, .list-ios {
     margin: 0 !important;
@@ -128,7 +126,19 @@ listing-page {
   .upvote-button {
     padding-bottom: 3px;
   }
+
+  .mimic-info {
+      //this is the whole upvote button
+     .item-button {
+        height: auto;
+     }
+  }
+
+  .mimic-info[direction=y] {
+    //height: calc(80vh - 88px);
+  }
   //-----mimic info style-----
+
 
   //-----upvote button area-----
   .item-ios .item-button {

@@ -61,7 +61,6 @@ export class ListingPage {
         //calclate mimic info position
         document.getElementById('mimic-info-top').style.top = this.calculateMimicInfoPosition('top') - 10 + "px";
         document.getElementById('mimic-info-bottom').style.bottom = this.calculateMimicInfoPosition('bottom') + 10 + "px";
-console.log(document.getElementById('mimic-info-bottom').style.bottom);
     }
 
     /**

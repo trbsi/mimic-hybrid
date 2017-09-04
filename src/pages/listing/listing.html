@@ -11,10 +11,10 @@
     </ion-navbar>
     </ion-header>
     -->
-<ion-content class="listing-content" no-bounce>
+<ion-content no-bounce>
 
         <!-- MIMIC SLIDES -->
-        <ion-slides #originalMimicSlide class="top-slides" (ionSlideDidChange)="slideChanged('original')">
+        <ion-slides>
             <ion-slide>
                 <div class="video-player-container">
                     <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event, 'original')">
@@ -49,5 +49,5 @@
             </ion-slide>
         </ion-slides>
         <!-- MIMIC SLIDES -->
-
+ 
 </ion-content>

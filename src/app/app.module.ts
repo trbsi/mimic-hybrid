@@ -11,6 +11,7 @@ import { ListingPage } from '../pages/listing/listing';
 import { LoginPage } from '../pages/login/login';
 import { ProfilePage } from '../pages/profile/profile';
 import { SearchService } from '../pages/search/search.service';
+import { PostLogin } from '../pages/post-login/post-login';
 
 import { FeedPage } from '../pages/feed/feed';
 import { FollowersPage } from '../pages/followers/followers';
@@ -99,6 +100,7 @@ export function createTranslateLoader(http: Http) {
     GoogleLoginPage,
     TwitterLoginPage,
     VideoPlaylistPage,
+    PostLogin,
 
     FeedPage,
     FollowersPage,
@@ -155,6 +157,7 @@ export function createTranslateLoader(http: Http) {
     GoogleLoginPage,
     TwitterLoginPage,
     VideoPlaylistPage,
+    PostLogin,
 
     ContactCardPage,
     FeedPage,

@@ -16,3 +16,6 @@ https://ionicframework.com/docs/ionicons/
 
 focus on search bar
 https://forum.ionicframework.com/t/focus-the-ion-searchbar-on-ionviewdidenter/100193/2
+
+Set focus on input
+https://forum.ionicframework.com/t/setting-focus-to-an-input-in-ionic/62789/4

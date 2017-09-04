@@ -4,6 +4,7 @@ import { Validators, FormGroup, FormControl } from '@angular/forms';
 
 import { TabsNavigationPage } from '../tabs-navigation/tabs-navigation';
 import { ListingPage } from '../listing/listing';
+import { PostLogin } from '../post-login/post-login';
 import { SignupPage } from '../signup/signup';
 import { ForgotPasswordPage } from '../forgot-password/forgot-password';
 
@@ -28,7 +29,7 @@ export class LoginPage {
     public twitterLoginService: TwitterLoginService,
     public loadingCtrl: LoadingController
   ) {
-    this.main_page = { component: ListingPage };
+    this.main_page = { component: PostLogin };
 
     this.login = new FormGroup({
       email: new FormControl('', Validators.required),

@@ -12,43 +12,12 @@
     </ion-header>
     -->
 <ion-content class="listing-content" no-bounce>
-    <div class="overlay" *ngIf="mainMenuOpened"></div>
-    <div class="split" id="split-top" style="position: relative;">
-        <!-- MIMIC INFO -->
-        <ion-list class="mimic-info" id="mimic-info-top" #topMimicInfo>
-            <ion-item>
-                <ion-avatar item-start (click)="openUserProfile(1)">
-                    <img src="http://i.dailymail.co.uk/i/pix/2016/05/23/22/348B850600000578-3605456-image-m-32_1464040491071.jpg">
-                </ion-avatar>
-                <h2 (click)="openUserProfile(1)">My Neighbor Totoro</h2>
-
-                <p style="font-size: 10px">#mama #tata #ovaj #onaj #iqwokeuplikethis #somestupidhashtags</p>
-                <button ion-button clear item-end (click)="upvote(1)">
-                    <ion-icon name="arrow-dropup-circle" class="upvote-button"></ion-icon>
-                    <div>32k</div>
-                </button>
-            </ion-item>
-        </ion-list>
-        <!-- MIMIC INFO -->
 
         <!-- MIMIC SLIDES -->
         <ion-slides #originalMimicSlide class="top-slides" (ionSlideDidChange)="slideChanged('original')">
-
-            <ion-slide>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Aspect_ratio_16_9_example.jpg">
-            </ion-slide>
-            <ion-slide>
-                <img src="https://designshack.net/wp-content/uploads/16-9.jpg">
-            </ion-slide>
-        </ion-slides>
-        <!-- MIMIC SLIDES -->
-    </div>
-    <div class="split" id="split-bottom" style="position: relative;">
-        <!-- MIMIC SLIDES -->
-        <ion-slides #responseMimicSlide  class="bottom-slides" (ionSlideDidChange)="slideChanged('response')">
             <ion-slide>
                 <div class="video-player-container">
-                    <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event, 'response')">
+                    <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event, 'original')">
                         <vg-buffering></vg-buffering>
                         <vg-overlay-play></vg-overlay-play>
                         <vg-controls [vgAutohide]="false" [vgAutohideTime]="2">
@@ -64,7 +33,7 @@
                                 </ion-col>
                             </ion-row>
                         </vg-controls>
-                        <video #responseX [vgMedia]="responseX" class="expand-horizontally" #player_video
+                        <video #originalX [vgMedia]="originalX" class="expand-horizontally" #player_video
                                [vgMedia]="player_video" id="player-video" preload="auto">
                             <source *ngFor="let video of video_playlist_model.selected_video.sources" [src]="video.src"
                                     [type]="video.type">
@@ -73,62 +42,12 @@
                 </div>
             </ion-slide>
             <ion-slide>
-                <img src="http://11986-presscdn-0-77.pagely.netdna-cdn.com/wp-content/uploads/2016/03/widescreen-iphone-photo.jpg">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Aspect_ratio_16_9_example.jpg">
             </ion-slide>
             <ion-slide>
-                <img src="http://www.qsl.net/dl8ybm/pic/testbild16-9.png">
+                <img src="https://designshack.net/wp-content/uploads/16-9.jpg">
             </ion-slide>
         </ion-slides>
         <!-- MIMIC SLIDES -->
 
-        
-        <!-- MIMIC INFO -->
-        <ion-list class="mimic-info" id="mimic-info-bottom">
-            <ion-item>
-                <ion-avatar item-start (click)="openUserProfile(1)">
-                    <img src="http://i.dailymail.co.uk/i/pix/2016/05/23/22/348B850600000578-3605456-image-m-32_1464040491071.jpg">
-                </ion-avatar>
-                <h2 (click)="openUserProfile(1)">My Neighbor Totoro</h2>
-                <button ion-button clear item-end (click)="upvote(1)">
-                    <ion-icon name="arrow-dropup" class="upvote-button"></ion-icon>
-                    <div>32k</div>
-                </button>
-            </ion-item>
-        </ion-list>
-        <!-- MIMIC INFO -->
-    </div>
-    <ion-fab bottom right #fab style="bottom: -20px;">
-        <button ion-fab mini class="menu-btn" (click)="mainMenuOpened = !mainMenuOpened">
-            <ion-icon name="add"></ion-icon>
-        </button>
-        <ion-fab-list side="top">
-            <!--<button ion-fab><ion-icon name="home"></ion-icon><div class="label">Home</div></button> -->
-            <!-- Home -->
-            <button ion-fab (click)="openPage('refresh', fab)">
-                <ion-icon name="refresh"></ion-icon>
-                <div class="label">Refresh</div>
-            </button>
-            <!-- Refresh -->
-            <button ion-fab (click)="openPage('profile', fab)">
-                <ion-icon name="person"></ion-icon>
-                <div class="label">Profile</div>
-            </button>
-            <!-- Profile -->
-            <button ion-fab (click)="openPage('search', fab)">
-                <ion-icon name="search"></ion-icon>
-                <div class="label">Search</div>
-            </button>
-            <!-- Search -->
-            <button ion-fab (click)="openPage('add-mimic', fab)">
-                <ion-icon name="add"></ion-icon>
-                <div class="label">Add Mimic</div>
-            </button>
-            <!-- Add Mimic -->
-        </ion-fab-list>
-    </ion-fab>
-    <ion-fab bottom center style="bottom: -20px;">
-        <button ion-fab class="menu-btn">
-            <ion-icon name="undo"></ion-icon>
-        </button>
-    </ion-fab>
 </ion-content>

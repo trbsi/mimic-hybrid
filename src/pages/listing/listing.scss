@@ -151,6 +151,9 @@ listing-page {
     .slide-zoom {
       position: absolute;
       bottom: -1px;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
     }
 
     //my slide needs to stick to the bottom of split screen, this was getting in my way

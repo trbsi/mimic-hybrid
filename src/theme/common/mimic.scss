@@ -8,6 +8,12 @@
   justify-content: center;
 }
 
+.vertical-align-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 hr.split-line {
   display: block;
   border: 0;

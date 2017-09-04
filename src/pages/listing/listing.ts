@@ -42,11 +42,9 @@ export class ListingPage {
 
 
     ionViewDidLoad() {
-        //calclate mimic info position
-        document.getElementById('mimic-info-top').style.top = this.calculateMimicInfoPosition('top');
-        document.getElementById('mimic-info-bottom').style.bottom = this.calculateMimicInfoPosition('bottom');
-
         this.loading.present();
+        this.loading.dismiss();
+        /*
         this.listingService
             .getData()
             .then(data => {
@@ -54,8 +52,16 @@ export class ListingPage {
                 this.listing.banner_title = data.banner_title;
                 this.listing.populars = data.populars;
                 this.listing.categories = data.categories;
-                this.loading.dismiss();
-            });
+               
+            });*/
+    }
+
+    ionViewDidEnter()
+    {
+        //calclate mimic info position
+        document.getElementById('mimic-info-top').style.top = this.calculateMimicInfoPosition('top') - 10 + "px";
+        document.getElementById('mimic-info-bottom').style.bottom = this.calculateMimicInfoPosition('bottom') + 10 + "px";
+console.log(document.getElementById('mimic-info-bottom').style.bottom);
     }
 
     /**
@@ -64,7 +70,7 @@ export class ListingPage {
      */
     calculateMimicInfoPosition(type)
     {
-        return document.getElementById('split-'+type).clientHeight - document.getElementsByClassName('slide-zoom')[0].clientHeight - document.getElementById('mimic-info-'+type).clientHeight - 10 + "px";
+        return document.getElementById('split-'+type).clientHeight - document.getElementsByClassName('slide-zoom')[0].clientHeight - document.getElementById('mimic-info-'+type).clientHeight;
     }
 
 

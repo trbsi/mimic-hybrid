@@ -1,22 +1,23 @@
 // Common list styles can be found in "./common.styles/layouts/lists"
-list-2-page {
-  ion-header {
-    @include header-styles(color($colors, header-alt, base), color($colors, header-alt, contrast));
-  }
+search-page {
 
   .list-mini-content {
-    background-color: color($colors, background, base);
+    background-color: color($colors, mimic, base);
 
     .list-mini {
       @include layout-list-styles($theme-color-2, $white-d);
 
       ion-list {
+
         .list-item {
+          background-color: color($colors, mimic, base);
+          box-shadow: inset 0 -0.5px 0 0 white;
           .content-row {
             .item-title {
               overflow: hidden;
               text-overflow: ellipsis;
               white-space: nowrap;
+              color: white;
             }
 
             &.one-line {
@@ -26,6 +27,7 @@ list-2-page {
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
+                color: white;
               }
             }
           }

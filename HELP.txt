@@ -22,3 +22,9 @@ https://forum.ionicframework.com/t/setting-focus-to-an-input-in-ionic/62789/4
 
 ion-content background content
 https://forum.ionicframework.com/t/change-background-color-of-ion-content/52868/2
+
+debug app on phone
+https://stackoverflow.com/questions/38744809/ionic-2-how-can-i-get-console-messages-from-android-device
+
+vertical align
+https://css-tricks.com/centering-css-complete-guide/

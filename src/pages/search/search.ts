@@ -9,7 +9,7 @@ import { ViewChild } from '@angular/core';
 import { Searchbar } from 'ionic-angular';
 
 @Component({
-    selector: 'searcg-page',
+    selector: 'search-page',
     templateUrl: 'search.html'
 })
 export class Search {

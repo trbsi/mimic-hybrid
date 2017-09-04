@@ -23,7 +23,10 @@ post-login {
 		  opacity: 1;
 		}
 	}
-  .post-login-content {
-    margin-top: 15%;
-  }
+	
+	.scroll-content {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
 }

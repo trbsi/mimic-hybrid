@@ -14,7 +14,7 @@
 <ion-content class="listing-content">
     <div class="overlay" *ngIf="mainMenuOpened"></div>
     <div class="split" style="position: relative;">
-        <ion-list style="top: 10%" class="mimic-info" direction="y">
+        <ion-list style="top: 10%" class="mimic-info" #topMimicInfo>
             <ion-item>
                 <ion-avatar item-start (click)="openUserProfile(1)">
                     <img src="http://i.dailymail.co.uk/i/pix/2016/05/23/22/348B850600000578-3605456-image-m-32_1464040491071.jpg">
@@ -28,7 +28,7 @@
                 </button>
             </ion-item>
         </ion-list>
-        <ion-slides class="top-slides" (ionSlideDidChange)="slideChanged('original')">
+        <ion-slides #originalMimicSlide class="top-slides" (ionSlideDidChange)="slideChanged('original')">
             <ion-slide>
                 <div class="video-player-container">
                     <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event, 'original')">
@@ -64,7 +64,7 @@
         </ion-slides>
     </div>
     <div class="split" style="position: relative;">
-        <ion-slides class="bottom-slides" (ionSlideDidChange)="slideChanged('response')">
+        <ion-slides #responseMimicSlide  class="bottom-slides" (ionSlideDidChange)="slideChanged('response')">
             <ion-slide>
                 <div class="video-player-container">
                     <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event, 'response')">

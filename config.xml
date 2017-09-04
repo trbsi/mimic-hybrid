@@ -6,6 +6,7 @@
     <content original-src="index.html" src="http://192.168.0.51:8100" />
     <access origin="*" />
     <preference name="KeyboardDisplayRequiresUserAction" value="false" />
+    <preference name="orientation" value="portrait" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />

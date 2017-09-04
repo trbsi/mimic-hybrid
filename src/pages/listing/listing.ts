@@ -30,8 +30,8 @@ export class ListingPage {
     videoResponse:VgAPI;
     video_playlist_model:VideoPlaylistModel = new VideoPlaylistModel();
 
-    @ViewChild(Slides) slides:Slides;
-   // @ViewChild('myInput') myInput: ElementRef;
+    @ViewChild('originalMimicSlide') originalMimicSlide:Slides;
+    @ViewChild('responseMimicSlide') responseMimicSlide:Slides;
 
     constructor(public nav:NavController,
                 public listingService:ListingService,
@@ -43,11 +43,7 @@ export class ListingPage {
 
     ionViewDidLoad() {
         //calclate mimic info position
-        
 
-/*resize() {
-    this.myInput.nativeElement.style.height = this.myInput.nativeElement.scrollHeight + 'px';
-}*/
 
         this.loading.present();
         this.listingService
@@ -131,15 +127,15 @@ export class ListingPage {
                 if (this.videoOriginal != undefined) {
                     this.videoOriginal.pause();
                 }
+                console.log(this.originalMimicSlide.isEnd());
                 break;
             case "response":
                 if (this.videoResponse != undefined) {
                     this.videoResponse.pause();
                 }
+                console.log(this.responseMimicSlide.isEnd());
                 break;
         }
-
-        console.log(this.slides.isEnd());
     }
 
 

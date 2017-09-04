@@ -1,6 +1,28 @@
 post-login {
-  background-color: color($colors, mimic, base);
 
+	.choose_username
+	{
+		background-color: color($colors, mimic, base);;
+	    padding: 5px 10px 5px 10px;
+	    font-size: 22px;
+	    color: white;
+	    border-bottom: 1px solid white;
+
+	    ::-webkit-input-placeholder { /* Chrome */
+		  color: white;
+		}
+		:-ms-input-placeholder { /* IE 10+ */
+		  color: white;
+		}
+		::-moz-placeholder { /* Firefox 19+ */
+		  color: white;
+		  opacity: 1;
+		}
+		:-moz-placeholder { /* Firefox 4 - 18 */
+		  color: white;
+		  opacity: 1;
+		}
+	}
   .post-login-content {
     margin-top: 15%;
   }

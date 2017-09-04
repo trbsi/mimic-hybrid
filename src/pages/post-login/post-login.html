@@ -1,17 +1,18 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>{{'CONTACT_CARD' | translate}}</ion-title>
+        <ion-title>Choose a username</ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content>
     <div class="post-login-content">
         <form class="" [formGroup]="submit_username" (ngSubmit)="submitUsername()">
-            <ion-item>
-                <ion-input #usernameInput type="username" placeholder="Username" formControlName="username"></ion-input>
+            <ion-item  class="choose_username">
+                <ion-label style="color: white" stacked>Allowed: letters, numbers, '.' and '-', min 4 characters</ion-label>
+                <ion-input #usernameInput type="username" placeholder="Username" formControlName="username" pattern="^[a-zA-Z0-9_.-]{4,}$"></ion-input>
             </ion-item>
-            <button ion-button block large class="" type="submit" [disabled]="!submit_username.valid">Go on</button>
-            <button ion-button block large class="" (click)="logout()" color="dark">Logout</button>
+            <button ion-button block large style="margin-top: 15%" type="submit" [disabled]="!submit_username.valid">Go on</button>
+            <button ion-button block large (click)="logout()" color="dark">Logout</button>
         </form>
     </div>
 </ion-content>

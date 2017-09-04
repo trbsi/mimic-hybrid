@@ -19,3 +19,6 @@ https://forum.ionicframework.com/t/focus-the-ion-searchbar-on-ionviewdidenter/10
 
 Set focus on input
 https://forum.ionicframework.com/t/setting-focus-to-an-input-in-ionic/62789/4
+
+ion-content background content
+https://forum.ionicframework.com/t/change-background-color-of-ion-content/52868/2

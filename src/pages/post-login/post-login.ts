@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { LoginPage } from '../login/login';
+import { ListingPage } from '../listing/listing';
 
 @Component({
     selector: 'post-login',
@@ -29,7 +30,7 @@ export class PostLogin {
     }
 
     submitUsername() {
-
+        this.nav.setRoot(ListingPage);
     }
 
     logout() {

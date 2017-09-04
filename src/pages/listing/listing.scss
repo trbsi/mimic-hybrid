@@ -38,6 +38,10 @@ listing-page {
   $categories-grid-padding: 10px;
   $categories-horizontal-list-padding: 10px;
 
+  #split-top, #split-bottom {
+    position: relative;
+  }
+
   div.overlay {
     background-color: rgba(0, 0, 0, 0.6);
     height: 100%;
@@ -146,6 +150,8 @@ listing-page {
   }
   //-----upvote button area-----
 
+
+  //------SLIDES-------
   .top-slides {
     //stick my slide to the bottom of split sreen
     .slide-zoom {
@@ -167,8 +173,13 @@ listing-page {
     .slide-zoom {
       position: absolute;
       top: 0;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
     }
   }
+  //------SLIDES-------
+
 
   //VIDEOS
   .video-player-container {

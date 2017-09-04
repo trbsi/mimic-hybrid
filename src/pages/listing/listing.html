@@ -13,7 +13,7 @@
     -->
 <ion-content class="listing-content" no-bounce>
     <div class="overlay" *ngIf="mainMenuOpened"></div>
-    <div class="split" id="split-top" style="position: relative;">
+    <div class="split" id="split-top">
         <!-- MIMIC INFO -->
         <ion-list class="mimic-info" id="mimic-info-top" #topMimicInfo>
             <ion-item>
@@ -68,7 +68,7 @@
         </ion-slides>
         <!-- MIMIC SLIDES -->
     </div>
-    <div class="split" id="split-bottom" style="position: relative;">
+    <div class="split" id="split-bottom">
         <!-- MIMIC SLIDES -->
         <ion-slides #responseMimicSlide  class="bottom-slides" (ionSlideDidChange)="slideChanged('response')">
             <ion-slide>

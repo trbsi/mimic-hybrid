@@ -13,8 +13,9 @@
     -->
 <ion-content class="listing-content">
     <div class="overlay" *ngIf="mainMenuOpened"></div>
-    <div class="split" style="position: relative;">
-        <ion-list style="top: 10%" class="mimic-info" #topMimicInfo>
+    <div class="split" id="split-top" style="position: relative;">
+        <!-- MIMIC INFO -->
+        <ion-list class="mimic-info" id="mimic-info-top" #topMimicInfo>
             <ion-item>
                 <ion-avatar item-start (click)="openUserProfile(1)">
                     <img src="http://i.dailymail.co.uk/i/pix/2016/05/23/22/348B850600000578-3605456-image-m-32_1464040491071.jpg">
@@ -28,6 +29,9 @@
                 </button>
             </ion-item>
         </ion-list>
+        <!-- MIMIC INFO -->
+
+        <!-- MIMIC SLIDES -->
         <ion-slides #originalMimicSlide class="top-slides" (ionSlideDidChange)="slideChanged('original')">
             <ion-slide>
                 <div class="video-player-container">
@@ -62,8 +66,10 @@
                 <img src="https://designshack.net/wp-content/uploads/16-9.jpg">
             </ion-slide>
         </ion-slides>
+        <!-- MIMIC SLIDES -->
     </div>
-    <div class="split" style="position: relative;">
+    <div class="split" id="split-bottom" style="position: relative;">
+        <!-- MIMIC SLIDES -->
         <ion-slides #responseMimicSlide  class="bottom-slides" (ionSlideDidChange)="slideChanged('response')">
             <ion-slide>
                 <div class="video-player-container">
@@ -98,7 +104,11 @@
                 <img src="http://www.qsl.net/dl8ybm/pic/testbild16-9.png">
             </ion-slide>
         </ion-slides>
-        <ion-list style="bottom: 10%" class="mimic-info">
+        <!-- MIMIC SLIDES -->
+
+        
+        <!-- MIMIC INFO -->
+        <ion-list class="mimic-info" id="mimic-info-bottom">
             <ion-item>
                 <ion-avatar item-start (click)="openUserProfile(1)">
                     <img src="http://i.dailymail.co.uk/i/pix/2016/05/23/22/348B850600000578-3605456-image-m-32_1464040491071.jpg">
@@ -110,6 +120,7 @@
                 </button>
             </ion-item>
         </ion-list>
+        <!-- MIMIC INFO -->
     </div>
     <ion-fab bottom right #fab style="bottom: -20px;">
         <button ion-fab mini class="menu-btn" (click)="mainMenuOpened = !mainMenuOpened">

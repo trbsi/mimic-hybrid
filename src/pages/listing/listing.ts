@@ -43,7 +43,8 @@ export class ListingPage {
 
     ionViewDidLoad() {
         //calclate mimic info position
-
+        document.getElementById('mimic-info-top').style.top = this.calculateMimicInfoPosition('top');
+        document.getElementById('mimic-info-bottom').style.bottom = this.calculateMimicInfoPosition('bottom');
 
         this.loading.present();
         this.listingService
@@ -55,6 +56,15 @@ export class ListingPage {
                 this.listing.categories = data.categories;
                 this.loading.dismiss();
             });
+    }
+
+    /**
+     * Dynamically calculate mimic info position
+     * @param string type "top" or "bottom"
+     */
+    calculateMimicInfoPosition(type)
+    {
+        return document.getElementById('split-'+type).clientHeight - document.getElementsByClassName('slide-zoom')[0].clientHeight - document.getElementById('mimic-info-'+type).clientHeight - 10 + "px";
     }
 
 

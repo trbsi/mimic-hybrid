@@ -10,51 +10,47 @@ import { FabContainer } from 'ionic-angular';
 import { VgAPI } from 'videogular2/core';
 import { VideoPlaylistModel } from '../video-playlist/video-playlist.model';
 
-import { Search } from '../search/search'; 
+import { Search } from '../search/search';
 
 import { ViewChild } from '@angular/core';
 import { Slides } from 'ionic-angular';
 
 @Component({
-  selector: 'listing-page',
-  templateUrl: 'listing.html',
+    selector: 'listing-page',
+    templateUrl: 'listing.html',
 })
 export class ListingPage {
-    listing: ListingModel = new ListingModel();
-    loading: any;
-    mainMenuOpened: boolean;
+    listing:ListingModel = new ListingModel();
+    loading:any;
+    mainMenuOpened:boolean;
 
     //VIDEO
-    start_playing: boolean = false;
-    videoOriginal: VgAPI;
-    videoResponse: VgAPI;
-    video_playlist_model: VideoPlaylistModel = new VideoPlaylistModel();
+    start_playing:boolean = false;
+    videoOriginal:VgAPI;
+    videoResponse:VgAPI;
+    video_playlist_model:VideoPlaylistModel = new VideoPlaylistModel();
 
-    @ViewChild(Slides) slides: Slides;
+    @ViewChild(Slides) slides:Slides;
 
-    constructor(
-    public nav: NavController,
-    public listingService: ListingService,
-    public loadingCtrl: LoadingController
-    ) 
-    {
+    constructor(public nav:NavController,
+                public listingService:ListingService,
+                public loadingCtrl:LoadingController) {
         this.loading = this.loadingCtrl.create();
         this.mainMenuOpened = false;
     }
 
 
-    ionViewDidLoad() 
-    {
+    ionViewDidLoad() {
         this.loading.present();
         this.listingService
-        .getData()
-        .then(data => {
-            this.listing.banner_image = data.banner_image;
-            this.listing.banner_title = data.banner_title;
-            this.listing.populars = data.populars;
-            this.listing.categories = data.categories;
-            this.loading.dismiss();
-        });
+            .getData()
+            .then(data => {
+                this.listing.banner_image = data.banner_image;
+                this.listing.banner_title = data.banner_title;
+                this.listing.populars = data.populars;
+                this.listing.categories = data.categories;
+                this.loading.dismiss();
+            });
     }
 
 
@@ -62,13 +58,13 @@ export class ListingPage {
      * Open specific page
      * @param string page Which page to open
      */
-    openPage(page: string, fab: FabContainer) {
+    openPage(page:string, fab:FabContainer) {
         this.closeFab(fab);
 
         switch (page) {
             case "profile":
                 this.nav.push(ProfilePage, {
-                  //user: item
+                    //user: item
                 });
                 break;
             case "refresh":
@@ -87,36 +83,32 @@ export class ListingPage {
      * Close FAB menu
      * @param FabContainer dab
      */
-    closeFab(fab: FabContainer)
-    {
+    closeFab(fab:FabContainer) {
         this.mainMenuOpened = false;
         fab.close();
     }
 
 
-   /**
+    /**
      * refresh mimic page
      */
-    refresh()
-    {
-        alert('refresh'); 
+    refresh() {
+        alert('refresh');
     }
 
     /**
      * Open user profile
      * @param int id User id
      */
-    openUserProfile(id)
-    {   
+    openUserProfile(id) {
         alert(id);
-    }    
+    }
 
     /**
      * Upvote mimic
      * @param int id Id of a mimic
      */
-    upvote(id)
-    {
+    upvote(id) {
         alert(id);
     }
 
@@ -128,12 +120,12 @@ export class ListingPage {
     slideChanged(type) {
         switch (type) {
             case "original":
-                if(this.videoOriginal != undefined) {
+                if (this.videoOriginal != undefined) {
                     this.videoOriginal.pause();
                 }
                 break;
             case "response":
-                if(this.videoResponse != undefined) {
+                if (this.videoResponse != undefined) {
                     this.videoResponse.pause();
                 }
                 break;
@@ -146,10 +138,10 @@ export class ListingPage {
     //VIDEOS
     /**
      * When player is ready initalize it
-     * @param {VgAPI}  api 
+     * @param {VgAPI}  api
      * @param string type "original" or "response"
      */
-    onPlayerReady(api: VgAPI, type) {
+    onPlayerReady(api:VgAPI, type) {
         switch (type) {
             case "original":
                 this.videoOriginal = api;
@@ -158,16 +150,16 @@ export class ListingPage {
                 this.videoResponse = api;
                 break;
         }
-        
+
     }
 
-    dismissLoader()
-    {
+    dismissLoader() {
         // Check if the current instance is usable
-        if (this.loading !== undefined){
+        if (this.loading !== undefined) {
             // If it's not usable, then create a new one
             this.loading.dismiss();
         }
     }
+
     //VIDEOS
 }

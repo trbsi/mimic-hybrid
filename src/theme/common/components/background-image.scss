@@ -1,11 +1,10 @@
-@mixin background-image-styles($background, $spinner-size, $spinner-color){
+@mixin background-image-styles($background, $spinner-size, $spinner-color) {
   background-image {
-    .bg-overlay
-    {
+    .bg-overlay {
       background-color: $background;
     }
 
     @include spinner-size($spinner-size);
-  	@include spinner-color($spinner-color);
+    @include spinner-color($spinner-color);
   }
 }

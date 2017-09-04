@@ -3,7 +3,6 @@
 @import "./common/grid";
 @import "./common/misc/shadow";
 @import "./common/misc/multi-line-ellipsis";
-
 // Elements
 @import "./common/components/components";
 @import "./common/inputs/inputs";
@@ -12,11 +11,9 @@
 @import "./common/header";
 @import "./common/lists";
 @import "./common/cards";
-
 // Views
 @import "./common/auth/auth";
 @import "./common/legal/legal";
 @import "./common/layouts/lists";
-
 //Mimic
 @import "./common/mimic";

@@ -1,40 +1,36 @@
 preload-image {
   position: relative;
   width: 100%;
-	display: block;
+  display: block;
   overflow: hidden;
 
-	// If the image is rounded
-	&.rounded-image
-	{
-		border-radius: 50%;
-	}
+  // If the image is rounded
+  &.rounded-image {
+    border-radius: 50%;
+  }
 
-  &.img-loaded
-  {
+  &.img-loaded {
     background-color: transparent;
     border: none;
 
-		img
-	  {
-			visibility: visible;
-			opacity: 1;
-	  }
+    img {
+      visibility: visible;
+      opacity: 1;
+    }
 
-		ion-spinner {
-			visibility: hidden;
-			display: none;
-		}
+    ion-spinner {
+      visibility: hidden;
+      display: none;
+    }
   }
 
-  img
-  {
+  img {
     position: absolute;
-		left: 0px;
-		top: 0px;
-		visibility: hidden;
-		opacity: 0;
-		@include transition(visibility 0s linear, opacity 0.5s linear);
+    left: 0px;
+    top: 0px;
+    visibility: hidden;
+    opacity: 0;
+    @include transition(visibility 0s linear, opacity 0.5s linear);
     width: 100% !important;
     height: inherit !important;
     // To reset min/max-width/height

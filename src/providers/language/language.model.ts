@@ -1,4 +1,4 @@
-export class LanguageModel{
-  name: string;
-  code: string;
+export class LanguageModel {
+    name:string;
+    code:string;
 }

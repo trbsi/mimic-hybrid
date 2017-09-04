@@ -1,8 +1,7 @@
 ion-app.ios {
-	schedule-page {
-		.schedule-segment
-		{
-			@include segment-button-ios-styles();
-		}
-	}
+  schedule-page {
+    .schedule-segment {
+      @include segment-button-ios-styles();
+    }
+  }
 }

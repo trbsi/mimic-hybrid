@@ -1,9 +1,7 @@
-post-login
-{
-	background-color: color($colors, mimic, base);
-	
-	.post-login-content
-	{
-		margin-top: 15%;
-	}
+post-login {
+  background-color: color($colors, mimic, base);
+
+  .post-login-content {
+    margin-top: 15%;
+  }
 }

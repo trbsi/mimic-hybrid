@@ -1,9 +1,8 @@
 ion-app.wp {
-	schedule-page {
-		.schedule-segment
-		{
-			@include justify-content(center);
-			@include segment-button-wp-styles();
-		}
-	}
+  schedule-page {
+    .schedule-segment {
+      @include justify-content(center);
+      @include segment-button-wp-styles();
+    }
+  }
 }

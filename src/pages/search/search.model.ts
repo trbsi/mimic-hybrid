@@ -1,8 +1,8 @@
 export class ListModel {
-  name: string;
-  image: string;
-  description: string;
+    name:string;
+    image:string;
+    description:string;
 }
-export class SearchModel { 
-  items: Array<ListModel>;
+export class SearchModel {
+    items:Array<ListModel>;
 }

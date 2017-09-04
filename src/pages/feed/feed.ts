@@ -9,55 +9,53 @@ import { FeedService } from './feed.service';
 import { SocialSharing } from '@ionic-native/social-sharing';
 
 @Component({
-  selector: 'feed-page',
-  templateUrl: 'feed.html'
+    selector: 'feed-page',
+    templateUrl: 'feed.html'
 })
 export class FeedPage {
-  feed: FeedModel = new FeedModel();
-  loading: any;
+    feed:FeedModel = new FeedModel();
+    loading:any;
 
-  constructor(
-    public nav: NavController,
-    public feedService: FeedService,
-    public navParams: NavParams,
-    public loadingCtrl: LoadingController,
-    public socialSharing: SocialSharing
-  ) {
-    this.feed.category = navParams.get('category');
+    constructor(public nav:NavController,
+                public feedService:FeedService,
+                public navParams:NavParams,
+                public loadingCtrl:LoadingController,
+                public socialSharing:SocialSharing) {
+        this.feed.category = navParams.get('category');
 
-    this.loading = this.loadingCtrl.create();
-  }
+        this.loading = this.loadingCtrl.create();
+    }
 
 
-  ionViewDidLoad() {
-    this.loading.present();
-    this.feedService
-      .getPosts()
-      .then(posts => {
-        this.feed.posts = posts;
-        this.loading.dismiss();
-      });
-  }
+    ionViewDidLoad() {
+        this.loading.present();
+        this.feedService
+            .getPosts()
+            .then(posts => {
+                this.feed.posts = posts;
+                this.loading.dismiss();
+            });
+    }
 
-  goToProfile(event, item) {
-    this.nav.push(ProfilePage, {
-      user: item
-    });
-  }
+    goToProfile(event, item) {
+        this.nav.push(ProfilePage, {
+            user: item
+        });
+    }
 
-  getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
+    getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
 
-  sharePost(post) {
-   //this code is to use the social sharing plugin
-   // message, subject, file, url
-   this.socialSharing.share(post.description, post.title, post.image, null)
-   .then(() => {
-     console.log('Success!');
-   })
-   .catch(() => {
-      console.log('Error');
-   });
- }
+    sharePost(post) {
+        //this code is to use the social sharing plugin
+        // message, subject, file, url
+        this.socialSharing.share(post.description, post.title, post.image, null)
+            .then(() => {
+                console.log('Success!');
+            })
+            .catch(() => {
+                console.log('Error');
+            });
+    }
 }

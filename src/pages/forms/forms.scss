@@ -1,11 +1,9 @@
 forms-page {
-	.forms-content
-	{
-		background-color: color($colors, background, base);
+  .forms-content {
+    background-color: color($colors, background, base);
 
-		.forms-list
-		{
-			@include basic-list-styles($theme-color-3, $theme-color-2);
-		}
-	}
+    .forms-list {
+      @include basic-list-styles($theme-color-3, $theme-color-2);
+    }
+  }
 }

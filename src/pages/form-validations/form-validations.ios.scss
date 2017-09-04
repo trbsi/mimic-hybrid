@@ -1,16 +1,13 @@
 ion-app.ios {
-	form-validations-page  {
-		.validations-form
-    {
-			ion-item {
-        &.ng-invalid.ng-touched
-        {
-          .item-inner
-          {
+  form-validations-page {
+    .validations-form {
+      ion-item {
+        &.ng-invalid.ng-touched {
+          .item-inner {
             border-bottom-color: color($colors, danger);
           }
         }
       }
-		}
-	}
+    }
+  }
 }

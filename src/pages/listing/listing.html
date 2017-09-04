@@ -16,10 +16,11 @@
     <div class="split" style="position: relative;">
         <ion-list style="top: 15%">
             <ion-item>
-                <ion-avatar  item-start (click)="openUserProfile(1)">
+                <ion-avatar item-start (click)="openUserProfile(1)">
                     <img src="http://i.dailymail.co.uk/i/pix/2016/05/23/22/348B850600000578-3605456-image-m-32_1464040491071.jpg">
                 </ion-avatar>
                 <h2 (click)="openUserProfile(1)">My Neighbor Totoro</h2>
+
                 <p>#mama #tata #ovaj #onaj #iqwokeuplikethis #somestupidhashtags</p>
                 <button ion-button clear item-end (click)="upvote(1)">
                     <ion-icon name="arrow-dropup-circle" class="upvote-button"></ion-icon>
@@ -27,30 +28,32 @@
                 </button>
             </ion-item>
         </ion-list>
-        <ion-slides class="top-slides"  (ionSlideDidChange)="slideChanged('original')">
+        <ion-slides class="top-slides" (ionSlideDidChange)="slideChanged('original')">
             <ion-slide>
-                <div class="video-player-container"> 
-                    <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event, 'original')"> 
-                        <vg-buffering></vg-buffering> 
-                        <vg-overlay-play></vg-overlay-play> 
-                        <vg-controls [vgAutohide]="false" [vgAutohideTime]="2"> 
-                        <ion-row class="controls-row"> 
-                            <ion-col no-padding width-18> 
-                                <vg-time-display [vgProperty]="'left'" [vgFormat]="'mm:ss'"></vg-time-display> 
-                            </ion-col> 
-                            <ion-col no-padding width-64> 
-                                <vg-scrub-bar> 
-                                    <vg-scrub-bar-current-time></vg-scrub-bar-current-time> 
-                                    <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time> 
-                                </vg-scrub-bar> 
-                            </ion-col> 
-                        </ion-row> 
-                        </vg-controls> 
-                        <video  #originalX [vgMedia]="originalX" class="expand-horizontally" #player_video [vgMedia]="player_video" id="player-video" preload="auto"> 
-                        <source *ngFor="let video of video_playlist_model.selected_video.sources" [src]="video.src" [type]="video.type"> 
-                        </video> 
-                    </vg-player> 
-                </div> 
+                <div class="video-player-container">
+                    <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event, 'original')">
+                        <vg-buffering></vg-buffering>
+                        <vg-overlay-play></vg-overlay-play>
+                        <vg-controls [vgAutohide]="false" [vgAutohideTime]="2">
+                            <ion-row class="controls-row">
+                                <ion-col no-padding width-18>
+                                    <vg-time-display [vgProperty]="'left'" [vgFormat]="'mm:ss'"></vg-time-display>
+                                </ion-col>
+                                <ion-col no-padding width-64>
+                                    <vg-scrub-bar>
+                                        <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                                        <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+                                    </vg-scrub-bar>
+                                </ion-col>
+                            </ion-row>
+                        </vg-controls>
+                        <video #originalX [vgMedia]="originalX" class="expand-horizontally" #player_video
+                               [vgMedia]="player_video" id="player-video" preload="auto">
+                            <source *ngFor="let video of video_playlist_model.selected_video.sources" [src]="video.src"
+                                    [type]="video.type">
+                        </video>
+                    </vg-player>
+                </div>
             </ion-slide>
             <ion-slide>
                 <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Aspect_ratio_16_9_example.jpg">
@@ -61,27 +64,29 @@
         </ion-slides>
     </div>
     <div class="split" style="position: relative;">
-        <ion-slides class="bottom-slides"  (ionSlideDidChange)="slideChanged('response')">
+        <ion-slides class="bottom-slides" (ionSlideDidChange)="slideChanged('response')">
             <ion-slide>
                 <div class="video-player-container">
                     <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event, 'response')">
                         <vg-buffering></vg-buffering>
                         <vg-overlay-play></vg-overlay-play>
                         <vg-controls [vgAutohide]="false" [vgAutohideTime]="2">
-                        <ion-row class="controls-row">
-                            <ion-col no-padding width-18>
-                                <vg-time-display [vgProperty]="'left'" [vgFormat]="'mm:ss'"></vg-time-display>
-                            </ion-col>
-                            <ion-col no-padding width-64>
-                                <vg-scrub-bar>
-                                    <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
-                                    <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
-                                </vg-scrub-bar>
-                            </ion-col>
-                        </ion-row>
+                            <ion-row class="controls-row">
+                                <ion-col no-padding width-18>
+                                    <vg-time-display [vgProperty]="'left'" [vgFormat]="'mm:ss'"></vg-time-display>
+                                </ion-col>
+                                <ion-col no-padding width-64>
+                                    <vg-scrub-bar>
+                                        <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                                        <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+                                    </vg-scrub-bar>
+                                </ion-col>
+                            </ion-row>
                         </vg-controls>
-                        <video #responseX [vgMedia]="responseX" class="expand-horizontally" #player_video [vgMedia]="player_video" id="player-video" preload="auto">
-                        <source *ngFor="let video of video_playlist_model.selected_video.sources" [src]="video.src" [type]="video.type">
+                        <video #responseX [vgMedia]="responseX" class="expand-horizontally" #player_video
+                               [vgMedia]="player_video" id="player-video" preload="auto">
+                            <source *ngFor="let video of video_playlist_model.selected_video.sources" [src]="video.src"
+                                    [type]="video.type">
                         </video>
                     </vg-player>
                 </div>
@@ -111,7 +116,8 @@
             <ion-icon name="add"></ion-icon>
         </button>
         <ion-fab-list side="top">
-            <!--<button ion-fab><ion-icon name="home"></ion-icon><div class="label">Home</div></button> --> <!-- Home -->
+            <!--<button ion-fab><ion-icon name="home"></ion-icon><div class="label">Home</div></button> -->
+            <!-- Home -->
             <button ion-fab (click)="openPage('refresh', fab)">
                 <ion-icon name="refresh"></ion-icon>
                 <div class="label">Refresh</div>

@@ -7,11 +7,12 @@ import { VgOverlayPlayModule } from 'videogular2/overlay-play';
 import { VgBufferingModule } from 'videogular2/buffering';
 
 @NgModule({
-  exports: [
-		VgCoreModule,
-    VgControlsModule,
-    VgOverlayPlayModule,
-    VgBufferingModule
-  ]
+    exports: [
+        VgCoreModule,
+        VgControlsModule,
+        VgOverlayPlayModule,
+        VgBufferingModule
+    ]
 })
-export class VideoPlayerModule {}
+export class VideoPlayerModule {
+}

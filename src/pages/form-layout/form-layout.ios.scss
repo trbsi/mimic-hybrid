@@ -1,15 +1,13 @@
 ion-app.ios {
-	form-layout-page {
-		.forms-examples-segment
-		{
-			@include segment-button-ios-styles();
-		}
-	}
+  form-layout-page {
+    .forms-examples-segment {
+      @include segment-button-ios-styles();
+    }
+  }
 
-	ion-alert.category-prompt {
-		.alert-wrapper
-		{
-			border-radius: 18px;
-		}
-	}
+  ion-alert.category-prompt {
+    .alert-wrapper {
+      border-radius: 18px;
+    }
+  }
 }

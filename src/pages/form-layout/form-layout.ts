@@ -6,130 +6,128 @@ import { ImagePicker } from '@ionic-native/image-picker';
 import { Crop } from '@ionic-native/crop';
 
 @Component({
-  selector: 'form-layout-page',
-  templateUrl: 'form-layout.html'
+    selector: 'form-layout-page',
+    templateUrl: 'form-layout.html'
 })
 export class FormLayoutPage {
-  section: string;
+    section:string;
 
-  post_form: any;
-  event_form: FormGroup;
-  card_form: FormGroup;
+    post_form:any;
+    event_form:FormGroup;
+    card_form:FormGroup;
 
-  categories_checkbox_open: boolean;
-  categories_checkbox_result;
+    categories_checkbox_open:boolean;
+    categories_checkbox_result;
 
-  selected_image: any;
+    selected_image:any;
 
-  constructor(
-    public nav: NavController,
-    public alertCtrl: AlertController,
-    public cropService: Crop,
-    public imagePicker: ImagePicker
-  ) {
+    constructor(public nav:NavController,
+                public alertCtrl:AlertController,
+                public cropService:Crop,
+                public imagePicker:ImagePicker) {
 
-    this.section = "event";
+        this.section = "event";
 
-    this.post_form = new FormGroup({
-      title: new FormControl('', Validators.required),
-      description: new FormControl('', Validators.required),
-      servings: new FormControl(2, counterRangeValidator(10, 1)),
-      time: new FormControl('01:30', Validators.required),
-      temperature: new FormControl(180)
-    });
-    this.event_form = new FormGroup({
-      title: new FormControl('', Validators.required),
-      location: new FormControl('', Validators.required),
-      from_date: new FormControl('2016-09-18', Validators.required),
-      from_time: new FormControl('13:00', Validators.required),
-      to_date: new FormControl('', Validators.required),
-      to_time: new FormControl('', Validators.required)
-    });
-    this.card_form = new FormGroup({
-      card_number: new FormControl('', Validators.required),
-      card_holder: new FormControl('', Validators.required),
-      cvc: new FormControl('', Validators.required),
-      exp_date: new FormControl('', Validators.required),
-      save_card: new FormControl(true, Validators.required)
-    });
-  }
+        this.post_form = new FormGroup({
+            title: new FormControl('', Validators.required),
+            description: new FormControl('', Validators.required),
+            servings: new FormControl(2, counterRangeValidator(10, 1)),
+            time: new FormControl('01:30', Validators.required),
+            temperature: new FormControl(180)
+        });
+        this.event_form = new FormGroup({
+            title: new FormControl('', Validators.required),
+            location: new FormControl('', Validators.required),
+            from_date: new FormControl('2016-09-18', Validators.required),
+            from_time: new FormControl('13:00', Validators.required),
+            to_date: new FormControl('', Validators.required),
+            to_time: new FormControl('', Validators.required)
+        });
+        this.card_form = new FormGroup({
+            card_number: new FormControl('', Validators.required),
+            card_holder: new FormControl('', Validators.required),
+            cvc: new FormControl('', Validators.required),
+            exp_date: new FormControl('', Validators.required),
+            save_card: new FormControl(true, Validators.required)
+        });
+    }
 
-  onSegmentChanged(segmentButton: SegmentButton) {
-    // console.log('Segment changed to', segmentButton.value);
-  }
+    onSegmentChanged(segmentButton:SegmentButton) {
+        // console.log('Segment changed to', segmentButton.value);
+    }
 
-  onSegmentSelected(segmentButton: SegmentButton) {
-    // console.log('Segment selected', segmentButton.value);
-  }
+    onSegmentSelected(segmentButton:SegmentButton) {
+        // console.log('Segment selected', segmentButton.value);
+    }
 
-  createPost(){
-    console.log(this.post_form.value);
-  }
+    createPost() {
+        console.log(this.post_form.value);
+    }
 
-  createEvent(){
-    console.log(this.event_form.value);
-  }
+    createEvent() {
+        console.log(this.event_form.value);
+    }
 
-  createCard(){
-    console.log(this.card_form.value);
-  }
+    createCard() {
+        console.log(this.card_form.value);
+    }
 
-  chooseCategory(){
-    let alert = this.alertCtrl.create({
-      cssClass: 'category-prompt'
-    });
-    alert.setTitle('Category');
+    chooseCategory() {
+        let alert = this.alertCtrl.create({
+            cssClass: 'category-prompt'
+        });
+        alert.setTitle('Category');
 
-    alert.addInput({
-      type: 'checkbox',
-      label: 'Alderaan',
-      value: 'value1',
-      checked: true
-    });
+        alert.addInput({
+            type: 'checkbox',
+            label: 'Alderaan',
+            value: 'value1',
+            checked: true
+        });
 
-    alert.addInput({
-      type: 'checkbox',
-      label: 'Bespin',
-      value: 'value2'
-    });
+        alert.addInput({
+            type: 'checkbox',
+            label: 'Bespin',
+            value: 'value2'
+        });
 
-    alert.addButton('Cancel');
-    alert.addButton({
-      text: 'Confirm',
-      handler: data => {
-        console.log('Checkbox data:', data);
-        this.categories_checkbox_open = false;
-        this.categories_checkbox_result = data;
-      }
-    });
-    alert.present().then(() => {
-      this.categories_checkbox_open = true;
-    });
-  }
+        alert.addButton('Cancel');
+        alert.addButton({
+            text: 'Confirm',
+            handler: data => {
+                console.log('Checkbox data:', data);
+                this.categories_checkbox_open = false;
+                this.categories_checkbox_result = data;
+            }
+        });
+        alert.present().then(() => {
+            this.categories_checkbox_open = true;
+        });
+    }
 
-  openImagePicker(){
-   this.imagePicker.hasReadPermission().then(
-     (result) => {
-       if(result == false){
-         // no callbacks required as this opens a popup which returns async
-         this.imagePicker.requestReadPermission();
-       }
-       else if(result == true){
-         this.imagePicker.getPictures({ maximumImagesCount: 1 }).then(
-           (results) => {
-             for (var i = 0; i < results.length; i++) {
-               this.cropService.crop(results[i], {quality: 75}).then(
-                 newImage => {
-                   this.selected_image = newImage;
-                 },
-                 error => console.error("Error cropping image", error)
-               );
-             }
-           }, (err) => console.log(err)
-         );
-       }
-     }
-   )
-  }
+    openImagePicker() {
+        this.imagePicker.hasReadPermission().then(
+            (result) => {
+                if (result == false) {
+                    // no callbacks required as this opens a popup which returns async
+                    this.imagePicker.requestReadPermission();
+                }
+                else if (result == true) {
+                    this.imagePicker.getPictures({maximumImagesCount: 1}).then(
+                        (results) => {
+                            for (var i = 0; i < results.length; i++) {
+                                this.cropService.crop(results[i], {quality: 75}).then(
+                                        newImage => {
+                                        this.selected_image = newImage;
+                                    },
+                                        error => console.error("Error cropping image", error)
+                                );
+                            }
+                        }, (err) => console.log(err)
+                    );
+                }
+            }
+        )
+    }
 
 }

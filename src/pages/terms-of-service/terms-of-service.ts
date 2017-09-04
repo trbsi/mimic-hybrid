@@ -2,15 +2,16 @@ import { Component } from '@angular/core';
 import { ViewController } from 'ionic-angular';
 
 @Component({
-  selector: 'terms-of-service-page',
-  templateUrl: 'terms-of-service.html'
+    selector: 'terms-of-service-page',
+    templateUrl: 'terms-of-service.html'
 })
 
 export class TermsOfServicePage {
 
-  constructor(public view: ViewController) {}
+    constructor(public view:ViewController) {
+    }
 
-  dismiss() {
-    this.view.dismiss();
-  }
+    dismiss() {
+        this.view.dismiss();
+    }
 }

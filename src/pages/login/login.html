@@ -1,17 +1,18 @@
 <ion-content class="login-content auth-content">
     <div class="split split-top split-vertical-align">
         <form class="login-form auth-form" [formGroup]="login" (ngSubmit)="doLogin()">
-        <!--
-            <ion-item>
-              <ion-input type="email" placeholder="Email" formControlName="email"></ion-input>
-            </ion-item>
-            <show-hide-container>
-              <ion-item>
-                <ion-input type="password" placeholder="Password" formControlName="password" show-hide-input></ion-input>
-              </ion-item>
-            </show-hide-container>
-            -->
-        <button ion-button block class="auth-action-button login-button" type="submit">{{'LOG_IN' | translate}}</button>
+            <!--
+                <ion-item>
+                  <ion-input type="email" placeholder="Email" formControlName="email"></ion-input>
+                </ion-item>
+                <show-hide-container>
+                  <ion-item>
+                    <ion-input type="password" placeholder="Password" formControlName="password" show-hide-input></ion-input>
+                  </ion-item>
+                </show-hide-container>
+                -->
+            <button ion-button block class="auth-action-button login-button" type="submit">{{'LOG_IN' | translate}}
+            </button>
         </form>
         <img src="assets/images/icon.png" style="max-height: 200px; max-width: 200px; margin: 0 auto;">
     </div>
@@ -29,9 +30,11 @@
     <p class="auth-divider">
       Or
     </p>
-    --> 
+    -->
     <div class="split split-vertical-align">
-        <button ion-button block class="facebook-auth-button" (click)="doFacebookLogin()" target="_top" >Log in with Facebook</button>
+        <button ion-button block class="facebook-auth-button" (click)="doFacebookLogin()" target="_top">Log in with
+            Facebook
+        </button>
         <!--<button ion-button block class="google-auth-button" (click)="doGoogleLogin()">Log in with Google</button>-->
         <button ion-button block class="twitter-auth-button" (click)="doTwitterLogin()">Log in with Twitter</button>
     </div>

@@ -12,39 +12,37 @@ import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
-  selector: 'layouts-page',
-  templateUrl: 'layouts.html'
+    selector: 'layouts-page',
+    templateUrl: 'layouts.html'
 })
 export class LayoutsPage {
-  items: Array<{title: string, note?: string, component: any}>;
+    items:Array<{title: string, note?: string, component: any}>;
 
-  constructor(
-    public nav: NavController,
-    public translate: TranslateService
-  ) {
-  }
+    constructor(public nav:NavController,
+                public translate:TranslateService) {
+    }
 
-  ionViewWillEnter(){
-    Observable.forkJoin(
-      this.translate.get('SCHEDULE'),
-      this.translate.get('LISTS'),
-      this.translate.get('LISTS'),
-      this.translate.get('GRID'),
-      this.translate.get('NOTIFICATIONS'),
-      this.translate.get('PROFILE'),
-    ).subscribe(data => {
-      this.items = [
-        { title: data[0], component: SchedulePage },
-        { title: data[1], note: '(Big)', component: List1Page },
-        { title: data[2], note: '(Mini)', component: Search },
-        { title: data[3], component: GridPage },
-        { title: data[4], component: NotificationsPage },
-        { title: data[5], component: ProfilePage },
-      ];
-    });
-  }
+    ionViewWillEnter() {
+        Observable.forkJoin(
+            this.translate.get('SCHEDULE'),
+            this.translate.get('LISTS'),
+            this.translate.get('LISTS'),
+            this.translate.get('GRID'),
+            this.translate.get('NOTIFICATIONS'),
+            this.translate.get('PROFILE'),
+        ).subscribe(data => {
+                this.items = [
+                    {title: data[0], component: SchedulePage},
+                    {title: data[1], note: '(Big)', component: List1Page},
+                    {title: data[2], note: '(Mini)', component: Search},
+                    {title: data[3], component: GridPage},
+                    {title: data[4], component: NotificationsPage},
+                    {title: data[5], component: ProfilePage},
+                ];
+            });
+    }
 
-  itemTapped(event, item) {
-    this.nav.push(item.component);
-  }
+    itemTapped(event, item) {
+        this.nav.push(item.component);
+    }
 }

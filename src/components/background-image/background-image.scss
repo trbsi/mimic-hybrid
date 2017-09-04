@@ -6,8 +6,7 @@ background-image {
   background-repeat: no-repeat;
   @include transition(all ease-in-out .3s);
 
-  .bg-overlay
-  {
+  .bg-overlay {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -17,12 +16,10 @@ background-image {
     opacity: 0.6;
   }
 
-  &.img-loaded
-  {
-		ion-spinner
-		{
-			visibility: hidden;
-			display: none;
-		}
+  &.img-loaded {
+    ion-spinner {
+      visibility: hidden;
+      display: none;
+    }
   }
 }

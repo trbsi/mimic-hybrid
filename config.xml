@@ -6,6 +6,7 @@
     <content src="index.html" />
     <access origin="*" />
     <preference name="KeyboardDisplayRequiresUserAction" value="false" />
+        <preference name="AllowInlineMediaPlayback" value="true" />
     <preference name="orientation" value="portrait" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />

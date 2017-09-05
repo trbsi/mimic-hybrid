@@ -37,7 +37,7 @@
                 <div class="video-player-container">
                     <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event, 'original')">
                         <vg-buffering></vg-buffering>
-                        <!--<vg-overlay-play></vg-overlay-play>-->
+                        <vg-overlay-play></vg-overlay-play>
                         <vg-controls [vgAutohide]="false" [vgAutohideTime]="2">
                             <ion-row class="controls-row">
                                 <ion-col no-padding width-18>
@@ -51,7 +51,7 @@
                                 </ion-col>
                             </ion-row>
                         </vg-controls>
-                        <video #originalX [vgMedia]="originalX" class="expand-horizontally" #player_video
+                        <video playsinline webkit-playsinline #originalX [vgMedia]="originalX" class="expand-horizontally" #player_video
                                [vgMedia]="player_video" id="player-video" preload="auto">
                             <source *ngFor="let video of video_playlist_model.selected_video.sources" [src]="video.src"
                                     [type]="video.type">

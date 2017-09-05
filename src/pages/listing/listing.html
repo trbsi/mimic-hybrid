@@ -51,7 +51,7 @@
                                 </ion-col>
                             </ion-row>
                         </vg-controls>
-                        <video playsinline #originalX [vgMedia]="originalX" class="expand-horizontally" id="player-video" preload="auto">
+                        <video  webkit-playsinline playsinline #originalX [vgMedia]="originalX" class="expand-horizontally" id="player-video" preload="auto">
                             <source *ngFor="let video of video_playlist_model.selected_video.sources" [src]="video.src"
                                     [type]="video.type">
                         </video>

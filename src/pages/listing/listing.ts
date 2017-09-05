@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 import 'rxjs/Rx';
 
@@ -24,7 +25,6 @@ export class ListingPage {
     listing:ListingModel = new ListingModel();
     loading:any;
     mainMenuOpened:boolean;
-
     //VIDEO
     start_playing:boolean = false;
     videoOriginal:VgAPI;
@@ -34,7 +34,7 @@ export class ListingPage {
     @ViewChild('originalMimicSlide') originalMimicSlide:Slides;
     @ViewChild('responseMimicSlide') responseMimicSlide:Slides;
 
-    constructor(public nav:NavController,
+    constructor(public nav:NavController, private iab: InAppBrowser,
                 public listingService:ListingService,
                 public loadingCtrl:LoadingController) {
         this.loading = this.loadingCtrl.create();
@@ -113,6 +113,8 @@ export class ListingPage {
      * refresh mimic page
      */
     refresh() {
+        const browser = this.iab.create('https://ionicframework.com/');
+        browser.show();
         alert('refresh');
     }
 

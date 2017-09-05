@@ -14,6 +14,7 @@ import { Search } from '../search/search';
 
 import { ViewChild } from '@angular/core';
 import { Slides } from 'ionic-angular';
+import { enableInlineVideo } from 'iphone-inline-video';
 
 @Component({
     selector: 'listing-page',

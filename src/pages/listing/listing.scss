@@ -182,6 +182,14 @@ listing-page {
 
 
   //VIDEOS
+  //hide native play button
+  .IIV::-webkit-media-controls-play-button,
+  .IIV::-webkit-media-controls-start-playback-button {
+     opacity: 0;
+     pointer-events: none;
+     width: 5px;
+  }
+
   .video-player-container {
     // Most videos come in 16:9 aspect ratio
     // If 16 -> 100% width => 9 -> 56.25% width

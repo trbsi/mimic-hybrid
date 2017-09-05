@@ -190,6 +190,11 @@ listing-page {
      width: 5px;
   }
 
+  video::-webkit-media-controls {
+    display:none !important;
+}
+
+
   .video-player-container {
     // Most videos come in 16:9 aspect ratio
     // If 16 -> 100% width => 9 -> 56.25% width

@@ -1,10 +1,10 @@
 form-layout-page {
   ion-header {
-    @include header-styles(color($colors, header-alt, base), color($colors, header-alt, contrast));
+    @include header-styles(color($colors, mimic, base), WHITE);
   }
 
   .forms-examples-content {
-    background-color: color($colors, background, base);
+    background-color: color($colors, mimic, base);
 
     .forms-examples-segment {
       padding: 14px 0px;
@@ -28,7 +28,7 @@ form-layout-page {
       }
 
       ion-item {
-        @include basic-input-style(color($colors, background, base), $theme-color-3, $white-d);
+        @include basic-input-style(color($colors, mimic, base), $theme-color-3, $white-d);
 
         &.item {
           margin-top: 14px;

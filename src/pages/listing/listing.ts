@@ -137,8 +137,9 @@ export class ListingPage {
         alert(id);
     }
 
-    logout()
+    logout(fab:FabContainer)
     {
+        this.closeFab(fab);
         //@TODO remove token
         let alert = this.alertCtrl.create({
             title: 'Logout',

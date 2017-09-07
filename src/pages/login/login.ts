@@ -34,7 +34,7 @@ export class LoginPage {
         this.storage.getItem('token')
         .then( 
             data => { this.nav.setRoot(ListingPage) },
-            error =>{}
+            error =>{console.log("asdsadsd")}
         );
 
         this.main_page = {component: PostLogin};
@@ -46,13 +46,12 @@ export class LoginPage {
 
     }
 
-    doLogin() {
+    doLogin() { 
         this.storage.setItem('token', {property: 'value'}).then
         (
             () => console.log('Stored item!'),
             error => console.error('Error storing item', error)
         );
-
 
         this.nav.setRoot(this.main_page.component);
     }

@@ -3,7 +3,7 @@
     <name>Mimic</name>
     <description>Split your world</description>
     <author email="mimicapp.official@gmail.com" href="http://www.gomimic.com">Mimic</author>
-    <content original-src="index.html" src="http://192.168.0.51:8100" />
+    <content original-src="index.html" src="http://192.168.0.51:8000" />
     <access origin="*" />
     <preference name="KeyboardDisplayRequiresUserAction" value="false" />
     <preference name="AllowInlineMediaPlayback" value="true" />
@@ -91,6 +91,7 @@
     <preference name="TwitterConsumerKey" value="OvntIH1oTeYf4bXJdaCG8Sok9" />
     <preference name="TwitterConsumerSecret" value="Mhxi6A36dPSVCcPMMXisWH5HJqlJhF0vgSgUQAryEojRbdLNuL" />
     <allow-navigation href="http://192.168.0.51:8101" />
+    <allow-navigation href="http://192.168.0.51:8000" />
     <engine name="android" spec="^6.2.3" />
     <engine name="browser" spec="^4.1.0" />
     <plugin name="cordova-plugin-admob-free" spec="^0.9.0" />

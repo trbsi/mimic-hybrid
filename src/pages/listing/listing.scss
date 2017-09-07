@@ -189,10 +189,10 @@ listing-page {
      pointer-events: none;
      width: 5px;
   }
-
+  //hide native play button
   video::-webkit-media-controls {
     display:none !important;
-}
+  }
 
 
   .video-player-container {

@@ -30,11 +30,28 @@ export class LoginPage {
                 public twitterLoginService:TwitterLoginService,
                 public loadingCtrl:LoadingController) 
     {
-        //if loggedin then redirect to home
+        //see if user is loggedin, if he is check if he set username
         this.storage.getItem('token')
         .then( 
-            data => { this.nav.setRoot(ListingPage) },
-            error =>{console.log("asdsadsd")}
+            data => 
+            { 
+                //if he has username you can redirect to main screen
+                this.storage.getItem('username').then( 
+                    data => 
+                    {
+                        //username not set, redirect to post login
+                        if(data == false) {
+                            this.nav.setRoot(PostLogin);
+                        } else {
+                            this.nav.setRoot(ListingPage); 
+                        }
+                        
+                    },
+                    error =>{ this.nav.setRoot(PostLogin);  }
+                );
+
+            },
+            error => { console.log(error); }
         );
 
         this.main_page = {component: PostLogin};
@@ -47,7 +64,13 @@ export class LoginPage {
     }
 
     doLogin() { 
-        this.storage.setItem('token', {property: 'value'}).then
+        this.storage.setItem('token', 'value').then
+        (
+            () => console.log('Stored item!'),
+            error => console.error('Error storing item', error)
+        );
+
+        this.storage.setItem('username', false).then
         (
             () => console.log('Stored item!'),
             error => console.error('Error storing item', error)

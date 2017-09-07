@@ -12,6 +12,8 @@ import { LoginPage } from '../pages/login/login';
 import { ProfilePage } from '../pages/profile/profile';
 import { SearchService } from '../pages/search/search.service';
 import { PostLogin } from '../pages/post-login/post-login';
+import { FormLayoutPage } from '../pages/form-layout/form-layout';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 import { FeedPage } from '../pages/feed/feed';
 import { FollowersPage } from '../pages/followers/followers';
@@ -27,7 +29,6 @@ import { SchedulePage } from '../pages/schedule/schedule';
 import { AdsPage } from '../pages/ads/ads';
 import { List1Page } from '../pages/list-1/list-1';
 import { GridPage } from '../pages/grid/grid';
-import { FormLayoutPage } from '../pages/form-layout/form-layout';
 import { FiltersPage } from '../pages/filters/filters';
 import { TermsOfServicePage } from '../pages/terms-of-service/terms-of-service';
 import { PrivacyPolicyPage } from '../pages/privacy-policy/privacy-policy';
@@ -57,7 +58,6 @@ import { HttpModule } from '@angular/http';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SocialSharing } from '@ionic-native/social-sharing';
-import { NativeStorage } from '@ionic-native/native-storage';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
@@ -101,6 +101,7 @@ export function createTranslateLoader(http:Http) {
         TwitterLoginPage,
         VideoPlaylistPage,
         PostLogin,
+        FormLayoutPage,
 
         FeedPage,
         FollowersPage,
@@ -115,7 +116,6 @@ export function createTranslateLoader(http:Http) {
         SchedulePage,
         List1Page,
         GridPage,
-        FormLayoutPage,
         FiltersPage,
         TermsOfServicePage,
         PrivacyPolicyPage,
@@ -158,6 +158,7 @@ export function createTranslateLoader(http:Http) {
         TwitterLoginPage,
         VideoPlaylistPage,
         PostLogin,
+        FormLayoutPage,
 
         ContactCardPage,
         FeedPage,
@@ -173,7 +174,6 @@ export function createTranslateLoader(http:Http) {
         SchedulePage,
         List1Page,
         GridPage,
-        FormLayoutPage,
         FiltersPage,
         TermsOfServicePage,
         PrivacyPolicyPage,
@@ -189,6 +189,7 @@ export function createTranslateLoader(http:Http) {
         GoogleLoginService,
         TwitterLoginService,
         LanguageService,
+        NativeStorage,
 
         FeedService,
         ListingService,
@@ -200,7 +201,6 @@ export function createTranslateLoader(http:Http) {
         SplashScreen,
         StatusBar,
         SocialSharing,
-        NativeStorage,
         InAppBrowser,
         Facebook,
         GooglePlus,

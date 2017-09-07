@@ -4,6 +4,7 @@ import { AlertController } from 'ionic-angular';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { LoginPage } from '../login/login';
 import { ListingPage } from '../listing/listing';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 @Component({
     selector: 'post-login',
@@ -14,7 +15,7 @@ export class PostLogin {
     submit_username:FormGroup;
     //@ViewChild('usernameInput') usernameInput;
 
-    constructor(public nav:NavController, private alertCtrl:AlertController) {
+    constructor(public nav:NavController, private alertCtrl:AlertController, private storage: NativeStorage) {
         this.submit_username = new FormGroup({
             username: new FormControl('', Validators.required),
         });
@@ -48,6 +49,7 @@ export class PostLogin {
                     text: 'Yes',
                     role: 'cancel',
                     handler: () => {
+                        this.storage.remove('token');
                         this.nav.setRoot(LoginPage);
                     }
                 },

@@ -10,11 +10,15 @@ import { FabContainer } from 'ionic-angular';
 import { VgAPI } from 'videogular2/core';
 import { VideoPlaylistModel } from '../video-playlist/video-playlist.model';
 
+import { FormLayoutPage } from '../form-layout/form-layout';
 import { Search } from '../search/search';
+import { LoginPage } from '../login/login';
 
+import { AlertController } from 'ionic-angular';
 import { ViewChild } from '@angular/core';
 import { Slides } from 'ionic-angular';
 import { enableInlineVideo } from 'iphone-inline-video';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 @Component({
     selector: 'listing-page',
@@ -34,9 +38,10 @@ export class ListingPage {
     @ViewChild('originalMimicSlide') originalMimicSlide:Slides;
     @ViewChild('responseMimicSlide') responseMimicSlide:Slides;
 
-    constructor(public nav:NavController,
-                public listingService:ListingService,
-                public loadingCtrl:LoadingController) {
+    constructor(public nav:NavController, private alertCtrl:AlertController,
+                public listingService:ListingService, private storage: NativeStorage,
+                public loadingCtrl:LoadingController) 
+    {
         this.loading = this.loadingCtrl.create();
         this.mainMenuOpened = false;
     }
@@ -94,7 +99,7 @@ export class ListingPage {
                 this.nav.push(Search);
                 break;
             case "add-mimic":
-                this.refresh();
+                this.nav.push(FormLayoutPage);
                 break;
         }
     }
@@ -130,6 +135,32 @@ export class ListingPage {
      */
     upvote(id) {
         alert(id);
+    }
+
+    logout()
+    {
+        //@TODO remove token
+        let alert = this.alertCtrl.create({
+            title: 'Logout',
+            message: 'Do you want to logout?',
+            buttons: [
+                {
+                    text: 'Yes',
+                    role: 'cancel',
+                    handler: () => {
+                        this.storage.remove('token');
+                        this.nav.setRoot(LoginPage);
+                    }
+                },
+                {
+                    text: 'No',
+                    handler: () => {
+                    }
+                }
+            ]
+        });
+        alert.present();
+
     }
 
     //SLIDES

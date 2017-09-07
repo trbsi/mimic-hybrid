@@ -12,6 +12,8 @@ import { FacebookLoginService } from '../facebook-login/facebook-login.service';
 import { GoogleLoginService } from '../google-login/google-login.service';
 import { TwitterLoginService } from '../twitter-login/twitter-login.service';
 
+import { NativeStorage } from '@ionic-native/native-storage';
+
 @Component({
     selector: 'login-page',
     templateUrl: 'login.html'
@@ -22,11 +24,19 @@ export class LoginPage {
     loading:any;
 
 
-    constructor(public nav:NavController,
+    constructor(public nav:NavController, private storage: NativeStorage,
                 public facebookLoginService:FacebookLoginService,
                 public googleLoginService:GoogleLoginService,
                 public twitterLoginService:TwitterLoginService,
-                public loadingCtrl:LoadingController) {
+                public loadingCtrl:LoadingController) 
+    {
+        //if loggedin then redirect to home
+        this.storage.getItem('token')
+        .then( 
+            data => { this.nav.setRoot(ListingPage) },
+            error =>{}
+        );
+
         this.main_page = {component: PostLogin};
 
         this.login = new FormGroup({
@@ -37,6 +47,13 @@ export class LoginPage {
     }
 
     doLogin() {
+        this.storage.setItem('token', {property: 'value'}).then
+        (
+            () => console.log('Stored item!'),
+            error => console.error('Error storing item', error)
+        );
+
+
         this.nav.setRoot(this.main_page.component);
     }
 

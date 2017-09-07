@@ -51,7 +51,7 @@
                                 </ion-col>
                             </ion-row>
                         </vg-controls>
-                        <video  webkit-playsinline="true" playsinline="true" #originalX [vgMedia]="originalX" class="expand-horizontally" id="player-video" preload="auto">
+                        <video webkit-playsinline playsinline #originalX [vgMedia]="originalX" class="expand-horizontally" preload="auto">
                             <source *ngFor="let video of video_playlist_model.selected_video.sources" [src]="video.src"
                                     [type]="video.type">
                         </video>
@@ -74,7 +74,7 @@
                 <div class="video-player-container">
                     <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event, 'response')">
                         <vg-buffering></vg-buffering>
-                        <!--<vg-overlay-play></vg-overlay-play>-->
+                        <vg-overlay-play></vg-overlay-play>
                         <vg-controls [vgAutohide]="false" [vgAutohideTime]="2">
                             <ion-row class="controls-row">
                                 <ion-col no-padding width-18>
@@ -88,7 +88,7 @@
                                 </ion-col>
                             </ion-row>
                         </vg-controls>
-                        <video #responseX [vgMedia]="responseX" class="expand-horizontally" id="player-video" preload="auto">
+                        <video webkit-playsinline playsinline #responseX [vgMedia]="responseX" class="expand-horizontally" preload="auto">
                             <source *ngFor="let video of video_playlist_model.selected_video.sources" [src]="video.src"
                                     [type]="video.type">
                         </video>
@@ -125,28 +125,26 @@
             <ion-icon name="add"></ion-icon>
         </button>
         <ion-fab-list side="top">
-            <!--<button ion-fab><ion-icon name="home"></ion-icon><div class="label">Home</div></button> -->
-            <!-- Home -->
-            <button ion-fab (click)="openPage('refresh', fab)">
-                <ion-icon name="refresh"></ion-icon>
-                <div class="label">Refresh</div>
+            <button ion-fab (click)="logout()">
+                <ion-icon name="log-out"></ion-icon>
+                <div class="label">Logout</div>
             </button>
-            <!-- Refresh -->
             <button ion-fab (click)="openPage('profile', fab)">
                 <ion-icon name="person"></ion-icon>
                 <div class="label">Profile</div>
             </button>
-            <!-- Profile -->
             <button ion-fab (click)="openPage('search', fab)">
                 <ion-icon name="search"></ion-icon>
                 <div class="label">Search</div>
             </button>
-            <!-- Search -->
+            <button ion-fab (click)="openPage('refresh', fab)">
+                <ion-icon name="refresh"></ion-icon>
+                <div class="label">Refresh</div>
+            </button>
             <button ion-fab (click)="openPage('add-mimic', fab)">
                 <ion-icon name="add"></ion-icon>
                 <div class="label">Add Mimic</div>
             </button>
-            <!-- Add Mimic -->
         </ion-fab-list>
     </ion-fab>
     <ion-fab bottom center style="bottom: -20px;">

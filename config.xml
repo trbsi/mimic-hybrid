@@ -123,5 +123,5 @@
         <variable name="FABRIC_KEY" value="a0fc2a9f47f38a658f2e86705afac1da2fd430a4" />
     </plugin>
     <engine name="android" spec="~6.2.3" />
-    <engine name="browser" spec="~4.1.0" />
+    <engine name="ios" spec="~4.4.0" />
 </widget>

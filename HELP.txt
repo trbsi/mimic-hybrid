@@ -31,3 +31,6 @@ https://css-tricks.com/centering-css-complete-guide/
 
 Ionic disable scroll
 https://stackoverflow.com/questions/40414795/ionic-2-ion-content-disable-scroll
+
+pass params to another page
+https://alligator.io/ionic/navigating-passing-data-ionic/

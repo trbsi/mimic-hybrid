@@ -18,24 +18,17 @@ import { NativeStorage } from '@ionic-native/native-storage';
 import { FollowersPage } from '../pages/followers/followers';
 //import { WalkthroughPage } from '../pages/walkthrough/walkthrough';
 //import { SettingsPage } from '../pages/settings/settings';
-import { SignupPage } from '../pages/signup/signup';
-import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
+//import { SignupPage } from '../pages/signup/signup';
+//import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
 import { TermsOfServicePage } from '../pages/terms-of-service/terms-of-service';
 import { PrivacyPolicyPage } from '../pages/privacy-policy/privacy-policy';
 
 import { PreloadImage } from '../components/preload-image/preload-image';
-import { BackgroundImage } from '../components/background-image/background-image';
-import { ShowHideContainer } from '../components/show-hide-password/show-hide-container';
-import { ShowHideInput } from '../components/show-hide-password/show-hide-input';
-import { ColorRadio } from '../components/color-radio/color-radio';
-import { CounterInput } from '../components/counter-input/counter-input';
-import { Rating }  from '../components/rating/rating';
+//import { ShowHideContainer } from '../components/show-hide-password/show-hide-container';
+//import { ShowHideInput } from '../components/show-hide-password/show-hide-input';
 
-import { FeedService } from '../pages/feed/feed.service';
 import { ListingService } from '../pages/listing/listing.service';
 import { ProfileService } from '../pages/profile/profile.service';
-import { NotificationsService } from '../pages/notifications/notifications.service';
-import { List1Service } from '../pages/list-1/list-1.service';
 import { FacebookLoginService } from '../pages/facebook-login/facebook-login.service';
 import { GoogleLoginService } from '../pages/google-login/google-login.service';
 import { TwitterLoginService } from '../pages/twitter-login/twitter-login.service';
@@ -50,13 +43,13 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { Keyboard } from '@ionic-native/keyboard';
-import { Geolocation } from '@ionic-native/geolocation';
+//import { Geolocation } from '@ionic-native/geolocation';
 import { TwitterConnect } from '@ionic-native/twitter-connect';
-import { AdMobFree } from '@ionic-native/admob-free';
-import { AppRate } from '@ionic-native/app-rate';
+//import { AdMobFree } from '@ionic-native/admob-free';
+//import { AppRate } from '@ionic-native/app-rate';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { Crop } from '@ionic-native/crop';
-import { EmailComposer } from '@ionic-native/email-composer';
+//import { EmailComposer } from '@ionic-native/email-composer';
 
 // Functionalities
 import { FacebookLoginPage } from '../pages/facebook-login/facebook-login';
@@ -90,17 +83,13 @@ export function createTranslateLoader(http:Http) {
         FollowersPage,
         //WalkthroughPage,
         //SettingsPage,
-        SignupPage,
-        ForgotPasswordPage,
+        //SignupPage,
+        //ForgotPasswordPage,
         TermsOfServicePage,
         PrivacyPolicyPage,
         PreloadImage,
-        BackgroundImage,
-        ShowHideContainer,
-        ShowHideInput,
-        ColorRadio,
-        CounterInput,
-        Rating,
+        //ShowHideContainer,
+        //ShowHideInput,
     ],
     imports: [
         BrowserModule,
@@ -133,8 +122,8 @@ export function createTranslateLoader(http:Http) {
         FollowersPage,
         //WalkthroughPage,
         //SettingsPage,
-        ForgotPasswordPage,
-        SignupPage,
+        //ForgotPasswordPage,
+        //SignupPage,
         TermsOfServicePage,
         PrivacyPolicyPage,
     ],
@@ -148,10 +137,7 @@ export function createTranslateLoader(http:Http) {
         LanguageService,
         NativeStorage,
 
-        FeedService,
         ListingService,
-        List1Service,
-
 
         SplashScreen,
         StatusBar,
@@ -160,13 +146,13 @@ export function createTranslateLoader(http:Http) {
         Facebook,
         GooglePlus,
         Keyboard,
-        Geolocation,
+        //Geolocation,
         TwitterConnect,
-        AdMobFree,
-        AppRate,
+        //AdMobFree,
+        //AppRate,
         ImagePicker,
         Crop,
-        EmailComposer
+        //EmailComposer
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

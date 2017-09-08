@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 
-import { TabsNavigationPage } from '../tabs-navigation/tabs-navigation';
 import { ListingPage } from '../listing/listing';
 import { PostLogin } from '../post-login/post-login';
 import { SignupPage } from '../signup/signup';

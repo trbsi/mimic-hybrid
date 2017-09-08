@@ -4,8 +4,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Observable } from 'rxjs/Observable';
 
-import { TabsNavigationPage } from '../pages/tabs-navigation/tabs-navigation';
-import { FormsPage } from '../pages/forms/forms';
 import { LayoutsPage } from '../pages/layouts/layouts';
 import { WalkthroughPage } from '../pages/walkthrough/walkthrough';
 import { SettingsPage } from '../pages/settings/settings';
@@ -57,24 +55,7 @@ export class MyApp {
                 platform.setDir('ltr', true);
                 platform.setDir('rtl', false);
             }
-            Observable.forkJoin(
-                this.translate.get('HOME'),
-                this.translate.get('FORMS'),
-                this.translate.get('FUNCTIONALITIES'),
-                this.translate.get('LAYOUTS'),
-                this.translate.get('SETTINGS')
-            ).subscribe(data => {
-                    this.pages = [
-                        {title: data[0], icon: 'home', component: TabsNavigationPage},
-                        {title: data[1], icon: 'create', component: FormsPage},
-                        {title: data[2], icon: 'code', component: FunctionalitiesPage}
-                    ];
 
-                    this.pushPages = [
-                        {title: data[3], icon: 'grid', component: LayoutsPage},
-                        {title: data[4], icon: 'settings', component: SettingsPage}
-                    ];
-                });
         });
 
     }

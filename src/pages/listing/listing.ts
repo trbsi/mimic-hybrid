@@ -137,6 +137,17 @@ export class ListingPage {
         alert(id);
     }
 
+    /**
+     * Reply to original mimic
+     * @param int id Original mimic id
+     */
+    replyToMimic(id)
+    {
+        this.nav.push(FormLayoutPage, {
+            original_mimic_id: id
+        });
+    }
+
     logout(fab:FabContainer)
     {
         this.closeFab(fab);

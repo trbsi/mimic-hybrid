@@ -45,11 +45,8 @@ import { GooglePlus } from '@ionic-native/google-plus';
 import { Keyboard } from '@ionic-native/keyboard';
 //import { Geolocation } from '@ionic-native/geolocation';
 import { TwitterConnect } from '@ionic-native/twitter-connect';
-//import { AdMobFree } from '@ionic-native/admob-free';
-//import { AppRate } from '@ionic-native/app-rate';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { Crop } from '@ionic-native/crop';
-//import { EmailComposer } from '@ionic-native/email-composer';
 
 // Functionalities
 import { FacebookLoginPage } from '../pages/facebook-login/facebook-login';
@@ -148,11 +145,8 @@ export function createTranslateLoader(http:Http) {
         Keyboard,
         //Geolocation,
         TwitterConnect,
-        //AdMobFree,
-        //AppRate,
         ImagePicker,
         Crop,
-        //EmailComposer
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -15,7 +15,7 @@ import { ProfileService } from '../profile/profile.service';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from "../../providers/language/language.service";
 import { LanguageModel } from "../../providers/language/language.model";
-import { AppRate } from '@ionic-native/app-rate';
+//import { AppRate } from '@ionic-native/app-rate';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { Crop } from '@ionic-native/crop';
 
@@ -38,7 +38,7 @@ export class SettingsPage {
                 public translate:TranslateService,
                 public languageService:LanguageService,
                 public profileService:ProfileService,
-                public appRate:AppRate,
+                //public appRate:AppRate,
                 public imagePicker:ImagePicker,
                 public cropService:Crop,
                 public platform:Platform) {
@@ -109,7 +109,7 @@ export class SettingsPage {
         this.translate.use(language_to_set);
     }
 
-    rateApp() {
+   /* rateApp() {
         this.appRate.preferences.storeAppURL = {
             ios: '<my_app_id>',
             android: 'market://details?id=<package_name>',
@@ -117,7 +117,7 @@ export class SettingsPage {
         };
 
         this.appRate.promptForRating(true);
-    }
+    }*/
 
     openImagePicker() {
         this.imagePicker.hasReadPermission().then(

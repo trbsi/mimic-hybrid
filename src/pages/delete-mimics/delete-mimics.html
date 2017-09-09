@@ -1,0 +1,59 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Delete Mimics</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+    <div style="margin-bottom: 20px;">
+        <ion-segment [(ngModel)]="oiginal_responses">
+        <ion-segment-button value="original"> 
+            Original
+        </ion-segment-button>
+        <ion-segment-button value="responses">
+            Responses
+        </ion-segment-button>
+        </ion-segment>
+    </div>
+    <div [ngSwitch]="oiginal_responses">
+        <ion-list *ngSwitchCase="'original'">
+             <p padding-horizontal>Slide to left to delete</p>
+            <ion-item-sliding (ionSwipe)="delete(1, 'original')">
+                <ion-item>
+                    <ion-avatar item-start>
+                        <img src="img/slimer.png">
+                    </ion-avatar>
+                    <h2>Slimer</h2>
+                </ion-item>
+                <ion-item-options side="right">
+                     <button ion-button color="danger" expandable (click)="delete(1, 'original')">Delete</button>
+                </ion-item-options>
+            </ion-item-sliding>
+        </ion-list>
+        <ion-list *ngSwitchCase="'responses'">
+            <p padding-horizontal>Slide to left to delete</p>
+            <ion-item-sliding (ionSwipe)="delete(1, 'response')">
+                <ion-item>
+                    <ion-avatar item-start>
+                        <img src="img/slimer.png">
+                    </ion-avatar>
+                    <h2>Slimer</h2>
+                    <p>ovo je test</p>
+                </ion-item>
+                <ion-item-options side="right">
+                     <button ion-button  color="danger" expandable (click)="delete(1, 'response')">Delete</button>
+                </ion-item-options>
+            </ion-item-sliding>
+            <ion-item-sliding (ionSwipe)="delete(1, 'response')">
+                <ion-item>
+                    <ion-avatar item-start>
+                        <img src="img/slimer.png">
+                    </ion-avatar>
+                    <h2>Slimer</h2>
+                </ion-item>
+                <ion-item-options side="right">
+                     <button ion-button color="danger" expandable (click)="delete(item)">Delete</button>
+                </ion-item-options>
+            </ion-item-sliding>
+        </ion-list>
+    </div>
+</ion-content>

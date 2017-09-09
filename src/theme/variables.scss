@@ -111,7 +111,14 @@ $ionicons-font-path: "../assets/fonts";
 $app-direction: multi; 
 
 
-//SEGMENT BUTTONS, used in form-layout.html
+//SEGMENT BUTTONS, used in form-layout.html and delete-mimics.html
 $segment-button-ios-text-color: white;
 $segment-button-ios-background-color-activated: white;
 $segment-button-ios-text-color: color($colors, mimic, base);
+
+//ITEM SLIDING used in delete-mimics-html
+$item-ios-sliding-content-background: white;
+$item-ios-paragraph-text-color: white;
+$item-ios-detail-push-color: white;
+$item-ios-divider-color: white;
+$list-ios-border-color: white;  

@@ -13,6 +13,7 @@ import { ProfilePage } from '../pages/profile/profile';
 import { SearchService } from '../pages/search/search.service';
 import { PostLogin } from '../pages/post-login/post-login';
 import { FormLayoutPage } from '../pages/form-layout/form-layout';
+import { DeleteMimics } from '../pages/delete-mimics/delete-mimics';
 import { NativeStorage } from '@ionic-native/native-storage';
 
 import { FollowersPage } from '../pages/followers/followers';
@@ -54,7 +55,7 @@ import { GoogleLoginPage } from '../pages/google-login/google-login';
 import { TwitterLoginPage } from '../pages/twitter-login/twitter-login';
 
 import { VideoPlayerModule } from '../components/video-player/video-player.module';
-//import { ValidatorsModule } from '../components/validators/validators.module';
+
 
 import { LanguageService } from '../providers/language/language.service';
 
@@ -76,6 +77,7 @@ export function createTranslateLoader(http:Http) {
         TwitterLoginPage,
         PostLogin,
         FormLayoutPage,
+        DeleteMimics,
 
         FollowersPage,
         //WalkthroughPage,
@@ -100,7 +102,6 @@ export function createTranslateLoader(http:Http) {
             }
         }),
         VideoPlayerModule,
-        //ValidatorsModule
     ],
     bootstrap: [IonicApp],
     entryComponents: [
@@ -115,6 +116,7 @@ export function createTranslateLoader(http:Http) {
         TwitterLoginPage,
         PostLogin,
         FormLayoutPage,
+        DeleteMimics,
 
         FollowersPage,
         //WalkthroughPage,

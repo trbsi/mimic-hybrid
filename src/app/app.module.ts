@@ -12,7 +12,7 @@ import { LoginPage } from '../pages/login/login';
 import { ProfilePage } from '../pages/profile/profile';
 import { SearchService } from '../pages/search/search.service';
 import { PostLogin } from '../pages/post-login/post-login';
-import { FormLayoutPage } from '../pages/form-layout/form-layout';
+import { AddMimic } from '../pages/add-mimic/add-mimic';
 import { DeleteMimics } from '../pages/delete-mimics/delete-mimics';
 import { ApiSettings } from '../components/api-settings/api-settings';
 import { NativeStorage } from '@ionic-native/native-storage';
@@ -78,7 +78,7 @@ export function createTranslateLoader(http:Http) {
         GoogleLoginPage,
         TwitterLoginPage,
         PostLogin,
-        FormLayoutPage,
+        AddMimic,
         DeleteMimics,
 
         FollowersPage,
@@ -118,7 +118,7 @@ export function createTranslateLoader(http:Http) {
         GoogleLoginPage,
         TwitterLoginPage,
         PostLogin,
-        FormLayoutPage,
+        AddMimic,
         DeleteMimics,
 
         FollowersPage,

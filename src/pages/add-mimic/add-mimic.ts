@@ -5,10 +5,10 @@ import { ImagePicker } from '@ionic-native/image-picker';
 import { Crop } from '@ionic-native/crop';
 
 @Component({
-    selector: 'form-layout-page',
-    templateUrl: 'form-layout.html'
+    selector: 'add-mimic',
+    templateUrl: 'add-mimic.html'
 })
-export class FormLayoutPage {
+export class AddMimic {
     section:string;
     post_form:any;
     selected_image:any;

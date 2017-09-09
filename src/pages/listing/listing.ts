@@ -9,7 +9,7 @@ import { FabContainer } from 'ionic-angular';
 import { VgAPI } from 'videogular2/core';
 import { VideoPlaylistModel } from '../video-playlist/video-playlist.model';
 
-import { FormLayoutPage } from '../form-layout/form-layout';
+import { AddMimic } from '../add-mimic/add-mimic';
 import { Search } from '../search/search';
 import { LoginPage } from '../login/login';
 
@@ -17,7 +17,6 @@ import { AlertController } from 'ionic-angular';
 import { ViewChild } from '@angular/core';
 import { Slides } from 'ionic-angular';
 //import { enableInlineVideo } from 'iphone-inline-video';
-import { NativeStorage } from '@ionic-native/native-storage';
 import { FacebookLoginService } from '../facebook-login/facebook-login.service';
 import { TwitterLoginService } from '../twitter-login/twitter-login.service';
 import { ApiSettings } from '../../components/api-settings/api-settings';
@@ -40,7 +39,7 @@ export class ListingPage {
     @ViewChild('originalMimicSlide') originalMimicSlide:Slides;
     @ViewChild('responseMimicSlide') responseMimicSlide:Slides;
 
-    constructor(public nav:NavController, private alertCtrl:AlertController, private storage: NativeStorage,
+    constructor(public nav:NavController, private alertCtrl:AlertController,
                 public loadingCtrl:LoadingController, public facebookLoginService:FacebookLoginService, 
                 public twitterLoginService:TwitterLoginService,
                 public apiSettings: ApiSettings) 
@@ -92,7 +91,7 @@ export class ListingPage {
                 this.nav.push(Search);
                 break;
             case "add-mimic":
-                this.nav.push(FormLayoutPage);
+                this.nav.push(AddMimic);
                 break;
         }
     }
@@ -136,7 +135,7 @@ export class ListingPage {
      */
     replyToMimic(id)
     {
-        this.nav.push(FormLayoutPage, {
+        this.nav.push(AddMimic, {
             original_mimic_id: id
         });
     }

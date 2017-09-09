@@ -38,6 +38,10 @@ listing-page {
   $categories-grid-padding: 10px;
   $categories-horizontal-list-padding: 10px;
 
+  #split-top, #split-bottom {
+    position: relative;
+  }
+
 
   div.overlay {
     background-color: rgba(0, 0, 0, 0.6);

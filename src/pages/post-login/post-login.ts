@@ -5,6 +5,9 @@ import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { LoginPage } from '../login/login';
 import { ListingPage } from '../listing/listing';
 import { NativeStorage } from '@ionic-native/native-storage';
+import { FacebookLoginService } from '../facebook-login/facebook-login.service';
+import { TwitterLoginService } from '../twitter-login/twitter-login.service';
+import { ApiSettings } from '../../components/api-settings/api-settings';
 
 @Component({
     selector: 'post-login',
@@ -15,7 +18,10 @@ export class PostLogin {
     submit_username:FormGroup;
     //@ViewChild('usernameInput') usernameInput;
 
-    constructor(public nav:NavController, private alertCtrl:AlertController, private storage: NativeStorage) {
+    constructor(public nav:NavController, private alertCtrl:AlertController, private storage: NativeStorage,
+        public facebookLoginService:FacebookLoginService, public twitterLoginService:TwitterLoginService,
+        public apiSettings: ApiSettings) 
+    {
         this.submit_username = new FormGroup({
             username: new FormControl('', Validators.required),
         });
@@ -49,7 +55,9 @@ export class PostLogin {
                     text: 'Yes',
                     role: 'cancel',
                     handler: () => {
-                        this.storage.remove('token');
+                        this.apiSettings.storageRemoveLoginData();
+                        this.facebookLoginService.doFacebookLogout();
+                        this.twitterLoginService.doTwitterLogout();
                         this.nav.setRoot(LoginPage);
                     }
                 },

@@ -1,6 +1,5 @@
 <ion-content class="login-content auth-content" no-bounce>
     <div class="split split-top split-vertical-align">
-        <form class="login-form auth-form" [formGroup]="login" (ngSubmit)="doLogin()">
             <!-- 
                 <ion-item>
                   <ion-input type="email" placeholder="Email" formControlName="email"></ion-input>
@@ -11,9 +10,8 @@
                   </ion-item>
                 </show-hide-container>
                 -->
-            <button ion-button block class="auth-action-button login-button" type="submit">{{'LOG_IN' | translate}}
+            <button ion-button block class="auth-action-button login-button" type="submit" (click)="doLogin()">{{'LOG_IN' | translate}}
             </button>
-        </form>
         <img src="assets/images/icon.png" style="max-height: 200px; max-width: 200px; margin: 0 auto;">
     </div>
         <hr class="split-line">

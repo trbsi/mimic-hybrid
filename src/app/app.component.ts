@@ -2,9 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, MenuController, Nav, App, ToastController } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-//import { Observable } from 'rxjs/Observable';
 
-//import { WalkthroughPage } from '../pages/walkthrough/walkthrough';
 import { LoginPage } from '../pages/login/login';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
@@ -16,7 +14,7 @@ export class MyApp {
 
     @ViewChild(Nav) nav:Nav;
 
-    // make WalkthroughPage the root (or first) page
+    // make Login the root (or first) page
     rootPage:any = LoginPage;
     // rootPage: any = FunctionalitiesPage;
     // rootPage: any = TabsNavigationPage;

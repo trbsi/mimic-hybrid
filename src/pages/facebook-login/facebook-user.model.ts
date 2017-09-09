@@ -2,7 +2,7 @@ export class FacebookUserModel {
     image:string;
     gender:string;
     name:string;
-    userId:string;
+    user_id:string;
     friends:Array<string> = [];
     photos:Array<string> = [];
 }

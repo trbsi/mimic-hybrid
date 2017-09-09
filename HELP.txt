@@ -37,3 +37,9 @@ https://alligator.io/ionic/navigating-passing-data-ionic/
 
 centering vertical
 https://css-tricks.com/centering-css-complete-guide/
+
+Use global constants
+https://stackoverflow.com/questions/34986922/define-global-constants-in-angular-2
+
+Add headers to request
+https://stackoverflow.com/questions/35032465/angular2-http-post-headers

@@ -8,7 +8,7 @@ import { FacebookUserModel } from './facebook-user.model';
 
 @Injectable()
 export class FacebookLoginService {
-    FB_APP_ID:number = 826720427470540;
+    FB_APP_ID:number = 770098823161620;
 
     constructor(public http:Http,
                 public nativeStorage:NativeStorage,
@@ -19,15 +19,16 @@ export class FacebookLoginService {
     doFacebookLogin() {
         return new Promise<FacebookUserModel>((resolve, reject) => {
             //["public_profile"] is the array of permissions, you can add more if you need
-            this.fb.login(["public_profile"]).then((response) => {
+            this.fb.login(["public_profile", "email"]).then((response) => {
                 //Getting name and gender properties
-                this.fb.api("/me?fields=name,gender", [])
+                this.fb.api("/me?fields=name,gender,id,first_name,last_name,picture,email", [])
                     .then((user) => {
+                        resolve(user);
                         //now we have the users info, let's save it in the NativeStorage
-                        this.setFacebookUser(user)
+                        /*this.setFacebookUser(user)
                             .then((res) => {
                                 resolve(res);
-                            });
+                            });*/
                     })
             }, (err) => {
                 reject(err);
@@ -52,13 +53,13 @@ export class FacebookLoginService {
         return this.nativeStorage.getItem('facebook_user');
     }
 
-    setFacebookUser(user:any) {
+    /*setFacebookUser(user:any) {
         return new Promise<FacebookUserModel>((resolve, reject) => {
             this.getFriendsFakeData()
                 .then(data => {
                     resolve(this.nativeStorage.setItem('facebook_user',
                             {
-                                userId: user.id,
+                                user_id: user.id,
                                 name: user.name,
                                 gender: user.gender,
                                 image: "https://graph.facebook.com/" + user.id + "/picture?type=large",
@@ -68,7 +69,7 @@ export class FacebookLoginService {
                     );
                 });
         });
-    }
+    }*/
 
     getFriendsFakeData():Promise<FacebookUserModel> {
         return this.http.get('./assets/example_data/social_integrations.json')

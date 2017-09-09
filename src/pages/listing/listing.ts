@@ -4,7 +4,6 @@ import { NavController, LoadingController } from 'ionic-angular';
 import 'rxjs/Rx';
 
 import { ListingModel } from './listing.model';
-import { ListingService } from './listing.service';
 import { ProfilePage } from '../profile/profile';
 import { FabContainer } from 'ionic-angular';
 import { VgAPI } from 'videogular2/core';
@@ -19,6 +18,9 @@ import { ViewChild } from '@angular/core';
 import { Slides } from 'ionic-angular';
 //import { enableInlineVideo } from 'iphone-inline-video';
 import { NativeStorage } from '@ionic-native/native-storage';
+import { FacebookLoginService } from '../facebook-login/facebook-login.service';
+import { TwitterLoginService } from '../twitter-login/twitter-login.service';
+import { ApiSettings } from '../../components/api-settings/api-settings';
 
 @Component({
     selector: 'listing-page',
@@ -38,9 +40,10 @@ export class ListingPage {
     @ViewChild('originalMimicSlide') originalMimicSlide:Slides;
     @ViewChild('responseMimicSlide') responseMimicSlide:Slides;
 
-    constructor(public nav:NavController, private alertCtrl:AlertController,
-                public listingService:ListingService, private storage: NativeStorage,
-                public loadingCtrl:LoadingController) 
+    constructor(public nav:NavController, private alertCtrl:AlertController, private storage: NativeStorage,
+                public loadingCtrl:LoadingController, public facebookLoginService:FacebookLoginService, 
+                public twitterLoginService:TwitterLoginService,
+                public apiSettings: ApiSettings) 
     {
         this.loading = this.loadingCtrl.create();
         this.mainMenuOpened = false;
@@ -50,16 +53,6 @@ export class ListingPage {
     ionViewDidLoad() {
         this.loading.present();
         this.loading.dismiss();
-        /*
-        this.listingService
-            .getData()
-            .then(data => {
-                this.listing.banner_image = data.banner_image;
-                this.listing.banner_title = data.banner_title;
-                this.listing.populars = data.populars;
-                this.listing.categories = data.categories;
-               
-            });*/
     }
 
     ionViewDidEnter()
@@ -160,7 +153,9 @@ export class ListingPage {
                     text: 'Yes',
                     role: 'cancel',
                     handler: () => {
-                        this.storage.remove('token');
+                        this.apiSettings.storageRemoveLoginData();
+                        this.facebookLoginService.doFacebookLogout();
+                        this.twitterLoginService.doTwitterLogout();
                         this.nav.setRoot(LoginPage);
                     }
                 },

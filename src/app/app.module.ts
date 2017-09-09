@@ -14,6 +14,7 @@ import { SearchService } from '../pages/search/search.service';
 import { PostLogin } from '../pages/post-login/post-login';
 import { FormLayoutPage } from '../pages/form-layout/form-layout';
 import { DeleteMimics } from '../pages/delete-mimics/delete-mimics';
+import { ApiSettings } from '../components/api-settings/api-settings';
 import { NativeStorage } from '@ionic-native/native-storage';
 
 import { FollowersPage } from '../pages/followers/followers';
@@ -28,15 +29,21 @@ import { PreloadImage } from '../components/preload-image/preload-image';
 //import { ShowHideContainer } from '../components/show-hide-password/show-hide-container';
 //import { ShowHideInput } from '../components/show-hide-password/show-hide-input';
 
+//USING SERVICES
 import { ListingService } from '../pages/listing/listing.service';
 import { ProfileService } from '../pages/profile/profile.service';
 import { FacebookLoginService } from '../pages/facebook-login/facebook-login.service';
 import { GoogleLoginService } from '../pages/google-login/google-login.service';
 import { TwitterLoginService } from '../pages/twitter-login/twitter-login.service';
+import { LanguageService } from '../providers/language/language.service';
+import { LoginService } from '../pages/login/login.service';
 
+//USING MODULE
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
+import { VideoPlayerModule } from '../components/video-player/video-player.module';
 
+//OTHER
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SocialSharing } from '@ionic-native/social-sharing';
@@ -49,15 +56,10 @@ import { TwitterConnect } from '@ionic-native/twitter-connect';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { Crop } from '@ionic-native/crop';
 
-// Functionalities
+//Functionalities
 import { FacebookLoginPage } from '../pages/facebook-login/facebook-login';
 import { GoogleLoginPage } from '../pages/google-login/google-login';
 import { TwitterLoginPage } from '../pages/twitter-login/twitter-login';
-
-import { VideoPlayerModule } from '../components/video-player/video-player.module';
-
-
-import { LanguageService } from '../providers/language/language.service';
 
 export function createTranslateLoader(http:Http) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -102,6 +104,7 @@ export function createTranslateLoader(http:Http) {
             }
         }),
         VideoPlayerModule,
+        ApiSettings,
     ],
     bootstrap: [IonicApp],
     entryComponents: [
@@ -135,8 +138,7 @@ export function createTranslateLoader(http:Http) {
         TwitterLoginService,
         LanguageService,
         NativeStorage,
-
-        ListingService,
+        LoginService,
 
         SplashScreen,
         StatusBar,

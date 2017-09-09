@@ -23,10 +23,7 @@ export class FormLayoutPage {
         this.record_upload = 'record';
 
         this.post_form = new FormGroup({
-            title: new FormControl('', Validators.required),
-            description: new FormControl('', Validators.required),
-            time: new FormControl('01:30', Validators.required),
-            temperature: new FormControl(180)
+            hashtags: new FormControl('', Validators.required)
         });
 
     }

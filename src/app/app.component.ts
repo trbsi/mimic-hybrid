@@ -2,12 +2,9 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, MenuController, Nav, App, ToastController } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-import { Observable } from 'rxjs/Observable';
+//import { Observable } from 'rxjs/Observable';
 
-import { LayoutsPage } from '../pages/layouts/layouts';
-import { WalkthroughPage } from '../pages/walkthrough/walkthrough';
-import { SettingsPage } from '../pages/settings/settings';
-import { FunctionalitiesPage } from '../pages/functionalities/functionalities';
+//import { WalkthroughPage } from '../pages/walkthrough/walkthrough';
 import { LoginPage } from '../pages/login/login';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 

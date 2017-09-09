@@ -35,7 +35,7 @@
                     <preload-image *ngIf="selected_image" [ratio]="{w:1, h:1}" [src]="selected_image"
                     alt="this is the image" title="IMAGE!"></preload-image>
                     <ion-item>
-                        <ion-input type="text" placeholder="Hashtags" formControlName="title"></ion-input>
+                        <ion-input type="text" placeholder="Hashtags" formControlName="hashtags"></ion-input>
                     </ion-item>
                     <button ion-button block large style="margin-top: 15%" type="submit" [disabled]="!post_form.valid">Go on</button>
                 </section>

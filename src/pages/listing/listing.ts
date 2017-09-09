@@ -17,7 +17,7 @@ import { LoginPage } from '../login/login';
 import { AlertController } from 'ionic-angular';
 import { ViewChild } from '@angular/core';
 import { Slides } from 'ionic-angular';
-import { enableInlineVideo } from 'iphone-inline-video';
+//import { enableInlineVideo } from 'iphone-inline-video';
 import { NativeStorage } from '@ionic-native/native-storage';
 
 @Component({

@@ -54,7 +54,7 @@ import { GoogleLoginPage } from '../pages/google-login/google-login';
 import { TwitterLoginPage } from '../pages/twitter-login/twitter-login';
 
 import { VideoPlayerModule } from '../components/video-player/video-player.module';
-import { ValidatorsModule } from '../components/validators/validators.module';
+//import { ValidatorsModule } from '../components/validators/validators.module';
 
 import { LanguageService } from '../providers/language/language.service';
 
@@ -100,7 +100,7 @@ export function createTranslateLoader(http:Http) {
             }
         }),
         VideoPlayerModule,
-        ValidatorsModule
+        //ValidatorsModule
     ],
     bootstrap: [IonicApp],
     entryComponents: [

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, SegmentButton, AlertController } from 'ionic-angular';
+import { NavController, SegmentButton, AlertController, NavParams } from 'ionic-angular';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { Crop } from '@ionic-native/crop';
@@ -14,7 +14,7 @@ export class FormLayoutPage {
     selected_image:any;
     record_upload:any;
 
-    constructor(public nav:NavController,
+    constructor(public nav:NavController, public navParams:NavParams,
                 public alertCtrl:AlertController,
                 public cropService:Crop,
                 public imagePicker:ImagePicker) {
@@ -25,6 +25,8 @@ export class FormLayoutPage {
         this.post_form = new FormGroup({
             hashtags: new FormControl('', Validators.required)
         });
+
+        console.log( this.navParams.get('original_mimic_id'));
 
     }
 

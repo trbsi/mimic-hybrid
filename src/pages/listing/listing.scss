@@ -38,9 +38,6 @@ listing-page {
   $categories-grid-padding: 10px;
   $categories-horizontal-list-padding: 10px;
 
-  #split-top, #split-bottom {
-    position: relative;
-  }
 
   div.overlay {
     background-color: rgba(0, 0, 0, 0.6);
@@ -152,14 +149,21 @@ listing-page {
 
 
   //------SLIDES-------
-  .top-slides {
+  //make slide image full width
+  .swiper-slide img
+  {
+    width: 100%;
+  }
+
+  .top-slides 
+  {
+    
     //stick my slide to the bottom of split sreen
-    .slide-zoom {
-      position: absolute;
-      bottom: -1px;
-      left: 0;
-      right: 0;
-      margin: 0 auto;
+    ion-slide
+    {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
     }
 
     //my slide needs to stick to the bottom of split screen, this was getting in my way
@@ -170,12 +174,11 @@ listing-page {
 
   .bottom-slides {
     //stik my slide to top of split sreen
-    .slide-zoom {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      margin: 0 auto;
+    ion-slide
+    {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
     }
   }
   //------SLIDES-------

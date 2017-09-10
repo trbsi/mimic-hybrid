@@ -14,11 +14,12 @@ export class ApiSettings {
     }
 
 
-	createHeaders(headers:Headers) {
+	createHeaders(headers:Headers) 
+  {
     this.storage.getItem('token')
     .then(
-      (token) => { console.log('Bearer ' + token);
-        headers.append('Authorization', 'Bearer ' + token); 
+      (token) => {
+        headers.append('Authorization', 'Bearer '+token); 
       },
       (error) => console.error(error)
     );
@@ -46,7 +47,6 @@ export class ApiSettings {
 		var headers = new Headers();
 		this.createHeaders(headers);
     let options = new RequestOptions({ headers: headers });
-     headers.append('Authorization', 'Bearer sdfsdfsdfdsfdfd'); 
 		return this.http.post(ApiSettings.API_ENDPOINT+url, postData, options)
 	    .toPromise()
 	    .then(response => response.json())

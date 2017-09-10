@@ -51,8 +51,8 @@ export class PostLogin {
         .catch((error) => {
             console.log(error);
              let alert = this.alertCtrl.create({
-                title: 'Low battery',
-                subTitle: '10% of battery remaining',
+                title: 'There was a problem',
+                subTitle: error.error.message,
                 buttons: ['Ok']
               });
               alert.present();

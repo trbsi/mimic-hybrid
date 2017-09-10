@@ -26,32 +26,37 @@ export class LoginPage {
                 public loadingCtrl:LoadingController,
                 public apiSettings:ApiSettings) 
     {
+        this.redirectUserToTheRightPage();
+        this.main_page = {component: PostLogin};
+    }
+
+    /**
+     * Redirect user to mimics page or post login page
+     */
+    private redirectUserToTheRightPage()
+    {
         //see if user is loggedin, if he is check if he set username
         this.storage.getItem('token')
-            .then(data => {
+            .then((data) => {
                 //if he has username you can redirect to main screen
-                this.storage.getItem('username').then(
-                        data => {
-                        //username not set, redirect to post login
-                        if (data == false || data == null) {
-                            this.nav.setRoot(PostLogin);
-                        } else {
-                            this.nav.setRoot(ListingPage);
-                        }
-
-                    },
-                        error => {
+                this.storage.getItem('username').then((data) => 
+                {
+                    //username not set, redirect to post login
+                    if (data == false || data == null) {
                         this.nav.setRoot(PostLogin);
+                    } else {
+                        this.nav.setRoot(ListingPage);
                     }
-                );
+
+                },(error) => {
+                    this.nav.setRoot(PostLogin);
+                });
 
             },
                 error => {
                 console.log(error);
             }
         );
-
-        this.main_page = {component: PostLogin};
     }
 
     //@TODO - not necessary, just for testing
@@ -78,13 +83,14 @@ export class LoginPage {
             .then((res) => {
                 //send request to server
                 this.login_service.loginOnServer(res, 'facebook')
-                    .then(response => {
-                        this.apiSettings.storageSetLoginData(response); 
-                        this.nav.setRoot(this.main_page.component);
-                    })
-                    .catch(error => {
-                        console.log("FB login error", error);
-                    });
+                .then(response => {
+                    this.apiSettings.storageSetLoginData(response).then(() => {
+                        this.redirectUserToTheRightPage();
+                    }); 
+                })
+                .catch(error => {
+                    console.log("FB login error", error);
+                });
 
                 this.loading.dismiss();
             }, (err) => {
@@ -122,8 +128,9 @@ export class LoginPage {
                 //send request to server
                 this.login_service.loginOnServer(res, 'twitter')
                     .then((response) => {
-                        this.apiSettings.storageSetLoginData(response);
-                        this.nav.setRoot(this.main_page.component);
+                        this.apiSettings.storageSetLoginData(response).then(() => {
+                            this.redirectUserToTheRightPage();
+                        });
                     })
                     .catch(error => {
                         console.log("FB login error", error);

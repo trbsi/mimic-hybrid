@@ -114,24 +114,27 @@ export class ApiSettings {
      * @param any loginData Data consists of user_id, token and suername
      */
     storageSetLoginData(loginData) {
-        this.storage.setItem('token', loginData.token).then
-        (
-            () => console.log('Stored item!'),
-            error => console.error('Error storing item', error)
+        return this.storage.setItem('token', loginData.token)
+        .then(
+            () => {
+                console.log('Token set');
+                return this.storage.setItem('username', loginData.username)
+                .then(
+                    () => {
+                        console.log('Username set!');
+                        return this.storage.setItem('user_id', loginData.user_id)
+                        .then(
+                            () => {
+                                console.log('User ID set!')
+                            },
+                            error => console.error('Error storing ser ID', error)
+                        );
+                    },
+                    error => console.error('Error storing username', error)
+                );
+            },
+            error => console.error('Error storing token', error)
         );
-
-        this.storage.setItem('username', loginData.username).then
-        (
-            () => console.log('Stored item!'),
-            error => console.error('Error storing item', error)
-        );
-
-        this.storage.setItem('user_id', loginData.user_id).then
-        (
-            () => console.log('Stored item!'),
-            error => console.error('Error storing item', error)
-        );
-
     }
 
     storageRemoveLoginData() {

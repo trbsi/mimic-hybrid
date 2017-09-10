@@ -27,7 +27,6 @@ export class PostLogin {
                 public apiSettings:ApiSettings,
                 private storage:NativeStorage) 
     {
-
         this.submit_username = new FormGroup({ 
             username: new FormControl('', Validators.required),
         });

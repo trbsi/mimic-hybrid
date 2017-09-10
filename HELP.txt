@@ -9,7 +9,7 @@ cordova plugin add cordova-plugin-inappbrowser
 cordova plugin rm cordova-plugin-inappbrowser
 
 Add floating button label
-https://github.com/ionic-team/ionic/issues/8425
+https://github.com/ionic-team/ionic/issues/8425#issuecomment-261790685
 
 Ion icons
 https://ionicframework.com/docs/ionicons/

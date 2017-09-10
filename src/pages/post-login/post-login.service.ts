@@ -14,10 +14,10 @@ export class PostLoginService {
      * Set username
      * @param object data Facebook or twitter data
      */
-    setUsername(data)
+    setUsername(username)
     {
         var postData = {};
-        postData['username'] = data.username;
+        postData['username'] = username;
         return this.apiSettings.post(postData, 'set-username'); 
     }
 }

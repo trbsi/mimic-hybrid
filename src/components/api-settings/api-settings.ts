@@ -16,14 +16,7 @@ export class ApiSettings {
 
 	createHeaders(headers:Headers) 
   {
-    this.storage.getItem('token')
-    .then(
-      (token) => {
-        headers.append('Authorization', 'Bearer '+token); 
-      },
-      (error) => console.error(error)
-    );
-		  
+   
     headers.append('AllowEntry', btoa(this.allow_entry)); 
 
     headers.append('Content-Type', 'application/json');
@@ -44,14 +37,37 @@ export class ApiSettings {
   	 */
 	post(postData, url)
 	{
-		var headers = new Headers();
-		this.createHeaders(headers);
-    let options = new RequestOptions({ headers: headers });
-		return this.http.post(ApiSettings.API_ENDPOINT+url, postData, options)
-	    .toPromise()
-	    .then(response => response.json())
-	    .catch(this.handleError);
+    var headers = new Headers();
+    this.storage.getItem('token')
+    .then(
+      (token) => {
+        headers.append('Authorization', 'Bearer '+token); 
+        this.doPost(postData, url, headers);
+      },
+      //couldn't find token, do normal post
+      (error) => {
+        this.doPost(postData, url, headers);
+
+      }  
+
+    );
 	}
+
+  /**
+   * This is where you send request to a server
+  * @param any postData Data to post to the server
+  * @param string url Url to post to
+   * @param Headers headers What headers to include
+   */
+  private doPost(postData, url, headers)
+  {
+    this.createHeaders(headers);
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(ApiSettings.API_ENDPOINT+url, postData, options)
+      .toPromise()
+      .then(response => response.json())
+      .catch(this.handleError);
+  }
 
 	/**
      * put login data into a storage

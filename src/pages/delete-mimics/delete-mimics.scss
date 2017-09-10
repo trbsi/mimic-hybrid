@@ -1,18 +1,16 @@
 delete-mimics {
-  		
-  	p {
-  		color: white;
-  	}
 
-  	ion-item-sliding
-  	{
+  p {
+    color: white;
+  }
 
-		.item, .item-block, .item-ios
-		{
-			background-color: color($colors, mimic, base);
-			color: white;
-		}
+  ion-item-sliding {
 
-  	}
-	
+    .item, .item-block, .item-ios {
+      background-color: color($colors, mimic, base);
+      color: white;
+    }
+
+  }
+
 }

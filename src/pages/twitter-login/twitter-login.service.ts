@@ -19,11 +19,11 @@ export class TwitterLoginService {
             this.twitter.login().then((resp) => {
                 //Getting user data
                 this.twitter.showUser().then((user) => {
-                    resolve(user); 
+                    resolve(user);
                     //now we have the users info, let's save it in the NativeStorage
                     /*this.setTwitterUser(user).then((res) => {
-                        
-                    });*/
+
+                     });*/
                 });
             }, (error) => {
                 reject(error);

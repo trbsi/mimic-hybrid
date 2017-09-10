@@ -40,10 +40,9 @@ export class ListingPage {
     @ViewChild('responseMimicSlide') responseMimicSlide:Slides;
 
     constructor(public nav:NavController, private alertCtrl:AlertController,
-                public loadingCtrl:LoadingController, public facebookLoginService:FacebookLoginService, 
+                public loadingCtrl:LoadingController, public facebookLoginService:FacebookLoginService,
                 public twitterLoginService:TwitterLoginService,
-                public apiSettings: ApiSettings) 
-    {
+                public apiSettings:ApiSettings) {
         this.loading = this.loadingCtrl.create();
         this.mainMenuOpened = false;
     }
@@ -54,8 +53,7 @@ export class ListingPage {
         this.loading.dismiss();
     }
 
-    ionViewDidEnter()
-    {
+    ionViewDidEnter() {
         //calclate mimic info position
         document.getElementById('mimic-info-top').style.top = this.calculateMimicInfoPosition('top') - 10 + "px";
         document.getElementById('mimic-info-bottom').style.bottom = this.calculateMimicInfoPosition('bottom') + 10 + "px";
@@ -65,9 +63,8 @@ export class ListingPage {
      * Dynamically calculate mimic info position
      * @param string type "top" or "bottom"
      */
-    calculateMimicInfoPosition(type)
-    {
-        return document.getElementById('split-'+type).clientHeight - document.getElementsByClassName('slide-zoom')[0].clientHeight - document.getElementById('mimic-info-'+type).clientHeight;
+    calculateMimicInfoPosition(type) {
+        return document.getElementById('split-' + type).clientHeight - document.getElementsByClassName('slide-zoom')[0].clientHeight - document.getElementById('mimic-info-' + type).clientHeight;
     }
 
 
@@ -133,15 +130,13 @@ export class ListingPage {
      * Reply to original mimic
      * @param int id Original mimic id
      */
-    replyToMimic(id)
-    {
+    replyToMimic(id) {
         this.nav.push(AddMimic, {
             original_mimic_id: id
         });
     }
 
-    logout(fab:FabContainer)
-    {
+    logout(fab:FabContainer) {
         this.closeFab(fab);
         //@TODO remove token
         let alert = this.alertCtrl.create({

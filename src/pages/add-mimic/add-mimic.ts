@@ -26,7 +26,7 @@ export class AddMimic {
             hashtags: new FormControl('', Validators.required)
         });
 
-        console.log( this.navParams.get('original_mimic_id'));
+        console.log(this.navParams.get('original_mimic_id'));
 
     }
 

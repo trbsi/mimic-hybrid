@@ -84,8 +84,7 @@ export class ProfilePage {
     }
 
 
-    deleteMimics()
-    {
+    deleteMimics() {
         this.app.getRootNav().push(DeleteMimics);
     }
 }

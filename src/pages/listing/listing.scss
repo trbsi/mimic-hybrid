@@ -31,6 +31,7 @@ $playlist-item-play-icon-height: 3rem;
     border-radius: 50%;
   }
 }
+
 //VIDEO
 
 listing-page {
@@ -41,7 +42,6 @@ listing-page {
   #split-top, #split-bottom {
     position: relative;
   }
-
 
   div.overlay {
     background-color: rgba(0, 0, 0, 0.6);
@@ -133,13 +133,12 @@ listing-page {
   }
 
   .mimic-info {
-      //this is the whole upvote button
-     .item-button {
-        height: auto;
-     }
+    //this is the whole upvote button
+    .item-button {
+      height: auto;
+    }
   }
   //-----mimic info style-----
-
 
   //-----upvote button area-----
   .item-ios .item-button {
@@ -151,20 +150,16 @@ listing-page {
   }
   //-----upvote button area-----
 
-
   //------SLIDES-------
   //make slide image full width
-  .swiper-slide img
-  {
+  .swiper-slide img {
     width: 100%;
   }
 
-  .top-slides 
-  {
-    
+  .top-slides {
+
     //stick my slide to the bottom of split sreen
-    ion-slide
-    {
+    ion-slide {
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
@@ -178,8 +173,7 @@ listing-page {
 
   .bottom-slides {
     //stik my slide to top of split sreen
-    ion-slide
-    {
+    ion-slide {
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
@@ -187,20 +181,18 @@ listing-page {
   }
   //------SLIDES-------
 
-
   //VIDEOS
   //hide native play button
   .IIV::-webkit-media-controls-play-button,
   .IIV::-webkit-media-controls-start-playback-button {
-     opacity: 0;
-     pointer-events: none;
-     width: 5px;
+    opacity: 0;
+    pointer-events: none;
+    width: 5px;
   }
   //hide native play button
   video::-webkit-media-controls {
-    display:none !important;
+    display: none !important;
   }
-
 
   .video-player-container {
     // Most videos come in 16:9 aspect ratio

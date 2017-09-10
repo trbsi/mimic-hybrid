@@ -109,15 +109,15 @@ export class SettingsPage {
         this.translate.use(language_to_set);
     }
 
-   /* rateApp() {
-        this.appRate.preferences.storeAppURL = {
-            ios: '<my_app_id>',
-            android: 'market://details?id=<package_name>',
-            windows: 'ms-windows-store://review/?ProductId=<Store_ID>'
-        };
+    /* rateApp() {
+     this.appRate.preferences.storeAppURL = {
+     ios: '<my_app_id>',
+     android: 'market://details?id=<package_name>',
+     windows: 'ms-windows-store://review/?ProductId=<Store_ID>'
+     };
 
-        this.appRate.promptForRating(true);
-    }*/
+     this.appRate.promptForRating(true);
+     }*/
 
     openImagePicker() {
         this.imagePicker.hasReadPermission().then(

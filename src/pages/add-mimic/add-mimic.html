@@ -6,39 +6,41 @@
 <ion-content class="forms-examples-content">
     <div>
         <ion-segment [(ngModel)]="record_upload">
-        <ion-segment-button value="record">
-            Record
-        </ion-segment-button>
-        <ion-segment-button value="upload">
-            Upload
-        </ion-segment-button>
+            <ion-segment-button value="record">
+                Record
+            </ion-segment-button>
+            <ion-segment-button value="upload">
+                Upload
+            </ion-segment-button>
         </ion-segment>
     </div>
     <div [ngSwitch]="record_upload">
         <div padding *ngSwitchCase="'record'">
-                sdfsdfsdfsdf
+            sdfsdfsdfsdf
         </div>
         <div class="forms-wrapper" *ngSwitchCase="'upload'">
             <div class="post-example-view">
                 <form class="sample-form post-form" [formGroup]="post_form" (ngSubmit)="createPost()">
-                <section class="form-section">
-                    <button *ngIf="!selected_image" ion-button block large class="upload-image-button"
-                    (click)="openImagePicker()">
-                    <ion-icon name="camera"></ion-icon>
-                    <h3 class="button-title">{{'UPLOAD_AN_IMAGE' | translate}}</h3>
-                    </button>
-                    <button *ngIf="!selected_image" ion-button block large class="upload-image-button"
-                    (click)="openImagePicker()">
-                    <ion-icon name="videocam"></ion-icon>
-                    <h3 class="button-title">Upload a video</h3>
-                    </button>
-                    <preload-image *ngIf="selected_image" [ratio]="{w:1, h:1}" [src]="selected_image"
-                    alt="this is the image" title="IMAGE!"></preload-image>
-                    <ion-item>
-                        <ion-input type="text" placeholder="Hashtags" formControlName="hashtags"></ion-input>
-                    </ion-item>
-                    <button ion-button block large style="margin-top: 15%" type="submit" [disabled]="!post_form.valid">Go on</button>
-                </section>
+                    <section class="form-section">
+                        <button *ngIf="!selected_image" ion-button block large class="upload-image-button"
+                                (click)="openImagePicker()">
+                            <ion-icon name="camera"></ion-icon>
+                            <h3 class="button-title">{{'UPLOAD_AN_IMAGE' | translate}}</h3>
+                        </button>
+                        <button *ngIf="!selected_image" ion-button block large class="upload-image-button"
+                                (click)="openImagePicker()">
+                            <ion-icon name="videocam"></ion-icon>
+                            <h3 class="button-title">Upload a video</h3>
+                        </button>
+                        <preload-image *ngIf="selected_image" [ratio]="{w:1, h:1}" [src]="selected_image"
+                                       alt="this is the image" title="IMAGE!"></preload-image>
+                        <ion-item>
+                            <ion-input type="text" placeholder="Hashtags" formControlName="hashtags"></ion-input>
+                        </ion-item>
+                        <button ion-button block large style="margin-top: 15%" type="submit"
+                                [disabled]="!post_form.valid">Go on
+                        </button>
+                    </section>
                 </form>
             </div>
         </div>

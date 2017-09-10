@@ -5,8 +5,7 @@ import { ApiSettings } from '../../components/api-settings/api-settings';
 @Injectable()
 export class PostLoginService {
 
-    constructor(public apiSettings: ApiSettings) 
-    {
+    constructor(public apiSettings:ApiSettings) {
     }
 
 
@@ -14,10 +13,9 @@ export class PostLoginService {
      * Set username
      * @param object data Facebook or twitter data
      */
-    setUsername(username)
-    {
+    setUsername(username) {
         var postData = {};
         postData['username'] = username;
-        return this.apiSettings.post(postData, 'set-username'); 
+        return this.apiSettings.post(postData, 'set-username');
     }
 }

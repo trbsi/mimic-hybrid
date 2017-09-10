@@ -18,13 +18,12 @@ export class PostLogin {
     submit_username:FormGroup;
     //@ViewChild('usernameInput') usernameInput;
 
-    constructor(public nav:NavController, 
-        private alertCtrl:AlertController,
-        public facebookLoginService:FacebookLoginService, 
-        public twitterLoginService:TwitterLoginService,
-        public postLoginService:PostLoginService,
-        public apiSettings: ApiSettings) 
-    {
+    constructor(public nav:NavController,
+                private alertCtrl:AlertController,
+                public facebookLoginService:FacebookLoginService,
+                public twitterLoginService:TwitterLoginService,
+                public postLoginService:PostLoginService,
+                public apiSettings:ApiSettings) {
         this.submit_username = new FormGroup({
             username: new FormControl('', Validators.required),
         });
@@ -34,8 +33,8 @@ export class PostLogin {
     ionViewDidLoad() {
 
         /*setTimeout(() => {
-            this.usernameInput.setFocus();
-        }, 1000);*/
+         this.usernameInput.setFocus();
+         }, 1000);*/
 
     }
 
@@ -43,21 +42,21 @@ export class PostLogin {
      * Submit username
      */
     submitUsername() {
-        console.log(this.submit_username.value.username); 
+        console.log(this.submit_username.value.username);
         this.postLoginService.setUsername(this.submit_username.value.username)
-        .then((res) => {
-            console.log(res);
-        })
-        .catch((error) => {
-            console.log(error);
-             let alert = this.alertCtrl.create({
-                title: 'There was a problem',
-                subTitle: error.error.message,
-                buttons: ['Ok']
-              });
-              alert.present();
-        });
-       // this.nav.setRoot(ListingPage);
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((error) => {
+                console.log(error);
+                let alert = this.alertCtrl.create({
+                    title: 'There was a problem',
+                    subTitle: error.error.message,
+                    buttons: ['Ok']
+                });
+                alert.present();
+            });
+        // this.nav.setRoot(ListingPage);
     }
 
     /**

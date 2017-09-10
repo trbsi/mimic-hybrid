@@ -26,7 +26,6 @@ $theme-color-1: #f9c21e;
 $theme-color-2: #f9c21e;
 $theme-color-3: #f9c21e;
 
-
 // Named Color Variables
 // --------------------------------------------------
 // Named colors makes it easy to reuse colors on various components.
@@ -109,8 +108,7 @@ $colors: (
 
 $ionicons-font-path: "../assets/fonts";
 @import "ionic.ionicons";
-$app-direction: multi; 
-
+$app-direction: multi;
 
 //SEGMENT BUTTONS, used in add-mimic.html and delete-mimics.html
 $segment-button-ios-text-color: white;

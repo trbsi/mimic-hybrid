@@ -26,9 +26,9 @@ export class FacebookLoginService {
                         resolve(user);
                         //now we have the users info, let's save it in the NativeStorage
                         /*this.setFacebookUser(user)
-                            .then((res) => {
-                                resolve(res);
-                            });*/
+                         .then((res) => {
+                         resolve(res);
+                         });*/
                     })
             }, (err) => {
                 reject(err);
@@ -54,22 +54,22 @@ export class FacebookLoginService {
     }
 
     /*setFacebookUser(user:any) {
-        return new Promise<FacebookUserModel>((resolve, reject) => {
-            this.getFriendsFakeData()
-                .then(data => {
-                    resolve(this.nativeStorage.setItem('facebook_user',
-                            {
-                                user_id: user.id,
-                                name: user.name,
-                                gender: user.gender,
-                                image: "https://graph.facebook.com/" + user.id + "/picture?type=large",
-                                friends: data.friends,
-                                photos: data.photos
-                            })
-                    );
-                });
-        });
-    }*/
+     return new Promise<FacebookUserModel>((resolve, reject) => {
+     this.getFriendsFakeData()
+     .then(data => {
+     resolve(this.nativeStorage.setItem('facebook_user',
+     {
+     user_id: user.id,
+     name: user.name,
+     gender: user.gender,
+     image: "https://graph.facebook.com/" + user.id + "/picture?type=large",
+     friends: data.friends,
+     photos: data.photos
+     })
+     );
+     });
+     });
+     }*/
 
     getFriendsFakeData():Promise<FacebookUserModel> {
         return this.http.get('./assets/example_data/social_integrations.json')

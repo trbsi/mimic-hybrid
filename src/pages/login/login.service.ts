@@ -6,8 +6,7 @@ import { ApiSettings } from '../../components/api-settings/api-settings';
 @Injectable()
 export class LoginService {
 
-    constructor(public apiSettings: ApiSettings) 
-    {
+    constructor(public apiSettings:ApiSettings) {
     }
 
 
@@ -16,8 +15,7 @@ export class LoginService {
      * @param object data Facebook or twitter data
      * @param string provider "faebook" or "twitter"
      */
-    loginOnServer(data, provider)
-    {
+    loginOnServer(data, provider) {
         var postData = {};
         postData['provider'] = provider;
         postData['provider_data'] = data;

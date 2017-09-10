@@ -6,10 +6,10 @@ import { NavParams } from 'ionic-angular';
     templateUrl: 'delete-mimics.html'
 })
 export class DeleteMimics {
-	oiginal_responses: any;
+    oiginal_responses:any;
 
     constructor(public navParams:NavParams) {
-    	this.oiginal_responses = 'original';
+        this.oiginal_responses = 'original';
     }
 
     /**
@@ -17,9 +17,8 @@ export class DeleteMimics {
      * @param int id Id of a mimi to dlete
      * @param string type Mimi type: original or response
      */
-    delete(id, type)
-    {	
-    	alert(type);
+    delete(id, type) {
+        alert(type);
 
     }
 }

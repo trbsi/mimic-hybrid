@@ -13,10 +13,10 @@
     -->
 <ion-content class="listing-content" no-bounce>
     <div class="overlay" *ngIf="mainMenuOpened"></div>
-    <div class="split" id="split-top"> 
-        <!-- MIMIC INFO -->  
+    <div class="split" id="split-top">
+        <!-- MIMIC INFO -->
         <ion-list class="mimic-info" id="mimic-info-top" #topMimicInfo>
-            <ion-item> 
+            <ion-item>
                 <ion-avatar item-start (click)="openUserProfile(1)">
                     <img src="http://i.dailymail.co.uk/i/pix/2016/05/23/22/348B850600000578-3605456-image-m-32_1464040491071.jpg">
                 </ion-avatar>
@@ -51,7 +51,8 @@
                                 </ion-col>
                             </ion-row>
                         </vg-controls>
-                        <video webkit-playsinline playsinline #originalX [vgMedia]="originalX" id="originalX" class="expand-horizontally" preload="auto">
+                        <video webkit-playsinline playsinline #originalX [vgMedia]="originalX" id="originalX"
+                               class="expand-horizontally" preload="auto">
                             <source *ngFor="let video of video_playlist_model.selected_video.sources" [src]="video.src"
                                     [type]="video.type">
                         </video>
@@ -69,7 +70,7 @@
     </div>
     <div class="split" id="split-bottom">
         <!-- MIMIC SLIDES -->
-        <ion-slides #responseMimicSlide  class="bottom-slides" (ionSlideDidChange)="slideChanged('response')">
+        <ion-slides #responseMimicSlide class="bottom-slides" (ionSlideDidChange)="slideChanged('response')">
             <ion-slide>
                 <div class="video-player-container">
                     <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event, 'response')">
@@ -88,7 +89,8 @@
                                 </ion-col>
                             </ion-row>
                         </vg-controls>
-                        <video webkit-playsinline playsinline #responseX [vgMedia]="responseX" id="responseX" class="expand-horizontally" preload="auto">
+                        <video webkit-playsinline playsinline #responseX [vgMedia]="responseX" id="responseX"
+                               class="expand-horizontally" preload="auto">
                             <source *ngFor="let video of video_playlist_model.selected_video.sources" [src]="video.src"
                                     [type]="video.type">
                         </video>
@@ -104,7 +106,7 @@
         </ion-slides>
         <!-- MIMIC SLIDES -->
 
-        
+
         <!-- MIMIC INFO -->
         <ion-list class="mimic-info" id="mimic-info-bottom">
             <ion-item>

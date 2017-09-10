@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import { NativeStorage } from '@ionic-native/native-storage';
 
 @NgModule()
@@ -13,14 +13,22 @@ export class ApiSettings {
 
     }
 
-	createAuthorizationHeader(headers:Headers) {
-		headers.append('Authorization', 'Bearer ' +btoa('a20e6aca-ee83-44bc-8033-b41f3078c2b6:c199f9c8-0548-4be79655-7ef7d7bf9d20')); 
+
+	createHeaders(headers:Headers) {
+    this.storage.getItem('token')
+    .then(
+      (token) => { console.log('Bearer ' + token);
+        headers.append('Authorization', 'Bearer ' + token); 
+      },
+      (error) => console.error(error)
+    );
+		  
+    headers.append('AllowEntry', btoa(this.allow_entry)); 
+
+    headers.append('Content-Type', 'application/json');
+
 	}
-  
-	createEntryHeader(headers:Headers) {
-		headers.append('AllowEntry', btoa(this.allow_entry)); 
-	}
-  	
+
 
     private handleError(error:any):Promise<any> 
     {
@@ -36,13 +44,10 @@ export class ApiSettings {
 	post(postData, url)
 	{
 		var headers = new Headers();
-		this.createAuthorizationHeader(headers);
-		this.createEntryHeader(headers);
-		headers.append('Content-Type', 'application/json');
-
-		return this.http.post(ApiSettings.API_ENDPOINT+url, postData, {
-	    	headers: headers
-	  	})
+		this.createHeaders(headers);
+    let options = new RequestOptions({ headers: headers });
+     headers.append('Authorization', 'Bearer sdfsdfsdfdsfdfd'); 
+		return this.http.post(ApiSettings.API_ENDPOINT+url, postData, options)
 	    .toPromise()
 	    .then(response => response.json())
 	    .catch(this.handleError);

@@ -1,10 +1,9 @@
 import { Injectable } from "@angular/core";
-
 import 'rxjs/add/operator/toPromise';
 import { ApiSettings } from '../../components/api-settings/api-settings';
 
 @Injectable()
-export class LoginService {
+export class PostLoginService {
 
     constructor(public apiSettings: ApiSettings) 
     {
@@ -12,15 +11,13 @@ export class LoginService {
 
 
     /**
-     * Login on server and get back response
+     * Set username
      * @param object data Facebook or twitter data
-     * @param string provider "faebook" or "twitter"
      */
-    loginOnServer(data, provider)
+    setUsername(data)
     {
         var postData = {};
-        postData['provider'] = provider;
-        postData['provider_data'] = data;
-        return this.apiSettings.post(postData, 'auth/login');
+        postData['username'] = data.username;
+        return this.apiSettings.post(postData, 'set-username'); 
     }
 }

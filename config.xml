@@ -3,7 +3,7 @@
     <name>Mimic</name>
     <description>Split your world</description>
     <author email="mimicapp.official@gmail.com" href="http://www.gomimic.com">Mimic</author>
-    <content original-src="index.html" src="http://192.168.1.71:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <preference name="KeyboardDisplayRequiresUserAction" value="false" />
     <preference name="AllowInlineMediaPlayback" value="true" />

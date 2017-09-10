@@ -37,6 +37,7 @@ import { GoogleLoginService } from '../pages/google-login/google-login.service';
 import { TwitterLoginService } from '../pages/twitter-login/twitter-login.service';
 import { LanguageService } from '../providers/language/language.service';
 import { LoginService } from '../pages/login/login.service';
+import { PostLoginService } from '../pages/post-login/post-login.service';
 
 //USING MODULE
 import { BrowserModule } from '@angular/platform-browser';
@@ -139,6 +140,7 @@ export function createTranslateLoader(http:Http) {
         LanguageService,
         NativeStorage,
         LoginService,
+        PostLoginService,
 
         SplashScreen,
         StatusBar,

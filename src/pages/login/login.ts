@@ -112,21 +112,20 @@ export class LoginPage {
     doTwitterLogin() {
         this.loading = this.loadingCtrl.create();
 
-        // Here we will check if the user is already logged in because we don't want to ask users to log in each time they open the app
+        //we don't have the user data so we will ask him to log in
+        this.twitterLoginService.doTwitterLogin()
+            .then((res) => {
+                //send request to server
+                this.login_service.loginOnServer(res, 'twitter')
+                .then( (response) => { 
+                    this.apiSettings.storageSetLoginData(response);
+                    this.nav.setRoot(this.main_page.component); 
+                })
+                .catch(error => { console.log("FB login error", error); });  
 
-        this.twitterLoginService.getTwitterUser()
-            .then((data) => {
-                // user is previously logged with FB and we have his data we will let him access the app
-                this.nav.setRoot(this.main_page.component);
-            }, (error) => {
-                //we don't have the user data so we will ask him to log in
-                this.twitterLoginService.doTwitterLogin()
-                    .then((res) => {
-                        this.loading.dismiss();
-                        this.nav.setRoot(this.main_page.component);
-                    }, (err) => {
-                        console.log("Twitter Login error", err);
-                    });
+                this.loading.dismiss();
+            }, (err) => {
+                console.log("Twitter Login error", err);
             });
     }
 

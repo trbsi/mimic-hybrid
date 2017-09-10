@@ -24,7 +24,8 @@ export class LoginPage {
                 //public googleLoginService:GoogleLoginService,
                 public twitterLoginService:TwitterLoginService,
                 public loadingCtrl:LoadingController,
-                public apiSettings:ApiSettings) {
+                public apiSettings:ApiSettings) 
+    {
         //see if user is loggedin, if he is check if he set username
         this.storage.getItem('token')
             .then(data => {
@@ -78,7 +79,7 @@ export class LoginPage {
                 //send request to server
                 this.login_service.loginOnServer(res, 'facebook')
                     .then(response => {
-                        this.apiSettings.storageSetLoginData(response);
+                        this.apiSettings.storageSetLoginData(response); 
                         this.nav.setRoot(this.main_page.component);
                     })
                     .catch(error => {

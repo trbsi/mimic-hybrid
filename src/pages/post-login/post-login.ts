@@ -8,6 +8,7 @@ import { FacebookLoginService } from '../facebook-login/facebook-login.service';
 import { TwitterLoginService } from '../twitter-login/twitter-login.service';
 import { PostLoginService } from '../post-login/post-login.service';
 import { ApiSettings } from '../../components/api-settings/api-settings';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 @Component({
     selector: 'post-login',
@@ -23,40 +24,44 @@ export class PostLogin {
                 public facebookLoginService:FacebookLoginService,
                 public twitterLoginService:TwitterLoginService,
                 public postLoginService:PostLoginService,
-                public apiSettings:ApiSettings) {
-        this.submit_username = new FormGroup({
+                public apiSettings:ApiSettings,
+                private storage:NativeStorage) 
+    {
+
+        this.submit_username = new FormGroup({ 
             username: new FormControl('', Validators.required),
         });
 
     }
 
     ionViewDidLoad() {
-
         /*setTimeout(() => {
          this.usernameInput.setFocus();
          }, 1000);*/
-
     }
 
     /**
      * Submit username
      */
     submitUsername() {
-        console.log(this.submit_username.value.username);
         this.postLoginService.setUsername(this.submit_username.value.username)
-            .then((res) => {
-                console.log(res);
-            })
-            .catch((error) => {
-                console.log(error);
-                let alert = this.alertCtrl.create({
-                    title: 'There was a problem',
-                    subTitle: error.error.message,
-                    buttons: ['Ok']
-                });
-                alert.present();
-            });
-        // this.nav.setRoot(ListingPage);
+        .then((res) => {
+            console.log(res);
+            //if everything is ok, set username in storage
+            if(res.status == true) {
+                this.storage.setItem('username', this.submit_username.value.username)
+                .then(() => { 
+                    this.nav.setRoot(ListingPage); 
+                },
+                (error) => {
+                    console.error('Error storing item', error);
+                });    
+            }
+                
+        })
+        .catch((error) => {
+            console.log("error", error); 
+        });
     }
 
     /**

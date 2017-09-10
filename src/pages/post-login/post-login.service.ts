@@ -16,6 +16,6 @@ export class PostLoginService {
     setUsername(username) {
         var postData = {};
         postData['username'] = username;
-        return this.apiSettings.post(postData, 'set-username');
+        return this.apiSettings.sendRequest(postData, 'set-username', 'post'); 
     }
 }

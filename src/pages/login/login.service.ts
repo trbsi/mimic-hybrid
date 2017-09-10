@@ -19,6 +19,6 @@ export class LoginService {
         var postData = {};
         postData['provider'] = provider;
         postData['provider_data'] = data;
-        return this.apiSettings.post(postData, 'auth/login');
+        return this.apiSettings.sendRequest(postData, 'auth/login', 'post'); 
     }
 }

@@ -41,8 +41,9 @@ export class ApiSettings {
      * Post data to sevrer
      * @param any postData Data to post to the server
      * @param string url Url to post to
+     * @param string type What type of request to send: get, post
      */
-    post(postData, url) {
+    sendRequest(data, url, type) {
         this.loading = this.loadingCtrl.create();
         this.loading.present();
 
@@ -52,12 +53,20 @@ export class ApiSettings {
             (token) => {
                 headers.append('Authorization', 'Bearer ' + token);
                 this.loading.dismiss();
-                return this.doPost(postData, url, headers);
+                if(type == 'post') {
+                    return this.doPost(data, url, headers);
+                } else if (type == 'get') {
+                    return this.doGet(data, url, headers);
+                }
             },
             //couldn't find token, do normal post
             (error) => {
                 this.loading.dismiss();
-                return this.doPost(postData, url, headers);
+                if(type == 'post') {
+                    return this.doPost(data, url, headers);
+                } else if (type == 'get') {
+                    return this.doGet(data, url, headers);
+                }
             }
         );
     }
@@ -72,6 +81,25 @@ export class ApiSettings {
         this.createHeaders(headers);
         let options = new RequestOptions({headers: headers});
         return this.http.post(ApiSettings.API_ENDPOINT + url, postData, options)
+            .toPromise()
+            .then((response) => {
+                return this.handleSuccess(response);   
+            })
+            .catch((error) => {
+                return this.handleError(error);   
+            });
+    }
+
+    /**
+     * This is where you send request to a server
+     * @param any getData Url parameters
+     * @param string url Url to post to
+     * @param Headers headers What headers to include
+     */
+    private doGet(getData, url, headers) {
+        this.createHeaders(headers);
+        let options = new RequestOptions(Object.assign(getData, {headers: headers}));
+        return this.http.post(ApiSettings.API_ENDPOINT + url, options)
             .toPromise()
             .then((response) => {
                 return this.handleSuccess(response);   

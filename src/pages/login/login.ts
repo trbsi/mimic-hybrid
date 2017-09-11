@@ -73,7 +73,7 @@ export class LoginPage {
                 error => console.error('Error storing item', error)
         );
 
-        this.nav.setRoot(this.main_page.component);
+        this.nav.setRoot(PostLogin);
     }
 
     doFacebookLogin() {

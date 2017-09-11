@@ -32,13 +32,14 @@
         <!-- MIMIC INFO -->
 
         <!-- MIMIC SLIDES -->
-        <ion-slides #originalMimicSlide class="top-slides" (ionSlideDidChange)="slideChanged('original')">
-            <ion-slide>
-                <div class="video-player-container">
-                    <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event, 'original')">
+        <ion-slides #originalMimicSlide class="top-slides" (ionSlideDidChange)="slideChanged('original')" (ionSlideDrag)="test()">
+            <ion-slide *ngFor="let data of mimicsList"> 
+               <img *ngIf="data.mimic.mimic_type == 'picture'" src="{{data.mimic.file_url}}" id="{{data.mimic.id}}"> 
+               <div *ngIf="data.mimic.mimic_type == 'video'" class="video-player-container">
+                    <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event, 'response')">
                         <vg-buffering></vg-buffering>
                         <vg-overlay-play></vg-overlay-play>
-                        <vg-controls [vgAutohide]="false" [vgAutohideTime]="2">
+                        <vg-controls [vgAutohide]="false" [vgAutohideTime]="2"> 
                             <ion-row class="controls-row">
                                 <ion-col no-padding width-18>
                                     <vg-time-display [vgProperty]="'left'" [vgFormat]="'mm:ss'"></vg-time-display>
@@ -49,22 +50,16 @@
                                         <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
                                     </vg-scrub-bar>
                                 </ion-col>
-                            </ion-row>
+                            </ion-row> 
                         </vg-controls>
-                        <video webkit-playsinline playsinline #originalX [vgMedia]="originalX" id="originalX"
+                        <video webkit-playsinline playsinline #original [vgMedia]="original" id="original"
                                class="expand-horizontally" preload="auto">
-                            <source *ngFor="let video of video_playlist_model.selected_video.sources" [src]="video.src"
-                                    [type]="video.type">
+                            <source src="{{data.mimic.file_url}}">
                         </video>
                     </vg-player>
                 </div>
             </ion-slide>
-            <ion-slide>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Aspect_ratio_16_9_example.jpg">
-            </ion-slide>
-            <ion-slide>
-                <img src="http://snapsort.com/learn/movie-capability/images/sixteen-by-nine-example.jpg">
-            </ion-slide>
+
         </ion-slides>
         <!-- MIMIC SLIDES -->
     </div>
@@ -72,30 +67,31 @@
         <!-- MIMIC SLIDES -->
         <ion-slides #responseMimicSlide class="bottom-slides" (ionSlideDidChange)="slideChanged('response')">
             <ion-slide>
-                <div class="video-player-container">
-                    <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event, 'response')">
-                        <vg-buffering></vg-buffering>
-                        <vg-overlay-play></vg-overlay-play>
-                        <vg-controls [vgAutohide]="false" [vgAutohideTime]="2">
-                            <ion-row class="controls-row">
-                                <ion-col no-padding width-18>
-                                    <vg-time-display [vgProperty]="'left'" [vgFormat]="'mm:ss'"></vg-time-display>
-                                </ion-col>
-                                <ion-col no-padding width-64>
-                                    <vg-scrub-bar>
-                                        <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
-                                        <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
-                                    </vg-scrub-bar>
-                                </ion-col>
-                            </ion-row>
-                        </vg-controls>
-                        <video webkit-playsinline playsinline #responseX [vgMedia]="responseX" id="responseX"
-                               class="expand-horizontally" preload="auto">
-                            <source *ngFor="let video of video_playlist_model.selected_video.sources" [src]="video.src"
-                                    [type]="video.type">
-                        </video>
-                    </vg-player>
-                </div>
+                <div class="video-player-container"> 
+                    <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event, 'response')"> 
+                        <vg-buffering></vg-buffering> 
+                        <vg-overlay-play></vg-overlay-play> 
+                        <vg-controls [vgAutohide]="false" [vgAutohideTime]="2"> 
+                            <ion-row class="controls-row"> 
++
+                                <ion-col no-padding width-18> 
+                                    <vg-time-display [vgProperty]="'left'" [vgFormat]="'mm:ss'"></vg-time-display> 
+                                </ion-col> 
+                                <ion-col no-padding width-64> 
+                                    <vg-scrub-bar> 
+                                        <vg-scrub-bar-current-time></vg-scrub-bar-current-time> 
+                                        <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time> 
+                                    </vg-scrub-bar> 
+                                </ion-col> 
+                            </ion-row> 
+                        </vg-controls> 
+                        <video webkit-playsinline playsinline #responseX [vgMedia]="responseX" id="responseX" 
+                               class="expand-horizontally" preload="auto"> 
+                            <source *ngFor="let video of video_playlist_model.selected_video.sources" [src]="video.src" 
+                                    [type]="video.type"> 
+                        </video> 
+                    </vg-player> 
+                </div> 
             </ion-slide>
             <ion-slide>
                 <img src="http://11986-presscdn-0-77.pagely.netdna-cdn.com/wp-content/uploads/2016/03/widescreen-iphone-photo.jpg">

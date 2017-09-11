@@ -43,3 +43,6 @@ https://stackoverflow.com/questions/34986922/define-global-constants-in-angular-
 
 Add headers to request
 https://stackoverflow.com/questions/35032465/angular2-http-post-headers
+
+How to create key hash for android facebook
+https://forum.ionicframework.com/t/key-hash-for-facebook-not-working/44357/5?u=dariot

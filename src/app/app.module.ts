@@ -141,6 +141,7 @@ export function createTranslateLoader(http:Http) {
         NativeStorage,
         LoginService,
         PostLoginService,
+        ListingService,
 
         SplashScreen,
         StatusBar,

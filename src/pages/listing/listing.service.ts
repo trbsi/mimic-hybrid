@@ -2,24 +2,22 @@ import { Injectable } from "@angular/core";
 import { Http } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
-
+import { ApiSettings } from '../../components/api-settings/api-settings';
 import { ListingModel } from './listing.model';
 
 @Injectable()
 export class ListingService {
-    constructor(public http:Http) {
+    constructor(public http:Http, public apiSettings:ApiSettings) {
     }
 
-    getData():Promise<ListingModel> {
-        return this.http.get('./assets/example_data/listing.json')
-            .toPromise()
-            .then(response => response.json() as ListingModel)
-            .catch(this.handleError);
-    }
+    /**
+     * Get all mimics
+     */
+    getAllMimics()
+    {
+        var data = {};
+        data['page'] = 0;
+        return this.apiSettings.sendRequest(data, 'mimic/list', 'get');  
 
-    private handleError(error:any):Promise<any> {
-        console.error('An error occurred', error); // for demo purposes only
-        return Promise.reject(error.message || error);
     }
-
 }

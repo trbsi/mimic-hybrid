@@ -20,6 +20,7 @@ import { Slides } from 'ionic-angular';
 import { FacebookLoginService } from '../facebook-login/facebook-login.service';
 import { TwitterLoginService } from '../twitter-login/twitter-login.service';
 import { ApiSettings } from '../../components/api-settings/api-settings';
+import { ListingService } from '../listing/listing.service';
 
 @Component({
     selector: 'listing-page',
@@ -29,6 +30,8 @@ export class ListingPage {
     listing:ListingModel = new ListingModel();
     loading:any;
     mainMenuOpened:boolean;
+    mimicsList: any;
+    mimicsCount: any;
 
     //VIDEO
     start_playing:boolean = false;
@@ -42,28 +45,38 @@ export class ListingPage {
     constructor(public nav:NavController, private alertCtrl:AlertController,
                 public loadingCtrl:LoadingController, public facebookLoginService:FacebookLoginService,
                 public twitterLoginService:TwitterLoginService,
-                public apiSettings:ApiSettings) {
+                public apiSettings:ApiSettings, public listingService:ListingService) 
+    {
         this.loading = this.loadingCtrl.create();
         this.mainMenuOpened = false;
+        
+        
     }
 
 
     ionViewDidLoad() {
         this.loading.present();
-        this.loading.dismiss();
+        this.listingService.getAllMimics().then((data) => {
+            this.mimicsList = data.mimics; 
+            this.mimicsCount = data.count; 
+            this.loading.dismiss();
+            console.log(this.mimicsList);
+        }); 
     }
 
     ionViewDidEnter() {
         //calclate mimic info position
         document.getElementById('mimic-info-top').style.top = this.calculateMimicInfoPosition('top') - 10 + "px";
         document.getElementById('mimic-info-bottom').style.bottom = this.calculateMimicInfoPosition('bottom') + 10 + "px";
+        
     }
+
 
     /**
      * Dynamically calculate mimic info position
      * @param string type "top" or "bottom"
      */
-    calculateMimicInfoPosition(type) {
+    private calculateMimicInfoPosition(type) {
         return document.getElementById('split-' + type).clientHeight - document.getElementsByClassName('slide-zoom')[0].clientHeight - document.getElementById('mimic-info-' + type).clientHeight;
     }
 
@@ -214,4 +227,8 @@ export class ListingPage {
     }
 
     //VIDEOS
+
+    test(){
+        alert();
+    }
 }

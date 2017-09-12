@@ -66,16 +66,19 @@ export class ListingPage {
         this.loading.present();
         this.listingService.getAllMimics().then((data) => {
                 this.mimicsList = data.mimics; 
-                this.mimicsCount = data.count; 
+                this.mimicsCount = data.count-1; //because your are counting from index 0 
                 this.loading.dismiss();
-                //set current mimic to the first one
+
+                //set current mimic to the first and second
                 this.currentMimic.push(this.mimicsList[0]);
                 this.currentMimic.push(this.mimicsList[1]);
+
+                console.log(this.mimicsList);
             }); 
     }
 
     ionViewDidEnter() {
-        if(this.mimicsList) { console.log(45345);
+        if(this.mimicsList) {
         //calclate mimic info position
         document.getElementById('mimic-info-top').style.top = this.calculateMimicInfoPosition('top') - 10 + "px";
         document.getElementById('mimic-info-bottom').style.bottom = this.calculateMimicInfoPosition('bottom') + 10 + "px";
@@ -193,65 +196,62 @@ export class ListingPage {
      * When side has been changed
      * @param string type "original" or "response"
      */
-    slideChanged(type, step: number) {
+    /*slideChanged(type, step: number) {
         switch (type) {
             case "original":
                 if (this.videoOriginal != undefined) {
                     this.videoOriginal.pause();
                 }
-                //console.log(this.originalMimicSlide.isEnd());
                 break;
             case "response":
                 if (this.videoResponse != undefined) {
                     this.videoResponse.pause();
                 }
-                //console.log(this.responseMimicSlide.isEnd());
                 break;
         }
-    }
+    }*/
 
     loadPrev() 
     {
-        console.log('Prev');
         let newIndex  = this.originalMimicSlide.getActiveIndex();
-        let mimicIndex = newIndex;
         newIndex++;
-        if(newIndex >= 0) 
-        {
-            //add to the beginning of array
-            this.numbers.unshift(this.numbers[0] - 1);
-            //remove from end of array
-            this.numbers.pop();
+        //add to the beginning of array
+        this.numbers.unshift(this.numbers[0] - 1);
+        //remove from end of array
+        this.numbers.pop();
 
-            // Workaround to make it work: breaks the animation
-            this.originalMimicSlide.slideTo(newIndex, 0, false);
-            
-            console.log('New status:', this.currentMimic);
+        // Workaround to make it work: breaks the animation, but with "loop" on ion-slides fixes it
+        this.originalMimicSlide.slideTo(newIndex, 0, false);
+
+        //if first number of array is -1 that means that you are at the beginning of array, disable swipe to left
+        if(this.numbers[0] == -1)  {
+            console.log(3434);
+            this.originalMimicSlide.lockSwipeToPrev(true);
         }
-        
     }
     
     loadNext() 
     {
-
         if(this.firstLoad) {
-          // Since the initial slide is 1, prevent the first 
-          // movement to modify the slides
-          this.firstLoad = false;
-          return;
+             // Since the initial slide is 1, prevent the first 
+            // movement to modify the slides
+            this.firstLoad = false;
+            this.originalMimicSlide.lockSwipeToPrev(true);
+            return;
         }
-        
-        console.log('Next');
-        let newIndex = this.originalMimicSlide.getActiveIndex();
 
+        this.originalMimicSlide.lockSwipeToPrev(false);
+        let newIndex = this.originalMimicSlide.getActiveIndex();
+        if(this.numbers[this.numbers.length - 1] == this.mimicsCount) {
+            console.log('nema vise');
+            //this.originalMimicSlide.lockSwipeToNext(true);
+
+        }
         newIndex--;
         this.numbers.push(this.numbers[this.numbers.length - 1] + 1);
         this.numbers.shift();
-
         // Workaround to make it work: breaks the animation
         this.originalMimicSlide.slideTo(newIndex, 0, false);
-
-        console.log('New status:', this.currentMimic);
     }
     //SLIDES
 

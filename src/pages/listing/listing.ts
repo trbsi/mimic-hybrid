@@ -30,8 +30,15 @@ export class ListingPage {
     listing:ListingModel = new ListingModel();
     loading:any;
     mainMenuOpened:boolean;
+    
+    //SLIDES
+    firstLoad = true;
+    numbers = [0,1]; //used to generate slides https://stackoverflow.com/questions/45506517/ionic-slides-dynamically-add-slides-before-and-after
+
+    //MIMICS
     mimicsList: any;
     mimicsCount: any;
+    currentMimic = [];
 
     //VIDEO
     start_playing:boolean = false;
@@ -48,27 +55,31 @@ export class ListingPage {
                 public apiSettings:ApiSettings, public listingService:ListingService) 
     {
         this.loading = this.loadingCtrl.create();
-        this.mainMenuOpened = false;
-        
-        
+        this.mainMenuOpened = false;        
     }
 
+    ngOnInit() {
+        
+    }
 
     ionViewDidLoad() {
         this.loading.present();
         this.listingService.getAllMimics().then((data) => {
-            this.mimicsList = data.mimics; 
-            this.mimicsCount = data.count; 
-            this.loading.dismiss();
-            console.log(this.mimicsList);
-        }); 
+                this.mimicsList = data.mimics; 
+                this.mimicsCount = data.count; 
+                this.loading.dismiss();
+                //set current mimic to the first one
+                this.currentMimic.push(this.mimicsList[0]);
+                this.currentMimic.push(this.mimicsList[1]);
+            }); 
     }
 
     ionViewDidEnter() {
+        if(this.mimicsList) { console.log(45345);
         //calclate mimic info position
         document.getElementById('mimic-info-top').style.top = this.calculateMimicInfoPosition('top') - 10 + "px";
         document.getElementById('mimic-info-bottom').style.bottom = this.calculateMimicInfoPosition('bottom') + 10 + "px";
-        
+        }
     }
 
 
@@ -182,23 +193,67 @@ export class ListingPage {
      * When side has been changed
      * @param string type "original" or "response"
      */
-    slideChanged(type) {
+    slideChanged(type, step: number) {
         switch (type) {
             case "original":
                 if (this.videoOriginal != undefined) {
                     this.videoOriginal.pause();
                 }
-                console.log(this.originalMimicSlide.isEnd());
+                //console.log(this.originalMimicSlide.isEnd());
                 break;
             case "response":
                 if (this.videoResponse != undefined) {
                     this.videoResponse.pause();
                 }
-                console.log(this.responseMimicSlide.isEnd());
+                //console.log(this.responseMimicSlide.isEnd());
                 break;
         }
     }
 
+    loadPrev() 
+    {
+        console.log('Prev');
+        let newIndex  = this.originalMimicSlide.getActiveIndex();
+        let mimicIndex = newIndex;
+        newIndex++;
+        if(newIndex >= 0) 
+        {
+            //add to the beginning of array
+            this.numbers.unshift(this.numbers[0] - 1);
+            //remove from end of array
+            this.numbers.pop();
+
+            // Workaround to make it work: breaks the animation
+            this.originalMimicSlide.slideTo(newIndex, 0, false);
+            
+            console.log('New status:', this.currentMimic);
+        }
+        
+    }
+    
+    loadNext() 
+    {
+
+        if(this.firstLoad) {
+          // Since the initial slide is 1, prevent the first 
+          // movement to modify the slides
+          this.firstLoad = false;
+          return;
+        }
+        
+        console.log('Next');
+        let newIndex = this.originalMimicSlide.getActiveIndex();
+
+        newIndex--;
+        this.numbers.push(this.numbers[this.numbers.length - 1] + 1);
+        this.numbers.shift();
+
+        // Workaround to make it work: breaks the animation
+        this.originalMimicSlide.slideTo(newIndex, 0, false);
+
+        console.log('New status:', this.currentMimic);
+    }
+    //SLIDES
 
     //VIDEOS
     /**
@@ -228,7 +283,4 @@ export class ListingPage {
 
     //VIDEOS
 
-    test(){
-        alert();
-    }
 }

@@ -46,3 +46,6 @@ https://stackoverflow.com/questions/35032465/angular2-http-post-headers
 
 How to create key hash for android facebook
 https://forum.ionicframework.com/t/key-hash-for-facebook-not-working/44357/5?u=dariot
+
+this is what I based my slides on
+https://stackoverflow.com/questions/45506517/ionic-slides-dynamically-add-slides-before-and-after

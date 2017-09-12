@@ -61,6 +61,7 @@ export class ApiSettings {
             },
             //couldn't find token, do normal post
             (error) => {
+                headers.append('Authorization', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjk3LCJpc3MiOiJodHRwOi8vbWltaWMudGVzdGFwaS53ZWJzaXRlL2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNTA1MTY2Mjk5LCJleHAiOjE1MDc4NjYyOTksIm5iZiI6MTUwNTE2NjI5OSwianRpIjoiOGtlcUlZSWd2OVR3cHhURiJ9.yPWkSTYgahZWxwA__uyi7k-pCvKXoBm30I4GkHCvJ_g');
                 this.loading.dismiss();
                 if(type == 'post') {
                     return this.doPost(data, url, headers);

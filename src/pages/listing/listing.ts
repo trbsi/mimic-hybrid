@@ -33,17 +33,17 @@ export class ListingPage {
     
     //SLIDES
     firstLoad = true;
-    numbers = [0,1]; //used to generate slides https://stackoverflow.com/questions/45506517/ionic-slides-dynamically-add-slides-before-and-after
+    numbers = [0,1,2]; //used to generate slides https://stackoverflow.com/questions/45506517/ionic-slides-dynamically-add-slides-before-and-after
 
     //MIMICS
-    mimicsList: any;
-    mimicsCount: any;
+    mimicsList = [];
+    mimicsCount: number;
     currentMimic = [];
 
     //VIDEO
     start_playing:boolean = false;
-    videoOriginal:VgAPI;
-    videoResponse:VgAPI;
+    videoOriginal = [];
+    videoResponse = [];
     video_playlist_model:VideoPlaylistModel = new VideoPlaylistModel();
 
     @ViewChild('originalMimicSlide') originalMimicSlide:Slides;
@@ -196,25 +196,30 @@ export class ListingPage {
      * When side has been changed
      * @param string type "original" or "response"
      */
-    slideChanged(type) {
+    slideChanged(type, index) {
         switch (type) {
             case "original":
-                if (this.videoOriginal != undefined) {
-                    this.videoOriginal.pause();
+                if (this.videoOriginal[index] != undefined) {
+                    this.videoOriginal[index].pause();
                 }
                 break;
             case "response":
-                if (this.videoResponse != undefined) {
-                    this.videoResponse.pause();
+                if (this.videoResponse[index] != undefined) {
+                    this.videoResponse[index].pause();
                 }
                 break;
         }
     }
 
-    loadPrev() 
-    {
+    /**
+     * When side has been changed
+     * @param string type "original" or "response"
+     */
+    loadPrev(type) 
+    { 
         let newIndex  = this.originalMimicSlide.getActiveIndex();
         newIndex++;
+
         //add to the beginning of array
         this.numbers.unshift(this.numbers[0] - 1);
         //remove from end of array
@@ -227,9 +232,15 @@ export class ListingPage {
         if(this.numbers[0] == -1)  {
             this.originalMimicSlide.lockSwipeToPrev(true);
         }
+
+        this.slideChanged(type, this.numbers[newIndex+1]); 
     }
     
-    loadNext() 
+    /**
+     * When side has been changed
+     * @param string type "original" or "response"
+     */
+    loadNext(type) 
     {
         if(this.firstLoad) {
              // Since the initial slide is 1, prevent the first 
@@ -238,19 +249,22 @@ export class ListingPage {
             this.originalMimicSlide.lockSwipeToPrev(true);
             return;
         }
-
-        this.originalMimicSlide.lockSwipeToPrev(false);
-        let newIndex = this.originalMimicSlide.getActiveIndex();
+        this.originalMimicSlide.lockSwipeToPrev(false);       
         if(this.numbers[this.numbers.length - 1] == this.mimicsCount) {
             console.log('nema vise');
             //this.originalMimicSlide.lockSwipeToNext(true);
 
         }
+
+        let newIndex = this.originalMimicSlide.getActiveIndex();
+
         newIndex--;
-        this.numbers.push(this.numbers[this.numbers.length - 1] + 1);
         this.numbers.shift();
         // Workaround to make it work: breaks the animation
         this.originalMimicSlide.slideTo(newIndex, 0, false);
+
+        this.slideChanged(type, this.numbers[newIndex-1]); 
+
     }
     //SLIDES
 
@@ -260,13 +274,13 @@ export class ListingPage {
      * @param {VgAPI}  api
      * @param string type "original" or "response"
      */
-    onPlayerReady(api:VgAPI, type) {
+    onPlayerReady(api:VgAPI, type, n) {
         switch (type) {
             case "original":
-                this.videoOriginal = api;
+                this.videoOriginal[n] = api;
                 break;
             case "response":
-                this.videoResponse = api;
+                this.videoResponse[n] = api;
                 break;
         }
 

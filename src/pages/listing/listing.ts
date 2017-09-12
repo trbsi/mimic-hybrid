@@ -259,6 +259,7 @@ export class ListingPage {
         let newIndex = this.originalMimicSlide.getActiveIndex();
 
         newIndex--;
+        this.numbers.push(this.numbers[this.numbers.length - 1] + 1); 
         this.numbers.shift();
         // Workaround to make it work: breaks the animation
         this.originalMimicSlide.slideTo(newIndex, 0, false);

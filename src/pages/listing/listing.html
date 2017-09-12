@@ -32,11 +32,11 @@
         <!-- MIMIC INFO -->
 
         <!-- MIMIC SLIDES -->
-        <ion-slides #originalMimicSlide class="top-slides" (ionSlideNextEnd)="loadNext()" (ionSlidePrevEnd)="loadPrev()" [initialSlide]="0">
+        <ion-slides #originalMimicSlide class="top-slides" (ionSlideDidChange)="slideChanged('original')" (ionSlideNextEnd)="loadNext()" (ionSlidePrevEnd)="loadPrev()">
             <ion-slide *ngFor="let n of numbers;">
                 <img *ngIf="mimicsList.hasOwnProperty(n) && mimicsList[n].mimic.mimic_type == 'picture'" src="{{mimicsList[n].mimic.file_url}}"> 
                 <div *ngIf="mimicsList.hasOwnProperty(n) && mimicsList[n].mimic.mimic_type == 'video' && n%2==0" class="video-player-container">
-                    <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event, 'response')">
+                    <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event, 'original')">
                         <vg-buffering></vg-buffering>
                         <vg-overlay-play></vg-overlay-play>
                         <vg-controls [vgAutohide]="false" [vgAutohideTime]="2"> 
@@ -59,7 +59,7 @@
                     </vg-player>
                 </div>
                 <div *ngIf="mimicsList.hasOwnProperty(n) && mimicsList[n].mimic.mimic_type == 'video' && n%2!=0" class="video-player-container">
-                    <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event, 'response')">
+                    <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event, 'original')">
                         <vg-buffering></vg-buffering>
                         <vg-overlay-play></vg-overlay-play>
                         <vg-controls [vgAutohide]="false" [vgAutohideTime]="2"> 

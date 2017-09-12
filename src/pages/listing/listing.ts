@@ -196,7 +196,7 @@ export class ListingPage {
      * When side has been changed
      * @param string type "original" or "response"
      */
-    /*slideChanged(type, step: number) {
+    slideChanged(type) {
         switch (type) {
             case "original":
                 if (this.videoOriginal != undefined) {
@@ -209,7 +209,7 @@ export class ListingPage {
                 }
                 break;
         }
-    }*/
+    }
 
     loadPrev() 
     {
@@ -225,7 +225,6 @@ export class ListingPage {
 
         //if first number of array is -1 that means that you are at the beginning of array, disable swipe to left
         if(this.numbers[0] == -1)  {
-            console.log(3434);
             this.originalMimicSlide.lockSwipeToPrev(true);
         }
     }

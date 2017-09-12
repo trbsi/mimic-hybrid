@@ -32,7 +32,7 @@
         <!-- MIMIC INFO -->
 
         <!-- MIMIC SLIDES -->
-        <ion-slides #originalMimicSlide class="top-slides" (ionSlideDidChange)="slideChanged('original')" (ionSlideNextEnd)="loadNext()" (ionSlidePrevEnd)="loadPrev()">
+        <ion-slides #originalMimicSlide class="top-slides" loop (ionSlideDidChange)="slideChanged('original')" (ionSlideNextEnd)="loadNext()" (ionSlidePrevEnd)="loadPrev()">
             <ion-slide *ngFor="let n of numbers;">
                 <img *ngIf="mimicsList.hasOwnProperty(n) && mimicsList[n].mimic.mimic_type == 'picture'" src="{{mimicsList[n].mimic.file_url}}"> 
                 <div *ngIf="mimicsList.hasOwnProperty(n) && mimicsList[n].mimic.mimic_type == 'video' && n%2==0" class="video-player-container">
@@ -53,29 +53,6 @@
                             </ion-row> 
                         </vg-controls>
                         <video webkit-playsinline playsinline #original [vgMedia]="original" id="original"
-                               class="expand-horizontally" preload="auto">
-                            <source src="{{mimicsList[n].mimic.file_url}}">
-                        </video>
-                    </vg-player>
-                </div>
-                <div *ngIf="mimicsList.hasOwnProperty(n) && mimicsList[n].mimic.mimic_type == 'video' && n%2!=0" class="video-player-container">
-                    <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event, 'original')">
-                        <vg-buffering></vg-buffering>
-                        <vg-overlay-play></vg-overlay-play>
-                        <vg-controls [vgAutohide]="false" [vgAutohideTime]="2"> 
-                            <ion-row class="controls-row">
-                                <ion-col no-padding width-18>
-                                    <vg-time-display [vgProperty]="'left'" [vgFormat]="'mm:ss'"></vg-time-display>
-                                </ion-col>
-                                <ion-col no-padding width-64>
-                                    <vg-scrub-bar>
-                                        <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
-                                        <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
-                                    </vg-scrub-bar>
-                                </ion-col>
-                            </ion-row> 
-                        </vg-controls>
-                        <video webkit-playsinline playsinline #originalTwo [vgMedia]="originalTwo" id="originalTwo"
                                class="expand-horizontally" preload="auto">
                             <source src="{{mimicsList[n].mimic.file_url}}">
                         </video>

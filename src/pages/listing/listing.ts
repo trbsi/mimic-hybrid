@@ -7,7 +7,6 @@ import { ListingModel } from './listing.model';
 import { ProfilePage } from '../profile/profile';
 import { FabContainer } from 'ionic-angular';
 import { VgAPI } from 'videogular2/core';
-import { VideoPlaylistModel } from '../video-playlist/video-playlist.model';
 
 import { AddMimic } from '../add-mimic/add-mimic';
 import { Search } from '../search/search';
@@ -33,6 +32,7 @@ export class ListingPage {
     
     //SLIDES
     firstLoad = true;
+    firstLoadResponse = true;
     numbersOriginal = [0,1,2]; //used to generate slides https://stackoverflow.com/questions/45506517/ionic-slides-dynamically-add-slides-before-and-after
     numberResponses = [0,1,2]; //used to generate slides https://stackoverflow.com/questions/45506517/ionic-slides-dynamically-add-slides-before-and-after
 
@@ -200,15 +200,13 @@ export class ListingPage {
                 }
                 break;
             case "response":
+            console.log("video: ", this.videoResponse[index]);
                 if (this.videoResponse[index] != undefined) {
+                    console.log(this.videoResponse[index]);
                     this.videoResponse[index].pause();
                 }
                 break;
         }
-
-        this.videoResponse.forEach(eachObj => {
-            //(eachObj.getDefaultMedia()).loadMedia();
-        });
         
     }
 
@@ -216,16 +214,8 @@ export class ListingPage {
      * When side has been changed
      * @param string type "original" or "response"
      */
-    loadPrev(type) 
+    loadPrevOriginal(type) 
     { 
-        /*switch (type) {
-            case "original":
-                var numbers = this.numbersOriginal; 
-                break;
-            case "response":
-                var numbers = this.numberResponses; 
-                break;
-        }*/
 
         let newIndex  = this.originalMimicSlide.getActiveIndex();
         //set new current mimic response and reset numbering
@@ -255,7 +245,7 @@ export class ListingPage {
      * When side has been changed
      * @param string type "original" or "response"
      */
-    loadNext(type) 
+    loadNextOriginal(type) 
     {
         let newIndex = this.originalMimicSlide.getActiveIndex();
         //set new current mimic response and reset numbering
@@ -290,6 +280,65 @@ export class ListingPage {
 
     }
 
+
+    loadPrevResponse(type) 
+    { 
+
+        let newIndex  = this.responseMimicSlide.getActiveIndex();
+        newIndex++;
+
+        //add to the beginning of array
+        this.numberResponses.unshift(this.numberResponses[0] - 1);
+        //remove from end of array
+        this.numberResponses.pop();
+
+        // Workaround to make it work: breaks the animation, but with "loop" on ion-slides fixes it
+        this.responseMimicSlide.slideTo(newIndex, 0, false);
+
+        //if first number of array is -1 that means that you are at the beginning of array, disable swipe to left
+        if(this.numberResponses[0] == -1)  {
+            this.responseMimicSlide.lockSwipeToPrev(true);
+        }
+
+        //when slide is changed pause previous video
+        this.slideChanged(type, this.numberResponses[newIndex+1]); 
+    }
+    
+    /**
+     * When side has been changed
+     * @param string type "original" or "response"
+     */
+    loadNextResponse(type) 
+    {
+        var newIndex = this.responseMimicSlide.getActiveIndex();
+
+        if(this.firstLoadResponse) {
+             // Since the initial slide is 1, prevent the first 
+            // movement to modify the slides
+            this.firstLoadResponse = false;
+            this.slideChanged(type, this.numberResponses[0]); 
+            return;
+        }
+
+        this.responseMimicSlide.lockSwipeToPrev(false);       
+        if(this.numberResponses[this.numberResponses.length - 1] == this.mimicsCount) {
+            console.log('nema vise');
+            //this.originalMimicSlide.lockSwipeToNext(true);
+
+        }
+
+        newIndex--;
+        this.numberResponses.push(this.numberResponses[this.numberResponses.length - 1] + 1); 
+        this.numberResponses.shift();
+        // Workaround to make it work: breaks the animation
+        this.responseMimicSlide.slideTo(newIndex, 0, false);   
+
+        //when slide is changed pause previous video
+        this.slideChanged(type, this.numberResponses[newIndex-1]);
+
+
+    }
+
     /**
      * When you change original mimic you have to set new responses to show for that mimic
      */
@@ -299,6 +348,7 @@ export class ListingPage {
         this.numberResponses = [0,1,2]; //reset our array
         this.videoResponse = []; //reset our array
         this.responseMimicSlide.slideTo(0, 0, false);  //set slide back to index 0 
+        this.firstLoadResponse = true;
     }
 
     originalSlideWillChange()

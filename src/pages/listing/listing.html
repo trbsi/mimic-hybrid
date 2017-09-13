@@ -32,7 +32,7 @@
         <!-- MIMIC INFO -->
 
         <!-- MIMIC SLIDES -->
-        <ion-slides #originalMimicSlide class="top-slides" (ionSlideWillChange)="originalSlideWillChange()" (ionSlideNextEnd)="loadNext('original')" (ionSlidePrevEnd)="loadPrev('original')">
+        <ion-slides #originalMimicSlide class="top-slides" (ionSlideWillChange)="originalSlideWillChange()" (ionSlideNextEnd)="loadNextOriginal('original')" (ionSlidePrevEnd)="loadPrevOriginal('original')">
             <ion-slide *ngFor="let n of numbersOriginal;">
                 <img *ngIf="mimicsList.hasOwnProperty(n) && mimicsList[n].mimic.mimic_type == 'picture'" src="{{mimicsList[n].mimic.file_url}}"> 
                 <div *ngIf="mimicsList.hasOwnProperty(n) && mimicsList[n].mimic.mimic_type == 'video'" class="video-player-container">
@@ -64,7 +64,7 @@
     </div>
     <div class="split" id="split-bottom" *ngIf="currentMimicResponse">
         <!-- MIMIC RESPONSES SLIDES -->
-        <ion-slides #responseMimicSlide class="bottom-slides">
+        <ion-slides #responseMimicSlide class="bottom-slides"(ionSlideNextEnd)="loadNextResponse('response')" (ionSlidePrevEnd)="loadPrevResponse('response')"> 
             <ion-slide  *ngFor="let n of numberResponses;">
                 <img *ngIf="currentMimicResponse.hasOwnProperty(n) && currentMimicResponse[n].mimic_type == 'picture'" src="{{currentMimicResponse[n].file_url}}"> 
                 <div *ngIf="currentMimicResponse.hasOwnProperty(n) && currentMimicResponse[n].mimic_type == 'video'" class="video-player-container">

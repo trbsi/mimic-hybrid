@@ -33,18 +33,18 @@ export class ListingPage {
     
     //SLIDES
     firstLoad = true;
-    numbers = [0,1,2]; //used to generate slides https://stackoverflow.com/questions/45506517/ionic-slides-dynamically-add-slides-before-and-after
+    numbersOriginal = [0,1,2]; //used to generate slides https://stackoverflow.com/questions/45506517/ionic-slides-dynamically-add-slides-before-and-after
+    numberResponses = [0,1,2]; //used to generate slides https://stackoverflow.com/questions/45506517/ionic-slides-dynamically-add-slides-before-and-after
 
     //MIMICS
-    mimicsList = [];
-    mimicsCount: number;
-    currentMimic = [];
+    mimicsList = []; //list of all mimics from the server
+    mimicsCount: number; //total number of original mimics
+    currentMimicResponse: any; // current responses of one original mimic you are looking at
+    currentMimicOriginalIndex = 0; //current index (current original mimic you are looking at)
 
     //VIDEO
-    start_playing:boolean = false;
-    videoOriginal = [];
-    videoResponse = [];
-    video_playlist_model:VideoPlaylistModel = new VideoPlaylistModel();
+    videoOriginal = []; //original video instances
+    videoResponse = []; //response video instances
 
     @ViewChild('originalMimicSlide') originalMimicSlide:Slides;
     @ViewChild('responseMimicSlide') responseMimicSlide:Slides;
@@ -68,20 +68,16 @@ export class ListingPage {
                 this.mimicsList = data.mimics; 
                 this.mimicsCount = data.count-1; //because your are counting from index 0 
                 this.loading.dismiss();
-
-                //set current mimic to the first and second
-                this.currentMimic.push(this.mimicsList[0]);
-                this.currentMimic.push(this.mimicsList[1]);
-
-                console.log(this.mimicsList);
+                this.currentMimicResponse = this.mimicsList[0].mimic_responses;
+                console.log(this.currentMimicResponse);
             }); 
     }
 
     ionViewDidEnter() {
         if(this.mimicsList) {
         //calclate mimic info position
-        document.getElementById('mimic-info-top').style.top = this.calculateMimicInfoPosition('top') - 10 + "px";
-        document.getElementById('mimic-info-bottom').style.bottom = this.calculateMimicInfoPosition('bottom') + 10 + "px";
+        //document.getElementById('mimic-info-top').style.top = this.calculateMimicInfoPosition('top') - 10 + "px";
+        //document.getElementById('mimic-info-bottom').style.bottom = this.calculateMimicInfoPosition('bottom') + 10 + "px";
         }
     }
 
@@ -196,7 +192,7 @@ export class ListingPage {
      * When side has been changed
      * @param string type "original" or "response"
      */
-    slideChanged(type, index) {
+    private slideChanged(type, index) {
         switch (type) {
             case "original":
                 if (this.videoOriginal[index] != undefined) {
@@ -209,6 +205,11 @@ export class ListingPage {
                 }
                 break;
         }
+
+        this.videoResponse.forEach(eachObj => {
+            //(eachObj.getDefaultMedia()).loadMedia();
+        });
+        
     }
 
     /**
@@ -217,23 +218,37 @@ export class ListingPage {
      */
     loadPrev(type) 
     { 
+        /*switch (type) {
+            case "original":
+                var numbers = this.numbersOriginal; 
+                break;
+            case "response":
+                var numbers = this.numberResponses; 
+                break;
+        }*/
+
         let newIndex  = this.originalMimicSlide.getActiveIndex();
+        //set new current mimic response and reset numbering
+        this.currentMimicOriginalIndex = this.numbersOriginal[newIndex];
+        this.setCurrentMimicResponses(this.currentMimicOriginalIndex);
+
         newIndex++;
 
         //add to the beginning of array
-        this.numbers.unshift(this.numbers[0] - 1);
+        this.numbersOriginal.unshift(this.numbersOriginal[0] - 1);
         //remove from end of array
-        this.numbers.pop();
+        this.numbersOriginal.pop();
 
         // Workaround to make it work: breaks the animation, but with "loop" on ion-slides fixes it
         this.originalMimicSlide.slideTo(newIndex, 0, false);
 
         //if first number of array is -1 that means that you are at the beginning of array, disable swipe to left
-        if(this.numbers[0] == -1)  {
+        if(this.numbersOriginal[0] == -1)  {
             this.originalMimicSlide.lockSwipeToPrev(true);
         }
 
-        this.slideChanged(type, this.numbers[newIndex+1]); 
+        //when slide is changed pause previous video
+        this.slideChanged(type, this.numbersOriginal[newIndex+1]); 
     }
     
     /**
@@ -242,28 +257,54 @@ export class ListingPage {
      */
     loadNext(type) 
     {
+        let newIndex = this.originalMimicSlide.getActiveIndex();
+        //set new current mimic response and reset numbering
+        this.currentMimicOriginalIndex = this.numbersOriginal[newIndex];
+        this.setCurrentMimicResponses(this.currentMimicOriginalIndex);
+
         if(this.firstLoad) {
              // Since the initial slide is 1, prevent the first 
             // movement to modify the slides
             this.firstLoad = false;
-            this.slideChanged(type, this.numbers[0]); 
+            this.slideChanged(type, this.numbersOriginal[0]); 
+            this.setCurrentMimicResponses(this.currentMimicOriginalIndex);
             return;
         }
+
         this.originalMimicSlide.lockSwipeToPrev(false);       
-        if(this.numbers[this.numbers.length - 1] == this.mimicsCount) {
+        if(this.numbersOriginal[this.numbersOriginal.length - 1] == this.mimicsCount) {
             console.log('nema vise');
             //this.originalMimicSlide.lockSwipeToNext(true);
 
         }
 
-        let newIndex = this.originalMimicSlide.getActiveIndex();
-
         newIndex--;
-        this.numbers.push(this.numbers[this.numbers.length - 1] + 1); 
-        this.numbers.shift();
+        this.numbersOriginal.push(this.numbersOriginal[this.numbersOriginal.length - 1] + 1); 
+        this.numbersOriginal.shift();
         // Workaround to make it work: breaks the animation
-        this.originalMimicSlide.slideTo(newIndex, 0, false);        
+        this.originalMimicSlide.slideTo(newIndex, 0, false);   
 
+        //when slide is changed pause previous video
+        this.slideChanged(type, this.numbersOriginal[newIndex-1]);
+
+
+    }
+
+    /**
+     * When you change original mimic you have to set new responses to show for that mimic
+     */
+    private setCurrentMimicResponses(currentMimicOriginalIndex)
+    {
+        this.currentMimicResponse = this.mimicsList[currentMimicOriginalIndex].mimic_responses;
+        this.numberResponses = [0,1,2]; //reset our array
+        this.videoResponse = []; //reset our array
+        this.responseMimicSlide.slideTo(0, 0, false);  //set slide back to index 0 
+    }
+
+    originalSlideWillChange()
+    {    
+        //reset responses slides to zero so you can to reload of new data
+        this.numberResponses = [];
     }
     //SLIDES
 
@@ -273,16 +314,15 @@ export class ListingPage {
      * @param {VgAPI}  api
      * @param string type "original" or "response"
      */
-    onPlayerReady(api:VgAPI, type, n) {console.log("video", n);
+    onPlayerReady(api:VgAPI, type, n) {
         switch (type) {
             case "original":
                 this.videoOriginal[n] = api;
                 break;
             case "response":
-                this.videoResponse[n] = api;
+                this.videoResponse[n] = api;                
                 break;
         }
-
     }
 
     dismissLoader() {

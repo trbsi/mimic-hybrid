@@ -32,8 +32,8 @@
         <!-- MIMIC INFO -->
 
         <!-- MIMIC SLIDES -->
-        <ion-slides #originalMimicSlide class="top-slides" (ionSlideNextEnd)="loadNext('original')" (ionSlidePrevEnd)="loadPrev('original')">
-            <ion-slide *ngFor="let n of numbers;">
+        <ion-slides #originalMimicSlide class="top-slides" (ionSlideWillChange)="originalSlideWillChange()" (ionSlideNextEnd)="loadNext('original')" (ionSlidePrevEnd)="loadPrev('original')">
+            <ion-slide *ngFor="let n of numbersOriginal;">
                 <img *ngIf="mimicsList.hasOwnProperty(n) && mimicsList[n].mimic.mimic_type == 'picture'" src="{{mimicsList[n].mimic.file_url}}"> 
                 <div *ngIf="mimicsList.hasOwnProperty(n) && mimicsList[n].mimic.mimic_type == 'video'" class="video-player-container">
                     <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event, 'original', n)">
@@ -62,43 +62,38 @@
         </ion-slides>
         <!-- MIMIC SLIDES -->
     </div>
-    <div class="split" id="split-bottom" *ngIf="mimicsList">
-        <!-- MIMIC SLIDES -->
-        <ion-slides #responseMimicSlide class="bottom-slides"  >
-            <ion-slide>
-                <div class="video-player-container"> 
-                    <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event, 'response', 0)">  
-                        <vg-buffering></vg-buffering> 
-                        <vg-overlay-play></vg-overlay-play> 
+    <div class="split" id="split-bottom" *ngIf="currentMimicResponse">
+        <!-- MIMIC RESPONSES SLIDES -->
+        <ion-slides #responseMimicSlide class="bottom-slides">
+            <ion-slide  *ngFor="let n of numberResponses;">
+                <img *ngIf="currentMimicResponse.hasOwnProperty(n) && currentMimicResponse[n].mimic_type == 'picture'" src="{{currentMimicResponse[n].file_url}}"> 
+                <div *ngIf="currentMimicResponse.hasOwnProperty(n) && currentMimicResponse[n].mimic_type == 'video'" class="video-player-container">
+                    <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event, 'response', n)">
+                        <vg-buffering></vg-buffering>
+                        <vg-overlay-play></vg-overlay-play>
                         <vg-controls [vgAutohide]="false" [vgAutohideTime]="2"> 
-                            <ion-row class="controls-row"> 
-                                <ion-col no-padding width-18> 
-                                    <vg-time-display [vgProperty]="'left'" [vgFormat]="'mm:ss'"></vg-time-display> 
-                                </ion-col> 
-                                <ion-col no-padding width-64> 
-                                    <vg-scrub-bar> 
-                                        <vg-scrub-bar-current-time></vg-scrub-bar-current-time> 
-                                        <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time> 
-                                    </vg-scrub-bar> 
-                                </ion-col> 
+                            <ion-row class="controls-row">
+                                <ion-col no-padding width-18>
+                                    <vg-time-display [vgProperty]="'left'" [vgFormat]="'mm:ss'"></vg-time-display>
+                                </ion-col>
+                                <ion-col no-padding width-64>
+                                    <vg-scrub-bar>
+                                        <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                                        <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+                                    </vg-scrub-bar>
+                                </ion-col>
                             </ion-row> 
-                        </vg-controls> 
-                        <video webkit-playsinline playsinline #responseX [vgMedia]="responseX" id="responseX" 
-                               class="expand-horizontally" preload="auto"> 
-                            <source *ngFor="let video of video_playlist_model.selected_video.sources" [src]="video.src" 
-                                    [type]="video.type"> 
-                        </video> 
-                    </vg-player> 
-                </div> 
+                        </vg-controls>
+                        <video webkit-playsinline playsinline #response [vgMedia]="response" id="response"
+                               class="expand-horizontally" preload="auto">
+                            <source src="{{currentMimicResponse[n].file_url}}">
+                        </video>
+                    </vg-player>
+                </div>
             </ion-slide>
-            <ion-slide>
-                <img src="http://11986-presscdn-0-77.pagely.netdna-cdn.com/wp-content/uploads/2016/03/widescreen-iphone-photo.jpg">
-            </ion-slide>
-            <ion-slide>
-                <img src="http://www.qsl.net/dl8ybm/pic/testbild16-9.png">
-            </ion-slide>
+
         </ion-slides>
-        <!-- MIMIC SLIDES -->
+        <!-- MIMIC RESPONSES SLIDES -->
 
 
         <!-- MIMIC INFO -->

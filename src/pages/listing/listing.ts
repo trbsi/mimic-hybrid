@@ -31,7 +31,7 @@ export class ListingPage {
     mainMenuOpened:boolean;
     
     //SLIDES
-    firstLoad = true;
+    firstLoadOriginal = true;
     firstLoadResponse = true;
     numbersOriginal = [0,1,2]; //used to generate slides https://stackoverflow.com/questions/45506517/ionic-slides-dynamically-add-slides-before-and-after
     numberResponses = [0,1,2]; //used to generate slides https://stackoverflow.com/questions/45506517/ionic-slides-dynamically-add-slides-before-and-after
@@ -54,31 +54,31 @@ export class ListingPage {
                 public twitterLoginService:TwitterLoginService,
                 public apiSettings:ApiSettings, public listingService:ListingService) 
     {
-        this.loading = this.loadingCtrl.create();
         this.mainMenuOpened = false;        
     }
 
-    ngOnInit() {
-        
-    }
-
     ionViewDidLoad() {
-        this.loading.present();
-        this.listingService.getAllMimics().then((data) => {
-                this.mimicsList = data.mimics; 
-                this.mimicsCount = data.count-1; //because your are counting from index 0 
-                this.loading.dismiss();
-                this.currentMimicResponse = this.mimicsList[0].mimic_responses;
-                console.log(this.currentMimicResponse);
-            }); 
+        this.getMimicsFromServer(); 
     }
 
     ionViewDidEnter() {
         if(this.mimicsList) {
         //calclate mimic info position
-        //document.getElementById('mimic-info-top').style.top = this.calculateMimicInfoPosition('top') - 10 + "px";
-        //document.getElementById('mimic-info-bottom').style.bottom = this.calculateMimicInfoPosition('bottom') + 10 + "px";
+           // document.getElementById('mimic-info-top').style.top = this.calculateMimicInfoPosition('top') - 10 + "px";
+         //   document.getElementById('mimic-info-bottom').style.bottom = this.calculateMimicInfoPosition('bottom') + 10 + "px";
         }
+    }
+
+    private getMimicsFromServer()
+    {
+        this.loading = this.loadingCtrl.create();
+        this.loading.present();
+        this.listingService.getAllMimics().then((data) => {
+                this.mimicsList = data.mimics; 
+                this.mimicsCount = data.count-1; //because your are counting from index 0 
+                this.currentMimicResponse = this.mimicsList[0].mimic_responses;
+                this.loading.dismiss();
+            }); 
     }
 
 
@@ -130,7 +130,10 @@ export class ListingPage {
      * refresh mimic page
      */
     refresh() {
-        alert('refresh');
+        this.getMimicsFromServer(); 
+        //this is used to return original mimics to the beginning. if I set it to: 0,1,2 it goest to second slide
+        this.numbersOriginal = [-1,0,1];
+        this.numberResponses = [-1,0,1];
     }
 
     /**
@@ -161,7 +164,7 @@ export class ListingPage {
 
     logout(fab:FabContainer) {
         this.closeFab(fab);
-        //@TODO remove token
+
         let alert = this.alertCtrl.create({
             title: 'Logout',
             message: 'Do you want to logout?',
@@ -245,19 +248,19 @@ export class ListingPage {
      */
     loadNextOriginal(type) 
     {
-        let newIndex = this.originalMimicSlide.getActiveIndex();
-        //set new current mimic response and reset numbering
-        this.currentMimicOriginalIndex = this.numbersOriginal[newIndex];
-        this.setCurrentMimicResponses(this.currentMimicOriginalIndex);
-
-        if(this.firstLoad) {
+        if(this.firstLoadOriginal) {
              // Since the initial slide is 1, prevent the first 
             // movement to modify the slides
-            this.firstLoad = false;
+            this.firstLoadOriginal = false;
             this.slideChanged(type, this.numbersOriginal[0]); 
             this.setCurrentMimicResponses(this.currentMimicOriginalIndex);
             return;
         }
+
+        let newIndex = this.originalMimicSlide.getActiveIndex();
+        //set new current mimic response and reset numbering
+        this.currentMimicOriginalIndex = this.numbersOriginal[newIndex];
+        this.setCurrentMimicResponses(this.currentMimicOriginalIndex);
 
         this.originalMimicSlide.lockSwipeToPrev(false);       
         if(this.numbersOriginal[this.numbersOriginal.length - 1] == this.mimicsCount) {
@@ -351,7 +354,7 @@ export class ListingPage {
 
     originalSlideWillChange()
     {    
-        //reset responses slides to zero so you can to reload of new data
+        //reset responses slides to zero so you can do reload of new data
         this.numberResponses = [];
     }
     //SLIDES

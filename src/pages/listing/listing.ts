@@ -63,13 +63,10 @@ export class ListingPage {
 
     private getMimicsFromServer()
     {
-        this.loading = this.loadingCtrl.create();
-        this.loading.present();
         this.listingService.getAllMimics().then((data) => {
                 this.mimicsList = data.mimics; 
                 this.mimicsCount = data.count-1; //because your are counting from index 0 
                 this.currentMimicResponse = this.mimicsList[0].mimic_responses;
-                this.loading.dismiss();
             }); 
     }
 
@@ -357,15 +354,6 @@ export class ListingPage {
                 break;
         }
     }
-
-    dismissLoader() {
-        // Check if the current instance is usable
-        if (this.loading !== undefined) {
-            // If it's not usable, then create a new one
-            this.loading.dismiss();
-        }
-    }
-
     //VIDEOS
 
 }

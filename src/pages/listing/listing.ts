@@ -246,7 +246,7 @@ export class ListingPage {
              // Since the initial slide is 1, prevent the first 
             // movement to modify the slides
             this.firstLoad = false;
-            this.originalMimicSlide.lockSwipeToPrev(true);
+            this.slideChanged(type, this.numbers[0]); 
             return;
         }
         this.originalMimicSlide.lockSwipeToPrev(false);       
@@ -262,9 +262,7 @@ export class ListingPage {
         this.numbers.push(this.numbers[this.numbers.length - 1] + 1); 
         this.numbers.shift();
         // Workaround to make it work: breaks the animation
-        this.originalMimicSlide.slideTo(newIndex, 0, false);
-
-        this.slideChanged(type, this.numbers[newIndex-1]); 
+        this.originalMimicSlide.slideTo(newIndex, 0, false);        
 
     }
     //SLIDES
@@ -275,7 +273,7 @@ export class ListingPage {
      * @param {VgAPI}  api
      * @param string type "original" or "response"
      */
-    onPlayerReady(api:VgAPI, type, n) {
+    onPlayerReady(api:VgAPI, type, n) {console.log("video", n);
         switch (type) {
             case "original":
                 this.videoOriginal[n] = api;

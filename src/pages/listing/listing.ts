@@ -200,9 +200,7 @@ export class ListingPage {
                 }
                 break;
             case "response":
-            console.log("video: ", this.videoResponse[index]);
                 if (this.videoResponse[index] != undefined) {
-                    console.log(this.videoResponse[index]);
                     this.videoResponse[index].pause();
                 }
                 break;

@@ -32,6 +32,12 @@ $playlist-item-play-icon-height: 3rem;
   }
 }
 
+@function top-mimic-info-position($width, $height)  {
+  $sixteen-nine-percent: (($height / $width) * 100);
+  $left: 100 - $sixteen-nine-percent;
+  @return ($sixteen-nine-percent - $left + 7)+%;
+}
+
 //VIDEO
 
 listing-page {
@@ -139,6 +145,16 @@ listing-page {
     .item-button {
       height: auto;
     }
+  }
+
+  #mimic-info-top
+  {
+      top: top-mimic-info-position(16, 9);
+  }
+
+  #mimic-info-bottom
+  {
+      bottom: top-mimic-info-position(16, 9);
   }
   //-----mimic info style-----
 

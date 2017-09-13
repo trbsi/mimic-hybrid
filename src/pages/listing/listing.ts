@@ -61,14 +61,6 @@ export class ListingPage {
         this.getMimicsFromServer(); 
     }
 
-    ionViewDidEnter() {
-        if(this.mimicsList) {
-        //calclate mimic info position
-           // document.getElementById('mimic-info-top').style.top = this.calculateMimicInfoPosition('top') - 10 + "px";
-         //   document.getElementById('mimic-info-bottom').style.bottom = this.calculateMimicInfoPosition('bottom') + 10 + "px";
-        }
-    }
-
     private getMimicsFromServer()
     {
         this.loading = this.loadingCtrl.create();
@@ -80,16 +72,6 @@ export class ListingPage {
                 this.loading.dismiss();
             }); 
     }
-
-
-    /**
-     * Dynamically calculate mimic info position
-     * @param string type "top" or "bottom"
-     */
-    private calculateMimicInfoPosition(type) {
-        return document.getElementById('split-' + type).clientHeight - document.getElementsByClassName('slide-zoom')[0].clientHeight - document.getElementById('mimic-info-' + type).clientHeight;
-    }
-
 
     /**
      * Open specific page
@@ -131,7 +113,7 @@ export class ListingPage {
      */
     refresh() {
         this.getMimicsFromServer(); 
-        //this is used to return original mimics to the beginning. if I set it to: 0,1,2 it goest to second slide
+        //this is used to return original and response mimics to the beginning. if I set it to: 0,1,2 it goest to second slide
         this.numbersOriginal = [-1,0,1];
         this.numberResponses = [-1,0,1];
     }

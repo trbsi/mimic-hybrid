@@ -14,7 +14,7 @@
 <ion-content class="listing-content" no-bounce>
     <div class="overlay" *ngIf="mainMenuOpened"></div>
     <div class="split" id="split-top" *ngIf="mimicsList">
-        <!-- MIMIC INFO -->
+        <!-- MIMIC ORIGINAL INFO -->
         <ion-list class="mimic-info" id="mimic-info-top" #topMimicInfo>
             <ion-item>
                 <ion-avatar item-start (click)="openUserProfile(1)">
@@ -29,9 +29,9 @@
                 </button>
             </ion-item>
         </ion-list>
-        <!-- MIMIC INFO -->
+        <!-- MIMIC ORIGINAL INFO -->
 
-        <!-- MIMIC SLIDES -->
+        <!-- MIMIC ORIGINAL SLIDES -->
         <ion-slides #originalMimicSlide class="top-slides" (ionSlideWillChange)="originalSlideWillChange()" (ionSlideNextEnd)="loadNextOriginal('original')" (ionSlidePrevEnd)="loadPrevOriginal('original')">
             <ion-slide *ngFor="let n of numbersOriginal;">
                 <img *ngIf="mimicsList.hasOwnProperty(n) && mimicsList[n].mimic.mimic_type == 'picture'" src="{{mimicsList[n].mimic.file_url}}"> 
@@ -60,7 +60,7 @@
                 </div>
             </ion-slide>
         </ion-slides>
-        <!-- MIMIC SLIDES -->
+        <!-- MIMIC ORIGINAL SLIDES -->
     </div>
     <div class="split" id="split-bottom" *ngIf="currentMimicResponse">
         <!-- MIMIC RESPONSES SLIDES -->

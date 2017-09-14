@@ -112,3 +112,7 @@ export class HomePage {
 
 }
 -----------------------------------------------------------------------------
+
+
+Set height based on full width of screen
+https://stackoverflow.com/questions/40062241/set-height-as-a-ratio-of-width-with-only-css

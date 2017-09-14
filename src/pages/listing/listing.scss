@@ -9,6 +9,9 @@
   margin: 0px;
 }
 
+$ratio-width: 16%;
+$ratio-height: 9%;
+
 //VIDEO
 $player-controls-height: 40px;
 $player-play-icon-height: 6rem;
@@ -35,7 +38,7 @@ $playlist-item-play-icon-height: 3rem;
 @function top-mimic-info-position($width, $height)  {
   $sixteen-nine-percent: (($height / $width) * 100);
   $left: 100 - $sixteen-nine-percent;
-  @return ($sixteen-nine-percent - $left + 7)+%;
+  @return ($sixteen-nine-percent - $left)+%;
 }
 
 //VIDEO
@@ -147,15 +150,23 @@ listing-page {
     }
   }
 
-  #mimic-info-top
-  {
-      top: top-mimic-info-position(16, 9);
-  }
+  //position mimic info to the middle
+   #mimic-info-top 
+  { 
+      .label, .label-ios
+      {
+          height: 2.7em;
+          white-space: inherit;
+      }
+      top: top-mimic-info-position(16, 9); 
+  } 
+ 
+  #mimic-info-bottom 
+  { 
 
-  #mimic-info-bottom
-  {
-      bottom: top-mimic-info-position(16, 9);
-  }
+      bottom: top-mimic-info-position(16, 9); 
+  } 
+
   //-----mimic info style-----
 
   //-----upvote button area-----
@@ -172,6 +183,11 @@ listing-page {
   //make slide image full width
   .swiper-slide img {
     width: 100%;
+  }
+
+  //make our slide only 56.25% of height to retain same height
+  .slide-zoom {
+    height: $ratio-height/$ratio-width*100%;
   }
 
   .top-slides {

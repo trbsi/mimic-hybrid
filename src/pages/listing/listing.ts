@@ -69,7 +69,7 @@ export class ListingPage {
                 this.currentMimicResponse = this.mimicsList[0].mimic_responses;
             }); 
     }
-
+    
     /**
      * Open specific page
      * @param string page Which page to open

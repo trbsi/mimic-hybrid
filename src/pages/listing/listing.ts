@@ -40,7 +40,9 @@ export class ListingPage {
     mimicsList = []; //list of all mimics from the server
     mimicsCount: number; //total number of original mimics
     currentMimicResponses = []; // current responses of one original mimic you are looking at
-    currentMimicResponse: object; // current mimic response displaying on the screen
+    currentResponseMimic: object; // current mimic response displaying on the screen
+    currentMimicOriginal: object; // current mimic response displaying on the screen
+
     currentMimicOriginalIndex = 0; //current index (current original mimic you are looking at)
 
     //VIDEO
@@ -68,7 +70,7 @@ export class ListingPage {
                 this.mimicsList = data.mimics; 
                 this.mimicsCount = data.count-1; //because your are counting from index 0 
                 this.currentMimicResponses = this.mimicsList[0].mimic_responses;
-                this.currentMimicResponse = this.currentMimicResponses[0];
+                this.currentResponseMimic = this.currentMimicResponses[0];
             }); 
     }
 
@@ -269,7 +271,7 @@ export class ListingPage {
              // Since the initial slide is 1, prevent the first 
             // movement to modify the slides
             this.firstLoadResponse = false;
-            this.currentMimicResponse = this.currentMimicResponses[this.numberResponses[1]];
+            this.currentResponseMimic = this.currentMimicResponses[this.numberResponses[1]];
             this.slideChanged(type, this.numberResponses[0]); 
             return;
         }
@@ -277,7 +279,7 @@ export class ListingPage {
         this.responseMimicSlide.lockSwipeToPrev(false);       
         var newIndex = this.responseMimicSlide.getActiveIndex();
         //set current response mimic you are looking at
-        this.currentMimicResponse = this.currentMimicResponses[this.numberResponses[newIndex]];
+        this.currentResponseMimic = this.currentMimicResponses[this.numberResponses[newIndex]];
 
         if(this.numberResponses[this.numberResponses.length - 1] == this.mimicsCount) {
             console.log('nema vise');
@@ -302,7 +304,7 @@ export class ListingPage {
 
         let newIndex  = this.responseMimicSlide.getActiveIndex();
         //set current response mimic you are looking at
-        this.currentMimicResponse = this.currentMimicResponses[this.numberResponses[newIndex]];
+        this.currentResponseMimic = this.currentMimicResponses[this.numberResponses[newIndex]];
 
         newIndex++;
   
@@ -333,7 +335,7 @@ export class ListingPage {
     private setCurrentMimicResponses(currentMimicOriginalIndex)
     {
         this.currentMimicResponses = this.mimicsList[currentMimicOriginalIndex].mimic_responses;
-        this.currentMimicResponse = this.currentMimicResponses[0];
+        this.currentResponseMimic = this.currentMimicResponses[0];
         this.numberResponses = [0,1,2]; //reset our array
         this.videoResponse = []; //reset our array
         this.responseMimicSlide.slideTo(0, 0, false);  //set slide back to index 0 

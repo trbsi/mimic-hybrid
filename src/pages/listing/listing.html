@@ -97,15 +97,15 @@
 
 
         <!-- MIMIC RESPONSE INFO -->
-        <ion-list class="mimic-info" id="mimic-info-bottom" *ngIf="currentMimicResponse">
+        <ion-list class="mimic-info" id="mimic-info-bottom" *ngIf="currentResponseMimic">
             <ion-item>
-                <ion-avatar item-start (click)="openUserProfile(currentMimicResponse.user_id)">
-                    <img src="{{currentMimicResponse.profile_picture}}">
+                <ion-avatar item-start (click)="openUserProfile(currentResponseMimic.user_id)">
+                    <img src="{{currentResponseMimic.profile_picture}}">
                 </ion-avatar>
-                <h2 (click)="openUserProfile(currentMimicResponse.user_id)">{{currentMimicResponse.username}}</h2>
-                <button ion-button clear item-end (click)="upvote(currentMimicResponse.id)">
-                    <ion-icon [name]="currentMimicResponse.upvoted == 0 ? 'arrow-dropup' : 'arrow-dropup-circle'" class="upvote-button"></ion-icon>
-                    <div>{{currentMimicResponse.upvote}}</div>
+                <h2 (click)="openUserProfile(currentResponseMimic.user_id)">{{currentResponseMimic.username}}</h2>
+                <button ion-button clear item-end (click)="upvote(currentResponseMimic.id)">
+                    <ion-icon [name]="currentResponseMimic.upvoted == 0 ? 'arrow-dropup' : 'arrow-dropup-circle'" class="upvote-button"></ion-icon>
+                    <div>{{currentResponseMimic.upvote}}</div> 
                 </button>
             </ion-item>
         </ion-list>

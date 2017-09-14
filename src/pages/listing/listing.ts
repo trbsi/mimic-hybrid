@@ -70,7 +70,6 @@ export class ListingPage {
                 this.currentOriginalMimic = this.mimicsList[0];
                 this.currentMimicResponses = this.mimicsList[0].mimic_responses;
                 this.currentResponseMimic = this.currentMimicResponses[0];
-                console.log(this.currentOriginalMimic);
             }); 
     }
 

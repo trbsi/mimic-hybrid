@@ -38,12 +38,10 @@ export class ListingPage {
 
     //MIMICS
     mimicsList = []; //list of all mimics from the server
-    mimicsCount: number; //total number of original mimics
+    originalMimicsCount: number; //total number of original mimics
     currentMimicResponses = []; // current responses of one original mimic you are looking at
-    currentResponseMimic: object; // current mimic response displaying on the screen
-    currentMimicOriginal: object; // current mimic response displaying on the screen
-
-    currentMimicOriginalIndex = 0; //current index (current original mimic you are looking at)
+    currentResponseMimic: object; // current response mimic displaying on the screen
+    currentOriginalMimic: object; // current original mimic displaying on the screen
 
     //VIDEO
     videoOriginal = []; //original video instances
@@ -68,9 +66,11 @@ export class ListingPage {
     {
         this.listingService.getAllMimics().then((data) => {
                 this.mimicsList = data.mimics; 
-                this.mimicsCount = data.count-1; //because your are counting from index 0 
+                this.originalMimicsCount = data.count-1; //because your are counting from index 0 
+                this.currentOriginalMimic = this.mimicsList[0];
                 this.currentMimicResponses = this.mimicsList[0].mimic_responses;
                 this.currentResponseMimic = this.currentMimicResponses[0];
+                console.log(this.currentOriginalMimic);
             }); 
     }
 
@@ -196,6 +196,7 @@ export class ListingPage {
 
 
     /**
+     * *****************RESPONSE***********************
      * When side has been changed
      * @param string type "original" or "response"
      */
@@ -205,18 +206,21 @@ export class ListingPage {
              // Since the initial slide is 1, prevent the first 
             // movement to modify the slides
             this.firstLoadOriginal = false;
+            this.currentOriginalMimic = this.mimicsList[this.numbersOriginal[1]];
             this.slideChanged(type, this.numbersOriginal[0]); 
-            this.setCurrentMimicResponses(this.currentMimicOriginalIndex);
+            this.setCurrentMimicResponses(0);
             return;
         }
 
         let newIndex = this.originalMimicSlide.getActiveIndex();
+        //set current original mimic you are looking at
+        this.currentOriginalMimic = this.mimicsList[this.numbersOriginal[newIndex]];
+
         //set new current mimic response and reset numbering
-        this.currentMimicOriginalIndex = this.numbersOriginal[newIndex];
-        this.setCurrentMimicResponses(this.currentMimicOriginalIndex);
+        this.setCurrentMimicResponses(this.numbersOriginal[newIndex]);
 
         this.originalMimicSlide.lockSwipeToPrev(false);       
-        if(this.numbersOriginal[this.numbersOriginal.length - 1] == this.mimicsCount) {
+        if(this.numbersOriginal[this.numbersOriginal.length - 1] == this.originalMimicsCount) {
             console.log('nema vise');
             //this.originalMimicSlide.lockSwipeToNext(true);
 
@@ -238,9 +242,11 @@ export class ListingPage {
     { 
 
         let newIndex  = this.originalMimicSlide.getActiveIndex();
+        //set current original mimic you are looking at
+        this.currentOriginalMimic = this.mimicsList[this.numbersOriginal[newIndex]];
+
         //set new current mimic response and reset numbering
-        this.currentMimicOriginalIndex = this.numbersOriginal[newIndex];
-        this.setCurrentMimicResponses(this.currentMimicOriginalIndex);
+        this.setCurrentMimicResponses(this.numbersOriginal[newIndex]);
 
         newIndex++;
 
@@ -262,6 +268,7 @@ export class ListingPage {
     }
     
     /**
+     * *****************RESPONSE***********************
      * When side has been changed
      * @param string type "original" or "response"
      */
@@ -281,7 +288,7 @@ export class ListingPage {
         //set current response mimic you are looking at
         this.currentResponseMimic = this.currentMimicResponses[this.numberResponses[newIndex]];
 
-        if(this.numberResponses[this.numberResponses.length - 1] == this.mimicsCount) {
+        if(this.numberResponses[this.numberResponses.length - 1] == this.originalMimicsCount) {
             console.log('nema vise');
             //this.originalMimicSlide.lockSwipeToNext(true);
 

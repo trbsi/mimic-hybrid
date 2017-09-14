@@ -15,17 +15,17 @@
     <div class="overlay" *ngIf="mainMenuOpened"></div>
     <div class="split" id="split-top" *ngIf="mimicsList">
         <!-- MIMIC ORIGINAL INFO -->
-        <ion-list class="mimic-info" id="mimic-info-top" #topMimicInfo>
+        <ion-list class="mimic-info" id="mimic-info-top" *ngIf="currentOriginalMimic">
             <ion-item>
-                <ion-avatar item-start (click)="openUserProfile(1)">
-                    <img src="http://i.dailymail.co.uk/i/pix/2016/05/23/22/348B850600000578-3605456-image-m-32_1464040491071.jpg">
+                <ion-avatar item-start (click)="openUserProfile(currentOriginalMimic.mimic.user_id)">
+                    <img src="{{currentOriginalMimic.mimic.profile_picture}}">
                 </ion-avatar>
-                <h2 (click)="openUserProfile(1)">My Neighbor Totoro</h2>
+                <h2 (click)="openUserProfile(currentOriginalMimic.mimic.user_id)">{{currentOriginalMimic.mimic.username}}</h2>
 
-                <p style="font-size: 10px">#mama #tata #ovaj #onaj #iqwokeuplikethis #somestupidhashtags</p>
-                <button ion-button clear item-end (click)="upvote(1)">
-                    <ion-icon name="arrow-dropup-circle" class="upvote-button"></ion-icon>
-                    <div>32k</div>
+                <p style="font-size: 10px">{{currentOriginalMimic.hashtags_flat}}</p>
+                <button ion-button clear item-end (click)="upvote(currentOriginalMimic.mimic.id)">
+                    <ion-icon [name]="currentOriginalMimic.mimic.upvoted == 0 ? 'arrow-dropup' : 'arrow-dropup-circle'"  class="upvote-button"></ion-icon>
+                    <div>{{currentOriginalMimic.mimic.upvote}}</div>
                 </button>
             </ion-item>
         </ion-list>

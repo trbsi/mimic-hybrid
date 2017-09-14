@@ -62,12 +62,12 @@
         </ion-slides>
         <!-- MIMIC ORIGINAL SLIDES -->
     </div>
-    <div class="split" id="split-bottom" *ngIf="currentMimicResponse">
+    <div class="split" id="split-bottom" *ngIf="currentMimicResponses">
         <!-- MIMIC RESPONSES SLIDES -->
         <ion-slides #responseMimicSlide class="bottom-slides"(ionSlideNextEnd)="loadNextResponse('response')" (ionSlidePrevEnd)="loadPrevResponse('response')"> 
             <ion-slide  *ngFor="let n of numberResponses;">
-                <img *ngIf="currentMimicResponse.hasOwnProperty(n) && currentMimicResponse[n].mimic_type == 'picture'" src="{{currentMimicResponse[n].file_url}}"> 
-                <div *ngIf="currentMimicResponse.hasOwnProperty(n) && currentMimicResponse[n].mimic_type == 'video'" class="video-player-container">
+                <img *ngIf="currentMimicResponses.hasOwnProperty(n) && currentMimicResponses[n].mimic_type == 'picture'" src="{{currentMimicResponses[n].file_url}}"> 
+                <div *ngIf="currentMimicResponses.hasOwnProperty(n) && currentMimicResponses[n].mimic_type == 'video'" class="video-player-container">
                     <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event, 'response', n)">
                         <vg-buffering></vg-buffering>
                         <vg-overlay-play></vg-overlay-play>
@@ -86,7 +86,7 @@
                         </vg-controls>
                         <video webkit-playsinline playsinline #response [vgMedia]="response" id="response"
                                class="expand-horizontally" preload="auto">
-                            <source src="{{currentMimicResponse[n].file_url}}">
+                            <source src="{{currentMimicResponses[n].file_url}}">
                         </video>
                     </vg-player>
                 </div>
@@ -96,20 +96,20 @@
         <!-- MIMIC RESPONSES SLIDES -->
 
 
-        <!-- MIMIC INFO -->
-        <ion-list class="mimic-info" id="mimic-info-bottom">
+        <!-- MIMIC RESPONSE INFO -->
+        <ion-list class="mimic-info" id="mimic-info-bottom" *ngIf="currentMimicResponse">
             <ion-item>
-                <ion-avatar item-start (click)="openUserProfile(1)">
-                    <img src="http://i.dailymail.co.uk/i/pix/2016/05/23/22/348B850600000578-3605456-image-m-32_1464040491071.jpg">
+                <ion-avatar item-start (click)="openUserProfile(currentMimicResponse.user_id)">
+                    <img src="{{currentMimicResponse.profile_picture}}">
                 </ion-avatar>
-                <h2 (click)="openUserProfile(1)">My Neighbor Totoro</h2>
-                <button ion-button clear item-end (click)="upvote(1)">
-                    <ion-icon name="arrow-dropup" class="upvote-button"></ion-icon>
-                    <div>32k</div>
+                <h2 (click)="openUserProfile(currentMimicResponse.user_id)">{{currentMimicResponse.username}}</h2>
+                <button ion-button clear item-end (click)="upvote(currentMimicResponse.id)">
+                    <ion-icon [name]="currentMimicResponse.upvoted == 0 ? 'arrow-dropup' : 'arrow-dropup-circle'" class="upvote-button"></ion-icon>
+                    <div>{{currentMimicResponse.upvote}}</div>
                 </button>
             </ion-item>
         </ion-list>
-        <!-- MIMIC INFO -->
+        <!-- MIMIC RESPONSE INFO -->
     </div>
     <ion-fab bottom center #fab style="bottom: -20px;">
         <button ion-fab mini class="menu-btn" (click)="mainMenuOpened = !mainMenuOpened">

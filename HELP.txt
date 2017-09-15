@@ -116,3 +116,7 @@ export class HomePage {
 
 Set height based on full width of screen
 https://stackoverflow.com/questions/40062241/set-height-as-a-ratio-of-width-with-only-css
+
+Linker command failed with exit code 1 (use -v to see invocation)
+https://github.com/phonegap/phonegap-plugin-push/issues/1240
+*What I did  is this command: "ionic cordova platform rm ios" and then I pushed changes to ionic git and created a build

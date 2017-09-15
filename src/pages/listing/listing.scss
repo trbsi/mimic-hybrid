@@ -117,15 +117,15 @@ listing-page {
     position: absolute;
     width: 100%;
     z-index: 10;
-    background-color: color($colors, mimic, base);
+    background-color: transparent;
 
     //background color of mimic info
     ion-app.ios {
-      background-color: color($colors, mimic, base);
+      background-color: transparent;
     }
 
     .item, .item-ios {
-      background-color: color($colors, mimic, base);
+      background-color: transparent;
       color: white;
 
       p {

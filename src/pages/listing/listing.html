@@ -111,7 +111,7 @@
         </ion-list>
         <!-- MIMIC RESPONSE INFO -->
     </div>
-    <ion-fab bottom center #fab style="bottom: -20px;">
+    <ion-fab bottom right #fab style="bottom: -20px;">
         <button ion-fab mini class="menu-btn" (click)="mainMenuOpened = !mainMenuOpened">
             <ion-icon name="add"></ion-icon>
         </button>
@@ -138,7 +138,7 @@
             </button>
         </ion-fab-list>
     </ion-fab>
-    <ion-fab top center style="top: -20px;" (click)="replyToMimic(1)">
+    <ion-fab bottom left style="bottom: -20px;" (click)="replyToMimic(1)">
         <button ion-fab mini class="menu-btn">
             <ion-icon name="undo"></ion-icon>
         </button>

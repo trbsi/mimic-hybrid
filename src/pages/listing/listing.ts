@@ -33,9 +33,12 @@ export class ListingPage {
     //MIMICS
     mimicsList = []; //list of all mimics from the server
     originalMimicsCount: number; //total number of original mimics
+    responseMimicsCount: number; //total number of original mimics
     currentMimicResponses = []; // current responses of one original mimic you are looking at
     currentResponseMimic: object; // current response mimic displaying on the screen
     currentOriginalMimic: object; // current original mimic displaying on the screen
+    originalMimicPaging = 0;
+    responseMimicPaging = 0;
 
     //VIDEO
     videoOriginal = []; //original video instances
@@ -60,10 +63,16 @@ export class ListingPage {
     {
         this.listingService.getAllMimics().then((data) => {
                 this.mimicsList = data.mimics; 
-                this.originalMimicsCount = data.count-1; //because your are counting from index 0 
+
+                this.originalMimicsCount = data.count;
+
                 this.currentOriginalMimic = this.mimicsList[0];
-                this.currentMimicResponses = this.mimicsList[0].mimic_responses;
+                this.responseMimicsCount = this.currentOriginalMimic['mimic'].responses_count;  
+                this.currentMimicResponses = this.currentOriginalMimic['mimic_responses'];
                 this.currentResponseMimic = this.currentMimicResponses[0];
+
+                this.originalMimicSlide.slideTo(0, 0, false);  //set slide back to index 0 
+                this.responseMimicSlide.slideTo(0, 0, false);  //set slide back to index 0 
             }); 
     }
 
@@ -193,17 +202,23 @@ export class ListingPage {
     loadNextOriginal(type) 
     {
         let newIndex = this.originalMimicSlide.getActiveIndex();
+
+        //if newIndex is bigger than total count just return this so nothing can happen
+        if(newIndex+1 >= this.originalMimicsCount) {
+            return; 
+        }
+
+        //if this is the end, try to get more mimics (preload them)
+        if(this.originalMimicSlide.isEnd()) {
+            //@TODO stavi ovdje onaj loader kad dohvaćaš još mimica
+            this.responseMimicSlide.lockSwipeToNext(true);
+            console.log('probaj dohvatiti još originala');
+        }
+
         //set current original mimic you are looking at
         this.currentOriginalMimic = this.mimicsList[newIndex];
         //set new current mimic response and reset numbering
-        this.setCurrentMimicResponses(newIndex);
-
-        /*if(this.numbersOriginal[this.numbersOriginal.length - 1] == this.originalMimicsCount) {
-            console.log('nema vise');
-            //this.originalMimicSlide.lockSwipeToNext(true);
-
-        }*/
-
+        this.setCurrentMimicResponses(newIndex);    
         //when slide is changed pause previous video
         this.slideChanged(type, newIndex-1);
     }
@@ -231,14 +246,22 @@ export class ListingPage {
     {                
 
         var newIndex = this.responseMimicSlide.getActiveIndex();
+
+        //if newIndex is bigger than total count just return this so nothing can happen
+        if(newIndex+1 >= this.originalMimicsCount) {
+            return; 
+        }
+
+        //if this is the end, try to get more mimics
+        if(this.responseMimicSlide.isEnd()) {
+            //@TODO stavi ovdje onaj loader kad dohvaćaš još mimica
+            this.responseMimicSlide.lockSwipeToNext(true);
+            console.log('probaj dohvatiti još responsova');
+
+        }
+
         //set current response mimic you are looking at
         this.currentResponseMimic = this.currentMimicResponses[newIndex];
-
-        /*if(this.numberResponses[this.numberResponses.length - 1] == this.originalMimicsCount) {
-            console.log('nema vise');
-            //this.originalMimicSlide.lockSwipeToNext(true);
-
-        }*/
         //when slide is changed pause previous video
         this.slideChanged(type, newIndex-1);
 
@@ -267,8 +290,10 @@ export class ListingPage {
     {
         this.currentMimicResponses = this.mimicsList[currentMimicOriginalIndex].mimic_responses;
         this.currentResponseMimic = this.currentMimicResponses[0];
-        this.videoResponse = []; //reset our array
+        this.videoResponse = []; //reset our video array
         this.responseMimicSlide.slideTo(0, 0, false);  //set slide back to index 0 
+        this.responseMimicPaging = 0; //reset paging
+        this.responseMimicsCount = this.mimicsList[currentMimicOriginalIndex].mimic.responses_count;  //set new response count
     }
     //SLIDES
 

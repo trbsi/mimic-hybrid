@@ -35,10 +35,14 @@ $playlist-item-play-icon-height: 3rem;
   }
 }
 
-@function top-mimic-info-position($width, $height)  {
-  $sixteen-nine-percent: (($height / $width) * 100);
+@function top-mimic-info-position()  { 
+  $sixteen-nine-percent: ((9 / 16) * 100);
   $left: 100 - $sixteen-nine-percent;
-  @return ($sixteen-nine-percent - $left)+%;
+  @return ($left / 4)+%;
+}
+
+@function slides-height()  {
+  @return calc(100vw * 9 / 16);
 }
 
 //VIDEO
@@ -63,7 +67,7 @@ listing-page {
   //-----menu-----
   .menu-btn {
     background: #f9c21e;
-    box-shadow: 0px 0px 10px 0px black;
+    box-shadow: 0px 0px 3px 0px black;
   }
 
   .fab, .fab-ios {
@@ -158,13 +162,13 @@ listing-page {
           height: 2.7em;
           white-space: inherit;
       }
-      top: top-mimic-info-position(16, 9); 
+      top: top-mimic-info-position(); 
   } 
  
   #mimic-info-bottom 
   { 
 
-      bottom: top-mimic-info-position(16, 9); 
+      bottom: top-mimic-info-position(); 
   } 
 
   //-----mimic info style-----
@@ -187,7 +191,7 @@ listing-page {
 
   //make our slide only 56.25% of height to retain same height
   .slide-zoom {
-    height:  calc(100vw * $ratio-height/$ratio-width);
+    height:  slides-height();
   }
 
   .top-slides {

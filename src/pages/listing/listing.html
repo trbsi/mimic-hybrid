@@ -33,10 +33,17 @@
 
         <!-- MIMIC ORIGINAL SLIDES -->
         <ion-slides #originalMimicSlide class="top-slides" (ionSlideWillChange)="originalSlideWillChange()" (ionSlideNextEnd)="loadNextOriginal('original')" (ionSlidePrevEnd)="loadPrevOriginal('original')">
-            <ion-slide *ngFor="let n of numbersOriginal;">
-                <img *ngIf="mimicsList.hasOwnProperty(n) && mimicsList[n].mimic.mimic_type == 'picture'" src="{{mimicsList[n].mimic.file_url}}"> 
-                <div *ngIf="mimicsList.hasOwnProperty(n) && mimicsList[n].mimic.mimic_type == 'video'" class="video-player-container">
-                    <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event, 'original', n)">
+            <div class="spinner spinner-top">
+              <div class="rect1"></div>
+              <div class="rect2"></div>
+              <div class="rect3"></div>
+              <div class="rect4"></div>
+              <div class="rect5"></div>
+            </div>
+            <ion-slide *ngFor="let data of mimicsList; let i = index;">
+                <img *ngIf="data.mimic.mimic_type == 'picture'" src="{{data.mimic.file_url}}"> 
+                <div *ngIf="data.mimic.mimic_type == 'video'" class="video-player-container">
+                    <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event, 'original', i)">
                         <vg-buffering></vg-buffering>
                         <vg-overlay-play></vg-overlay-play>
                         <vg-controls [vgAutohide]="false" [vgAutohideTime]="2"> 
@@ -54,7 +61,7 @@
                         </vg-controls>
                         <video webkit-playsinline playsinline #original [vgMedia]="original" id="original"
                                class="expand-horizontally" preload="auto">
-                            <source src="{{mimicsList[n].mimic.file_url}}">
+                            <source src="{{data.mimic.file_url}}">
                         </video>
                     </vg-player>
                 </div>
@@ -63,12 +70,19 @@
         <!-- MIMIC ORIGINAL SLIDES -->
     </div>
     <div class="split" id="split-bottom" *ngIf="currentMimicResponses">
-        <!-- MIMIC RESPONSES SLIDES -->
+        <!-- MIMIC RESPONSES SLIDES --> 
         <ion-slides #responseMimicSlide class="bottom-slides"(ionSlideNextEnd)="loadNextResponse('response')" (ionSlidePrevEnd)="loadPrevResponse('response')"> 
-            <ion-slide  *ngFor="let n of numberResponses;">
-                <img *ngIf="currentMimicResponses.hasOwnProperty(n) && currentMimicResponses[n].mimic_type == 'picture'" src="{{currentMimicResponses[n].file_url}}"> 
-                <div *ngIf="currentMimicResponses.hasOwnProperty(n) && currentMimicResponses[n].mimic_type == 'video'" class="video-player-container">
-                    <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event, 'response', n)">
+            <div class="spinner spinner-bottom">
+              <div class="rect1"></div>
+              <div class="rect2"></div>
+              <div class="rect3"></div>
+              <div class="rect4"></div>
+              <div class="rect5"></div>
+            </div>
+            <ion-slide *ngFor="let data of currentMimicResponses; let i = index;">
+                <img *ngIf="data.mimic_type == 'picture'" src="{{data.file_url}}"> 
+                <div *ngIf="data.mimic_type == 'video'" class="video-player-container">
+                    <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event, 'response', i)">
                         <vg-buffering></vg-buffering>
                         <vg-overlay-play></vg-overlay-play>
                         <vg-controls [vgAutohide]="false" [vgAutohideTime]="2"> 
@@ -86,7 +100,7 @@
                         </vg-controls>
                         <video webkit-playsinline playsinline #response [vgMedia]="response" id="response"
                                class="expand-horizontally" preload="auto">
-                            <source src="{{currentMimicResponses[n].file_url}}">
+                            <source src="{{data.file_url}}">
                         </video>
                     </vg-player>
                 </div>

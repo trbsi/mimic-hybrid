@@ -61,7 +61,7 @@ export class ListingPage {
 
     private getMimicsFromServer()
     {
-        this.listingService.getAllMimics().then((data) => {
+        this.listingService.getAllMimics(null).then((data) => {
                 this.mimicsList = data.mimics; 
 
                 this.originalMimicsCount = data.count;
@@ -241,9 +241,7 @@ export class ListingPage {
 
         //if this is the end, try to get more mimics (preload them)
         if(this.originalMimicSlide.isEnd()) {
-            //@TODO stavi ovdje onaj loader kad dohvaćaš još mimica
-            this.responseMimicSlide.lockSwipeToNext(true);
-            console.log('probaj dohvatiti još originala');
+            this.loadMoreOriginals();
         }
 
         //set current original mimic you are looking at
@@ -268,6 +266,21 @@ export class ListingPage {
         this.slideChanged(type, newIndex+1); 
     }
     
+    /**
+     * Load more original mimics
+     */
+    private loadMoreOriginals() 
+    {
+        this.originalMimicSlide.lockSwipeToNext(true); 
+        this.originalMimicPaging+=1; //increase paging
+        this.listingService.getAllMimics(this.originalMimicPaging)
+        .then((data) => {
+            console.log(data);
+            this.mimicsList = this.mimicsList.concat(data.mimics);
+            this.originalMimicSlide.lockSwipeToNext(false); 
+        });
+    }
+
     /**
      * *****************RESPONSES***********************
      * When side has been changed
@@ -309,8 +322,6 @@ export class ListingPage {
 
     /**
      * Load more mimic responses
-     * @param int page Current page for response mimics
-     * @param int original_mimic_id Id of a current original mimic you are looking at
      */
     private loadMoreResponses() 
     {

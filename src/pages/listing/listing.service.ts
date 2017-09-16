@@ -12,11 +12,14 @@ export class ListingService {
 
     /**
      * Get all mimics
+     * @param int page Current page for original mimics
      */
-    getAllMimics()
+    getAllMimics(page)
     {
         var data = {};
-        data['page'] = 0;
+        if(page != null) {
+            data['page'] = page;
+        }
         return this.apiSettings.sendRequest(data, 'mimic/list', 'get');  
     }
 
@@ -53,6 +56,4 @@ export class ListingService {
         console.log(data);
         return this.apiSettings.sendRequest(data, 'mimic/load-responses', 'get');  
     }
-
-
 }

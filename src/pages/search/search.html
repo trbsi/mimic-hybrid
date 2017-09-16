@@ -15,7 +15,7 @@
     </ion-searchbar>
     <div class="list-mini" *ngIf="searchResult && searchResult.length > 0">
         <ion-list>
-            <button class="list-item" ion-item detail-none *ngFor="let data of searchResult; let i = index">
+            <button class="list-item" ion-item detail-none *ngFor="let data of searchResult; let i = index" (click)="doAction(data)">
                 <ion-row no-padding class="content-row one-line">
                     <!-- You can limit the rows of the description by using the class one-line. If you remove it, all the content from the row will be shown -->
                     <ion-avatar item-left>
@@ -31,19 +31,28 @@
                         </h3>
 
                         <p class="item-description">
-                        </p>
+                            <span *ngIf="searchTerm.charAt(0) == '@'">Mimics: {{data.number_of_mimics}} | Followers: {{data.followers}}</span>
+                       </p>
                     </ion-col>
                 </ion-row>
             </button>
         </ion-list>
     </div>
     <div *ngIf="!searchResult || searchResult.length == 0">
-        <ion-grid style="color: white; text-align: center;">
+        <ion-grid style="color: white; text-align: center; margin-top: 25%;">
           <ion-row align-items-center justify-content-center>
-            <ion-col>
+            <ion-col *ngIf="startSearch == false">
                 NO RESULTS
             </ion-col>
-
+            <ion-col *ngIf="startSearch == true">
+                <div class="spinner" id="spinner-search">
+                  <div class="rect1"></div>
+                  <div class="rect2"></div>
+                  <div class="rect3"></div>
+                  <div class="rect4"></div>
+                  <div class="rect5"></div>
+                </div>
+            </ion-col>
           </ion-row>
         </ion-grid>
     </div>

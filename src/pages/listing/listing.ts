@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController } from 'ionic-angular';
+import { NavController, LoadingController, NavParams } from 'ionic-angular';
 
 import 'rxjs/Rx';
 
@@ -29,6 +29,10 @@ export class ListingPage {
     listing:ListingModel = new ListingModel();
     loading:any;
     mainMenuOpened:boolean;
+
+    //NAV PARAMS
+    hashtagId = null; //filter mimics by hashtag_id
+    userId = null; //filter mimics by user
     
     //MIMICS
     mimicsList = []; //list of all mimics from the server
@@ -50,9 +54,20 @@ export class ListingPage {
     constructor(public nav:NavController, private alertCtrl:AlertController,
                 public loadingCtrl:LoadingController, public facebookLoginService:FacebookLoginService,
                 public twitterLoginService:TwitterLoginService,
-                public apiSettings:ApiSettings, public listingService:ListingService) 
+                public apiSettings:ApiSettings, public listingService:ListingService,
+                public navParams:NavParams) 
     {
-        this.mainMenuOpened = false;       
+        this.mainMenuOpened = false;   
+
+        //filter mimics by hashtag
+        if(this.navParams.get('hashtag_id')) {
+            this.hashtagId = this.navParams.get('hashtag_id');
+        }
+
+        //filter mimics by user
+        if(this.navParams.get('user_id')) {
+            this.userId = this.navParams.get('user_id');
+        }
     }
 
     ionViewDidLoad() {
@@ -61,7 +76,16 @@ export class ListingPage {
 
     private getMimicsFromServer()
     {
-        this.listingService.getAllMimics(null).then((data) => {
+        var data = {};
+        if(this.hashtagId != null) {
+            data['hashtag_id'] = this.hashtagId;
+        }
+
+        if(this.userId != null) {
+            data['user_id'] = this.userId;
+        }
+
+        this.listingService.getAllMimics(data).then((data) => {
                 this.mimicsList = data.mimics; 
 
                 this.originalMimicsCount = data.count;
@@ -274,7 +298,7 @@ export class ListingPage {
     {
         this.originalMimicSlide.lockSwipeToNext(true); 
         this.originalMimicPaging+=1; //increase paging
-        this.listingService.getAllMimics(this.originalMimicPaging)
+        this.listingService.getAllMimics({page: this.originalMimicPaging})
         .then((data) => {
             this.mimicsList = this.mimicsList.concat(data.mimics);
             this.originalMimicSlide.lockSwipeToNext(false); 
@@ -365,6 +389,6 @@ export class ListingPage {
                 break;
         }
     }
-    //VIDEOS
+    //VIDEOS 
 
 }

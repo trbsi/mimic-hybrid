@@ -12,14 +12,10 @@ export class ListingService {
 
     /**
      * Get all mimics
-     * @param int page Current page for original mimics
+     * @param object data Object containing different data 
      */
-    getAllMimics(page)
+    getAllMimics(data)
     {
-        var data = {};
-        if(page != null) {
-            data['page'] = page;
-        }
         return this.apiSettings.sendRequest(data, 'mimic/list', 'get');  
     }
 

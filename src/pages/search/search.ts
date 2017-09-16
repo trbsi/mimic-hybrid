@@ -1,27 +1,29 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 
 import 'rxjs/Rx';
 
 import { SearchService } from './search.service';
 import { ViewChild } from '@angular/core';
 import { Searchbar } from 'ionic-angular';
+import { ProfilePage } from '../profile/profile';
+import { ListingPage } from '../listing/listing';
 
 @Component({
     selector: 'search-page',
     templateUrl: 'search.html'
 })
 export class Search {
-    searchResult:any;
+    
+    searchResult = [];
     loading:any;
     searchTerm:string;
+    startSearch = false;
 
     @ViewChild(Searchbar) searchbar:Searchbar;
 
     constructor(public nav:NavController,
-                public searchService:SearchService,
-                public loadingCtrl:LoadingController) {
-        //this.loading = this.loadingCtrl.create();
+                public searchService:SearchService) {
     }
 
     ionViewDidLoad() {
@@ -39,14 +41,35 @@ export class Search {
      * @param any event Some ion-searchbar event
      */
     search(event) {
-        if(this.searchTerm.length > 1 && this.searchTerm != "@" && this.searchTerm != "#") {
+        if(this.searchTerm.length >= 4 && this.searchTerm != "@" && this.searchTerm != "#") {
+            this.startSearch = true;
             this.searchService.search(this.searchTerm)
             .then(data => {
-                console.log(data);
                 this.searchResult = data;
+                this.startSearch = false;
             });
         }
         
+    }
+
+    /**
+     * Either open user's profile or go to listings page and filter mimics by hashtag
+     * @param object data Hashtag or User data
+     */
+    doAction(data) {
+        switch (this.searchTerm.charAt(0)) {
+            case "#":
+                this.nav.setRoot(ListingPage, {
+                    hashtag_id: data.id 
+                });
+                break;
+            case "@":
+                this.nav.setRoot(ListingPage, {
+                    user_id: data.id 
+                });
+                break;
+        }
+
     }
 
 }

@@ -33,7 +33,7 @@
 
         <!-- MIMIC ORIGINAL SLIDES -->
         <ion-slides #originalMimicSlide class="top-slides" (ionSlideNextEnd)="loadNextOriginal('original')" (ionSlidePrevEnd)="loadPrevOriginal('original')">
-            <div class="spinner spinner-top">
+            <div class="spinner" id="spinner-top">
               <div class="rect1"></div>
               <div class="rect2"></div>
               <div class="rect3"></div>
@@ -72,7 +72,7 @@
     <div class="split" id="split-bottom" *ngIf="currentMimicResponses">
         <!-- MIMIC RESPONSES SLIDES --> 
         <ion-slides #responseMimicSlide class="bottom-slides"(ionSlideNextEnd)="loadNextResponse('response')" (ionSlidePrevEnd)="loadPrevResponse('response')"> 
-            <div class="spinner spinner-bottom">
+            <div class="spinner" id="spinner-bottom">
               <div class="rect1"></div>
               <div class="rect2"></div>
               <div class="rect3"></div>

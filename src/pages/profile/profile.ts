@@ -25,7 +25,7 @@ export class ProfilePage {
                 public loadingCtrl:LoadingController,
                 public socialSharing:SocialSharing) {
         this.display = "list";
-
+        console.log(this.navParams.get('user_id'));
         this.loading = this.loadingCtrl.create();
     }
 

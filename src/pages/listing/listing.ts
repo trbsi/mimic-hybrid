@@ -86,7 +86,7 @@ export class ListingPage {
         switch (page) {
             case "profile":
                 this.nav.push(ProfilePage, {
-                    //user: item
+                    user_id: null //it means that I'm opening my own profile
                 });
                 break;
             case "refresh":
@@ -123,7 +123,9 @@ export class ListingPage {
      * @param int id User id
      */
     openUserProfile(id) {
-        alert(id);
+        this.nav.push(ProfilePage, {
+              user_id: id
+        });
     }
 
     /**

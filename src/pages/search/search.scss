@@ -1,6 +1,10 @@
 // Common list styles can be found in "./common.styles/layouts/lists"
 search-page {
 
+  //cancel button color
+  .searchbar-ios-cancel, .disable-hover, .button-clear-ios {
+    color: white;
+  }
   .list-mini-content {
     background-color: color($colors, mimic, base);
 

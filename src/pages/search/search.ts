@@ -3,7 +3,6 @@ import { NavController, LoadingController } from 'ionic-angular';
 
 import 'rxjs/Rx';
 
-import { SearchModel } from './search.model';
 import { SearchService } from './search.service';
 import { ViewChild } from '@angular/core';
 import { Searchbar } from 'ionic-angular';
@@ -13,32 +12,41 @@ import { Searchbar } from 'ionic-angular';
     templateUrl: 'search.html'
 })
 export class Search {
-    list2:SearchModel = new SearchModel();
+    searchResult:any;
     loading:any;
+    searchTerm:string;
 
     @ViewChild(Searchbar) searchbar:Searchbar;
 
     constructor(public nav:NavController,
-                public list2Service:SearchService,
+                public searchService:SearchService,
                 public loadingCtrl:LoadingController) {
-        this.loading = this.loadingCtrl.create();
+        //this.loading = this.loadingCtrl.create();
     }
 
     ionViewDidLoad() {
-        setTimeout(() => {
+        /*setTimeout(() => {
             this.searchbar.setFocus();
-        }, 1000);
-        this.loading.present();
-        this.list2Service
-            .getData()
-            .then(data => {
-                this.list2.items = data.items;
-                this.loading.dismiss();
-            });
+        }, 1000);*/
     }
 
     onCancel() {
+        this.searchResult = [];
+    }
 
+    /**
+     * Search for username or hashtag
+     * @param any event Some ion-searchbar event
+     */
+    search(event) {
+        if(this.searchTerm.length > 1 && this.searchTerm != "@" && this.searchTerm != "#") {
+            this.searchService.search(this.searchTerm)
+            .then(data => {
+                console.log(data);
+                this.searchResult = data;
+            });
+        }
+        
     }
 
 }

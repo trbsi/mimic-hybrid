@@ -6,30 +6,45 @@
 
 <ion-content class="list-mini-content">
     <ion-searchbar
-            [(ngModel)]="myInput"
+            [(ngModel)]="searchTerm"
             [showCancelButton]="true"
-            (ionInput)="onInput($event)"
+            (ionInput)="search($event)"
             (ionCancel)="onCancel($event)"
+            [debounce] = "1000"
             placeholder="Search for @username or #hashtag">
     </ion-searchbar>
-    <div class="list-mini">
+    <div class="list-mini" *ngIf="searchResult && searchResult.length > 0">
         <ion-list>
-            <button class="list-item" ion-item detail-none *ngFor="let item of list2.items; let i = index">
+            <button class="list-item" ion-item detail-none *ngFor="let data of searchResult; let i = index">
                 <ion-row no-padding class="content-row one-line">
                     <!-- You can limit the rows of the description by using the class one-line. If you remove it, all the content from the row will be shown -->
                     <ion-avatar item-left>
-                        <preload-image *ngIf="i%2==0" class="avatar-image" [ratio]="{w:1, h:1}"
-                                       [src]="item.image"></preload-image>
-                        <preload-image *ngIf="i%2!=0" class="avatar-image" [ratio]="{w:1, h:1}"
+                        <preload-image *ngIf="searchTerm.charAt(0) == '@'" class="avatar-image" [ratio]="{w:1, h:1}"
+                                       [src]="data.profile_picture"></preload-image>
+                        <preload-image *ngIf="searchTerm.charAt(0) == '#'" class="avatar-image" [ratio]="{w:1, h:1}"
                                        src="./assets/images/hashtag.png"></preload-image>
                     </ion-avatar>
                     <ion-col no-padding width-72 class="item-content">
-                        <h3 class="item-title">{{item.name}}</h3>
+                        <h3 class="item-title">
+                             <span *ngIf="searchTerm.charAt(0) == '#'">{{data.name}}</span>
+                             <span *ngIf="searchTerm.charAt(0) == '@'">{{data.username}}</span>
+                        </h3>
 
-                        <p class="item-description">{{item.description}}</p>
+                        <p class="item-description">
+                        </p>
                     </ion-col>
                 </ion-row>
             </button>
         </ion-list>
+    </div>
+    <div *ngIf="!searchResult || searchResult.length == 0">
+        <ion-grid style="color: white; text-align: center;">
+          <ion-row align-items-center justify-content-center>
+            <ion-col>
+                NO RESULTS
+            </ion-col>
+
+          </ion-row>
+        </ion-grid>
     </div>
 </ion-content>

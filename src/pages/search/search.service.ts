@@ -1,25 +1,20 @@
 import { Injectable } from "@angular/core";
-import { Http } from '@angular/http';
-
-import 'rxjs/add/operator/toPromise';
-
-import { SearchModel } from './search.model';
+import { ApiSettings } from '../../components/api-settings/api-settings';
 
 @Injectable()
 export class SearchService {
-    constructor(public http:Http) {
+    constructor(public apiSettings:ApiSettings) {
     }
 
-    getData():Promise<SearchModel> {
-        return this.http.get('./assets/example_data/lists.json')
-            .toPromise()
-            .then(response => response.json() as SearchModel)
-            .catch(this.handleError);
-    }
-
-    private handleError(error:any):Promise<any> {
-        console.error('An error occurred', error); // for demo purposes only
-        return Promise.reject(error.message || error);
+    /**
+     * get search result from server
+     * param string Any search termen
+     */
+    search(term) {
+        var data = {
+            term: term,
+        };
+        return this.apiSettings.sendRequest(data, 'search', 'get');  
     }
 
 }

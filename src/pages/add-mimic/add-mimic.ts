@@ -13,6 +13,7 @@ export class AddMimic {
     post_form:any;
     selected_image:any;
     record_upload:any;
+    title:string;
 
     constructor(public nav:NavController, public navParams:NavParams,
                 public alertCtrl:AlertController,
@@ -25,8 +26,12 @@ export class AddMimic {
         this.post_form = new FormGroup({
             hashtags: new FormControl('', Validators.required)
         });
-
         console.log(this.navParams.get('original_mimic_id'));
+        if(this.navParams.get('reply_to_mimic') == true) {
+            this.title = "Reply to Mimic";
+        } else {
+            this.title = "Add Mimic";
+        }
 
     }
 

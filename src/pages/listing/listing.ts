@@ -171,7 +171,8 @@ export class ListingPage {
      */
     replyToMimic(id) {
         this.nav.push(AddMimic, {
-            original_mimic_id: id
+            original_mimic_id: id,
+            reply_to_mimic: true
         });
     }
 
@@ -275,7 +276,6 @@ export class ListingPage {
         this.originalMimicPaging+=1; //increase paging
         this.listingService.getAllMimics(this.originalMimicPaging)
         .then((data) => {
-            console.log(data);
             this.mimicsList = this.mimicsList.concat(data.mimics);
             this.originalMimicSlide.lockSwipeToNext(false); 
         });

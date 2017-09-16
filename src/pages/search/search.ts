@@ -6,7 +6,6 @@ import 'rxjs/Rx';
 import { SearchService } from './search.service';
 import { ViewChild } from '@angular/core';
 import { Searchbar } from 'ionic-angular';
-import { ProfilePage } from '../profile/profile';
 import { ListingPage } from '../listing/listing';
 
 @Component({

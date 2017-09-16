@@ -129,9 +129,38 @@ export class ListingPage {
     /**
      * Upvote mimic
      * @param int id Id of a mimic
+     * @param string type "original" or "response"
      */
-    upvote(id) {
-        alert(id);
+    upvote(id, type) {
+        this.listingService.upvote(id, type).then((data) => {
+            
+            if(data.type == "downvoted") {
+                switch (type) {
+                    case "response":
+                        this.currentResponseMimic['upvoted'] = 0;
+                        this.currentResponseMimic['upvote']-= 1;
+                        break;
+                    case "original":
+                        this.currentOriginalMimic['mimic'].upvoted = 0;
+                        this.currentOriginalMimic['mimic'].upvote-= 1;
+                        break;
+                }
+                
+            }
+
+            if(data.type == "upvoted") {
+                switch (type) {
+                    case "response":
+                        this.currentResponseMimic['upvoted'] = 1;
+                        this.currentResponseMimic['upvote']+= 1;
+                        break;
+                    case "original":
+                        this.currentOriginalMimic['mimic'].upvoted = 1;
+                        this.currentOriginalMimic['mimic'].upvote+= 1;
+                        break;
+                }
+            }
+        }); 
     }
 
     /**

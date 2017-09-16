@@ -18,6 +18,25 @@ export class ListingService {
         var data = {};
         data['page'] = 0;
         return this.apiSettings.sendRequest(data, 'mimic/list', 'get');  
+    }
 
+    /**
+     * Upvote mimic
+     * @param int id Id of a mimic
+     * @param string type "original" or "response"
+     */
+    upvote(id, type)
+    {
+        var data = {};
+        switch (type) {
+            case "original":
+                data['original_mimic_id'] = id;
+                break;
+            case "response":
+                data['response_mimic_id'] = id;
+                break;
+        }
+
+        return this.apiSettings.sendRequest(data, 'mimic/upvote', 'post');  
     }
 }

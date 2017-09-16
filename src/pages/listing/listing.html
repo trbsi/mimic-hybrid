@@ -23,9 +23,9 @@
                 <h2 (click)="openUserProfile(currentOriginalMimic.mimic.user_id)">{{currentOriginalMimic.mimic.username}}</h2>
 
                 <p style="font-size: 10px">{{currentOriginalMimic.hashtags_flat}}</p>
-                <button ion-button clear item-end (click)="upvote(currentOriginalMimic.mimic.id)">
+                <button ion-button clear item-end (click)="upvote(currentOriginalMimic.mimic.id, 'original')">
                     <ion-icon [name]="currentOriginalMimic.mimic.upvoted == 0 ? 'arrow-dropup' : 'arrow-dropup-circle'"  class="upvote-button"></ion-icon>
-                    <div>{{currentOriginalMimic.mimic.upvote}}</div>
+                    <div class="number-of-upvotes">{{currentOriginalMimic.mimic.upvote}}</div>
                 </button>
             </ion-item>
         </ion-list>
@@ -117,9 +117,9 @@
                     <img src="{{currentResponseMimic.profile_picture}}">
                 </ion-avatar>
                 <h2 (click)="openUserProfile(currentResponseMimic.user_id)">{{currentResponseMimic.username}}</h2>
-                <button ion-button clear item-end (click)="upvote(currentResponseMimic.id)">
+                <button ion-button clear item-end (click)="upvote(currentResponseMimic.id, 'response')">
                     <ion-icon [name]="currentResponseMimic.upvoted == 0 ? 'arrow-dropup' : 'arrow-dropup-circle'" class="upvote-button"></ion-icon>
-                    <div>{{currentResponseMimic.upvote}}</div> 
+                    <div class="number-of-upvotes">{{currentResponseMimic.upvote}}</div> 
                 </button>
             </ion-item>
         </ion-list>

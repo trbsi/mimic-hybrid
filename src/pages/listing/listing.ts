@@ -341,12 +341,12 @@ export class ListingPage {
      */
     private loadMoreResponses() 
     {
-        this.responseMimicSlide.lockSwipeToNext(true); 
+        //this.responseMimicSlide.lockSwipeToNext(true); 
         this.responseMimicPaging+=1; //increase paging
         this.listingService.loadMoreResponses(this.responseMimicPaging, this.currentOriginalMimic['mimic'].id)
         .then((data) => {
             this.currentMimicResponses = this.currentMimicResponses.concat(data.mimics);
-            this.responseMimicSlide.lockSwipeToNext(false); 
+            //this.responseMimicSlide.lockSwipeToNext(false); 
         });
     }
 

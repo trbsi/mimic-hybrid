@@ -59,28 +59,6 @@ export class SettingsPage {
 
     ionViewDidLoad() {
         this.loading.present();
-        this.profileService.getData().then(data => {
-            this.profile.user = data.user;
-
-            // setValue: With setValue, you assign every form control value at once by passing in a data object whose properties exactly match the form model behind the FormGroup.
-            // patchValue: With patchValue, you can assign values to specific controls in a FormGroup by supplying an object of key/value pairs for just the controls of interest.
-            // More info: https://angular.io/docs/ts/latest/guide/reactive-forms.html#!#populate-the-form-model-with-_setvalue_-and-_patchvalue_
-            this.settingsForm.patchValue({
-                name: data.user.name,
-                location: data.user.location,
-                description: data.user.about,
-                currency: 'dollar',
-                weather: 'fahrenheit',
-                notifications: true,
-                language: this.languages[0]
-            });
-
-            this.loading.dismiss();
-
-            this.settingsForm.get('language').valueChanges.subscribe((lang) => {
-                this.setLanguage(lang);
-            });
-        });
     }
 
     logout() {
@@ -119,7 +97,7 @@ export class SettingsPage {
      this.appRate.promptForRating(true);
      }*/
 
-    openImagePicker() {
+    /*openImagePicker() {
         this.imagePicker.hasReadPermission().then(
             (result) => {
                 if (result == false) {
@@ -143,5 +121,5 @@ export class SettingsPage {
                 }
             }
         )
-    }
+    }*/
 }

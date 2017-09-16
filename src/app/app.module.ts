@@ -19,7 +19,7 @@ import { NativeStorage } from '@ionic-native/native-storage';
 
 import { FollowersPage } from '../pages/followers/followers';
 //import { WalkthroughPage } from '../pages/walkthrough/walkthrough';
-import { SettingsPage } from '../pages/settings/settings';
+//import { SettingsPage } from '../pages/settings/settings';
 //import { SignupPage } from '../pages/signup/signup';
 //import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
 import { TermsOfServicePage } from '../pages/terms-of-service/terms-of-service';
@@ -82,9 +82,9 @@ export function createTranslateLoader(http:Http) {
         AddMimic,
         DeleteMimics,
 
-        FollowersPage,
+        FollowersPage, 
         //WalkthroughPage,
-        SettingsPage,
+        //SettingsPage,
         //SignupPage,
         //ForgotPasswordPage,
         TermsOfServicePage,
@@ -124,9 +124,9 @@ export function createTranslateLoader(http:Http) {
 
         FollowersPage,
         //WalkthroughPage,
-        SettingsPage,
+        //SettingsPage,
         //ForgotPasswordPage,
-        //SignupPage,
+        //SignupPage, 
         TermsOfServicePage,
         PrivacyPolicyPage,
     ],

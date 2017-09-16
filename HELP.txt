@@ -1,3 +1,6 @@
+Ionic app takes too long to start | ionic ios first start takes too long
+https://forum.ionicframework.com/t/ionic-app-takes-too-long-to-start/97546
+
 Vertical align center
 https://css-tricks.com/centering-css-complete-guide/
 

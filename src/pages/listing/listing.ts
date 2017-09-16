@@ -43,6 +43,7 @@ export class ListingPage {
     currentOriginalMimic: object; // current original mimic displaying on the screen
     originalMimicPaging = 0;
     responseMimicPaging = 0;
+    filterMimics = {};
 
     //VIDEO
     videoOriginal = []; //original video instances
@@ -58,15 +59,14 @@ export class ListingPage {
                 public navParams:NavParams) 
     {
         this.mainMenuOpened = false;   
-
         //filter mimics by hashtag
         if(this.navParams.get('hashtag_id')) {
-            this.hashtagId = this.navParams.get('hashtag_id');
+            this.filterMimics['hashtag_id'] = this.navParams.get('hashtag_id');
         }
 
         //filter mimics by user
         if(this.navParams.get('user_id')) {
-            this.userId = this.navParams.get('user_id');
+            this.filterMimics['user_id'] = this.navParams.get('user_id');
         }
     }
 
@@ -76,16 +76,7 @@ export class ListingPage {
 
     private getMimicsFromServer()
     {
-        var data = {};
-        if(this.hashtagId != null) {
-            data['hashtag_id'] = this.hashtagId;
-        }
-
-        if(this.userId != null) {
-            data['user_id'] = this.userId;
-        }
-
-        this.listingService.getAllMimics(data).then((data) => {
+        this.listingService.getAllMimics(this.filterMimics).then((data) => {
                 this.mimicsList = data.mimics; 
 
                 this.originalMimicsCount = data.count;
@@ -139,6 +130,7 @@ export class ListingPage {
      * refresh mimic page
      */
     refresh() {
+        this.filterMimics = {};
         this.getMimicsFromServer(); 
     }
 
@@ -296,12 +288,12 @@ export class ListingPage {
      */
     private loadMoreOriginals() 
     {
-        this.originalMimicSlide.lockSwipeToNext(true); 
+       // this.originalMimicSlide.lockSwipeToNext(true); 
         this.originalMimicPaging+=1; //increase paging
         this.listingService.getAllMimics({page: this.originalMimicPaging})
         .then((data) => {
             this.mimicsList = this.mimicsList.concat(data.mimics);
-            this.originalMimicSlide.lockSwipeToNext(false); 
+          //  this.originalMimicSlide.lockSwipeToNext(false); 
         });
     }
 

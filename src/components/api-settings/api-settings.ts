@@ -99,7 +99,7 @@ export class ApiSettings {
      */
     private doGet(getData, url, headers) {
         this.createHeaders(headers);
-        let options = new RequestOptions(Object.assign(getData, {headers: headers}));
+        let options = new RequestOptions({params:getData, headers: headers});
         return this.http.get(ApiSettings.API_ENDPOINT + url, options)
             .toPromise()
             .then((response) => {

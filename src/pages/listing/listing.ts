@@ -226,7 +226,7 @@ export class ListingPage {
 
 
     /**
-     * *****************RESPONSE***********************
+     * *****************ORIGINALS***********************
      * When side has been changed
      * @param string type "original" or "response"
      */
@@ -269,7 +269,7 @@ export class ListingPage {
     }
     
     /**
-     * *****************RESPONSE***********************
+     * *****************RESPONSES***********************
      * When side has been changed
      * @param string type "original" or "response"
      */
@@ -279,16 +279,13 @@ export class ListingPage {
         var newIndex = this.responseMimicSlide.getActiveIndex();
 
         //if newIndex is bigger than total count just return this so nothing can happen
-        if(newIndex+1 >= this.originalMimicsCount) {
+        if(newIndex+1 >= this.responseMimicsCount) {
             return; 
         }
 
         //if this is the end, try to get more mimics
         if(this.responseMimicSlide.isEnd()) {
-            //@TODO stavi ovdje onaj loader kad dohvaćaš još mimica
-            this.responseMimicSlide.lockSwipeToNext(true);
-            console.log('probaj dohvatiti još responsova');
-
+            this.loadMoreResponses();
         }
 
         //set current response mimic you are looking at
@@ -310,8 +307,21 @@ export class ListingPage {
         this.slideChanged(type, newIndex+1); 
     }
 
-
-
+    /**
+     * Load more mimic responses
+     * @param int page Current page for response mimics
+     * @param int original_mimic_id Id of a current original mimic you are looking at
+     */
+    private loadMoreResponses() 
+    {
+        this.responseMimicSlide.lockSwipeToNext(true); 
+        this.responseMimicPaging+=1; //increase paging
+        this.listingService.loadMoreResponses(this.responseMimicPaging, this.currentOriginalMimic['mimic'].id)
+        .then((data) => {
+            this.currentMimicResponses = this.currentMimicResponses.concat(data.mimics);
+            this.responseMimicSlide.lockSwipeToNext(false); 
+        });
+    }
 
 
     /**

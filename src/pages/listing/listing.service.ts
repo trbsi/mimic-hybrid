@@ -39,4 +39,20 @@ export class ListingService {
 
         return this.apiSettings.sendRequest(data, 'mimic/upvote', 'post');  
     }
+
+    /**
+     * Load more mimic responses
+     * @param int page Current page for response mimics
+     * @param int original_mimic_id Id of a current original mimic you are looking at
+     */
+    loadMoreResponses(page, original_mimic_id) 
+    { 
+        var data = {};
+        data['page'] = page;
+        data['original_mimic_id'] = original_mimic_id;
+        console.log(data);
+        return this.apiSettings.sendRequest(data, 'mimic/load-responses', 'get');  
+    }
+
+
 }

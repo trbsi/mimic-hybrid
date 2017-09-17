@@ -285,7 +285,7 @@ export class ListingPage {
     private loadMoreOriginals() {
         // this.originalMimicSlide.lockSwipeToNext(true);
         this.originalMimicPaging += 1; //increase paging
-        this.listingService.getAllMimics({page: this.originalMimicPaging})
+        this.listingService.getAllMimics(Object.assign(this.filterMimics, {page: this.originalMimicPaging}))
             .then((data) => {
                 this.mimicsList = this.mimicsList.concat(data.mimics);
                 //  this.originalMimicSlide.lockSwipeToNext(false);

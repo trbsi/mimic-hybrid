@@ -13,7 +13,7 @@ import { ListingPage } from '../listing/listing';
     templateUrl: 'search.html'
 })
 export class Search {
-    
+
     searchResult = [];
     loading:any;
     searchTerm:string;
@@ -27,8 +27,8 @@ export class Search {
 
     ionViewDidLoad() {
         /*setTimeout(() => {
-            this.searchbar.setFocus();
-        }, 1000);*/
+         this.searchbar.setFocus();
+         }, 1000);*/
     }
 
     onCancel() {
@@ -40,15 +40,15 @@ export class Search {
      * @param any event Some ion-searchbar event
      */
     search(event) {
-        if(this.searchTerm.length >= 4 && this.searchTerm != "@" && this.searchTerm != "#") {
+        if (this.searchTerm.length >= 4 && this.searchTerm != "@" && this.searchTerm != "#") {
             this.startSearch = true;
             this.searchService.search(this.searchTerm)
-            .then(data => {
-                this.searchResult = data;
-                this.startSearch = false;
-            });
+                .then(data => {
+                    this.searchResult = data;
+                    this.startSearch = false;
+                });
         }
-        
+
     }
 
     /**
@@ -59,12 +59,12 @@ export class Search {
         switch (this.searchTerm.charAt(0)) {
             case "#":
                 this.nav.setRoot(ListingPage, {
-                    hashtag_id: data.id 
+                    hashtag_id: data.id
                 });
                 break;
             case "@":
                 this.nav.setRoot(ListingPage, {
-                    user_id: data.id 
+                    user_id: data.id
                 });
                 break;
         }

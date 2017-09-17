@@ -35,21 +35,22 @@ $playlist-item-play-icon-height: 3rem;
   }
 }
 
-@function top-mimic-info-position()  { 
+@function top-mimic-info-position() {
   $sixteen-nine-percent: ((9 / 16) * 100);
   $left: 100 - $sixteen-nine-percent;
   @return ($left / 4)+%; //Sanja's formula
 }
 
-@function bottom-mimic-info-position()  { 
+@function bottom-mimic-info-position() {
   $sixteen-nine-percent: ((9 / 16) * 100);
   $left: 100 - $sixteen-nine-percent;
   @return ($left / 4)+%; //Sanja's formula
 }
 
-@function slides-height()  {
+@function slides-height() {
   @return calc(100vw * 9 / 16);
 }
+
 //VIDEO
 
 listing-page {
@@ -68,7 +69,7 @@ listing-page {
     position: absolute;
     z-index: 20;
   }
- 
+
   //-----menu-----
   .menu-btn {
     background: #f9c21e;
@@ -86,36 +87,36 @@ listing-page {
 
   //set flaoting button label
   ion-fab {
-      button {
-          box-shadow: 0 4px 10px #6b6b6b;
-      }
+    button {
+      box-shadow: 0 4px 10px #6b6b6b;
+    }
 
-      ion-fab-list button[ion-fab] {
-          text-align: center;
-          overflow: visible;
+    ion-fab-list button[ion-fab] {
+      text-align: center;
+      overflow: visible;
 
-          div.label {
-            color: black;
-            position: absolute;
-            right: 48px;
-            background: rgba(248, 248, 248, 1);
-            height: 24px;
-            line-height: 16px;
-            padding-left: 8px;
-            padding-right: 8px;
-            padding-top: 5px;
-            padding-bottom: 5px;
-            margin-top: 8px;
-            border-radius: 5px;
-            box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.14), 0 4px 5px rgba(0, 0, 0, 0.1);
-          }
+      div.label {
+        color: black;
+        position: absolute;
+        right: 48px;
+        background: rgba(248, 248, 248, 1);
+        height: 24px;
+        line-height: 16px;
+        padding-left: 8px;
+        padding-right: 8px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        margin-top: 8px;
+        border-radius: 5px;
+        box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.14), 0 4px 5px rgba(0, 0, 0, 0.1);
       }
-      .fab {
-        contain: initial;
-      }
-      .button-inner {
-          overflow: visible;
-      }
+    }
+    .fab {
+      contain: initial;
+    }
+    .button-inner {
+      overflow: visible;
+    }
   }
   //------menu------
 
@@ -152,7 +153,7 @@ listing-page {
     padding-bottom: 3px;
     color: white;
   }
-  
+
   .number-of-upvotes {
     color: white;
   }
@@ -165,21 +166,18 @@ listing-page {
   }
 
   //position mimic info to the middle
-   #mimic-info-top 
-  { 
-      .label, .label-ios
-      {
-          height: 2.7em;
-          white-space: inherit;
-      }
-      top: top-mimic-info-position(); 
-  } 
- 
-  #mimic-info-bottom 
-  { 
+  #mimic-info-top {
+    .label, .label-ios {
+      height: 2.7em;
+      white-space: inherit;
+    }
+    top: top-mimic-info-position();
+  }
 
-      bottom: bottom-mimic-info-position(); 
-  } 
+  #mimic-info-bottom {
+
+    bottom: bottom-mimic-info-position();
+  }
 
   //-----mimic info style-----
 
@@ -201,7 +199,7 @@ listing-page {
 
   //make our slide only 56.25% of height to retain same height
   .slide-zoom {
-    height:  slides-height();
+    height: slides-height();
   }
 
   .top-slides {
@@ -238,7 +236,7 @@ listing-page {
     position: absolute;
     //mycode
   }
-  
+
   #spinner-top {
     //my code
     z-index: -1;

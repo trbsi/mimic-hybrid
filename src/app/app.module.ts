@@ -80,7 +80,7 @@ export function createTranslateLoader(http:Http) {
         PostLogin,
         AddMimic,
 
-        FollowersPage, 
+        FollowersPage,
         //WalkthroughPage,
         //SettingsPage,
         //SignupPage,

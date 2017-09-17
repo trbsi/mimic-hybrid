@@ -14,7 +14,7 @@ export class SearchService {
         var data = {
             term: term,
         };
-        return this.apiSettings.sendRequest(data, 'search', 'get');  
+        return this.apiSettings.sendRequest(data, 'search', 'get');
     }
 
 }

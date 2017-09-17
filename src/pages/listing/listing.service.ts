@@ -12,11 +12,10 @@ export class ListingService {
 
     /**
      * Get all mimics
-     * @param object data Object containing different data 
+     * @param object data Object containing different data
      */
-    getAllMimics(data)
-    {
-        return this.apiSettings.sendRequest(data, 'mimic/list', 'get');  
+    getAllMimics(data) {
+        return this.apiSettings.sendRequest(data, 'mimic/list', 'get');
     }
 
     /**
@@ -24,8 +23,7 @@ export class ListingService {
      * @param int id Id of a mimic
      * @param string type "original" or "response"
      */
-    upvote(id, type)
-    {
+    upvote(id, type) {
         var data = {};
         switch (type) {
             case "original":
@@ -36,7 +34,7 @@ export class ListingService {
                 break;
         }
 
-        return this.apiSettings.sendRequest(data, 'mimic/upvote', 'post');  
+        return this.apiSettings.sendRequest(data, 'mimic/upvote', 'post');
     }
 
     /**
@@ -44,12 +42,11 @@ export class ListingService {
      * @param int page Current page for response mimics
      * @param int original_mimic_id Id of a current original mimic you are looking at
      */
-    loadMoreResponses(page, original_mimic_id) 
-    { 
+    loadMoreResponses(page, original_mimic_id) {
         var data = {};
         data['page'] = page;
         data['original_mimic_id'] = original_mimic_id;
         console.log(data);
-        return this.apiSettings.sendRequest(data, 'mimic/load-responses', 'get');  
+        return this.apiSettings.sendRequest(data, 'mimic/load-responses', 'get');
     }
 }

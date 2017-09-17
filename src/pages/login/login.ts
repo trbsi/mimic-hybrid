@@ -24,8 +24,7 @@ export class LoginPage {
                 //public googleLoginService:GoogleLoginService,
                 public twitterLoginService:TwitterLoginService,
                 public loadingCtrl:LoadingController,
-                public apiSettings:ApiSettings) 
-    {
+                public apiSettings:ApiSettings) {
         this.redirectUserToTheRightPage();
         this.main_page = {component: PostLogin};
     }
@@ -33,14 +32,13 @@ export class LoginPage {
     /**
      * Redirect user to mimics page or post login page
      */
-    private redirectUserToTheRightPage()
-    {this.nav.setRoot(ListingPage); //@TODO makni ovo
+    private redirectUserToTheRightPage() {
+        this.nav.setRoot(ListingPage); //@TODO makni ovo
         //see if user is loggedin, if he is check if he set username
         this.storage.getItem('token')
             .then((data) => {
                 //if he has username you can redirect to main screen
-                this.storage.getItem('username').then((data) => 
-                {
+                this.storage.getItem('username').then((data) => {
                     //username not set, redirect to post login
                     if (data == false || data == null) {
                         this.nav.setRoot(PostLogin);
@@ -48,7 +46,7 @@ export class LoginPage {
                         this.nav.setRoot(ListingPage);
                     }
 
-                },(error) => {
+                }, (error) => {
                     this.nav.setRoot(PostLogin);
                 });
 
@@ -83,14 +81,14 @@ export class LoginPage {
             .then((res) => {
                 //send request to server
                 this.login_service.loginOnServer(res, 'facebook')
-                .then(response => {
-                    this.apiSettings.storageSetLoginData(response).then(() => {
-                        this.redirectUserToTheRightPage();
-                    }); 
-                })
-                .catch(error => {
-                    console.log("FB login error", error);
-                });
+                    .then(response => {
+                        this.apiSettings.storageSetLoginData(response).then(() => {
+                            this.redirectUserToTheRightPage();
+                        });
+                    })
+                    .catch(error => {
+                        console.log("FB login error", error);
+                    });
 
                 this.loading.dismiss();
             }, (err) => {

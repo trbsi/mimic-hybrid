@@ -25,9 +25,8 @@ export class PostLogin {
                 public twitterLoginService:TwitterLoginService,
                 public postLoginService:PostLoginService,
                 public apiSettings:ApiSettings,
-                private storage:NativeStorage) 
-    {
-        this.submit_username = new FormGroup({ 
+                private storage:NativeStorage) {
+        this.submit_username = new FormGroup({
             username: new FormControl('', Validators.required),
         });
 
@@ -44,23 +43,23 @@ export class PostLogin {
      */
     submitUsername() {
         this.postLoginService.setUsername(this.submit_username.value.username)
-        .then((res) => {
-            console.log(res);
-            //if everything is ok, set username in storage
-            if(res.status == true) {
-                this.storage.setItem('username', this.submit_username.value.username)
-                .then(() => { 
-                    this.nav.setRoot(ListingPage); 
-                },
-                (error) => {
-                    console.error('Error storing item', error);
-                });    
-            }
-                
-        })
-        .catch((error) => {
-            console.log("error", error); 
-        });
+            .then((res) => {
+                console.log(res);
+                //if everything is ok, set username in storage
+                if (res.status == true) {
+                    this.storage.setItem('username', this.submit_username.value.username)
+                        .then(() => {
+                            this.nav.setRoot(ListingPage);
+                        },
+                        (error) => {
+                            console.error('Error storing item', error);
+                        });
+                }
+
+            })
+            .catch((error) => {
+                console.log("error", error);
+            });
     }
 
     /**

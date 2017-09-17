@@ -20,11 +20,13 @@
                 <ion-avatar item-start (click)="openUserProfile(currentOriginalMimic.mimic.user_id)">
                     <img src="{{currentOriginalMimic.mimic.profile_picture}}">
                 </ion-avatar>
-                <h2 (click)="openUserProfile(currentOriginalMimic.mimic.user_id)">{{currentOriginalMimic.mimic.username}}</h2>
+                <h2 (click)="openUserProfile(currentOriginalMimic.mimic.user_id)">
+                    {{currentOriginalMimic.mimic.username}}</h2>
 
                 <p style="font-size: 10px">{{currentOriginalMimic.hashtags_flat}}</p>
                 <button ion-button clear item-end (click)="upvote(currentOriginalMimic.mimic.id, 'original')">
-                    <ion-icon [name]="currentOriginalMimic.mimic.upvoted == 0 ? 'arrow-dropup' : 'arrow-dropup-circle'"  class="upvote-button"></ion-icon>
+                    <ion-icon [name]="currentOriginalMimic.mimic.upvoted == 0 ? 'arrow-dropup' : 'arrow-dropup-circle'"
+                              class="upvote-button"></ion-icon>
                     <div class="number-of-upvotes">{{currentOriginalMimic.mimic.upvote}}</div>
                 </button>
             </ion-item>
@@ -32,21 +34,23 @@
         <!-- MIMIC ORIGINAL INFO -->
 
         <!-- MIMIC ORIGINAL SLIDES -->
-        <ion-slides #originalMimicSlide class="top-slides" (ionSlideNextEnd)="loadNextOriginal('original')" (ionSlidePrevEnd)="loadPrevOriginal('original')">
+        <ion-slides #originalMimicSlide class="top-slides" (ionSlideNextEnd)="loadNextOriginal('original')"
+                    (ionSlidePrevEnd)="loadPrevOriginal('original')">
             <div class="spinner" id="spinner-top">
-              <div class="rect1"></div>
-              <div class="rect2"></div>
-              <div class="rect3"></div>
-              <div class="rect4"></div>
-              <div class="rect5"></div>
+                <div class="rect1"></div>
+                <div class="rect2"></div>
+                <div class="rect3"></div>
+                <div class="rect4"></div>
+                <div class="rect5"></div>
             </div>
             <ion-slide *ngFor="let data of mimicsList; let i = index;">
-                <img *ngIf="data.mimic.mimic_type == 'picture'" src="{{data.mimic.file_url}}"> 
+                <img *ngIf="data.mimic.mimic_type == 'picture'" src="{{data.mimic.file_url}}">
+
                 <div *ngIf="data.mimic.mimic_type == 'video'" class="video-player-container">
                     <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event, 'original', i)">
                         <vg-buffering></vg-buffering>
                         <vg-overlay-play></vg-overlay-play>
-                        <vg-controls [vgAutohide]="false" [vgAutohideTime]="2"> 
+                        <vg-controls [vgAutohide]="false" [vgAutohideTime]="2">
                             <ion-row class="controls-row">
                                 <ion-col no-padding width-18>
                                     <vg-time-display [vgProperty]="'left'" [vgFormat]="'mm:ss'"></vg-time-display>
@@ -57,7 +61,7 @@
                                         <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
                                     </vg-scrub-bar>
                                 </ion-col>
-                            </ion-row> 
+                            </ion-row>
                         </vg-controls>
                         <video webkit-playsinline playsinline #original [vgMedia]="original" id="original"
                                class="expand-horizontally" preload="auto">
@@ -70,22 +74,24 @@
         <!-- MIMIC ORIGINAL SLIDES -->
     </div>
     <div class="split" id="split-bottom" *ngIf="currentMimicResponses">
-        <!-- MIMIC RESPONSES SLIDES --> 
-        <ion-slides #responseMimicSlide class="bottom-slides"(ionSlideNextEnd)="loadNextResponse('response')" (ionSlidePrevEnd)="loadPrevResponse('response')"> 
+        <!-- MIMIC RESPONSES SLIDES -->
+        <ion-slides #responseMimicSlide class="bottom-slides" (ionSlideNextEnd)="loadNextResponse('response')"
+                    (ionSlidePrevEnd)="loadPrevResponse('response')">
             <div class="spinner" id="spinner-bottom">
-              <div class="rect1"></div>
-              <div class="rect2"></div>
-              <div class="rect3"></div>
-              <div class="rect4"></div>
-              <div class="rect5"></div>
+                <div class="rect1"></div>
+                <div class="rect2"></div>
+                <div class="rect3"></div>
+                <div class="rect4"></div>
+                <div class="rect5"></div>
             </div>
             <ion-slide *ngFor="let data of currentMimicResponses; let i = index;">
-                <img *ngIf="data.mimic_type == 'picture'" src="{{data.file_url}}"> 
+                <img *ngIf="data.mimic_type == 'picture'" src="{{data.file_url}}">
+
                 <div *ngIf="data.mimic_type == 'video'" class="video-player-container">
                     <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event, 'response', i)">
                         <vg-buffering></vg-buffering>
                         <vg-overlay-play></vg-overlay-play>
-                        <vg-controls [vgAutohide]="false" [vgAutohideTime]="2"> 
+                        <vg-controls [vgAutohide]="false" [vgAutohideTime]="2">
                             <ion-row class="controls-row">
                                 <ion-col no-padding width-18>
                                     <vg-time-display [vgProperty]="'left'" [vgFormat]="'mm:ss'"></vg-time-display>
@@ -96,7 +102,7 @@
                                         <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
                                     </vg-scrub-bar>
                                 </ion-col>
-                            </ion-row> 
+                            </ion-row>
                         </vg-controls>
                         <video webkit-playsinline playsinline #response [vgMedia]="response" id="response"
                                class="expand-horizontally" preload="auto">
@@ -118,8 +124,9 @@
                 </ion-avatar>
                 <h2 (click)="openUserProfile(currentResponseMimic.user_id)">{{currentResponseMimic.username}}</h2>
                 <button ion-button clear item-end (click)="upvote(currentResponseMimic.id, 'response')">
-                    <ion-icon [name]="currentResponseMimic.upvoted == 0 ? 'arrow-dropup' : 'arrow-dropup-circle'" class="upvote-button"></ion-icon>
-                    <div class="number-of-upvotes">{{currentResponseMimic.upvote}}</div> 
+                    <ion-icon [name]="currentResponseMimic.upvoted == 0 ? 'arrow-dropup' : 'arrow-dropup-circle'"
+                              class="upvote-button"></ion-icon>
+                    <div class="number-of-upvotes">{{currentResponseMimic.upvote}}</div>
                 </button>
             </ion-item>
         </ion-list>

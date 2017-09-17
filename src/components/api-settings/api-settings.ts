@@ -8,10 +8,10 @@ import { AlertController, LoadingController } from 'ionic-angular';
 export class ApiSettings {
     public static API_ENDPOINT = 'http://mimic.testapi.website/api/';
     allow_entry:string = 'little:cute:chubby';
-    loading: any;
+    loading:any;
 
     constructor(public http:Http, private storage:NativeStorage, private alertCtrl:AlertController,
-        public loadingCtrl:LoadingController) {
+                public loadingCtrl:LoadingController) {
 
     }
 
@@ -30,11 +30,11 @@ export class ApiSettings {
         });
         alert.present();
 
-        return Promise.reject(error.json()); 
+        return Promise.reject(error.json());
     }
 
     private handleSuccess(success) {
-        return Promise.resolve(success.json()); 
+        return Promise.resolve(success.json());
     }
 
     /**
@@ -53,7 +53,7 @@ export class ApiSettings {
             (token) => {
                 headers.append('Authorization', 'Bearer ' + token);
                 this.loading.dismiss();
-                if(type == 'post') {
+                if (type == 'post') {
                     return this.doPost(data, url, headers);
                 } else if (type == 'get') {
                     return this.doGet(data, url, headers);
@@ -66,7 +66,7 @@ export class ApiSettings {
                 //@TODO remove this, this is just for testing
                 headers.append('Authorization', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjcsImlzcyI6Imh0dHA6Ly9taW1pYy50ZXN0YXBpLndlYnNpdGUvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE1MDU2ODI2NjAsImV4cCI6MTUwODM4MjY2MCwibmJmIjoxNTA1NjgyNjYwLCJqdGkiOiJ1QWhWNE5oNnlrZ2o0UzF2In0.mAtyFB3ZDt38Rel-o7sXN-8Z7SQq8B4YHAa-HChZba0');
                 this.loading.dismiss();
-                if(type == 'post') {
+                if (type == 'post') {
                     return this.doPost(data, url, headers);
                 } else if (type == 'get') {
                     return this.doGet(data, url, headers);
@@ -89,10 +89,10 @@ export class ApiSettings {
         return this.http.post(ApiSettings.API_ENDPOINT + url, postData, options)
             .toPromise()
             .then((response) => {
-                return this.handleSuccess(response);   
+                return this.handleSuccess(response);
             })
             .catch((error) => {
-                return this.handleError(error);   
+                return this.handleError(error);
             });
     }
 
@@ -104,14 +104,14 @@ export class ApiSettings {
      */
     private doGet(getData, url, headers) {
         this.createHeaders(headers);
-        let options = new RequestOptions({params:getData, headers: headers});
+        let options = new RequestOptions({params: getData, headers: headers});
         return this.http.get(ApiSettings.API_ENDPOINT + url, options)
             .toPromise()
             .then((response) => {
-                return this.handleSuccess(response);   
+                return this.handleSuccess(response);
             })
             .catch((error) => {
-                return this.handleError(error);   
+                return this.handleError(error);
             });
     }
 
@@ -123,14 +123,14 @@ export class ApiSettings {
      */
     private doDelete(data, url, headers) {
         this.createHeaders(headers);
-        let options = new RequestOptions({params:data, headers: headers});
+        let options = new RequestOptions({params: data, headers: headers});
         return this.http.delete(ApiSettings.API_ENDPOINT + url, options)
             .toPromise()
             .then((response) => {
-                return this.handleSuccess(response);   
+                return this.handleSuccess(response);
             })
             .catch((error) => {
-                return this.handleError(error);   
+                return this.handleError(error);
             });
     }
 
@@ -140,25 +140,25 @@ export class ApiSettings {
      */
     storageSetLoginData(loginData) {
         return this.storage.setItem('token', loginData.token)
-        .then(
+            .then(
             () => {
                 console.log('Token set');
                 return this.storage.setItem('username', loginData.username)
-                .then(
+                    .then(
                     () => {
                         console.log('Username set!');
                         return this.storage.setItem('user_id', loginData.user_id)
-                        .then(
+                            .then(
                             () => {
                                 console.log('User ID set!')
                             },
-                            error => console.error('Error storing ser ID', error)
+                                error => console.error('Error storing ser ID', error)
                         );
                     },
-                    error => console.error('Error storing username', error)
+                        error => console.error('Error storing username', error)
                 );
             },
-            error => console.error('Error storing token', error)
+                error => console.error('Error storing token', error)
         );
     }
 

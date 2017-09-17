@@ -33,14 +33,14 @@ export class ListingPage {
     //NAV PARAMS
     hashtagId = null; //filter mimics by hashtag_id
     userId = null; //filter mimics by user
-    
+
     //MIMICS
     mimicsList = []; //list of all mimics from the server
-    originalMimicsCount: number; //total number of original mimics
-    responseMimicsCount: number; //total number of original mimics
+    originalMimicsCount:number; //total number of original mimics
+    responseMimicsCount:number; //total number of original mimics
     currentMimicResponses = []; // current responses of one original mimic you are looking at
-    currentResponseMimic: object; // current response mimic displaying on the screen
-    currentOriginalMimic: object; // current original mimic displaying on the screen
+    currentResponseMimic:object; // current response mimic displaying on the screen
+    currentOriginalMimic:object; // current original mimic displaying on the screen
     originalMimicPaging = 0;
     responseMimicPaging = 0;
     filterMimics = {};
@@ -56,39 +56,37 @@ export class ListingPage {
                 public loadingCtrl:LoadingController, public facebookLoginService:FacebookLoginService,
                 public twitterLoginService:TwitterLoginService,
                 public apiSettings:ApiSettings, public listingService:ListingService,
-                public navParams:NavParams) 
-    {
-        this.mainMenuOpened = false;   
+                public navParams:NavParams) {
+        this.mainMenuOpened = false;
         //filter mimics by hashtag
-        if(this.navParams.get('hashtag_id')) {
+        if (this.navParams.get('hashtag_id')) {
             this.filterMimics['hashtag_id'] = this.navParams.get('hashtag_id');
         }
 
         //filter mimics by user
-        if(this.navParams.get('user_id')) {
+        if (this.navParams.get('user_id')) {
             this.filterMimics['user_id'] = this.navParams.get('user_id');
         }
     }
 
     ionViewDidLoad() {
-        this.getMimicsFromServer(); 
+        this.getMimicsFromServer();
     }
 
-    private getMimicsFromServer()
-    {
+    private getMimicsFromServer() {
         this.listingService.getAllMimics(this.filterMimics).then((data) => {
-                this.mimicsList = data.mimics; 
+            this.mimicsList = data.mimics;
 
-                this.originalMimicsCount = data.count;
+            this.originalMimicsCount = data.count;
 
-                this.currentOriginalMimic = this.mimicsList[0];
-                this.responseMimicsCount = this.currentOriginalMimic['mimic'].responses_count;  
-                this.currentMimicResponses = this.currentOriginalMimic['mimic_responses'];
-                this.currentResponseMimic = this.currentMimicResponses[0];
+            this.currentOriginalMimic = this.mimicsList[0];
+            this.responseMimicsCount = this.currentOriginalMimic['mimic'].responses_count;
+            this.currentMimicResponses = this.currentOriginalMimic['mimic_responses'];
+            this.currentResponseMimic = this.currentMimicResponses[0];
 
-                this.originalMimicSlide.slideTo(0, 0, false);  //set slide back to index 0 
-                this.responseMimicSlide.slideTo(0, 0, false);  //set slide back to index 0 
-            }); 
+            this.originalMimicSlide.slideTo(0, 0, false);  //set slide back to index 0
+            this.responseMimicSlide.slideTo(0, 0, false);  //set slide back to index 0
+        });
     }
 
     /**
@@ -131,7 +129,7 @@ export class ListingPage {
      */
     refresh() {
         this.filterMimics = {};
-        this.getMimicsFromServer(); 
+        this.getMimicsFromServer();
     }
 
     /**
@@ -140,7 +138,7 @@ export class ListingPage {
      */
     openUserProfile(id) {
         this.nav.push(ProfilePage, {
-              user_id: id
+            user_id: id
         });
     }
 
@@ -151,34 +149,34 @@ export class ListingPage {
      */
     upvote(id, type) {
         this.listingService.upvote(id, type).then((data) => {
-            
-            if(data.type == "downvoted") {
+
+            if (data.type == "downvoted") {
                 switch (type) {
                     case "response":
                         this.currentResponseMimic['upvoted'] = 0;
-                        this.currentResponseMimic['upvote']-= 1;
+                        this.currentResponseMimic['upvote'] -= 1;
                         break;
                     case "original":
                         this.currentOriginalMimic['mimic'].upvoted = 0;
-                        this.currentOriginalMimic['mimic'].upvote-= 1;
+                        this.currentOriginalMimic['mimic'].upvote -= 1;
                         break;
                 }
-                
+
             }
 
-            if(data.type == "upvoted") {
+            if (data.type == "upvoted") {
                 switch (type) {
                     case "response":
                         this.currentResponseMimic['upvoted'] = 1;
-                        this.currentResponseMimic['upvote']+= 1;
+                        this.currentResponseMimic['upvote'] += 1;
                         break;
                     case "original":
                         this.currentOriginalMimic['mimic'].upvoted = 1;
-                        this.currentOriginalMimic['mimic'].upvote+= 1;
+                        this.currentOriginalMimic['mimic'].upvote += 1;
                         break;
                 }
             }
-        }); 
+        });
     }
 
     /**
@@ -238,7 +236,7 @@ export class ListingPage {
                 }
                 break;
         }
-        
+
     }
 
 
@@ -247,32 +245,30 @@ export class ListingPage {
      * When side has been changed
      * @param string type "original" or "response"
      */
-    loadNextOriginal(type) 
-    {
+    loadNextOriginal(type) {
         let newIndex = this.originalMimicSlide.getActiveIndex();
 
         //if newIndex is bigger than total count just return this so nothing can happen
-        if(newIndex+1 >= this.originalMimicsCount) {
-            return; 
+        if (newIndex + 1 >= this.originalMimicsCount) {
+            return;
         }
 
         //if this is the end, try to get more mimics (preload them)
-        if(this.originalMimicSlide.isEnd()) {
+        if (this.originalMimicSlide.isEnd()) {
             this.loadMoreOriginals();
         }
 
         //set current original mimic you are looking at
         this.currentOriginalMimic = this.mimicsList[newIndex];
         //set new current mimic response and reset numbering
-        this.setCurrentMimicResponses(newIndex);    
+        this.setCurrentMimicResponses(newIndex);
         //when slide is changed pause previous video
-        this.slideChanged(type, newIndex-1);
+        this.slideChanged(type, newIndex - 1);
     }
 
-    loadPrevOriginal(type) 
-    { 
+    loadPrevOriginal(type) {
 
-        let newIndex  = this.originalMimicSlide.getActiveIndex();
+        let newIndex = this.originalMimicSlide.getActiveIndex();
         //set current original mimic you are looking at
         this.currentOriginalMimic = this.mimicsList[newIndex];
 
@@ -280,21 +276,20 @@ export class ListingPage {
         this.setCurrentMimicResponses(newIndex);
 
         //when slide is changed pause previous video
-        this.slideChanged(type, newIndex+1); 
+        this.slideChanged(type, newIndex + 1);
     }
-    
+
     /**
      * Load more original mimics
      */
-    private loadMoreOriginals() 
-    {
-       // this.originalMimicSlide.lockSwipeToNext(true); 
-        this.originalMimicPaging+=1; //increase paging
+    private loadMoreOriginals() {
+        // this.originalMimicSlide.lockSwipeToNext(true);
+        this.originalMimicPaging += 1; //increase paging
         this.listingService.getAllMimics({page: this.originalMimicPaging})
-        .then((data) => {
-            this.mimicsList = this.mimicsList.concat(data.mimics);
-          //  this.originalMimicSlide.lockSwipeToNext(false); 
-        });
+            .then((data) => {
+                this.mimicsList = this.mimicsList.concat(data.mimics);
+                //  this.originalMimicSlide.lockSwipeToNext(false);
+            });
     }
 
     /**
@@ -302,60 +297,56 @@ export class ListingPage {
      * When side has been changed
      * @param string type "original" or "response"
      */
-    loadNextResponse(type) 
-    {                
+    loadNextResponse(type) {
 
         var newIndex = this.responseMimicSlide.getActiveIndex();
 
         //if newIndex is bigger than total count just return this so nothing can happen
-        if(newIndex+1 >= this.responseMimicsCount) {
-            return; 
+        if (newIndex + 1 >= this.responseMimicsCount) {
+            return;
         }
 
         //if this is the end, try to get more mimics
-        if(this.responseMimicSlide.isEnd()) {
+        if (this.responseMimicSlide.isEnd()) {
             this.loadMoreResponses();
         }
 
         //set current response mimic you are looking at
         this.currentResponseMimic = this.currentMimicResponses[newIndex];
         //when slide is changed pause previous video
-        this.slideChanged(type, newIndex-1);
+        this.slideChanged(type, newIndex - 1);
 
 
     }
 
-    loadPrevResponse(type) 
-    { 
+    loadPrevResponse(type) {
 
-        let newIndex  = this.responseMimicSlide.getActiveIndex();
+        let newIndex = this.responseMimicSlide.getActiveIndex();
         //set current response mimic you are looking at
         this.currentResponseMimic = this.currentMimicResponses[newIndex];
 
         //when slide is changed pause previous video
-        this.slideChanged(type, newIndex+1); 
+        this.slideChanged(type, newIndex + 1);
     }
 
     /**
      * Load more mimic responses
      */
-    private loadMoreResponses() 
-    {
+    private loadMoreResponses() {
         //this.responseMimicSlide.lockSwipeToNext(true); 
-        this.responseMimicPaging+=1; //increase paging
+        this.responseMimicPaging += 1; //increase paging
         this.listingService.loadMoreResponses(this.responseMimicPaging, this.currentOriginalMimic['mimic'].id)
-        .then((data) => {
-            this.currentMimicResponses = this.currentMimicResponses.concat(data.mimics);
-            //this.responseMimicSlide.lockSwipeToNext(false); 
-        });
+            .then((data) => {
+                this.currentMimicResponses = this.currentMimicResponses.concat(data.mimics);
+                //this.responseMimicSlide.lockSwipeToNext(false);
+            });
     }
 
 
     /**
      * When you change original mimic you have to set new responses to show for that mimic
      */
-    private setCurrentMimicResponses(currentMimicOriginalIndex)
-    {
+    private setCurrentMimicResponses(currentMimicOriginalIndex) {
         this.currentMimicResponses = this.mimicsList[currentMimicOriginalIndex].mimic_responses;
         this.currentResponseMimic = this.currentMimicResponses[0];
         this.videoResponse = []; //reset our video array
@@ -363,6 +354,7 @@ export class ListingPage {
         this.responseMimicPaging = 0; //reset paging
         this.responseMimicsCount = this.mimicsList[currentMimicOriginalIndex].mimic.responses_count;  //set new response count
     }
+
     //SLIDES
 
     //VIDEOS
@@ -377,10 +369,11 @@ export class ListingPage {
                 this.videoOriginal[n] = api;
                 break;
             case "response":
-                this.videoResponse[n] = api;                
+                this.videoResponse[n] = api;
                 break;
         }
     }
-    //VIDEOS 
+
+    //VIDEOS
 
 }

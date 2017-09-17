@@ -27,7 +27,7 @@ export class AddMimic {
             hashtags: new FormControl('', Validators.required)
         });
         console.log(this.navParams.get('original_mimic_id'));
-        if(this.navParams.get('reply_to_mimic') == true) {
+        if (this.navParams.get('reply_to_mimic') == true) {
             this.title = "Reply to Mimic";
         } else {
             this.title = "Add Mimic";

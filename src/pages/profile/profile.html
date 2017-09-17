@@ -6,11 +6,11 @@
 
 <ion-content class="profile-content">
     <div class="spinner" *ngIf="!profile">
-      <div class="rect1"></div>
-      <div class="rect2"></div>
-      <div class="rect3"></div>
-      <div class="rect4"></div>
-      <div class="rect5"></div>
+        <div class="rect1"></div>
+        <div class="rect2"></div>
+        <div class="rect3"></div>
+        <div class="rect4"></div>
+        <div class="rect5"></div>
     </div>
     <div class="user-details" *ngIf="profile">
         <ion-row class="user-main-data-row">
@@ -66,21 +66,25 @@
             </ion-col>
         </ion-row>-->
         <ion-segment class="user-content-segment" [(ngModel)]="display" (ionChange)="onSegmentChanged($event)">
-            <ion-segment-button value="original" (ionSelect)="onSegmentSelected($event)"> 
+            <ion-segment-button value="original" (ionSelect)="onSegmentSelected($event)">
                 Mimics
-            </ion-segment-button> 
-            <ion-segment-button value="response" (ionSelect)="onSegmentSelected($event)"> 
+            </ion-segment-button>
+            <ion-segment-button value="response" (ionSelect)="onSegmentSelected($event)">
                 Responses
-            </ion-segment-button> 
-        </ion-segment> 
+            </ion-segment-button>
+        </ion-segment>
     </div>
     <div [ngSwitch]="display" class="user-content">
         <div *ngSwitchCase="'original'" class="grid-view">
             <ion-row wrap class="grid-row" *ngIf="mimics && mimics.length > 0">
                 <ion-col width-33 class="grid-item" *ngFor="let mimic of mimics; let i = index;">
-                    <preload-image [ratio]="{w:1, h:1}" (click)="presentActionSheet('original', mimic.id, i)" [src]="mimic.file_url" *ngIf="mimic.mimic_type == 'picture'" class="square-image"></preload-image>
+                    <preload-image [ratio]="{w:1, h:1}" (click)="presentActionSheet('original', mimic.id, i)"
+                                   [src]="mimic.file_url" *ngIf="mimic.mimic_type == 'picture'"
+                                   class="square-image"></preload-image>
 
-                    <preload-image [ratio]="{w:1, h:1}" (click)="presentActionSheet('original', mimic.id, i)" src="./assets/images/video.png" *ngIf="mimic.mimic_type == 'video'" class="square-image"></preload-image>
+                    <preload-image [ratio]="{w:1, h:1}" (click)="presentActionSheet('original', mimic.id, i)"
+                                   src="./assets/images/video.png" *ngIf="mimic.mimic_type == 'video'"
+                                   class="square-image"></preload-image>
                 </ion-col>
             </ion-row>
             <ion-row wrap class="grid-row" *ngIf="mimics.length == 0">
@@ -91,10 +95,14 @@
         </div>
         <div *ngSwitchCase="'response'" class="grid-view">
             <ion-row wrap class="grid-row" *ngIf="responses && responses.length > 0">
-                 <ion-col width-33 class="grid-item" *ngFor="let mimic of responses; let i = index;">
-                    <preload-image [ratio]="{w:1, h:1}" (click)="presentActionSheet('response', mimic.id, i)" [src]="mimic.file_url" *ngIf="mimic.mimic_type == 'picture'" class="square-image"></preload-image>
+                <ion-col width-33 class="grid-item" *ngFor="let mimic of responses; let i = index;">
+                    <preload-image [ratio]="{w:1, h:1}" (click)="presentActionSheet('response', mimic.id, i)"
+                                   [src]="mimic.file_url" *ngIf="mimic.mimic_type == 'picture'"
+                                   class="square-image"></preload-image>
 
-                    <preload-image [ratio]="{w:1, h:1}" (click)="presentActionSheet('response', mimic.id, i)" src="./assets/images/video.png" *ngIf="mimic.mimic_type == 'video'" class="square-image"></preload-image>
+                    <preload-image [ratio]="{w:1, h:1}" (click)="presentActionSheet('response', mimic.id, i)"
+                                   src="./assets/images/video.png" *ngIf="mimic.mimic_type == 'video'"
+                                   class="square-image"></preload-image>
                 </ion-col>
             </ion-row>
             <ion-row wrap class="grid-row" *ngIf="responses.length == 0">

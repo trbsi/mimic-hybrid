@@ -97,28 +97,28 @@ export class SettingsPage {
      }*/
 
     /*openImagePicker() {
-        this.imagePicker.hasReadPermission().then(
-            (result) => {
-                if (result == false) {
-                    // no callbacks required as this opens a popup which returns async
-                    this.imagePicker.requestReadPermission();
-                }
-                else if (result == true) {
-                    this.imagePicker.getPictures({maximumImagesCount: 1}).then(
-                        (results) => {
-                            for (var i = 0; i < results.length; i++) {
-                                this.cropService.crop(results[i], {quality: 75}).then(
-                                        newImage => {
-                                        this.profileService.setUserImage(newImage);
-                                        this.profile.user.image = newImage;
-                                    },
-                                        error => console.error("Error cropping image", error)
-                                );
-                            }
-                        }, (err) => console.log(err)
-                    );
-                }
-            }
-        )
-    }*/
+     this.imagePicker.hasReadPermission().then(
+     (result) => {
+     if (result == false) {
+     // no callbacks required as this opens a popup which returns async
+     this.imagePicker.requestReadPermission();
+     }
+     else if (result == true) {
+     this.imagePicker.getPictures({maximumImagesCount: 1}).then(
+     (results) => {
+     for (var i = 0; i < results.length; i++) {
+     this.cropService.crop(results[i], {quality: 75}).then(
+     newImage => {
+     this.profileService.setUserImage(newImage);
+     this.profile.user.image = newImage;
+     },
+     error => console.error("Error cropping image", error)
+     );
+     }
+     }, (err) => console.log(err)
+     );
+     }
+     }
+     )
+     }*/
 }

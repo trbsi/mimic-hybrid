@@ -1,6 +1,11 @@
 profile-page {
+  .spinner
+  {
+    margin: 0 auto;
+    margin-top: 25%;
+  }
   .profile-content {
-    background-color: color($colors, background, base);
+    background-color: color($colors, mimic, base);
 
     .user-details {
       @include element-shadow();
@@ -66,11 +71,12 @@ profile-page {
         padding: 4%;
 
         .user-name {
-          font-size: 1.6rem;
+          font-size: 2.2rem;
           font-weight: 500;
           letter-spacing: 0.2px;
           color: $theme-color-1;
           margin: 0px;
+          text-align: center;
         }
 
         .user-location {

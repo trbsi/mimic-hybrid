@@ -5,61 +5,93 @@
 </ion-header>
 
 <ion-content class="profile-content">
-    <div class="user-details">
+    <div class="spinner" *ngIf="!profile">
+      <div class="rect1"></div>
+      <div class="rect2"></div>
+      <div class="rect3"></div>
+      <div class="rect4"></div>
+      <div class="rect5"></div>
+    </div>
+    <div class="user-details" *ngIf="profile">
         <ion-row class="user-main-data-row">
             <ion-col no-padding width-33>
-                <preload-image class="user-image" [ratio]="{w:1, h:1}" [(src)]="profile.user.image"
-                               alt="profile.user.name" title="profile.user.name"></preload-image>
+                <preload-image class="user-image" [ratio]="{w:1, h:1}" [(src)]="profile.profile_picture"
+                               alt="profile.username" title="profile.username"></preload-image>
             </ion-col>
             <ion-col no-padding>
                 <ion-row class="social-presence-row">
                     <ion-col width-50 class="social-presence-item">
                         <a (click)="goToFollowersList()">
-                            <h2 class="social-presence-value">{{profile.followers.length}}</h2>
+                            <h2 class="social-presence-value">{{profile.followers}}</h2>
                             <h4 class="social-presence-title">{{'FOLLOWERS' | translate }}</h4>
                         </a>
                     </ion-col>
                     <ion-col width-50 class="social-presence-item">
                         <a (click)="goToFollowingList()">
-                            <h2 class="social-presence-value">{{profile.following.length}}</h2>
+                            <h2 class="social-presence-value">{{profile.following}}</h2>
                             <h4 class="social-presence-title">{{'FOLLOWING' | translate }}</h4>
                         </a>
                     </ion-col>
                 </ion-row>
-                <ion-row class="profile-action-row">
+                <!--<ion-row class="profile-action-row">
                     <ion-col no-padding>
                         <button ion-button block small (click)="goToSettings()">
                             {{'EDIT_PROFILE' | translate}}
                         </button>
                     </ion-col>
+                </ion-row>-->
+                <ion-row wrap class="user-bio-row">
                     <ion-col no-padding>
-                        <button ion-button block small (click)="deleteMimics()">
-                            Delete Mimics
-                        </button>
+                        <h2 class="user-name">{{profile.username}}</h2>
                     </ion-col>
                 </ion-row>
             </ion-col>
         </ion-row>
         <ion-row wrap class="user-bio-row">
+            <ion-col no-padding>
+            </ion-col>
+        </ion-row>
+        <!--<ion-row wrap class="user-bio-row">
             <ion-col no-padding width-50>
-                <h2 class="user-name">{{profile.user.name}}</h2>
+                <h2 class="user-name">{{profile.username}}</h2>
             </ion-col>
             <ion-col no-padding width-50>
-                <span class="user-location">{{profile.user.location}}</span>
+                <span class="user-location">Location</span>
             </ion-col>
             <ion-col no-padding width-100>
                 <p class="user-description">
-                    {{profile.user.about}}
+                    ABOUT
                 </p>
             </ion-col>
-        </ion-row>
+        </ion-row>-->
+        <ion-segment class="user-content-segment" [(ngModel)]="display" (ionChange)="onSegmentChanged($event)">
+            <ion-segment-button value="original" (ionSelect)="onSegmentSelected($event)"> 
+                Mimics
+            </ion-segment-button> 
+            <ion-segment-button value="response" (ionSelect)="onSegmentSelected($event)"> 
+                Responses
+            </ion-segment-button> 
+        </ion-segment> 
     </div>
-    <div [ngSwitch]="display" class="user-content">
-        <div *ngSwitchCase="'grid'" class="grid-view">
-            <ion-row wrap class="grid-row">
+    <div [ngSwitch]="display" class="user-content" *ngIf="mimics.length > 0 || responses.length > 0">
+        <div *ngSwitchCase="'original'" class="grid-view">
+            <ion-row wrap class="grid-row" *ngIf="mimics.length > 0">
                 <ion-col width-33 class="grid-item" *ngFor="let post of profile.posts">
                     <preload-image [ratio]="{w:1, h:1}" [src]="post.image" title="ion2FullApp"></preload-image>
                 </ion-col>
+            </ion-row>
+            <ion-row wrap class="grid-row" *ngIf="mimics.length == 0">
+                NO MIMICS YET
+            </ion-row>
+        </div>
+        <div *ngSwitchCase="'response'" class="grid-view">
+            <ion-row wrap class="grid-row" *ngIf="responses">
+                <ion-col width-33 class="grid-item">
+                    <preload-image [ratio]="{w:1, h:1}" src="https://scontent.fbud2-1.fna.fbcdn.net/v/t31.0-8/21762526_10156759656469012_1355975477384746884_o.jpg?oh=1564bf114da67c2f93fd2b7d97c78918&oe=5A40C58E" title="ion2FullApp"></preload-image>
+                </ion-col>
+                 <!--<ion-col width-33 class="grid-item" *ngFor="let post of profile.posts">
+                    <preload-image [ratio]="{w:1, h:1}" [src]="post.image" title="ion2FullApp"></preload-image>
+                </ion-col>-->
             </ion-row>
         </div>
     </div>

@@ -10,9 +10,16 @@ export class ProfileService {
     /**
      * Get user profile
      */
-    getProfile() 
+    getProfile(data) 
     {
-        var data = {};
         return this.apiSettings.sendRequest(data, 'profile/user', 'get');  
+    }
+
+    /**
+     * Get user's mimics
+     */
+    getUserMimics(data) 
+    {
+        return this.apiSettings.sendRequest(data, 'mimic/user-mimics', 'get');  
     }
 }

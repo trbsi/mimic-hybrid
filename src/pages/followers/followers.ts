@@ -8,9 +8,11 @@ import { UserModel } from '../profile/profile.model';
 })
 export class FollowersPage {
     list:Array<UserModel> = [];
+    type:string; //follwers or following
 
     constructor(public menu:MenuController, public navParams:NavParams) {
         this.list = navParams.get('list');
+        this.type = navParams.get('type');
     }
 
     ionViewDidEnter() {

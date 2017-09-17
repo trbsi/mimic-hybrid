@@ -31,6 +31,12 @@ hr.split-line {
   background-color: color($colors, mimic, base);
 }
 
+//SQUARE IMAGES
+.square-image {
+  object-fit: cover;
+  width:230px;
+  height:230px;
+}
 
 //SPINNER
  .spinner {

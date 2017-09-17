@@ -9,7 +9,6 @@ import { WalkthroughPage } from '../walkthrough/walkthrough';
 
 import 'rxjs/Rx';
 
-import { ProfileModel } from '../profile/profile.model';
 import { ProfileService } from '../profile/profile.service';
 
 import { TranslateService } from '@ngx-translate/core';
@@ -29,7 +28,7 @@ export class SettingsPage {
     rootPage:any = WalkthroughPage;
     loading:any;
 
-    profile:ProfileModel = new ProfileModel();
+    profile:any;
     languages:Array<LanguageModel>;
 
     constructor(public nav:NavController,

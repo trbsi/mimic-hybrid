@@ -16,6 +16,7 @@ export class ProfilePage {
     profile:any;
     mimics = [];
     responses = [];
+    userId = null;
 
     constructor(public menu:MenuController,
                 public app:App,
@@ -23,19 +24,21 @@ export class ProfilePage {
                 public profileService:ProfileService) 
     {
         this.display = "original";
-        console.log(this.navParams.get('user_id'));
+        if(this.navParams.get('user_id')) {
+            this.userId = this.navParams.get('user_id');
+        }
     }
 
     ionViewDidLoad() {
-        this.profileService.getProfile({})
+        var data = {};
+        if(this.userId != null) {
+            data['user_id'] = this.userId;
+        }
+        this.profileService.getProfile(data)
         .then(data => {
             this.profile = data.user;
             //get user's original mimics
-            this.profileService.getUserMimics({})
-            .then(data => {
-                this.mimics = data.mimics;
-                console.log(data);
-            });
+            this.getUserMimics(false);
         });
     }
 
@@ -43,7 +46,6 @@ export class ProfilePage {
         // close the menu when clicking a link from the menu
         this.menu.close();
         this.app.getRootNav().push(FollowersPage, {
-            list: [],
             type: 'followers'
         });
     }
@@ -52,7 +54,6 @@ export class ProfilePage {
         // close the menu when clicking a link from the menu
         this.menu.close();
         this.app.getRootNav().push(FollowersPage, {
-            list: [],
             type: 'following'
         });
     }
@@ -60,10 +61,14 @@ export class ProfilePage {
     onSegmentChanged(segmentButton:SegmentButton) { 
         switch (segmentButton.value) {
             case "original":
-                // code...
+                if(this.mimics.length == 0) {
+                    this.getUserMimics(false);
+                }
                 break;
             case "response":
-                // code...
+                if(this.responses.length == 0) {
+                    this.getUserMimics(true);
+                }
                 break;
         }
     } 
@@ -71,16 +76,33 @@ export class ProfilePage {
     onSegmentSelected(segmentButton:SegmentButton) { 
         // console.log('Segment selected', segmentButton.value); 
         /*this.menu.close(); 
-        this.app.getRootNav().push(SettingsPage);*/ 
-    } 
-
-    goToSettings() {
-        // close the menu when clicking a link from the menu
-        /*this.menu.close();
         this.app.getRootNav().push(SettingsPage);*/
     }
 
-    deleteMimics() {
-        this.app.getRootNav().push(DeleteMimics);
+    /*goToSettings() {
+        // close the menu when clicking a link from the menu
+        this.menu.close();
+        this.app.getRootNav().push(SettingsPage);
+    }*/
+
+    /**
+     * Get user's mimics or user's responses
+     */
+    private getUserMimics(responses) {
+        var data = {};
+        if(responses == true) {
+            data['get_responses'] = true;
+        }
+
+        if(this.userId == true) {
+            data['user_id'] = this.userId;
+        }
+
+        //get user's original mimics
+        this.profileService.getUserMimics(data)
+        .then(data => {
+            this.mimics = data.mimics;
+            console.log(data);
+        });
     }
 }

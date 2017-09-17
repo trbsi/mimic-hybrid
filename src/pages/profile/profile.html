@@ -15,10 +15,15 @@
     <div class="user-details" *ngIf="profile">
         <ion-row class="user-main-data-row">
             <ion-col no-padding width-33>
-                <preload-image class="user-image" [ratio]="{w:1, h:1}" [(src)]="profile.profile_picture"
+                <preload-image class="user-image" [ratio]="{w:0.5, h:0.5}" [(src)]="profile.profile_picture"
                                alt="profile.username" title="profile.username"></preload-image>
             </ion-col>
             <ion-col no-padding>
+                <ion-row wrap class="user-bio-row">
+                    <ion-col no-padding>
+                        <h2 class="user-name">{{profile.username}}</h2>
+                    </ion-col>
+                </ion-row>
                 <ion-row class="social-presence-row">
                     <ion-col width-50 class="social-presence-item">
                         <a (click)="goToFollowersList()">
@@ -40,11 +45,7 @@
                         </button>
                     </ion-col>
                 </ion-row>-->
-                <ion-row wrap class="user-bio-row">
-                    <ion-col no-padding>
-                        <h2 class="user-name">{{profile.username}}</h2>
-                    </ion-col>
-                </ion-row>
+
             </ion-col>
         </ion-row>
         <ion-row wrap class="user-bio-row">
@@ -73,25 +74,29 @@
             </ion-segment-button> 
         </ion-segment> 
     </div>
-    <div [ngSwitch]="display" class="user-content" *ngIf="mimics.length > 0 || responses.length > 0">
+    <div [ngSwitch]="display" class="user-content">
         <div *ngSwitchCase="'original'" class="grid-view">
             <ion-row wrap class="grid-row" *ngIf="mimics.length > 0">
                 <ion-col width-33 class="grid-item" *ngFor="let post of profile.posts">
-                    <preload-image [ratio]="{w:1, h:1}" [src]="post.image" title="ion2FullApp"></preload-image>
+                    <preload-image [ratio]="{w:1, h:1}" [src]="post.image"></preload-image>
                 </ion-col>
             </ion-row>
             <ion-row wrap class="grid-row" *ngIf="mimics.length == 0">
-                NO MIMICS YET
+                <p class="no-mimics">
+                    NO MIMICS
+                </p>
             </ion-row>
         </div>
         <div *ngSwitchCase="'response'" class="grid-view">
-            <ion-row wrap class="grid-row" *ngIf="responses">
-                <ion-col width-33 class="grid-item">
-                    <preload-image [ratio]="{w:1, h:1}" src="https://scontent.fbud2-1.fna.fbcdn.net/v/t31.0-8/21762526_10156759656469012_1355975477384746884_o.jpg?oh=1564bf114da67c2f93fd2b7d97c78918&oe=5A40C58E" title="ion2FullApp"></preload-image>
+            <ion-row wrap class="grid-row" *ngIf="responses.length > 0">
+                 <ion-col width-33 class="grid-item" *ngFor="let post of profile.posts">
+                    <preload-image [ratio]="{w:1, h:1}" [src]="post.image"></preload-image>
                 </ion-col>
-                 <!--<ion-col width-33 class="grid-item" *ngFor="let post of profile.posts">
-                    <preload-image [ratio]="{w:1, h:1}" [src]="post.image" title="ion2FullApp"></preload-image>
-                </ion-col>-->
+            </ion-row>
+            <ion-row wrap class="grid-row" *ngIf="mimics.length == 0">
+                <p class="no-mimics">
+                    NO RESPONSES
+                </p>
             </ion-row>
         </div>
     </div>

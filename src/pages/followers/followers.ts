@@ -7,7 +7,7 @@ import { UserModel } from '../profile/profile.model';
     templateUrl: 'followers.html'
 })
 export class FollowersPage {
-    list:Array<UserModel> = [];
+    list = [];
     type:string; //follwers or following
 
     constructor(public menu:MenuController, public navParams:NavParams) {

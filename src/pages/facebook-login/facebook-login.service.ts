@@ -71,12 +71,12 @@ export class FacebookLoginService {
      });
      }*/
 
-    getFriendsFakeData():Promise<FacebookUserModel> {
+    /*getFriendsFakeData():Promise<FacebookUserModel> {
         return this.http.get('./assets/example_data/social_integrations.json')
             .toPromise()
             .then(response => response.json() as FacebookUserModel)
             .catch(this.handleError);
-    }
+    }*/
 
     private handleError(error:any):Promise<any> {
         console.error('An error occurred', error); // for demo purposes only

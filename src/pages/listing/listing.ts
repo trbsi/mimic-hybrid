@@ -66,7 +66,14 @@ export class ListingPage {
         //filter mimics by user
         if (this.navParams.get('user_id')) {
             this.filterMimics['user_id'] = this.navParams.get('user_id');
+
+            //use this arameter to put that specifi mimi on the first place of a list
+            if (this.navParams.get('mimic_id')) {
+                this.filterMimics['mimic_id'] = this.navParams.get('mimic_id'); 
+            }
         }
+
+        
     }
 
     ionViewDidLoad() {

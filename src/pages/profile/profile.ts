@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { MenuController, App, NavParams, SegmentButton, ActionSheetController } from 'ionic-angular';
+import { NavController, MenuController, App, NavParams, SegmentButton, ActionSheetController } from 'ionic-angular';
 import { FollowersPage } from '../followers/followers';
+import { ListingPage } from '../listing/listing';
 //import { SettingsPage } from '../settings/settings';
 import { ProfileService } from './profile.service';
 
@@ -17,7 +18,8 @@ export class ProfilePage {
     responses = [];
     userId = null;
 
-    constructor(public menu:MenuController,
+    constructor(public nav:NavController,
+                public menu:MenuController,
                 public app:App,
                 public navParams:NavParams,
                 public profileService:ProfileService,
@@ -113,10 +115,10 @@ export class ProfilePage {
     /**
      * Do some action when user clicks on mimi on someone's or his profile
      * @param any type Mimic type: "response" or "original"
-     * @param int mimic_id Mimic id
+     * @param int mimic Mimic object
      * @param int index This is index where this mimic is located in this.mimics or this.responses array
      */
-    presentActionSheet(type, mimic_id, index) {
+    presentActionSheet(type, mimic, index) {
         //this means I'm looking at my own profil
         if (this.userId == null) {
             let actionSheet = this.actionSheetCtrl.create({
@@ -126,13 +128,13 @@ export class ProfilePage {
                         text: 'Delete',
                         role: 'destructive',
                         handler: () => {
-                            this.deleteMimic(type, mimic_id, index);
+                            this.deleteMimic(type, mimic, index);
                         }
                     },
                     {
                         text: 'View this Mimic',
                         handler: () => {
-                            console.log('Archive clicked');
+                            this.viewMimic(mimic);
                         }
                     },
                     {
@@ -146,21 +148,37 @@ export class ProfilePage {
             });
 
             actionSheet.present();
+        } else {
+            this.viewMimic(mimic);
         }
+    }
+
+    /**
+     * [viewMimic description]
+     * @param int mimic Mimic object
+     */
+    private viewMimic(mimic)
+    {
+        this.nav.setRoot(ListingPage, {
+            user_id: mimic.user_id,
+            mimic_id: mimic.id
+        });
     }
 
     /**
      * Delete mimic
      * @param any type Mimic type: "response" or "original"
+     * @param int mimic Mimic object
+     * @param int index This is index where this mimic is located in this.mimics or this.responses array
      */
-    private deleteMimic(type, mimic_id, index) {
+    private deleteMimic(type, mimic, index) {
         var data = {};
         switch (type) {
             case "original":
-                data['original_mimic_id'] = mimic_id;
+                data['original_mimic_id'] = mimic.id;
                 break;
             case "response":
-                data['response_mimic_id'] = mimic_id;
+                data['response_mimic_id'] = mimic.id;
                 break;
         }
 

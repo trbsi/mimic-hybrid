@@ -57,17 +57,21 @@ export class ApiSettings {
                     return this.doPost(data, url, headers);
                 } else if (type == 'get') {
                     return this.doGet(data, url, headers);
+                } else if (type == 'delete') {
+                    return this.doDelete(data, url, headers);
                 }
             },
             //couldn't find token, do normal post
             (error) => {
                 //@TODO remove this, this is just for testing
-                headers.append('Authorization', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjk3LCJpc3MiOiJodHRwOi8vbWltaWMudGVzdGFwaS53ZWJzaXRlL2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNTA1MTY2Mjk5LCJleHAiOjE1MDc4NjYyOTksIm5iZiI6MTUwNTE2NjI5OSwianRpIjoiOGtlcUlZSWd2OVR3cHhURiJ9.yPWkSTYgahZWxwA__uyi7k-pCvKXoBm30I4GkHCvJ_g');
+                headers.append('Authorization', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjcsImlzcyI6Imh0dHA6Ly9taW1pYy50ZXN0YXBpLndlYnNpdGUvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE1MDU2ODI2NjAsImV4cCI6MTUwODM4MjY2MCwibmJmIjoxNTA1NjgyNjYwLCJqdGkiOiJ1QWhWNE5oNnlrZ2o0UzF2In0.mAtyFB3ZDt38Rel-o7sXN-8Z7SQq8B4YHAa-HChZba0');
                 this.loading.dismiss();
                 if(type == 'post') {
                     return this.doPost(data, url, headers);
                 } else if (type == 'get') {
                     return this.doGet(data, url, headers);
+                } else if (type == 'delete') {
+                    return this.doDelete(data, url, headers);
                 }
             }
         );
@@ -102,6 +106,25 @@ export class ApiSettings {
         this.createHeaders(headers);
         let options = new RequestOptions({params:getData, headers: headers});
         return this.http.get(ApiSettings.API_ENDPOINT + url, options)
+            .toPromise()
+            .then((response) => {
+                return this.handleSuccess(response);   
+            })
+            .catch((error) => {
+                return this.handleError(error);   
+            });
+    }
+
+    /**
+     * This is where you send request to a server
+     * @param any data Data to send to server
+     * @param string url Url to post to
+     * @param Headers headers What headers to include
+     */
+    private doDelete(data, url, headers) {
+        this.createHeaders(headers);
+        let options = new RequestOptions({params:data, headers: headers});
+        return this.http.delete(ApiSettings.API_ENDPOINT + url, options)
             .toPromise()
             .then((response) => {
                 return this.handleSuccess(response);   

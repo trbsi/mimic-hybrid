@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { MenuController, App, NavParams, SegmentButton } from 'ionic-angular';
+import { MenuController, App, NavParams, SegmentButton, ActionSheetController } from 'ionic-angular';
 import { FollowersPage } from '../followers/followers';
 //import { SettingsPage } from '../settings/settings';
-import { DeleteMimics } from '../delete-mimics/delete-mimics';
 import { ProfileService } from './profile.service';
 
 import 'rxjs/Rx';
@@ -21,7 +20,8 @@ export class ProfilePage {
     constructor(public menu:MenuController,
                 public app:App,
                 public navParams:NavParams,
-                public profileService:ProfileService) 
+                public profileService:ProfileService,
+                public actionSheetCtrl: ActionSheetController) 
     {
         this.display = "original";
         if(this.navParams.get('user_id')) {
@@ -106,6 +106,75 @@ export class ProfilePage {
                 this.responses = data.mimics;
             } else {
                 this.mimics = data.mimics;
+            }
+        });
+    }
+
+
+
+    /**
+     * Do some action when user clicks on mimi on someone's or his profile
+     * @param any type Mimic type: "response" or "original"
+     * @param int mimic_id Mimic id
+     * @param int index This is index where this mimic is located in this.mimics or this.responses array
+     */
+     presentActionSheet(type, mimic_id, index) {
+         //this means I'm looking at my own profil
+         if(this.userId == null) {
+           let actionSheet = this.actionSheetCtrl.create({
+             title: 'Options',
+             buttons: [
+               {
+                 text: 'Delete',
+                 role: 'destructive',
+                 handler: () => {
+                   this.deleteMimic(type, mimic_id, index);
+                 }
+               },
+               {
+                 text: 'View this Mimic',
+                 handler: () => {
+                   console.log('Archive clicked');
+                 }
+               },
+               {
+                 text: 'Cancel',
+                 role: 'cancel',
+                 handler: () => {
+                   console.log('Cancel clicked');
+                 }
+               }
+             ]
+           });
+
+           actionSheet.present();
+         }
+     }
+
+     /**
+      * Delete mimic
+      * @param any type Mimic type: "response" or "original"
+      */
+    private deleteMimic(type, mimic_id, index)
+    {
+        var data = {};
+        switch (type) {
+            case "original":
+                data['original_mimic_id'] = mimic_id;
+                break;
+            case "response":
+                data['response_mimic_id'] = mimic_id;
+                break;
+        }
+
+        this.profileService.deleteMimic(data)
+        .then(data => {
+            if(data.success == true) {
+                if(type == "original") {
+                    this.mimics.splice(index, 1);
+                } else {
+                    this.responses.splice(index, 1);
+                }
             }
         });
     }

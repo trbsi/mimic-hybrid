@@ -22,4 +22,12 @@ export class ProfileService {
     {
         return this.apiSettings.sendRequest(data, 'mimic/user-mimics', 'get');  
     }
+
+    /**
+     * Get user's mimics
+     */
+    deleteMimic(data) 
+    {
+        return this.apiSettings.sendRequest(data, 'mimic/delete', 'delete');  
+    }
 }

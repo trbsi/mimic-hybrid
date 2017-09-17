@@ -14,12 +14,12 @@ $ratio-height: 9;
 
 //VIDEO
 $player-controls-height: 40px;
-$player-play-icon-height: 6rem;
+$player-play-icon-height: 4rem;
 $playlist-item-font-size: 12px;
 $playlist-item-play-icon-height: 3rem;
 
 @mixin play-icon-styles($background, $size, $color) {
-  &:before {
+  &:before, &:hover, &:active {
     font-family: "Ionicons";
     // As the play arrow ('\f487' in Ionicons font) is a weird shape, we need to use a hack to visually center horizontally.
     // We are going to prepend the 1/6 of em unicode ('\2006'). More info here: (http://www.cs.tut.fi/~jkorpela/chars/spaces.html)
@@ -50,7 +50,6 @@ $playlist-item-play-icon-height: 3rem;
 @function slides-height()  {
   @return calc(100vw * 9 / 16);
 }
-
 //VIDEO
 
 listing-page {
@@ -259,6 +258,7 @@ listing-page {
     pointer-events: none;
     width: 5px;
   }
+
   //hide native play button
   video::-webkit-media-controls {
     display: none !important;

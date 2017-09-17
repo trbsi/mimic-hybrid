@@ -76,9 +76,10 @@
     </div>
     <div [ngSwitch]="display" class="user-content">
         <div *ngSwitchCase="'original'" class="grid-view">
-            <ion-row wrap class="grid-row" *ngIf="mimics.length > 0">
-                <ion-col width-33 class="grid-item" *ngFor="let post of profile.posts">
-                    <preload-image [ratio]="{w:1, h:1}" [src]="post.image"></preload-image>
+            <ion-row wrap class="grid-row" *ngIf="mimics && mimics.length > 0">
+                <ion-col width-33 class="grid-item" *ngFor="let mimic of mimics">
+                    <preload-image [ratio]="{w:1, h:1}" [src]="mimic.file_url" *ngIf="mimic.mimic_type == 'picture'" class="square-image"></preload-image>
+                    <preload-image [ratio]="{w:1, h:1}" src="./assets/images/video.png" *ngIf="mimic.mimic_type == 'video'" class="square-image"></preload-image>
                 </ion-col>
             </ion-row>
             <ion-row wrap class="grid-row" *ngIf="mimics.length == 0">
@@ -88,12 +89,13 @@
             </ion-row>
         </div>
         <div *ngSwitchCase="'response'" class="grid-view">
-            <ion-row wrap class="grid-row" *ngIf="responses.length > 0">
-                 <ion-col width-33 class="grid-item" *ngFor="let post of profile.posts">
-                    <preload-image [ratio]="{w:1, h:1}" [src]="post.image"></preload-image>
+            <ion-row wrap class="grid-row" *ngIf="responses && responses.length > 0">
+                 <ion-col width-33 class="grid-item" *ngFor="let mimic of responses">
+                    <preload-image [ratio]="{w:1, h:1}" [src]="mimic.file_url" *ngIf="mimic.mimic_type == 'picture'" class="square-image"></preload-image>
+                    <preload-image [ratio]="{w:1, h:1}" src="./assets/images/video.png" *ngIf="mimic.mimic_type == 'video'" class="square-image"></preload-image>
                 </ion-col>
             </ion-row>
-            <ion-row wrap class="grid-row" *ngIf="mimics.length == 0">
+            <ion-row wrap class="grid-row" *ngIf="responses.length == 0">
                 <p class="no-mimics">
                     NO RESPONSES
                 </p>

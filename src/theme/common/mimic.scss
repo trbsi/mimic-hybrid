@@ -33,9 +33,11 @@ hr.split-line {
 
 //SQUARE IMAGES
 .square-image {
-  object-fit: cover;
-  width:230px;
-  height:230px;
+    width: 100%;
+    height: 100%;
+    img {
+      object-fit: cover;
+    }
 }
 
 //SPINNER

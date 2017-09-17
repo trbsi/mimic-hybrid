@@ -32,8 +32,9 @@ export class ProfilePage {
     ionViewDidLoad() {
         var data = {};
         if(this.userId != null) {
-            data['user_id'] = this.userId;
+            data['id'] = this.userId;
         }
+
         this.profileService.getProfile(data)
         .then(data => {
             this.profile = data.user;
@@ -94,15 +95,18 @@ export class ProfilePage {
             data['get_responses'] = true;
         }
 
-        if(this.userId == true) {
+        if(this.userId != null) {
             data['user_id'] = this.userId;
         }
 
         //get user's original mimics
         this.profileService.getUserMimics(data)
         .then(data => {
-            this.mimics = data.mimics;
-            console.log(data);
+            if(responses == true) {
+                this.responses = data.mimics;
+            } else {
+                this.mimics = data.mimics;
+            }
         });
     }
 }

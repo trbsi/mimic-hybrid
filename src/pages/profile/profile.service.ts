@@ -26,4 +26,11 @@ export class ProfileService {
     deleteMimic(data) {
         return this.apiSettings.sendRequest(data, 'mimic/delete', 'delete');
     }
+
+    /**
+     * Follow or unfollow user
+     */
+    follow(data) {
+        return this.apiSettings.sendRequest(data, 'profile/follow', 'post');
+    }
 }

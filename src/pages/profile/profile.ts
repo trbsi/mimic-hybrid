@@ -16,7 +16,7 @@ export class ProfilePage {
     profile:any;
     mimics = [];
     responses = [];
-    userId = null;
+    userId = null; //id if a user whose profile you are viewing
 
     constructor(public nav:NavController,
                 public menu:MenuController,
@@ -134,7 +134,7 @@ export class ProfilePage {
                     {
                         text: 'View this Mimic',
                         handler: () => {
-                            this.viewMimic(mimic);
+                            this.viewMimic(type, mimic);
                         }
                     },
                     {
@@ -149,20 +149,34 @@ export class ProfilePage {
 
             actionSheet.present();
         } else {
-            this.viewMimic(mimic);
+            this.viewMimic(type, mimic);
         }
     }
 
     /**
-     * [viewMimic description]
+     * View this specific mimic of a user and load all user's mimics
+     * @param any type Mimic type: "response" or "original"
      * @param int mimic Mimic object
      */
-    private viewMimic(mimic)
+    private viewMimic(type, mimic)
     {
-        this.nav.setRoot(ListingPage, {
-            user_id: mimic.user_id,
-            mimic_id: mimic.id
-        });
+        var data = { };
+        switch (type) {
+            case "original":
+                //so you can put this original mimic to the first place in the list
+                data['original_mimic_id'] = mimic.id;
+                data['user_id'] = mimic.user_id;
+                break;            
+            case "response":
+                //those two go together because you need to get original mimic to set it to the first place to pll its response and put it to the first place
+                data['response_mimic_id'] = mimic.id;
+                data['original_mimic_id'] = mimic.original_mimic_id;
+                //user_id of original mimic because this is how API works, it gets original mimics of a specific user
+                data['user_id'] = mimic.original_mimic.user_id;
+                break;
+
+        }
+        this.nav.setRoot(ListingPage, data);
     }
 
     /**
@@ -190,6 +204,25 @@ export class ProfilePage {
                     } else {
                         this.responses.splice(index, 1);
                     }
+                }
+            });
+    }
+
+    /**
+     * Follow or unfollow this user
+     */
+    follow()
+    {
+        this.profileService.follow({id: this.userId})
+            .then(data => {
+                if (data.type == 'followed') {
+                    this.profile.i_am_following_you = true;
+                    //increase number of followers by one
+                    this.profile.followers+=1;
+                } else if (data.type == 'unfollowed') {
+                    this.profile.i_am_following_you = false;
+                    //decrease number of followers by one
+                    this.profile.followers-=1;
                 }
             });
     }

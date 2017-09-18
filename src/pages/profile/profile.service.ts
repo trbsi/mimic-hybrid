@@ -33,4 +33,19 @@ export class ProfileService {
     follow(data) {
         return this.apiSettings.sendRequest(data, 'profile/follow', 'post');
     }
+
+
+    /**
+     * Get all followers (users who are following this user)
+     */
+    followers(data) {
+        return this.apiSettings.sendRequest(data, 'profile/followers', 'get');
+    }
+
+    /**
+     * Get all following (users that this user is following)
+     */
+    following(data) {
+        return this.apiSettings.sendRequest(data, 'profile/following', 'get');
+    }
 }

@@ -45,18 +45,36 @@ export class ProfilePage {
     }
 
     goToFollowersList() {
-        // close the menu when clicking a link from the menu
-        this.menu.close();
-        this.app.getRootNav().push(FollowersPage, {
-            type: 'followers'
+        var data = {};
+        if(this.userId) {
+            data['user_id'] = this.userId;
+        }
+
+        this.profileService.followers(data)
+        .then(data => {
+            // close the menu when clicking a link from the menu
+            this.menu.close();
+            this.app.getRootNav().push(FollowersPage, {
+                users: data.followers,
+                type: 'followers'
+            });
         });
     }
 
     goToFollowingList() {
-        // close the menu when clicking a link from the menu
-        this.menu.close();
-        this.app.getRootNav().push(FollowersPage, {
-            type: 'following'
+        var data = {};
+        if(this.userId) {
+            data['user_id'] = this.userId;
+        }
+        
+        this.profileService.following(data)
+        .then(data => {
+            // close the menu when clicking a link from the menu
+            this.menu.close();
+            this.app.getRootNav().push(FollowersPage, {
+                users: data.following,
+                type: 'following'
+            });
         });
     }
 

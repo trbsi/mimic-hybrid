@@ -67,9 +67,14 @@ export class ListingPage {
         if (this.navParams.get('user_id')) {
             this.filterMimics['user_id'] = this.navParams.get('user_id');
 
-            //use this arameter to put that specifi mimi on the first place of a list
-            if (this.navParams.get('mimic_id')) {
-                this.filterMimics['mimic_id'] = this.navParams.get('mimic_id'); 
+            //use this parameter to put that specific original mimic on the first place of a list
+            if (this.navParams.get('original_mimic_id')) {
+                this.filterMimics['original_mimic_id'] = this.navParams.get('original_mimic_id'); 
+            }
+
+            //use this parameter to put that specific response mimic on the first place of a list
+            if (this.navParams.get('response_mimic_id')) {
+                this.filterMimics['response_mimic_id'] = this.navParams.get('response_mimic_id'); 
             }
         }
 

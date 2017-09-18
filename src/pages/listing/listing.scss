@@ -119,6 +119,9 @@ listing-page {
   }
   //------menu------
 
+
+
+
   //-----mimic info style-----
   //bottom and up mimic info with hasthags and profile, set it to absolute so you can move it
   .list, .list-ios {
@@ -180,6 +183,9 @@ listing-page {
 
   //-----mimic info style-----
 
+
+
+
   //-----upvote button area-----
   .item-ios .item-button {
     height: 30px;
@@ -190,7 +196,37 @@ listing-page {
   }
   //-----upvote button area-----
 
+
+
+
   //------SLIDES-------
+  
+  //no mimics
+  .no-mimics-yellow-text {
+    color: color($colors, mimic, base);
+    display: block;
+    text-align: center;
+    font-size: 1.3rem;
+  }
+
+  .no-mimics-gray-text {
+    color: gray;
+    display: block;
+    text-align: center;
+    font-size: 1.3rem;
+  }
+
+  .no-mimics-slide {
+    .slide-zoom {
+      background-color: white;
+    }
+
+    img {
+       max-width: 50px;
+       margin-top: 10%;
+    }
+  }
+
   //make slide image full width
   .swiper-slide img {
     width: 100%;

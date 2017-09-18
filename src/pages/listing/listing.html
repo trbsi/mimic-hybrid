@@ -84,9 +84,13 @@
                 <div class="rect4"></div>
                 <div class="rect5"></div>
             </div>
+            <ion-slide *ngIf="currentMimicResponses.length == 0" class="no-mimics-slide" (click)="replyToMimic(currentOriginalMimic.mimic.id)">
+                    <img src="./assets/images/add-new-mimic.png">
+                    <span class="no-mimics-yellow-text">No mimics yet!</span>
+                    <span class="no-mimics-gray-text">Post a Mimic and get upvotes and followers!</span>
+            </ion-slide>
             <ion-slide *ngFor="let data of currentMimicResponses; let i = index;">
                 <img *ngIf="data.mimic_type == 'picture'" src="{{data.file_url}}">
-
                 <div *ngIf="data.mimic_type == 'video'" class="video-player-container">
                     <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event, 'response', i)">
                         <vg-buffering></vg-buffering>
@@ -111,7 +115,6 @@
                     </vg-player>
                 </div>
             </ion-slide>
-
         </ion-slides>
         <!-- MIMIC RESPONSES SLIDES -->
 

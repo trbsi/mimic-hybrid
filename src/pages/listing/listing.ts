@@ -98,6 +98,12 @@ export class ListingPage {
 
             this.originalMimicSlide.slideTo(0, 0, false);  //set slide back to index 0
             this.responseMimicSlide.slideTo(0, 0, false);  //set slide back to index 0
+
+            //if responses are empty disable sliding
+            if(this.currentMimicResponses.length == 0) {
+                this.responseMimicSlide.lockSwipeToNext(true);
+                this.responseMimicSlide.lockSwipeToPrev(true);
+            }
         });
     }
 
@@ -360,6 +366,14 @@ export class ListingPage {
      */
     private setCurrentMimicResponses(currentMimicOriginalIndex) {
         this.currentMimicResponses = this.mimicsList[currentMimicOriginalIndex].mimic_responses;
+        //if responses are empty disable sliding
+        if(this.currentMimicResponses.length == 0) {
+            this.responseMimicSlide.lockSwipeToNext(true);
+            this.responseMimicSlide.lockSwipeToPrev(true);
+        } else {
+            this.responseMimicSlide.lockSwipeToNext(false);
+            this.responseMimicSlide.lockSwipeToPrev(false);
+        }
         this.currentResponseMimic = this.currentMimicResponses[0];
         this.videoResponse = []; //reset our video array
         this.responseMimicSlide.slideTo(0, 0, false);  //set slide back to index 0 

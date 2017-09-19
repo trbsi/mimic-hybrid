@@ -53,8 +53,8 @@ import { Facebook } from '@ionic-native/facebook';
 import { Keyboard } from '@ionic-native/keyboard';
 //import { Geolocation } from '@ionic-native/geolocation';
 import { TwitterConnect } from '@ionic-native/twitter-connect';
-import { ImagePicker } from '@ionic-native/image-picker';
 import { Crop } from '@ionic-native/crop';
+import { Camera } from '@ionic-native/camera';
 
 //Functionalities
 import { FacebookLoginPage } from '../pages/facebook-login/facebook-login';
@@ -149,8 +149,8 @@ export function createTranslateLoader(http:Http) {
         Keyboard,
         //Geolocation,
         TwitterConnect,
-        ImagePicker,
         Crop,
+        Camera,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

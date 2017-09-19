@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, SegmentButton, AlertController, NavParams } from 'ionic-angular';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
-import { ImagePicker } from '@ionic-native/image-picker';
 import { Crop } from '@ionic-native/crop';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
 @Component({
     selector: 'add-mimic',
@@ -15,10 +15,11 @@ export class AddMimic {
     record_upload:any;
     title:string;
 
+
     constructor(public nav:NavController, public navParams:NavParams,
                 public alertCtrl:AlertController,
                 public cropService:Crop,
-                public imagePicker:ImagePicker) {
+                private camera: Camera) {
 
         this.section = "event";
         this.record_upload = 'record';
@@ -48,28 +49,22 @@ export class AddMimic {
     }
 
     openImagePicker() {
-        this.imagePicker.hasReadPermission().then(
-            (result) => {
-                if (result == false) {
-                    // no callbacks required as this opens a popup which returns async
-                    this.imagePicker.requestReadPermission();
-                }
-                else if (result == true) {
-                    this.imagePicker.getPictures({maximumImagesCount: 1}).then(
-                        (results) => {
-                            for (var i = 0; i < results.length; i++) {
-                                this.cropService.crop(results[i], {quality: 75}).then(
-                                        newImage => {
-                                        this.selected_image = newImage;
-                                    },
-                                        error => console.error("Error cropping image", error)
-                                );
-                            }
-                        }, (err) => console.log(err)
-                    );
-                }
-            }
-        )
+        const options: CameraOptions = {
+          quality: 100,
+          destinationType: this.camera.DestinationType.DATA_URL,
+          encodingType: this.camera.EncodingType.JPEG,
+          mediaType: this.camera.MediaType.PICTURE,
+          sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+        }
+
+        this.camera.getPicture(options).then((imageData) => {
+         // imageData is either a base64 encoded string or a file URI
+         // If it's base64:
+         let base64Image = 'data:image/jpeg;base64,' + imageData;
+        }, (err) => {
+         // Handle error
+        });
+        
     }
 
 }

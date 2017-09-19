@@ -49,7 +49,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Facebook } from '@ionic-native/facebook';
-import { GooglePlus } from '@ionic-native/google-plus';
+//import { GooglePlus } from '@ionic-native/google-plus';
 import { Keyboard } from '@ionic-native/keyboard';
 //import { Geolocation } from '@ionic-native/geolocation';
 import { TwitterConnect } from '@ionic-native/twitter-connect';
@@ -145,7 +145,7 @@ export function createTranslateLoader(http:Http) {
         SocialSharing,
         InAppBrowser,
         Facebook,
-        GooglePlus,
+        //GooglePlus,
         Keyboard,
         //Geolocation,
         TwitterConnect,

@@ -1,6 +1,12 @@
 ## Documentation
 https://bit.ly/ion2fullapp-elite-version-documentation
 
+
+#Prepare your app
+- download from git
+- run: 'npm install'
+- run: 'ionic cordova prepare' to prepare all platforms and plugins
+
 # Workflow
 ##To run your app in the browser (great for initial development):
 - Install all the npm dependencies
@@ -55,3 +61,5 @@ To store the current platforms and plugins to the package.json
 ### [Restore current state](https://www.raymondcamden.com/2015/04/20/ionic-adds-a-new-state-feature/)
 `ionic state restore`
 This will add in the appropriate plugins and platforms from the package.json
+
+

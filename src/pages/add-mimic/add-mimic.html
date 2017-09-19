@@ -22,18 +22,20 @@
             <div class="post-example-view">
                 <form class="sample-form post-form" [formGroup]="post_form" (ngSubmit)="createPost()">
                     <section class="form-section">
-                        <button *ngIf="!selected_image" ion-button block large class="upload-image-button"
-                                (click)="openImagePicker()">
+                        <button ion-button block large class="upload-image-button"
+                                (click)="openDeviceGallery('image')">
                             <ion-icon name="camera"></ion-icon>
                             <h3 class="button-title">{{'UPLOAD_AN_IMAGE' | translate}}</h3>
                         </button>
-                        <button *ngIf="!selected_image" ion-button block large class="upload-image-button"
-                                (click)="openImagePicker()">
+                        <preload-image *ngIf="image" [ratio]="{w:1, h:1}" [src]="image"></preload-image>
+
+
+                        <button ion-button block large class="upload-image-button"
+                                (click)="openDeviceGallery('video')">
                             <ion-icon name="videocam"></ion-icon>
                             <h3 class="button-title">Upload a video</h3>
                         </button>
-                        <preload-image *ngIf="selected_image" [ratio]="{w:1, h:1}" [src]="selected_image"
-                                       alt="this is the image" title="IMAGE!"></preload-image>
+                        
                         <ion-item>
                             <ion-input type="text" placeholder="Hashtags" formControlName="hashtags"></ion-input>
                         </ion-item>

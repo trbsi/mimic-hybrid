@@ -24,22 +24,22 @@
                         <ion-row>
                             <ion-col>
                                 <button ion-button type="button" class="upload-image-button"
-                                    (click)="openDeviceGallery('image','take_picture')">
+                                    (click)="captureMedia('image')">
                                     <ion-icon name="camera"></ion-icon>
                                     <h3 class="button-title">Take a picture</h3>
                                 </button>
                             </ion-col>
                             <ion-col>
                                 <button ion-button type="button" class="upload-image-button"
-                                    (click)="openDeviceGallery('video', 'record_video')">
+                                    (click)="captureMedia('video')">
                                     <ion-icon name="videocam"></ion-icon>
                                     <h3 class="button-title">Record a video</h3>
                                 </button>
                             </ion-col>
                         </ion-row>
                     </ion-grid>
-                    <preload-image *ngIf="imageFile" [ratio]="{w:1, h:1}" [src]="imageFile"></preload-image>
-                    <div *ngIf="videoFile" class="video-player-container">
+                    <preload-image *ngIf="uploadedImageFile" [ratio]="{w:1, h:1}" [src]="uploadedImageFile"></preload-image>
+                    <div *ngIf="uploadedVideoFile" class="video-player-container">
                         <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event)">
                             <vg-buffering></vg-buffering>
                             <vg-overlay-play></vg-overlay-play>
@@ -56,9 +56,9 @@
                                 </ion-col>
                             </ion-row>
                             </vg-controls>
-                            <video webkit-playsinline playsinline #video [vgMedia]="video" id="video"
+                            <video webkit-playsinline playsinline #uploadedVideoFile [vgMedia]="uploadedVideoFile" id="uploadedVideoFile"
                             class="expand-horizontally" preload="auto">
-                            <source src="https://img-9gag-fun.9cache.com/photo/aq16G5R_460sv.mp4">
+                            <source src="{{this.uploadedVideoFile}}">
                             </video>
                         </vg-player>
                     </div>
@@ -81,14 +81,14 @@
                         <ion-row>
                             <ion-col>
                                 <button ion-button type="button" class="upload-image-button"
-                                    (click)="openDeviceGallery('image', 'upload_picture')">
+                                    (click)="openDeviceGallery('image')">
                                     <ion-icon name="camera"></ion-icon>
                                     <h3 class="button-title">{{'UPLOAD_AN_IMAGE' | translate}}</h3>
                                 </button>
                             </ion-col>
                             <ion-col>
                                 <button ion-button type="button" class="upload-image-button"
-                                    (click)="openDeviceGallery('video', 'upload_video')">
+                                    (click)="openDeviceGallery('video')">
                                     <ion-icon name="videocam"></ion-icon>
                                     <h3 class="button-title">Upload a video</h3>
                                 </button>
@@ -115,7 +115,7 @@
                             </vg-controls>
                             <video webkit-playsinline playsinline #video [vgMedia]="video" id="video"
                             class="expand-horizontally" preload="auto">
-                            <source src="https://img-9gag-fun.9cache.com/photo/aq16G5R_460sv.mp4">
+                            <source src="{{this.videoFile}}">
                             </video>
                         </vg-player>
                     </div>

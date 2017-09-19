@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { TwitterConnect } from '@ionic-native/twitter-connect';
@@ -9,8 +8,7 @@ import { TwitterUserModel } from './twitter-user.model'
 @Injectable()
 export class TwitterLoginService {
 
-    constructor(public http:Http,
-                public nativeStorage:NativeStorage,
+    constructor(public nativeStorage:NativeStorage,
                 public twitter:TwitterConnect) {
     }
 
@@ -63,11 +61,6 @@ export class TwitterLoginService {
                     })
             );
         });
-    }
-
-    private handleError(error:any):Promise<any> {
-        console.error('An error occurred', error); // for demo purposes only
-        return Promise.reject(error.message || error);
     }
 
 }

@@ -6,7 +6,7 @@ import { AlertController, LoadingController } from 'ionic-angular';
 @NgModule()
 
 export class ApiSettings {
-    public static API_ENDPOINT = 'http://mimic.testapi.website/api/';
+    public static API_ENDPOINT = 'http://mimic.testapi.website/api/'; //@TODO change to live
     allow_entry:string = 'little:cute:chubby';
     loading:any;
 

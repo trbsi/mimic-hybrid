@@ -32,7 +32,7 @@ import { PreloadImage } from '../components/preload-image/preload-image';
 import { ListingService } from '../pages/listing/listing.service';
 import { ProfileService } from '../pages/profile/profile.service';
 import { FacebookLoginService } from '../pages/facebook-login/facebook-login.service';
-import { GoogleLoginService } from '../pages/google-login/google-login.service';
+//import { GoogleLoginService } from '../pages/google-login/google-login.service';
 import { TwitterLoginService } from '../pages/twitter-login/twitter-login.service';
 import { LanguageService } from '../providers/language/language.service';
 import { LoginService } from '../pages/login/login.service';
@@ -58,7 +58,7 @@ import { Crop } from '@ionic-native/crop';
 
 //Functionalities
 import { FacebookLoginPage } from '../pages/facebook-login/facebook-login';
-import { GoogleLoginPage } from '../pages/google-login/google-login';
+//import { GoogleLoginPage } from '../pages/google-login/google-login';
 import { TwitterLoginPage } from '../pages/twitter-login/twitter-login';
 
 export function createTranslateLoader(http:Http) {
@@ -75,7 +75,7 @@ export function createTranslateLoader(http:Http) {
         LoginPage,
         ProfilePage,
         FacebookLoginPage,
-        GoogleLoginPage,
+        //GoogleLoginPage,
         TwitterLoginPage,
         PostLogin,
         AddMimic,
@@ -114,7 +114,7 @@ export function createTranslateLoader(http:Http) {
         LoginPage,
         ProfilePage,
         FacebookLoginPage,
-        GoogleLoginPage,
+        //GoogleLoginPage,
         TwitterLoginPage,
         PostLogin,
         AddMimic,
@@ -132,7 +132,7 @@ export function createTranslateLoader(http:Http) {
         SearchService,
         ProfileService,
         FacebookLoginService,
-        GoogleLoginService,
+        //GoogleLoginService,
         TwitterLoginService,
         LanguageService,
         NativeStorage,

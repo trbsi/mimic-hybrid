@@ -12,17 +12,17 @@ import { DomSanitizer } from '@angular/platform-browser';
     templateUrl: 'add-mimic.html'
 })
 export class AddMimic {
-    section:string;
     post_form:any;
-    record_upload:any;
     title:string;
-    imageFile:any;
-    videoFile:any;
+    currentSegment:string;
 
-    uploadedImageFile:any;
-    uploadedVideoFile:any;
-
+    libraryImageFile:any;
+    libraryVideoFile:any;
+    cameraImageFile:any;
+    cameraVideoFile:any;
     videoDuration = 15;
+
+    originalMimicId:number;
 
     //VIDEO
     videoPlayer: any;
@@ -34,13 +34,16 @@ export class AddMimic {
                 private mediaCapture: MediaCapture,
                 public sanitizer: DomSanitizer) {
 
-        this.section = "event";
-        this.record_upload = 'record';
+        this.currentSegment = 'camera';
 
         this.post_form = new FormGroup({
             hashtags: new FormControl('', Validators.required)
         });
-         console.log(this.navParams.get('original_mimic_id')); 
+        
+        if(this.navParams.get('original_mimic_id')) {
+            this.originalMimicId = this.navParams.get('original_mimic_id');
+        }
+
         if (this.navParams.get('reply_to_mimic') == true) {
             this.title = "Reply to Mimic";
         } else {
@@ -50,7 +53,9 @@ export class AddMimic {
     }
 
     onSegmentChanged(segmentButton:SegmentButton) {
-        // console.log('Segment changed to', segmentButton.value);
+        this.cameraImageFile = this.cameraVideoFile = null;
+        this.libraryImageFile = this.libraryVideoFile = null;
+        this.currentSegment = segmentButton.value; 
     }
 
     onSegmentSelected(segmentButton:SegmentButton) {
@@ -58,6 +63,21 @@ export class AddMimic {
     }
 
     createPost() {
+        //check if image or video has been chosen/taken
+        switch (this.currentSegment) {
+            case "camera":
+                if(!this.cameraVideoFile  && !this.cameraImageFile) {
+                    alert('choose vide');
+                    return;
+                }
+                break;
+            case "library":
+                if(!this.libraryVideoFile  && !this.libraryImageFile) {
+                    alert('choose vide');
+                    return;
+                }
+                break;
+        }
         console.log("post", this.post_form.value);
     }
 
@@ -68,7 +88,7 @@ export class AddMimic {
     openDeviceGallery(type) 
     {
         var data = {};
-        this.imageFile = this.videoFile = null;
+        this.libraryImageFile = this.libraryVideoFile = null;
 
         switch (type) {
             case "video":
@@ -92,10 +112,10 @@ export class AddMimic {
             // If it's base64:
             switch (type) {
                 case "video":
-                    this.videoFile = data;
+                    this.libraryVideoFile = data;
                     break;
                 case "image":
-                    this.imageFile = 'data:image/jpeg;base64,' + data; //@TODO Remove this base64
+                    this.libraryImageFile = 'data:image/jpeg;base64,' + data; //@TODO Remove this base64
                     break;
             }
         }, (err) => {
@@ -109,14 +129,14 @@ export class AddMimic {
      */
     captureMedia(type) 
     {
-        this.uploadedImageFile = this.uploadedVideoFile = null;
+        this.cameraImageFile = this.cameraVideoFile = null;
         if(type == 'image') {
             let options: CaptureImageOptions = { limit: 1 };
             this.mediaCapture.captureImage(options)
             .then(
                 (data: MediaFile[]) => {
                     console.log(data);
-                    this.uploadedImageFile = data[0]['localURL']; //@TODO better use fullPath here like: data[0].fullPath
+                    this.cameraImageFile = data[0]['localURL']; //@TODO better use fullPath here like: data[0].fullPath
                 },
                 (err: CaptureError) => console.log(err)
             );
@@ -126,8 +146,8 @@ export class AddMimic {
             .then(
                 (data: MediaFile[]) => {
                     console.log(data);
-                    this.uploadedVideoFile = data[0]['localURL']; //@TODO better use fullPath here like: data[0].fullPath
-                    console.log(this.uploadedVideoFile);
+                    this.cameraVideoFile = data[0]['localURL']; //@TODO better use fullPath here like: data[0].fullPath
+                    console.log(this.cameraVideoFile);
                 },
                 (err: CaptureError) => console.log(err)
             );

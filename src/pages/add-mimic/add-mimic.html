@@ -5,18 +5,18 @@
 </ion-header>
 <ion-content class="forms-examples-content">
     <div>
-        <ion-segment [(ngModel)]="record_upload">
-        <ion-segment-button value="record">
-            Record
+        <ion-segment [(ngModel)]="currentSegment" (ionChange)="onSegmentChanged($event)">
+        <ion-segment-button value="camera" (ionSelect)="onSegmentSelected($event)">
+            Camera
         </ion-segment-button>
-        <ion-segment-button value="upload">
-            Upload
+        <ion-segment-button value="library" (ionSelect)="onSegmentSelected($event)">
+            Library
         </ion-segment-button>
         </ion-segment>
     </div>
-    <div [ngSwitch]="record_upload">
+    <div [ngSwitch]="currentSegment">
         <!-- ****************+ RECORD +***********************-->
-        <div class="forms-wrapper" *ngSwitchCase="'record'">
+        <div class="forms-wrapper" *ngSwitchCase="'camera'">
             <div class="post-example-view">
                 <form class="sample-form post-form" [formGroup]="post_form" (ngSubmit)="createPost()">
                 <section class="form-section">
@@ -26,20 +26,18 @@
                                 <button ion-button type="button" class="upload-image-button"
                                     (click)="captureMedia('image')">
                                     <ion-icon name="camera"></ion-icon>
-                                    <h3 class="button-title">Take a picture</h3>
                                 </button>
                             </ion-col>
                             <ion-col>
                                 <button ion-button type="button" class="upload-image-button"
                                     (click)="captureMedia('video')">
                                     <ion-icon name="videocam"></ion-icon>
-                                    <h3 class="button-title">Record a video</h3>
                                 </button>
                             </ion-col>
                         </ion-row>
                     </ion-grid>
-                    <preload-image *ngIf="uploadedImageFile" [ratio]="{w:1, h:1}" [src]="uploadedImageFile"></preload-image>
-                    <div *ngIf="uploadedVideoFile" class="video-player-container">
+                    <preload-image *ngIf="cameraImageFile" [ratio]="{w:1, h:1}" [src]="cameraImageFile"></preload-image>
+                    <div *ngIf="cameraVideoFile" class="video-player-container">
                         <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event)">
                             <vg-buffering></vg-buffering>
                             <vg-overlay-play></vg-overlay-play>
@@ -56,14 +54,14 @@
                                 </ion-col>
                             </ion-row>
                             </vg-controls>
-                            <video webkit-playsinline playsinline #uploadedVideoFile [vgMedia]="uploadedVideoFile" id="uploadedVideoFile"
+                            <video webkit-playsinline playsinline #cameraVideoFile [vgMedia]="cameraVideoFile" id="cameraVideoFile"
                             class="expand-horizontally" preload="auto">
-                            <source src="{{this.uploadedVideoFile}}">
+                            <source src="{{this.cameraVideoFile}}">
                             </video>
                         </vg-player>
                     </div>
                     <ion-item>
-                        <ion-input type="text" placeholder="Hashtags" formControlName="hashtags"></ion-input>
+                        <ion-input type="text" placeholder="#dog #dogs..." formControlName="hashtags"></ion-input>
                     </ion-item>
                     <button ion-button block large style="margin-top: 15%" type="submit"
                         [disabled]="!post_form.valid">Go on
@@ -73,7 +71,7 @@
             </div>
         </div>
         <!-- ****************+ UPLOAD +***********************-->
-        <div class="forms-wrapper" *ngSwitchCase="'upload'">
+        <div class="forms-wrapper" *ngSwitchCase="'library'">
             <div class="post-example-view">
                 <form class="sample-form post-form" [formGroup]="post_form" (ngSubmit)="createPost()">
                 <section class="form-section">
@@ -83,20 +81,18 @@
                                 <button ion-button type="button" class="upload-image-button"
                                     (click)="openDeviceGallery('image')">
                                     <ion-icon name="camera"></ion-icon>
-                                    <h3 class="button-title">{{'UPLOAD_AN_IMAGE' | translate}}</h3>
                                 </button>
                             </ion-col>
                             <ion-col>
                                 <button ion-button type="button" class="upload-image-button"
                                     (click)="openDeviceGallery('video')">
                                     <ion-icon name="videocam"></ion-icon>
-                                    <h3 class="button-title">Upload a video</h3>
                                 </button>
                             </ion-col>
                         </ion-row>
                     </ion-grid>
-                    <preload-image *ngIf="imageFile" [ratio]="{w:1, h:1}" [src]="imageFile"></preload-image>
-                    <div *ngIf="videoFile" class="video-player-container">
+                    <preload-image *ngIf="libraryImageFile" [ratio]="{w:1, h:1}" [src]="libraryImageFile"></preload-image>
+                    <div *ngIf="libraryVideoFile" class="video-player-container">
                         <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event)">
                             <vg-buffering></vg-buffering>
                             <vg-overlay-play></vg-overlay-play>
@@ -113,14 +109,14 @@
                                 </ion-col>
                             </ion-row>
                             </vg-controls>
-                            <video webkit-playsinline playsinline #video [vgMedia]="video" id="video"
+                            <video webkit-playsinline playsinline #libraryVideoFile [vgMedia]="libraryVideoFile" id="libraryVideoFile"
                             class="expand-horizontally" preload="auto">
-                            <source src="{{this.videoFile}}">
+                            <source src="{{this.libraryVideoFile}}">
                             </video>
                         </vg-player>
                     </div>
                     <ion-item>
-                        <ion-input type="text" placeholder="Hashtags" formControlName="hashtags"></ion-input>
+                        <ion-input type="text" placeholder="#dog #dogs..." formControlName="hashtags"></ion-input>
                     </ion-item>
                     <button ion-button block large style="margin-top: 15%" type="submit"
                         [disabled]="!post_form.valid">Go on

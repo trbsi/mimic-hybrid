@@ -55,6 +55,7 @@
         "cordova-plugin-googleplus": "^5.1.1",
         "cordova-plugin-inappbrowser": "^1.7.1",
         "cordova-plugin-ionic": "^1.1.8",
+        "cordova-plugin-k-imagecropper": "^1.1.7",
         "cordova-plugin-media-capture": "^1.4.3",
         "cordova-plugin-nativestorage": "^2.2.2",
         "cordova-plugin-splashscreen": "^4.0.3",
@@ -122,7 +123,8 @@
                 "CAMERA_USAGE_DESCRIPTION": "Record a video or take a picture",
                 "PHOTOLIBRARY_USAGE_DESCRIPTION": "Choose a video or a picture"
             },
-            "cordova-plugin-media-capture": {}
+            "cordova-plugin-media-capture": {},
+            "cordova-plugin-k-imagecropper": {}
         },
         "platforms": [
             "android"

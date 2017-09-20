@@ -141,3 +141,8 @@ https://github.com/ionic-team/ionic-cli/issues/287
 
 Cannot find module '@angular/tsc-wrapped/src/tsc'
 npm install --save-dev @angular/tsc-wrapped
+
+
+How to crop image aspect ratio
+https://forum.ionicframework.com/t/how-to-crop-image-with-resize-width-and-height/102804/5
+Plugin for that: https://www.npmjs.com/package/cordova-plugin-k-imagecropper

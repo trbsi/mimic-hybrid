@@ -36,7 +36,7 @@
                             </ion-col>
                         </ion-row>
                     </ion-grid>
-                    <preload-image *ngIf="cameraImageFile" [ratio]="{w:1, h:1}" [src]="cameraImageFile"></preload-image>
+                    <preload-image *ngIf="cameraImageFile" [ratio]="{w:16, h:9}" [src]="cameraImageFile"></preload-image>
                     <div *ngIf="cameraVideoFile" class="video-player-container">
                         <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event)">
                             <vg-buffering></vg-buffering>
@@ -61,7 +61,7 @@
                         </vg-player>
                     </div>
                     <ion-item>
-                        <ion-input type="text" placeholder="#dog #dogs..." formControlName="hashtags"></ion-input>
+                        <ion-input type="text" placeholder="Hastags like: #dog #dogs..." formControlName="hashtags"></ion-input>
                     </ion-item>
                     <button ion-button block large style="margin-top: 15%" type="submit"
                         [disabled]="!post_form.valid">Go on
@@ -91,7 +91,7 @@
                             </ion-col>
                         </ion-row>
                     </ion-grid>
-                    <preload-image *ngIf="libraryImageFile" [ratio]="{w:1, h:1}" [src]="libraryImageFile"></preload-image>
+                    <preload-image *ngIf="libraryImageFile" [ratio]="{w:16, h:9}" [src]="libraryImageFile"></preload-image>
                     <div *ngIf="libraryVideoFile" class="video-player-container">
                         <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event)">
                             <vg-buffering></vg-buffering>
@@ -116,7 +116,7 @@
                         </vg-player>
                     </div>
                     <ion-item>
-                        <ion-input type="text" placeholder="#dog #dogs..." formControlName="hashtags"></ion-input>
+                        <ion-input type="text" placeholder="Hashtags like: #dog #dogs..." formControlName="hashtags"></ion-input>
                     </ion-item>
                     <button ion-button block large style="margin-top: 15%" type="submit"
                         [disabled]="!post_form.valid">Go on

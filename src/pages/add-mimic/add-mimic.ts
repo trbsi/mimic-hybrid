@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { NavController, SegmentButton, AlertController, NavParams } from 'ionic-angular';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
-import { Crop } from '@ionic-native/crop';
+import { Crop } from '@ionic-native/crop'; //@TODO remove Crop
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { VgAPI } from 'videogular2/core';
 import { MediaCapture, MediaFile, CaptureError, CaptureImageOptions, CaptureVideoOptions } from '@ionic-native/media-capture';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser'; //@TODO  remove if not using
 
 @Component({
     selector: 'add-mimic',
@@ -123,21 +123,24 @@ export class AddMimic {
 
         const options: CameraOptions = {
           quality: 100,
-          destinationType: this.camera.DestinationType.DATA_URL, //@TODO change this to FILE_URI
+          destinationType: this.camera.DestinationType.FILE_URI, //@TODO change this to FILE_URI
           encodingType: this.camera.EncodingType.JPEG,
           mediaType: data['mediaType'],
           sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
         }
 
-        this.camera.getPicture(options).then((data) => {
+        this.camera.getPicture(options).then((data) => 
+        {
             // data is either a base64 encoded string or a file URI
             // If it's base64:
-            switch (type) {
+            switch (type) 
+            {
                 case "video":
                     this.libraryVideoFile = data;
                     break;
                 case "image":
-                    this.libraryImageFile = 'data:image/jpeg;base64,' + data; //@TODO Remove this base64
+                    //this.libraryImageFile = 'data:image/jpeg;base64,' + data; //@TODO Remove this base64
+                    this.callCropper(data, 'library');
                     break;
             }
         }, (err) => {
@@ -158,7 +161,8 @@ export class AddMimic {
             .then(
                 (data: MediaFile[]) => {
                     console.log(data);
-                    this.cameraImageFile = data[0]['localURL']; //@TODO better use fullPath here like: data[0].fullPath
+                    //this.cameraImageFile = data[0]['localURL']; //@TODO better use fullPath here like: data[0].fullPath
+                    this.callCropper(data[0]['fullPath'], 'camera');
                 },
                 (err: CaptureError) => console.log(err)
             );
@@ -178,7 +182,34 @@ export class AddMimic {
     }
 
 
+    /**
+     * Call our cropper
+     * @param string imagePath
+     * @param string type "camera" or "library"
+     */
+    private callCropper(imagePath, type)
+    {
+        let self = this;
 
+        var options = {
+            url: imagePath,              // required.
+            ratio: "16/9",               // required. (here you can define your custom ration) "1/1" for square images
+            title: "Crop the image",      // optional. android only. (here you can put title of image cropper activity) default: Image Cropper
+            autoZoomEnabled: false      // optional. android only. for iOS its always true (if it is true then cropper will automatically adjust the view) default: true
+        }
+
+        //https://stackoverflow.com/questions/38000418/using-windows-plugins-with-ionic-2-typescript
+        window['plugins'].k.imagecropper.open(options, function(cropData) {
+            // its return an object with the cropped image cached url, cropped width & height, you need to manually delete the image from the application cache.
+            if(type == "camera") {
+                self.cameraImageFile = cropData['imgPath'];
+            } else if (type == "library") {
+                self.libraryImageFile = cropData['imgPath'];
+            }
+        }, function(error) {
+            console.log(error);
+        });
+    }
     //VIDEOS
     /**
      * When player is ready initalize it

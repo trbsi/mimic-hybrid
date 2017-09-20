@@ -3,7 +3,7 @@
     <name>Mimic</name>
     <description>Split your world</description>
     <author email="mimicapp.official@gmail.com" href="http://www.gomimic.com">Mimic</author>
-    <content original-src="index.html" src="http://192.168.0.51:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <preference name="KeyboardDisplayRequiresUserAction" value="false" />
     <preference name="AllowInlineMediaPlayback" value="true" />
@@ -122,6 +122,7 @@
         <variable name="CHANNEL_NAME" value="Master" />
         <variable name="UPDATE_METHOD" value="auto" />
     </plugin>
+    <plugin name="cordova-plugin-k-imagecropper" spec="^1.1.7" />
     <plugin name="cordova-plugin-media-capture" spec="^1.4.3" />
     <plugin name="cordova-plugin-nativestorage" spec="^2.2.2" />
     <plugin name="cordova-plugin-splashscreen" spec="^4.0.3" />

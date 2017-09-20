@@ -133,5 +133,4 @@
     <plugin name="twitter-connect-plugin" spec="^0.6.0">
         <variable name="FABRIC_KEY" value="a0fc2a9f47f38a658f2e86705afac1da2fd430a4" />
     </plugin>
-    <engine name="ios" spec="~4.4.0" />
 </widget>

@@ -53,7 +53,6 @@ import { Facebook } from '@ionic-native/facebook';
 import { Keyboard } from '@ionic-native/keyboard';
 //import { Geolocation } from '@ionic-native/geolocation';
 import { TwitterConnect } from '@ionic-native/twitter-connect';
-import { Crop } from '@ionic-native/crop';
 import { Camera } from '@ionic-native/camera';
 import { MediaCapture } from '@ionic-native/media-capture';
 
@@ -150,7 +149,6 @@ export function createTranslateLoader(http:Http) {
         Keyboard,
         //Geolocation,
         TwitterConnect,
-        Crop,
         Camera,
         MediaCapture,
     ],

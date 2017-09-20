@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, SegmentButton, AlertController, NavParams } from 'ionic-angular';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
-import { Crop } from '@ionic-native/crop'; //@TODO remove Crop
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { VgAPI } from 'videogular2/core';
 import { MediaCapture, MediaFile, CaptureError, CaptureImageOptions, CaptureVideoOptions } from '@ionic-native/media-capture';
@@ -28,7 +27,6 @@ export class AddMimic {
 
     constructor(public nav:NavController, public navParams:NavParams,
                 public alertCtrl:AlertController,
-                public cropService:Crop,
                 private camera: Camera,
                 private mediaCapture: MediaCapture) {
 

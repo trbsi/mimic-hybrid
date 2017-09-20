@@ -15,7 +15,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from "../../providers/language/language.service";
 import { LanguageModel } from "../../providers/language/language.model";
 //import { AppRate } from '@ionic-native/app-rate';
-import { Crop } from '@ionic-native/crop';
 
 @Component({
     selector: 'settings-page',
@@ -37,7 +36,6 @@ export class SettingsPage {
                 public languageService:LanguageService,
                 public profileService:ProfileService,
                 //public appRate:AppRate,
-                public cropService:Crop,
                 public platform:Platform) {
         this.loading = this.loadingCtrl.create();
 

@@ -67,18 +67,40 @@ export class AddMimic {
         switch (this.currentSegment) {
             case "camera":
                 if(!this.cameraVideoFile  && !this.cameraImageFile) {
-                    alert('choose vide');
+                    this.presentAlert(this.currentSegment);
                     return;
                 }
                 break;
             case "library":
                 if(!this.libraryVideoFile  && !this.libraryImageFile) {
-                    alert('choose vide');
+                    this.presentAlert(this.currentSegment);
                     return;
                 }
                 break;
         }
-        console.log("post", this.post_form.value);
+        console.log("post", this.post_form.value); 
+    }
+
+    /**
+     * Show alert
+     * @param string type "camera" or "library"
+     */
+    private presentAlert(type) {
+        var title, subTitle;
+        switch (type) {
+            case "camera":
+                subTitle = 'Take a picture or record a video';
+                break;
+            case "library":
+                subTitle = 'Choose a picture or a video';
+                break;
+        }
+
+        let alert = this.alertCtrl.create({
+            title: subTitle,
+            buttons: ['OK']
+        });
+        alert.present();
     }
 
     /**

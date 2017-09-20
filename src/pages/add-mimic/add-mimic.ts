@@ -5,7 +5,6 @@ import { Crop } from '@ionic-native/crop'; //@TODO remove Crop
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { VgAPI } from 'videogular2/core';
 import { MediaCapture, MediaFile, CaptureError, CaptureImageOptions, CaptureVideoOptions } from '@ionic-native/media-capture';
-import { DomSanitizer } from '@angular/platform-browser'; //@TODO  remove if not using
 
 @Component({
     selector: 'add-mimic',
@@ -31,8 +30,7 @@ export class AddMimic {
                 public alertCtrl:AlertController,
                 public cropService:Crop,
                 private camera: Camera,
-                private mediaCapture: MediaCapture,
-                public sanitizer: DomSanitizer) {
+                private mediaCapture: MediaCapture) {
 
         this.currentSegment = 'camera';
 

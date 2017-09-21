@@ -15,7 +15,7 @@
         </ion-segment>
     </div>
     <div [ngSwitch]="currentSegment">
-        <!-- ****************+ RECORD +***********************-->
+        <!-- ****************+ CAMERA +***********************-->
         <div class="forms-wrapper" *ngSwitchCase="'camera'">
             <div class="post-example-view">
                 <form class="sample-form post-form" [formGroup]="post_form" (ngSubmit)="createPost()">
@@ -71,7 +71,7 @@
                 </form>
             </div>
         </div>
-        <!-- ****************+ UPLOAD +***********************-->
+        <!-- ****************+ LIBRARY +***********************-->
         <div class="forms-wrapper" *ngSwitchCase="'library'">
             <div class="post-example-view">
                 <form class="sample-form post-form" [formGroup]="post_form" (ngSubmit)="createPost()">

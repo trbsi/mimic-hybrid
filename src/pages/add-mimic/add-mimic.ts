@@ -4,6 +4,7 @@ import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { VgAPI } from 'videogular2/core';
 import { MediaCapture, MediaFile, CaptureError, CaptureImageOptions, CaptureVideoOptions } from '@ionic-native/media-capture';
+import { VideoEditor } from '@ionic-native/video-editor';
 
 @Component({
     selector: 'add-mimic',
@@ -28,7 +29,8 @@ export class AddMimic {
     constructor(public nav:NavController, public navParams:NavParams,
                 public alertCtrl:AlertController,
                 private camera: Camera,
-                private mediaCapture: MediaCapture) {
+                private mediaCapture: MediaCapture,
+                private videoEditor: VideoEditor) {
 
         this.currentSegment = 'camera';
 
@@ -119,7 +121,7 @@ export class AddMimic {
 
         const options: CameraOptions = {
           quality: 100,
-          destinationType: this.camera.DestinationType.FILE_URI, //@TODO change this to FILE_URI
+          destinationType: this.camera.DestinationType.FILE_URI,
           encodingType: this.camera.EncodingType.JPEG,
           mediaType: data['mediaType'],
           sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
@@ -132,15 +134,16 @@ export class AddMimic {
             switch (type) 
             {
                 case "video":
-                    this.libraryVideoFile = data;
+                    data = "file://"+data; //https://github.com/jbavari/cordova-plugin-video-editor/issues/11
+                    this.callVideoEditor(data);
                     break;
                 case "image":
-                    //this.libraryImageFile = 'data:image/jpeg;base64,' + data; //@TODO Remove this base64
+                    //this.libraryImageFile = 'data:image/jpeg;base64,' + data; //when testing base64
                     this.callCropper(data, 'library');
                     break;
             }
         }, (err) => {
-             // Handle error
+            console.log(err);
         });
     }
 
@@ -157,7 +160,7 @@ export class AddMimic {
             .then(
                 (data: MediaFile[]) => {
                     console.log(data);
-                    //this.cameraImageFile = data[0]['localURL']; //@TODO better use fullPath here like: data[0].fullPath
+                    //this.cameraImageFile = data[0]['localURL']; //testing with localURL
                     this.callCropper(data[0]['fullPath'], 'camera');
                 },
                 (err: CaptureError) => console.log(err)
@@ -168,8 +171,8 @@ export class AddMimic {
             .then(
                 (data: MediaFile[]) => {
                     console.log(data);
-                    this.cameraVideoFile = data[0]['localURL']; //@TODO better use fullPath here like: data[0].fullPath
-                    console.log(this.cameraVideoFile);
+                    //this.cameraVideoFile = data[0]['localURL']; //@TODO better use fullPath here like: data[0].fullPath
+                    this.callVideoEditor(data[0]['fullPath']);
                 },
                 (err: CaptureError) => console.log(err)
             );
@@ -177,6 +180,20 @@ export class AddMimic {
         
     }
 
+    /**
+     * Call video editor
+     * @param string videoPath Path to a video
+     */
+    private callVideoEditor(videoPath)
+    {
+        this.videoEditor.transcodeVideo({
+          fileUri: videoPath,
+          outputFileName: 'output',
+          outputFileType: this.videoEditor.OutputFileType.MPEG4
+        })
+        .then((fileUri: string) => console.log('video transcode success', fileUri))
+        .catch((error: any) => console.log('video transcode error', error));
+    }
 
     /**
      * Call our cropper
@@ -198,11 +215,11 @@ export class AddMimic {
         window['plugins'].k.imagecropper.open(options, function(cropData) {
             // its return an object with the cropped image cached url, cropped width & height, you need to manually delete the image from the application cache.
             if(type == "camera") {
-                self.currentSegment = type;
                 self.cameraImageFile = cropData['imgPath'];
-            } else if (type == "library") {
                 self.currentSegment = type;
+            } else if (type == "library") {
                 self.libraryImageFile = cropData['imgPath'];
+                self.currentSegment = type;
             }
 
         }, function(error) {

@@ -55,6 +55,7 @@ import { Keyboard } from '@ionic-native/keyboard';
 import { TwitterConnect } from '@ionic-native/twitter-connect';
 import { Camera } from '@ionic-native/camera';
 import { MediaCapture } from '@ionic-native/media-capture';
+import { VideoEditor } from '@ionic-native/video-editor';
 
 //Functionalities
 import { FacebookLoginPage } from '../pages/facebook-login/facebook-login';
@@ -151,6 +152,7 @@ export function createTranslateLoader(http:Http) {
         TwitterConnect,
         Camera,
         MediaCapture,
+        VideoEditor,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

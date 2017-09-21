@@ -82,7 +82,7 @@ export class AddMimic {
      * @param string type "camera" or "library"
      */
     private presentAlert(type) {
-        var title, subTitle;
+        var subTitle;
         switch (type) {
             case "camera":
                 subTitle = 'Take a picture or record a video';
@@ -181,7 +181,7 @@ export class AddMimic {
     /**
      * Call our cropper
      * @param string imagePath
-     * @param string type "camera" or "library"
+     * @param string type Current segment: "camera" or "library"
      */
     private callCropper(imagePath, type)
     {
@@ -198,14 +198,28 @@ export class AddMimic {
         window['plugins'].k.imagecropper.open(options, function(cropData) {
             // its return an object with the cropped image cached url, cropped width & height, you need to manually delete the image from the application cache.
             if(type == "camera") {
+                self.currentSegment = type;
                 self.cameraImageFile = cropData['imgPath'];
             } else if (type == "library") {
+                self.currentSegment = type;
                 self.libraryImageFile = cropData['imgPath'];
             }
+
         }, function(error) {
             console.log(error);
         });
     }
+
+    /**
+     * Reset submit form and all values
+     */
+    resetSubmitForm()
+    {
+        this.cameraImageFile = this.cameraVideoFile = null;
+        this.libraryImageFile = this.libraryVideoFile = null;
+        this.post_form.reset();
+    }
+
     //VIDEOS
     /**
      * When player is ready initalize it
@@ -214,6 +228,5 @@ export class AddMimic {
     onPlayerReady(api:VgAPI) {
         this.videoPlayer = api;
     }
-
     //VIDEOS
 }

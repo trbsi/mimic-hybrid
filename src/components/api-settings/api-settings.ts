@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { NativeStorage } from '@ionic-native/native-storage';
-import { AlertController, LoadingController, Platform } from 'ionic-angular';
+import { AlertController, LoadingController } from 'ionic-angular';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
-import { File } from '@ionic-native/file';
 
 @NgModule()
 
@@ -13,17 +12,22 @@ export class ApiSettings {
     loading:any;
 
     constructor(public http:Http, private storage:NativeStorage, private alertCtrl:AlertController,
-                public loadingCtrl:LoadingController, private transfer: FileTransfer, private file: File,
-                public platform: Platform) 
+                public loadingCtrl:LoadingController, private transfer: FileTransfer) 
     {
 
     }
 
-
-    private createHeaders(headers:Headers) 
+    /**
+     * [createHeaders description]
+     * @param {Headers} headers [description]
+     * @param string type What type of request to send: get, post
+     */
+    private createHeaders(headers:Headers, type) 
     {
         headers.append('AllowEntry', btoa(this.allow_entry));
-        headers.append('Content-Type', 'application/json');
+        if(type != 'upload') {
+            headers.append('Content-Type', 'application/json');
+        }
     }
 
 
@@ -59,9 +63,10 @@ export class ApiSettings {
         return this.storage.getItem('token')
             .then(
             (token) => {
-                this.createHeaders(headers);
+                this.createHeaders(headers, type);
                 headers.append('Authorization', 'Bearer ' + token);
                 this.loading.dismiss();
+
                 if (type == 'post') {
                     return this.doPost(data, url, headers);
                 } else if (type == 'get') {
@@ -71,13 +76,15 @@ export class ApiSettings {
                 } else if (type == 'upload') {
                     return this.doUpload(data, url, headers);
                 }
+
             },
             //couldn't find token, do normal post
             (error) => {
-                this.createHeaders(headers);
+                this.createHeaders(headers, type);
                 //@TODO remove this, this is just for testing
                 headers.append('Authorization', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjcsImlzcyI6Imh0dHA6Ly9taW1pYy50ZXN0YXBpLndlYnNpdGUvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE1MDU2ODI2NjAsImV4cCI6MTUwODM4MjY2MCwibmJmIjoxNTA1NjgyNjYwLCJqdGkiOiJ1QWhWNE5oNnlrZ2o0UzF2In0.mAtyFB3ZDt38Rel-o7sXN-8Z7SQq8B4YHAa-HChZba0');
                 this.loading.dismiss();
+                
                 if (type == 'post') {
                     return this.doPost(data, url, headers);
                 } else if (type == 'get') {
@@ -87,6 +94,7 @@ export class ApiSettings {
                 } else if (type == 'upload') {
                     return this.doUpload(data, url, headers);
                 }
+
             }
         );
     }
@@ -157,21 +165,18 @@ export class ApiSettings {
      */
     private doUpload(data, url, headers) 
     {
-        this.platform.ready().then(() => {
-            const fileTransfer: FileTransferObject = this.transfer.create();
+        const fileTransfer: FileTransferObject = this.transfer.create();
 
-            let options: FileUploadOptions = {
-                headers: headers
-            }
-            console.log("ulazak u plugin", data); 
-            return fileTransfer.upload(data.filePath, ApiSettings.API_ENDPOINT + url, options)
-            .then((response) => {
-console.log("ulazak u response", response); 
-                return this.handleSuccess(response);
-            }, (error) => {
-                console.log("ulazak u error", error); 
-                return this.handleError(error);
-            });
+        let options: FileUploadOptions = {
+            headers: headers,
+            params: data
+        }
+
+        return fileTransfer.upload(data.filePath, ApiSettings.API_ENDPOINT + url, options)
+        .then((data) => {
+            return Promise.resolve(JSON.parse(data.response));
+        }, (error) => {
+            return Promise.reject(error);
         });
     }
 

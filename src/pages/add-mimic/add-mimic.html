@@ -60,13 +60,13 @@
                             </video>
                         </vg-player>
                     </div>
-                    <ion-item>
+                    <ion-item *ngIf="!originalMimicId">
                         <ion-input type="text" placeholder="Hashtags like: #dog #dogs..." formControlName="hashtags"></ion-input>
                     </ion-item>
                     <button ion-button block large style="margin-top: 15%" type="submit"
-                        [disabled]="!post_form.valid">Go on
+                        [disabled]="!post_form.valid && !originalMimicId">Go on
                     </button>
-                    <button ion-button block large type="button" (click)="resetSubmitForm()"  color="dark">Reset</button>
+                    <button ion-button block large type="button" (click)="resetSubmitForm(true)"  color="dark">Reset</button>
                 </section>
                 </form>
             </div>
@@ -116,13 +116,13 @@
                             </video>
                         </vg-player>
                     </div>
-                    <ion-item>
+                    <ion-item *ngIf="!originalMimicId">
                         <ion-input type="text" placeholder="Hashtags like: #dog #dogs..." formControlName="hashtags"></ion-input>
                     </ion-item>
                     <button ion-button block large style="margin-top: 15%" type="submit"
-                        [disabled]="!post_form.valid">Go on
+                        [disabled]="!post_form.valid && !originalMimicId">Go on
                     </button>
-                    <button ion-button block large type="button" (click)="resetSubmitForm()"  color="dark">Reset</button>
+                    <button ion-button block large type="button" (click)="resetSubmitForm(true)"  color="dark">Reset</button>
                 </section>
                 </form>
             </div>

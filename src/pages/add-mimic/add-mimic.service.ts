@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-
 import 'rxjs/add/operator/toPromise';
 import { ApiSettings } from '../../components/api-settings/api-settings';
 
@@ -12,11 +11,9 @@ export class AddMimicService {
      * Post image or video to server
      * @param object data Object containing different data
      */
-    addOriginalMimic(data) {
-        return this.apiSettings.sendRequest(data, 'mimic/add', 'post');
+    addMimic(data) 
+    {
+        return this.apiSettings.sendRequest(data, 'mimic/add', 'upload');
     }
 
-    addResponseMimic(data) {
-        return this.apiSettings.sendRequest(data, 'mimic/add', 'post');
-    }
 }

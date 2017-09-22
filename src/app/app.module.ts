@@ -57,6 +57,8 @@ import { TwitterConnect } from '@ionic-native/twitter-connect';
 import { Camera } from '@ionic-native/camera';
 import { MediaCapture } from '@ionic-native/media-capture';
 import { VideoEditor } from '@ionic-native/video-editor';
+import { File } from '@ionic-native/file';
+import { FileTransfer } from '@ionic-native/file-transfer';
 
 //Functionalities
 import { FacebookLoginPage } from '../pages/facebook-login/facebook-login';
@@ -94,7 +96,7 @@ export function createTranslateLoader(http:Http) {
         //ShowHideInput,
     ],
     imports: [
-        BrowserModule,
+        BrowserModule, 
         HttpModule,
         IonicModule.forRoot(MyApp),
         TranslateModule.forRoot({
@@ -155,6 +157,8 @@ export function createTranslateLoader(http:Http) {
         Camera,
         MediaCapture,
         VideoEditor,
+        File,
+        FileTransfer,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

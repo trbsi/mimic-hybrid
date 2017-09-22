@@ -152,3 +152,6 @@ Just do this: "ionic cordova platform rm android" and then "ionic cordova platfo
 
 Manifest merger failed : uses-sdk:minSdkVersion 16 cannot be smaller than version 18 declared in library
 Change this in your config.xml, increase value:     <preference name="android-minSdkVersion" value="18" />
+
+Error: Cannot find module "@ionic-native/file"
+Do: npm install --save @ionic-native/file

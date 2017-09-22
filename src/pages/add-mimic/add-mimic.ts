@@ -20,6 +20,7 @@ export class AddMimic {
     libraryVideoFile:any;
     cameraImageFile:any;
     cameraVideoFile:any;
+    currentFile:any; //this is current file user chose to upload
     videoDuration = 15;
 
     originalMimicId:number;
@@ -53,8 +54,7 @@ export class AddMimic {
     }
 
     onSegmentChanged(segmentButton:SegmentButton) {
-        this.cameraImageFile = this.cameraVideoFile = null;
-        this.libraryImageFile = this.libraryVideoFile = null;
+        this.resetSubmitForm(false);
         this.currentSegment = segmentButton.value; 
     }
 
@@ -81,8 +81,24 @@ export class AddMimic {
                 }
                 break; 
         }
-        console.log("post", this.post_form.value); 
-        //addMimicService
+        var form_data = this.post_form.value; 
+        
+        var data = {};
+        if(!this.originalMimicId) {
+            data['hashtags'] = form_data.hashtags;
+            data['filePath'] = this.currentFile;
+
+        } else {
+
+            data['original_mimic_id'] = this.originalMimicId;
+            data['filePath'] = this.currentFile;
+        }
+
+        this.addMimicService.addMimic(data).then((data) => {
+            console.log("server response", data);
+        });
+
+        
     }
 
     /**
@@ -114,7 +130,7 @@ export class AddMimic {
     openDeviceGallery(type) 
     {
         var data = {};
-        this.libraryImageFile = this.libraryVideoFile = null;
+        this.currentFile = this.libraryImageFile = this.libraryVideoFile = null;
 
         switch (type) {
             case "video":
@@ -159,7 +175,7 @@ export class AddMimic {
      */
     captureMedia(type) 
     {
-        this.cameraImageFile = this.cameraVideoFile = null;
+        this.currentFile = this.cameraImageFile = this.cameraVideoFile = null;
         if(type == 'image') {
             let options: CaptureImageOptions = { limit: 1 };
             this.mediaCapture.captureImage(options)
@@ -221,10 +237,10 @@ export class AddMimic {
         window['plugins'].k.imagecropper.open(options, function(cropData) {
             // its return an object with the cropped image cached url, cropped width & height, you need to manually delete the image from the application cache.
             if(type == "camera") {
-                self.cameraImageFile = cropData['imgPath'];
+                self.currentFile = self.cameraImageFile = cropData['imgPath'];
                 self.currentSegment = type;
             } else if (type == "library") {
-                self.libraryImageFile = cropData['imgPath'];
+                self.currentFile = self.libraryImageFile = cropData['imgPath'];
                 self.currentSegment = type;
             }
 
@@ -236,11 +252,14 @@ export class AddMimic {
     /**
      * Reset submit form and all values
      */
-    resetSubmitForm()
+    resetSubmitForm(resetWholeForm)
     {
+        this.currentFile = null;
         this.cameraImageFile = this.cameraVideoFile = null;
         this.libraryImageFile = this.libraryVideoFile = null;
-        this.post_form.reset();
+        if(resetWholeForm) {
+            this.post_form.reset();
+        }
     }
 
     //VIDEOS

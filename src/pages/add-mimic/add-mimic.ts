@@ -4,6 +4,8 @@ import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { VgAPI } from 'videogular2/core';
 import { MediaCapture, MediaFile, CaptureError, CaptureImageOptions, CaptureVideoOptions } from '@ionic-native/media-capture';
+import { VideoEditor } from '@ionic-native/video-editor';
+import { AddMimicService } from '../add-mimic/add-mimic.service';
 
 @Component({
     selector: 'add-mimic',
@@ -18,6 +20,7 @@ export class AddMimic {
     libraryVideoFile:any;
     cameraImageFile:any;
     cameraVideoFile:any;
+    currentFile:any; //this is current file user chose to upload
     videoDuration = 15;
 
     originalMimicId:number;
@@ -28,7 +31,9 @@ export class AddMimic {
     constructor(public nav:NavController, public navParams:NavParams,
                 public alertCtrl:AlertController,
                 private camera: Camera,
-                private mediaCapture: MediaCapture) {
+                private mediaCapture: MediaCapture,
+                private videoEditor: VideoEditor,
+                private addMimicService: AddMimicService) {
 
         this.currentSegment = 'camera';
 
@@ -49,8 +54,7 @@ export class AddMimic {
     }
 
     onSegmentChanged(segmentButton:SegmentButton) {
-        this.cameraImageFile = this.cameraVideoFile = null;
-        this.libraryImageFile = this.libraryVideoFile = null;
+        this.resetSubmitForm(false);
         this.currentSegment = segmentButton.value; 
     }
 
@@ -58,7 +62,10 @@ export class AddMimic {
         // console.log('Segment selected', segmentButton.value);
     }
 
-    createPost() {
+    /**
+     * Post data to server
+     */
+    submit() {
         //check if image or video has been chosen/taken
         switch (this.currentSegment) {
             case "camera":
@@ -72,9 +79,26 @@ export class AddMimic {
                     this.presentAlert(this.currentSegment);
                     return;
                 }
-                break;
+                break; 
         }
-        console.log("post", this.post_form.value); 
+        var form_data = this.post_form.value; 
+        
+        var data = {};
+        if(!this.originalMimicId) {
+            data['hashtags'] = form_data.hashtags;
+            data['filePath'] = this.currentFile;
+
+        } else {
+
+            data['original_mimic_id'] = this.originalMimicId;
+            data['filePath'] = this.currentFile;
+        }
+
+        this.addMimicService.addMimic(data).then((data) => {
+            console.log("server response", data);
+        });
+
+        
     }
 
     /**
@@ -106,7 +130,7 @@ export class AddMimic {
     openDeviceGallery(type) 
     {
         var data = {};
-        this.libraryImageFile = this.libraryVideoFile = null;
+        this.currentFile = this.libraryImageFile = this.libraryVideoFile = null;
 
         switch (type) {
             case "video":
@@ -119,7 +143,7 @@ export class AddMimic {
 
         const options: CameraOptions = {
           quality: 100,
-          destinationType: this.camera.DestinationType.FILE_URI, //@TODO change this to FILE_URI
+          destinationType: this.camera.DestinationType.FILE_URI,
           encodingType: this.camera.EncodingType.JPEG,
           mediaType: data['mediaType'],
           sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
@@ -132,15 +156,16 @@ export class AddMimic {
             switch (type) 
             {
                 case "video":
-                    this.libraryVideoFile = data;
+                    data = "file://"+data; //https://github.com/jbavari/cordova-plugin-video-editor/issues/11
+                    this.callVideoEditor(data);
                     break;
                 case "image":
-                    //this.libraryImageFile = 'data:image/jpeg;base64,' + data; //@TODO Remove this base64
+                    //this.libraryImageFile = 'data:image/jpeg;base64,' + data; //when testing base64
                     this.callCropper(data, 'library');
                     break;
             }
         }, (err) => {
-             // Handle error
+            console.log(err);
         });
     }
 
@@ -150,14 +175,14 @@ export class AddMimic {
      */
     captureMedia(type) 
     {
-        this.cameraImageFile = this.cameraVideoFile = null;
+        this.currentFile = this.cameraImageFile = this.cameraVideoFile = null;
         if(type == 'image') {
             let options: CaptureImageOptions = { limit: 1 };
             this.mediaCapture.captureImage(options)
             .then(
                 (data: MediaFile[]) => {
                     console.log(data);
-                    //this.cameraImageFile = data[0]['localURL']; //@TODO better use fullPath here like: data[0].fullPath
+                    //this.cameraImageFile = data[0]['localURL']; //testing with localURL
                     this.callCropper(data[0]['fullPath'], 'camera');
                 },
                 (err: CaptureError) => console.log(err)
@@ -168,8 +193,8 @@ export class AddMimic {
             .then(
                 (data: MediaFile[]) => {
                     console.log(data);
-                    this.cameraVideoFile = data[0]['localURL']; //@TODO better use fullPath here like: data[0].fullPath
-                    console.log(this.cameraVideoFile);
+                    //this.cameraVideoFile = data[0]['localURL']; //@TODO better use fullPath here like: data[0].fullPath
+                    this.callVideoEditor(data[0]['fullPath']);
                 },
                 (err: CaptureError) => console.log(err)
             );
@@ -177,6 +202,20 @@ export class AddMimic {
         
     }
 
+    /**
+     * Call video editor
+     * @param string videoPath Path to a video
+     */
+    private callVideoEditor(videoPath)
+    {
+        this.videoEditor.transcodeVideo({
+          fileUri: videoPath,
+          outputFileName: 'output',
+          outputFileType: this.videoEditor.OutputFileType.MPEG4
+        })
+        .then((fileUri: string) => console.log('video transcode success', fileUri))
+        .catch((error: any) => console.log('video transcode error', error));
+    }
 
     /**
      * Call our cropper
@@ -198,11 +237,11 @@ export class AddMimic {
         window['plugins'].k.imagecropper.open(options, function(cropData) {
             // its return an object with the cropped image cached url, cropped width & height, you need to manually delete the image from the application cache.
             if(type == "camera") {
+                self.currentFile = self.cameraImageFile = cropData['imgPath'];
                 self.currentSegment = type;
-                self.cameraImageFile = cropData['imgPath'];
             } else if (type == "library") {
+                self.currentFile = self.libraryImageFile = cropData['imgPath'];
                 self.currentSegment = type;
-                self.libraryImageFile = cropData['imgPath'];
             }
 
         }, function(error) {
@@ -213,11 +252,14 @@ export class AddMimic {
     /**
      * Reset submit form and all values
      */
-    resetSubmitForm()
+    resetSubmitForm(resetWholeForm)
     {
+        this.currentFile = null;
         this.cameraImageFile = this.cameraVideoFile = null;
         this.libraryImageFile = this.libraryVideoFile = null;
-        this.post_form.reset();
+        if(resetWholeForm) {
+            this.post_form.reset();
+        }
     }
 
     //VIDEOS

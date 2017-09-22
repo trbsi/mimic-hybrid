@@ -37,6 +37,7 @@ import { TwitterLoginService } from '../pages/twitter-login/twitter-login.servic
 import { LanguageService } from '../providers/language/language.service';
 import { LoginService } from '../pages/login/login.service';
 import { PostLoginService } from '../pages/post-login/post-login.service';
+import { AddMimicService } from '../pages/add-mimic/add-mimic.service';
 
 //USING MODULE
 import { BrowserModule } from '@angular/platform-browser';
@@ -55,6 +56,9 @@ import { Keyboard } from '@ionic-native/keyboard';
 import { TwitterConnect } from '@ionic-native/twitter-connect';
 import { Camera } from '@ionic-native/camera';
 import { MediaCapture } from '@ionic-native/media-capture';
+import { VideoEditor } from '@ionic-native/video-editor';
+import { File } from '@ionic-native/file';
+import { FileTransfer } from '@ionic-native/file-transfer';
 
 //Functionalities
 import { FacebookLoginPage } from '../pages/facebook-login/facebook-login';
@@ -92,7 +96,7 @@ export function createTranslateLoader(http:Http) {
         //ShowHideInput,
     ],
     imports: [
-        BrowserModule,
+        BrowserModule, 
         HttpModule,
         IonicModule.forRoot(MyApp),
         TranslateModule.forRoot({
@@ -139,6 +143,7 @@ export function createTranslateLoader(http:Http) {
         LoginService,
         PostLoginService,
         ListingService,
+        AddMimicService,
 
         SplashScreen,
         StatusBar,
@@ -151,6 +156,9 @@ export function createTranslateLoader(http:Http) {
         TwitterConnect,
         Camera,
         MediaCapture,
+        VideoEditor,
+        File,
+        FileTransfer,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

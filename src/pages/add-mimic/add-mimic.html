@@ -15,10 +15,10 @@
         </ion-segment>
     </div>
     <div [ngSwitch]="currentSegment">
-        <!-- ****************+ RECORD +***********************-->
+        <!-- ****************+ CAMERA +***********************-->
         <div class="forms-wrapper" *ngSwitchCase="'camera'">
             <div class="post-example-view">
-                <form class="sample-form post-form" [formGroup]="post_form" (ngSubmit)="createPost()">
+                <form class="sample-form post-form" [formGroup]="post_form" (ngSubmit)="submit()">
                 <section class="form-section">
                     <ion-grid>
                         <ion-row>
@@ -60,21 +60,21 @@
                             </video>
                         </vg-player>
                     </div>
-                    <ion-item>
-                        <ion-input type="text" placeholder="Hastags like: #dog #dogs..." formControlName="hashtags"></ion-input>
+                    <ion-item *ngIf="!originalMimicId">
+                        <ion-input type="text" placeholder="Hashtags like: #dog #dogs..." formControlName="hashtags"></ion-input>
                     </ion-item>
                     <button ion-button block large style="margin-top: 15%" type="submit"
-                        [disabled]="!post_form.valid">Go on
+                        [disabled]="!post_form.valid && !originalMimicId">Go on
                     </button>
-                    <button ion-button block large type="button" (click)="resetSubmitForm()"  color="dark">Reset</button>
+                    <button ion-button block large type="button" (click)="resetSubmitForm(true)"  color="dark">Reset</button>
                 </section>
                 </form>
             </div>
         </div>
-        <!-- ****************+ UPLOAD +***********************-->
+        <!-- ****************+ LIBRARY +***********************-->
         <div class="forms-wrapper" *ngSwitchCase="'library'">
             <div class="post-example-view">
-                <form class="sample-form post-form" [formGroup]="post_form" (ngSubmit)="createPost()">
+                <form class="sample-form post-form" [formGroup]="post_form" (ngSubmit)="submit()">
                 <section class="form-section">
                     <ion-grid>
                         <ion-row>
@@ -116,13 +116,13 @@
                             </video>
                         </vg-player>
                     </div>
-                    <ion-item>
+                    <ion-item *ngIf="!originalMimicId">
                         <ion-input type="text" placeholder="Hashtags like: #dog #dogs..." formControlName="hashtags"></ion-input>
                     </ion-item>
                     <button ion-button block large style="margin-top: 15%" type="submit"
-                        [disabled]="!post_form.valid">Go on
+                        [disabled]="!post_form.valid && !originalMimicId">Go on
                     </button>
-                    <button ion-button block large type="button" (click)="resetSubmitForm()"  color="dark">Reset</button>
+                    <button ion-button block large type="button" (click)="resetSubmitForm(true)"  color="dark">Reset</button>
                 </section>
                 </form>
             </div>

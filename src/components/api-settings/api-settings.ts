@@ -84,7 +84,7 @@ export class ApiSettings {
                 //@TODO remove this, this is just for testing
                 headers.append('Authorization', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjcsImlzcyI6Imh0dHA6Ly9taW1pYy50ZXN0YXBpLndlYnNpdGUvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE1MDU2ODI2NjAsImV4cCI6MTUwODM4MjY2MCwibmJmIjoxNTA1NjgyNjYwLCJqdGkiOiJ1QWhWNE5oNnlrZ2o0UzF2In0.mAtyFB3ZDt38Rel-o7sXN-8Z7SQq8B4YHAa-HChZba0');
                 this.loading.dismiss();
-                
+
                 if (type == 'post') {
                     return this.doPost(data, url, headers);
                 } else if (type == 'get') {
@@ -165,6 +165,9 @@ export class ApiSettings {
      */
     private doUpload(data, url, headers) 
     {
+        this.loading = this.loadingCtrl.create();
+        this.loading.present();
+
         const fileTransfer: FileTransferObject = this.transfer.create();
 
         let options: FileUploadOptions = {
@@ -174,8 +177,10 @@ export class ApiSettings {
 
         return fileTransfer.upload(data.filePath, ApiSettings.API_ENDPOINT + url, options)
         .then((data) => {
+            this.loading.dismiss();
             return Promise.resolve(JSON.parse(data.response));
         }, (error) => {
+            this.loading.dismiss();
             return Promise.reject(error);
         });
     }

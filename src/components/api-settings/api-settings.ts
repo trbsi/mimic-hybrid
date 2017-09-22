@@ -7,7 +7,7 @@ import { AlertController, LoadingController } from 'ionic-angular';
 
 export class ApiSettings {
     public static API_ENDPOINT = 'http://mimic.testapi.website/api/'; //@TODO change to live
-    allow_entry:string = 'little:cute:chubby';
+    allow_entry:string = 'almasi:slatkasi';
     loading:any;
 
     constructor(public http:Http, private storage:NativeStorage, private alertCtrl:AlertController,

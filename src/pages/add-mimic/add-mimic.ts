@@ -5,6 +5,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { VgAPI } from 'videogular2/core';
 import { MediaCapture, MediaFile, CaptureError, CaptureImageOptions, CaptureVideoOptions } from '@ionic-native/media-capture';
 import { VideoEditor } from '@ionic-native/video-editor';
+import { AddMimicService } from '../add-mimic/add-mimic.service';
 
 @Component({
     selector: 'add-mimic',
@@ -30,7 +31,8 @@ export class AddMimic {
                 public alertCtrl:AlertController,
                 private camera: Camera,
                 private mediaCapture: MediaCapture,
-                private videoEditor: VideoEditor) {
+                private videoEditor: VideoEditor,
+                private addMimicService: AddMimicService) {
 
         this.currentSegment = 'camera';
 
@@ -60,7 +62,10 @@ export class AddMimic {
         // console.log('Segment selected', segmentButton.value);
     }
 
-    createPost() {
+    /**
+     * Post data to server
+     */
+    submit() {
         //check if image or video has been chosen/taken
         switch (this.currentSegment) {
             case "camera":
@@ -74,9 +79,10 @@ export class AddMimic {
                     this.presentAlert(this.currentSegment);
                     return;
                 }
-                break;
+                break; 
         }
         console.log("post", this.post_form.value); 
+        //addMimicService
     }
 
     /**

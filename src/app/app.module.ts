@@ -37,6 +37,7 @@ import { TwitterLoginService } from '../pages/twitter-login/twitter-login.servic
 import { LanguageService } from '../providers/language/language.service';
 import { LoginService } from '../pages/login/login.service';
 import { PostLoginService } from '../pages/post-login/post-login.service';
+import { AddMimicService } from '../pages/add-mimic/add-mimic.service';
 
 //USING MODULE
 import { BrowserModule } from '@angular/platform-browser';
@@ -140,6 +141,7 @@ export function createTranslateLoader(http:Http) {
         LoginService,
         PostLoginService,
         ListingService,
+        AddMimicService,
 
         SplashScreen,
         StatusBar,

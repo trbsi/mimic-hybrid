@@ -18,7 +18,7 @@
         <!-- ****************+ CAMERA +***********************-->
         <div class="forms-wrapper" *ngSwitchCase="'camera'">
             <div class="post-example-view">
-                <form class="sample-form post-form" [formGroup]="post_form" (ngSubmit)="createPost()">
+                <form class="sample-form post-form" [formGroup]="post_form" (ngSubmit)="submit()">
                 <section class="form-section">
                     <ion-grid>
                         <ion-row>
@@ -61,7 +61,7 @@
                         </vg-player>
                     </div>
                     <ion-item>
-                        <ion-input type="text" placeholder="Hastags like: #dog #dogs..." formControlName="hashtags"></ion-input>
+                        <ion-input type="text" placeholder="Hashtags like: #dog #dogs..." formControlName="hashtags"></ion-input>
                     </ion-item>
                     <button ion-button block large style="margin-top: 15%" type="submit"
                         [disabled]="!post_form.valid">Go on
@@ -74,7 +74,7 @@
         <!-- ****************+ LIBRARY +***********************-->
         <div class="forms-wrapper" *ngSwitchCase="'library'">
             <div class="post-example-view">
-                <form class="sample-form post-form" [formGroup]="post_form" (ngSubmit)="createPost()">
+                <form class="sample-form post-form" [formGroup]="post_form" (ngSubmit)="submit()">
                 <section class="form-section">
                     <ion-grid>
                         <ion-row>

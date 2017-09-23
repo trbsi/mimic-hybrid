@@ -16,10 +16,8 @@ export class AddMimic {
     title:string;
     currentSegment:string;
 
-    libraryImageFile:any;
-    libraryVideoFile:any;
-    cameraImageFile:any;
-    cameraVideoFile:any;
+    imageFile:any;
+    videoFile:any;
     currentFile:any; //this is current file user chose to upload
     videoDuration = 15;
 
@@ -69,13 +67,13 @@ export class AddMimic {
         //check if image or video has been chosen/taken
         switch (this.currentSegment) {
             case "camera":
-                if(!this.cameraVideoFile  && !this.cameraImageFile) {
+                if(!this.videoFile  && !this.imageFile) {
                     this.presentAlert(this.currentSegment);
                     return;
                 }
                 break;
             case "library":
-                if(!this.libraryVideoFile  && !this.libraryImageFile) {
+                if(!this.videoFile  && !this.imageFile) {
                     this.presentAlert(this.currentSegment);
                     return;
                 }
@@ -127,10 +125,10 @@ export class AddMimic {
      * Upload image or video from device
      * @param type string Type of media to get: "video" or "image"
      */
-    openDeviceGallery(type) 
+    openDeviceLibrary(type) 
     {
         var data = {};
-        this.currentFile = this.libraryImageFile = this.libraryVideoFile = null;
+        this.currentFile = this.imageFile = this.videoFile = null;
 
         switch (type) {
             case "video":
@@ -160,7 +158,7 @@ export class AddMimic {
                     this.callVideoEditor(data);
                     break;
                 case "image":
-                    //this.libraryImageFile = 'data:image/jpeg;base64,' + data; //when testing base64
+                    //this.imageFile = 'data:image/jpeg;base64,' + data; //when testing base64
                     this.callCropper(data, 'library');
                     break;
             }
@@ -175,14 +173,14 @@ export class AddMimic {
      */
     captureMedia(type) 
     {
-        this.currentFile = this.cameraImageFile = this.cameraVideoFile = null;
+        this.currentFile = this.imageFile = this.videoFile = null;
         if(type == 'image') {
             let options: CaptureImageOptions = { limit: 1 };
             this.mediaCapture.captureImage(options)
             .then(
                 (data: MediaFile[]) => {
                     console.log(data);
-                    //this.cameraImageFile = data[0]['localURL']; //testing with localURL
+                    //this.imageFile = data[0]['localURL']; //testing with localURL
                     this.callCropper(data[0]['fullPath'], 'camera');
                 },
                 (err: CaptureError) => console.log(err)
@@ -193,7 +191,7 @@ export class AddMimic {
             .then(
                 (data: MediaFile[]) => {
                     console.log(data);
-                    //this.cameraVideoFile = data[0]['localURL']; //@TODO better use fullPath here like: data[0].fullPath
+                    //this.videoFile = data[0]['localURL']; //@TODO better use fullPath here like: data[0].fullPath
                     this.callVideoEditor(data[0]['fullPath']);
                 },
                 (err: CaptureError) => console.log(err)
@@ -237,10 +235,10 @@ export class AddMimic {
         window['plugins'].k.imagecropper.open(options, function(cropData) {
             // its return an object with the cropped image cached url, cropped width & height, you need to manually delete the image from the application cache.
             if(type == "camera") {
-                self.currentFile = self.cameraImageFile = cropData['imgPath'];
+                self.currentFile = self.imageFile = cropData['imgPath'];
                 self.currentSegment = type;
             } else if (type == "library") {
-                self.currentFile = self.libraryImageFile = cropData['imgPath'];
+                self.currentFile = self.imageFile = cropData['imgPath'];
                 self.currentSegment = type;
             }
 
@@ -255,8 +253,7 @@ export class AddMimic {
     resetSubmitForm(resetWholeForm)
     {
         this.currentFile = null;
-        this.cameraImageFile = this.cameraVideoFile = null;
-        this.libraryImageFile = this.libraryVideoFile = null;
+        this.imageFile = this.videoFile = null;
         if(resetWholeForm) {
             this.post_form.reset();
         }

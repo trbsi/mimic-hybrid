@@ -14,43 +14,47 @@
         </ion-segment-button>
         </ion-segment>
     </div>
-    <div [ngSwitch]="currentSegment" class="height-100">
-        <!-- ****************+ CAMERA +***********************-->
-        <div class="forms-wrapper height-100" *ngSwitchCase="'camera'">
+    <div class="height-100" [ngSwitch]="currentSegment">
+        <div class="forms-wrapper height-100">
             <div class="post-example-view height-100">
                 <form class="sample-form post-form height-100" [formGroup]="post_form" (ngSubmit)="submit()">
                 <section class="form-section height-100">
                     <div class="split-custom">
-                        <ion-grid>
-                            <ion-row>
-                                <ion-col>
-                                    <button ion-button type="button" class="upload-image-button"
-                                        (click)="captureMedia('image')">
-                                        <ion-icon name="camera"></ion-icon>
-                                    </button>
-                                </ion-col>
-                                <ion-col>
-                                    <button ion-button type="button" class="upload-image-button"
-                                        (click)="captureMedia('video')">
-                                        <ion-icon name="videocam"></ion-icon>
-                                    </button>
-                                </ion-col>
-                            </ion-row>
-                        </ion-grid>
-
-                        <ion-item *ngIf="!originalMimicId">
-                            <ion-input type="text" placeholder="Hashtags like: #dog #dogs..." formControlName="hashtags"></ion-input>
-                        </ion-item>
+                        <div class="top-slide">
+                            <ion-item *ngIf="!originalMimicId">
+                                <ion-input type="text" placeholder="Hashtags like: #dog #dogs..." formControlName="hashtags"></ion-input>
+                            </ion-item>
+                            <ion-grid>
+                                <ion-row> 
+                                    <ion-col style="padding: 0">
+                                        <button  *ngSwitchCase="'camera'" ion-button type="button" class="upload-image-button" (click)="captureMedia('image')">
+                                            <ion-icon name="camera"></ion-icon>
+                                        </button>
+                                        <button  *ngSwitchCase="'library'" ion-button type="button" class="upload-image-button" (click)="openDeviceLibrary('image')">
+                                            <ion-icon name="camera"></ion-icon>
+                                        </button>
+                                    </ion-col>
+                                    <ion-col style="padding: 0">
+                                        <button  *ngSwitchCase="'camera'" ion-button type="button" class="upload-image-button" (click)="captureMedia('video')">
+                                            <ion-icon name="videocam"></ion-icon>
+                                        </button>
+                                        <button  *ngSwitchCase="'library'" ion-button type="button" class="upload-image-button" (click)="openDeviceLibrary('video')">
+                                            <ion-icon name="videocam"></ion-icon>
+                                        </button>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-grid>
+                        </div>
                     </div>
 
                     <div class="split">
-                        <div class="placeholder-img">
+                        <div class="bottom-slide" *ngIf="!imageFile && !videoFile"> 
                             Your
-                            <img *ngIf="!cameraImageFile || !cameraVideoFile" src="./assets/images/mimic_logo_text.png" >
+                            <img src="./assets/images/mimic_logo_text.png" >
                         </div>
                         
-                        <preload-image *ngIf="cameraImageFile" [ratio]="{w:16, h:9}" [src]="cameraImageFile"></preload-image>
-                        <div *ngIf="cameraVideoFile" class="video-player-container">
+                        <preload-image *ngIf="imageFile" [ratio]="{w:16, h:9}" [src]="imageFile"></preload-image>
+                        <div *ngIf="videoFile" class="video-player-container">
                             <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event)">
                                 <vg-buffering></vg-buffering>
                                 <vg-overlay-play></vg-overlay-play>
@@ -67,9 +71,9 @@
                                     </ion-col>
                                 </ion-row>
                                 </vg-controls>
-                                <video webkit-playsinline playsinline #cameraVideoFile [vgMedia]="cameraVideoFile" id="cameraVideoFile"
+                                <video webkit-playsinline playsinline #videoFile [vgMedia]="videoFile" id="videoFile"
                                 class="expand-horizontally" preload="auto">
-                                <source src="{{this.cameraVideoFile}}">
+                                <source src="{{this.videoFile}}">
                                 </video>
                             </vg-player>
                         </div>
@@ -88,61 +92,6 @@
                 </form>
             </div>
         </div>
-        <!-- ****************+ LIBRARY +***********************-->
-        <div class="forms-wrapper" *ngSwitchCase="'library'">
-            <div class="post-example-view">
-                <form class="sample-form post-form" [formGroup]="post_form" (ngSubmit)="submit()">
-                <section class="form-section">
-                    <ion-grid>
-                        <ion-row>
-                            <ion-col>
-                                <button ion-button type="button" class="upload-image-button"
-                                    (click)="openDeviceGallery('image')">
-                                    <ion-icon name="camera"></ion-icon>
-                                </button>
-                            </ion-col>
-                            <ion-col>
-                                <button ion-button type="button" class="upload-image-button"
-                                    (click)="openDeviceGallery('video')">
-                                    <ion-icon name="videocam"></ion-icon>
-                                </button>
-                            </ion-col>
-                        </ion-row>
-                    </ion-grid>
-                    <preload-image *ngIf="libraryImageFile" [ratio]="{w:16, h:9}" [src]="libraryImageFile"></preload-image>
-                    <div *ngIf="libraryVideoFile" class="video-player-container">
-                        <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event)">
-                            <vg-buffering></vg-buffering>
-                            <vg-overlay-play></vg-overlay-play>
-                            <vg-controls [vgAutohide]="false" [vgAutohideTime]="2">
-                            <ion-row class="controls-row">
-                                <ion-col no-padding width-18>
-                                    <vg-time-display [vgProperty]="'left'" [vgFormat]="'mm:ss'"></vg-time-display>
-                                </ion-col>
-                                <ion-col no-padding width-64>
-                                    <vg-scrub-bar>
-                                        <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
-                                        <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
-                                    </vg-scrub-bar>
-                                </ion-col>
-                            </ion-row>
-                            </vg-controls>
-                            <video webkit-playsinline playsinline #libraryVideoFile [vgMedia]="libraryVideoFile" id="libraryVideoFile"
-                            class="expand-horizontally" preload="auto">
-                            <source src="{{this.libraryVideoFile}}">
-                            </video>
-                        </vg-player>
-                    </div>
-                    <ion-item *ngIf="!originalMimicId">
-                        <ion-input type="text" placeholder="Hashtags like: #dog #dogs..." formControlName="hashtags"></ion-input>
-                    </ion-item>
-                    <button ion-button block large style="margin-top: 15%" type="submit"
-                        [disabled]="!post_form.valid && !originalMimicId">Go on
-                    </button>
-                    <button ion-button block large type="button" (click)="resetSubmitForm(true)"  color="dark">Reset</button>
-                </section>
-                </form>
-            </div>
-        </div>
+
     </div>
 </ion-content>

@@ -14,13 +14,13 @@
         </ion-segment-button>
         </ion-segment>
     </div>
-    <div [ngSwitch]="currentSegment">
+    <div [ngSwitch]="currentSegment" class="height-100">
         <!-- ****************+ CAMERA +***********************-->
-        <div class="forms-wrapper" *ngSwitchCase="'camera'">
-            <div class="post-example-view">
-                <form class="sample-form post-form" [formGroup]="post_form" (ngSubmit)="submit()">
-                <section class="form-section">
-                    <div class="split">
+        <div class="forms-wrapper height-100" *ngSwitchCase="'camera'">
+            <div class="post-example-view height-100">
+                <form class="sample-form post-form height-100" [formGroup]="post_form" (ngSubmit)="submit()">
+                <section class="form-section height-100">
+                    <div class="split-custom">
                         <ion-grid>
                             <ion-row>
                                 <ion-col>
@@ -44,6 +44,11 @@
                     </div>
 
                     <div class="split">
+                        <div class="placeholder-img">
+                            Your
+                            <img *ngIf="!cameraImageFile || !cameraVideoFile" src="./assets/images/mimic_logo_text.png" >
+                        </div>
+                        
                         <preload-image *ngIf="cameraImageFile" [ratio]="{w:16, h:9}" [src]="cameraImageFile"></preload-image>
                         <div *ngIf="cameraVideoFile" class="video-player-container">
                             <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event)">
@@ -68,10 +73,16 @@
                                 </video>
                             </vg-player>
                         </div>
-                        <button ion-button block large style="margin-top: 15%" type="submit"
-                            [disabled]="!post_form.valid && !originalMimicId">Go on
-                        </button>
-                        <button ion-button block large type="button" (click)="resetSubmitForm(true)"  color="dark">Reset</button>
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col>
+                                    <button ion-button block type="submit" [disabled]="!post_form.valid && !originalMimicId">Go on</button>
+                                </ion-col>
+                                <ion-col>
+                                    <button ion-button block type="button" (click)="resetSubmitForm(true)"  color="dark">Reset</button>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
                     </div>
                 </section>
                 </form>

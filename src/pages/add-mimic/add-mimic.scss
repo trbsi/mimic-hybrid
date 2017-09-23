@@ -8,7 +8,7 @@ add-mimic {
   }
 
   .split-custom {
-    height: 40%;
+    height: 45%;
     border-bottom: 1px solid color($colors, mimic, base);
 
     //stick content o this screen to the bottom of this screen
@@ -19,7 +19,11 @@ add-mimic {
   }
   
   .height-100 {
-    height: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
   }
 
   .top-slide

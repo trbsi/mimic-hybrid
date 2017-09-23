@@ -1,6 +1,6 @@
 add-mimic {
 
-  .top-slide {
+  .bottom-slide {
      height: slides-height();
      padding: 0; 
      background-color: white;
@@ -22,7 +22,7 @@ add-mimic {
     height: 100%;
   }
 
-  .bottom-slide
+  .top-slide
   {
     img {
       max-width: 10rem;
@@ -71,7 +71,7 @@ add-mimic {
         /*padding: 0px 14px;*/
 
         .item:first-child {
-          margin-top: 20px;
+          /*margin-top: 20px;*/
         }
       }
 

@@ -96,6 +96,7 @@
     <allow-navigation href="http://192.168.1.12:8100" />
     <allow-navigation href="http://192.168.1.71:8100" />
     <allow-navigation href="http://192.168.1.8:8100" />
+    <engine name="android" spec="^6.2.3" />
     <plugin name="cordova-plugin-admob-free" spec="^0.9.0" />
     <plugin name="cordova-plugin-camera" spec="^2.4.1">
         <variable name="CAMERA_USAGE_DESCRIPTION" value="Record a video or take a picture" />
@@ -108,6 +109,7 @@
         <variable name="APP_ID" value="770098823161620" />
         <variable name="APP_NAME" value="Mimic" />
     </plugin>
+    <plugin name="cordova-plugin-file-transfer" spec="^1.6.3" />
     <plugin name="cordova-plugin-geolocation" spec="^2.4.3">
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value=" " />
     </plugin>
@@ -132,5 +134,4 @@
     <plugin name="twitter-connect-plugin" spec="^0.6.0">
         <variable name="FABRIC_KEY" value="a0fc2a9f47f38a658f2e86705afac1da2fd430a4" />
     </plugin>
-    <engine name="android" spec="~6.2.3" />
 </widget>

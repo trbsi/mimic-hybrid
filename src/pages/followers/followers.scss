@@ -1,6 +1,7 @@
 $followers-description-font-size: 12px;
 
 followers-page {
+ 
   .followers-content {
     background-color: color($colors, background, base);
 
@@ -62,6 +63,10 @@ followers-page {
               word-break: break-word;
               color: $white-d;
               @include multi-line-ellipsis($followers-description-font-size);
+            }
+
+            .item-description::after {
+              display: none;
             }
           }
 

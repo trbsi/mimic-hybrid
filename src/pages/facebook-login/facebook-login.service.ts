@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Http } from '@angular/http';
+//import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { Facebook } from '@ionic-native/facebook';
 import { NativeStorage } from '@ionic-native/native-storage';
@@ -10,7 +10,7 @@ import { FacebookUserModel } from './facebook-user.model';
 export class FacebookLoginService {
     FB_APP_ID:number = 770098823161620;
 
-    constructor(public http:Http,
+    constructor(//public http:Http,
                 public nativeStorage:NativeStorage,
                 public fb:Facebook) {
         this.fb.browserInit(this.FB_APP_ID, "v2.8");
@@ -78,9 +78,9 @@ export class FacebookLoginService {
      .catch(this.handleError);
      }*/
 
-    private handleError(error:any):Promise<any> {
+    /*private handleError(error:any):Promise<any> {
         console.error('An error occurred', error); // for demo purposes only
         return Promise.reject(error.message || error);
-    }
+    }*/
 
 }

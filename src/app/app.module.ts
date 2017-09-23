@@ -32,11 +32,12 @@ import { PreloadImage } from '../components/preload-image/preload-image';
 import { ListingService } from '../pages/listing/listing.service';
 import { ProfileService } from '../pages/profile/profile.service';
 import { FacebookLoginService } from '../pages/facebook-login/facebook-login.service';
-import { GoogleLoginService } from '../pages/google-login/google-login.service';
+//import { GoogleLoginService } from '../pages/google-login/google-login.service';
 import { TwitterLoginService } from '../pages/twitter-login/twitter-login.service';
 import { LanguageService } from '../providers/language/language.service';
 import { LoginService } from '../pages/login/login.service';
 import { PostLoginService } from '../pages/post-login/post-login.service';
+import { AddMimicService } from '../pages/add-mimic/add-mimic.service';
 
 //USING MODULE
 import { BrowserModule } from '@angular/platform-browser';
@@ -49,16 +50,19 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Facebook } from '@ionic-native/facebook';
-import { GooglePlus } from '@ionic-native/google-plus';
+//import { GooglePlus } from '@ionic-native/google-plus';
 import { Keyboard } from '@ionic-native/keyboard';
 //import { Geolocation } from '@ionic-native/geolocation';
 import { TwitterConnect } from '@ionic-native/twitter-connect';
-import { ImagePicker } from '@ionic-native/image-picker';
-import { Crop } from '@ionic-native/crop';
+import { Camera } from '@ionic-native/camera';
+import { MediaCapture } from '@ionic-native/media-capture';
+import { VideoEditor } from '@ionic-native/video-editor';
+import { File } from '@ionic-native/file';
+import { FileTransfer } from '@ionic-native/file-transfer';
 
 //Functionalities
 import { FacebookLoginPage } from '../pages/facebook-login/facebook-login';
-import { GoogleLoginPage } from '../pages/google-login/google-login';
+//import { GoogleLoginPage } from '../pages/google-login/google-login';
 import { TwitterLoginPage } from '../pages/twitter-login/twitter-login';
 
 export function createTranslateLoader(http:Http) {
@@ -75,7 +79,7 @@ export function createTranslateLoader(http:Http) {
         LoginPage,
         ProfilePage,
         FacebookLoginPage,
-        GoogleLoginPage,
+        //GoogleLoginPage,
         TwitterLoginPage,
         PostLogin,
         AddMimic,
@@ -92,7 +96,7 @@ export function createTranslateLoader(http:Http) {
         //ShowHideInput,
     ],
     imports: [
-        BrowserModule,
+        BrowserModule, 
         HttpModule,
         IonicModule.forRoot(MyApp),
         TranslateModule.forRoot({
@@ -114,7 +118,7 @@ export function createTranslateLoader(http:Http) {
         LoginPage,
         ProfilePage,
         FacebookLoginPage,
-        GoogleLoginPage,
+        //GoogleLoginPage,
         TwitterLoginPage,
         PostLogin,
         AddMimic,
@@ -132,25 +136,29 @@ export function createTranslateLoader(http:Http) {
         SearchService,
         ProfileService,
         FacebookLoginService,
-        GoogleLoginService,
+        //GoogleLoginService,
         TwitterLoginService,
         LanguageService,
         NativeStorage,
         LoginService,
         PostLoginService,
         ListingService,
+        AddMimicService,
 
         SplashScreen,
         StatusBar,
         SocialSharing,
         InAppBrowser,
         Facebook,
-        GooglePlus,
+        //GooglePlus,
         Keyboard,
         //Geolocation,
         TwitterConnect,
-        ImagePicker,
-        Crop,
+        Camera,
+        MediaCapture,
+        VideoEditor,
+        File,
+        FileTransfer,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

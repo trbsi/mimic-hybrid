@@ -1,13 +1,11 @@
 import { Injectable } from "@angular/core";
-import { Http } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 import { ApiSettings } from '../../components/api-settings/api-settings';
-import { ListingModel } from './listing.model';
 
-@Injectable()
+@Injectable() 
 export class ListingService {
-    constructor(public http:Http, public apiSettings:ApiSettings) {
+    constructor(public apiSettings:ApiSettings) {
     }
 
     /**

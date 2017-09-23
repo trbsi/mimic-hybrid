@@ -2,38 +2,49 @@ import { NgModule } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { AlertController, LoadingController } from 'ionic-angular';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 
 @NgModule()
 
 export class ApiSettings {
-    public static API_ENDPOINT = 'http://mimic.testapi.website/api/';
-    allow_entry:string = 'little:cute:chubby';
+    public static API_ENDPOINT = 'http://mimic.testapi.website/api/'; //@TODO change to live
+    allow_entry:string = 'almasi:slatkasi';
     loading:any;
 
     constructor(public http:Http, private storage:NativeStorage, private alertCtrl:AlertController,
-                public loadingCtrl:LoadingController) {
+                public loadingCtrl:LoadingController, private transfer: FileTransfer) 
+    {
 
     }
 
-
-    private createHeaders(headers:Headers) {
+    /**
+     * [createHeaders description]
+     * @param {Headers} headers [description]
+     * @param string type What type of request to send: get, post
+     */
+    private createHeaders(headers:Headers, type) 
+    {
         headers.append('AllowEntry', btoa(this.allow_entry));
-        headers.append('Content-Type', 'application/json');
+        if(type != 'upload') {
+            headers.append('Content-Type', 'application/json');
+        }
     }
 
 
-    private handleError(error) {
+    private handleError(error) 
+    {
         let alert = this.alertCtrl.create({
             title: 'There was a problem',
             subTitle: error.json().error.message,
             buttons: ['Ok']
-        });
+        }); 
         alert.present();
 
         return Promise.reject(error.json());
     }
 
-    private handleSuccess(success) {
+    private handleSuccess(success) 
+    {
         return Promise.resolve(success.json());
     }
 
@@ -43,7 +54,8 @@ export class ApiSettings {
      * @param string url Url to post to
      * @param string type What type of request to send: get, post
      */
-    sendRequest(data, url, type) {
+    sendRequest(data, url, type) 
+    {
         this.loading = this.loadingCtrl.create();
         this.loading.present();
 
@@ -51,28 +63,38 @@ export class ApiSettings {
         return this.storage.getItem('token')
             .then(
             (token) => {
+                this.createHeaders(headers, type);
                 headers.append('Authorization', 'Bearer ' + token);
                 this.loading.dismiss();
+
                 if (type == 'post') {
                     return this.doPost(data, url, headers);
                 } else if (type == 'get') {
                     return this.doGet(data, url, headers);
                 } else if (type == 'delete') {
                     return this.doDelete(data, url, headers);
+                } else if (type == 'upload') {
+                    return this.doUpload(data, url, headers);
                 }
+
             },
             //couldn't find token, do normal post
             (error) => {
+                this.createHeaders(headers, type);
                 //@TODO remove this, this is just for testing
                 headers.append('Authorization', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjcsImlzcyI6Imh0dHA6Ly9taW1pYy50ZXN0YXBpLndlYnNpdGUvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE1MDU2ODI2NjAsImV4cCI6MTUwODM4MjY2MCwibmJmIjoxNTA1NjgyNjYwLCJqdGkiOiJ1QWhWNE5oNnlrZ2o0UzF2In0.mAtyFB3ZDt38Rel-o7sXN-8Z7SQq8B4YHAa-HChZba0');
                 this.loading.dismiss();
+
                 if (type == 'post') {
                     return this.doPost(data, url, headers);
                 } else if (type == 'get') {
                     return this.doGet(data, url, headers);
                 } else if (type == 'delete') {
                     return this.doDelete(data, url, headers);
+                } else if (type == 'upload') {
+                    return this.doUpload(data, url, headers);
                 }
+
             }
         );
     }
@@ -83,8 +105,8 @@ export class ApiSettings {
      * @param string url Url to post to
      * @param Headers headers What headers to include
      */
-    private doPost(postData, url, headers) {
-        this.createHeaders(headers);
+    private doPost(postData, url, headers) 
+    {
         let options = new RequestOptions({headers: headers});
         return this.http.post(ApiSettings.API_ENDPOINT + url, postData, options)
             .toPromise()
@@ -102,8 +124,8 @@ export class ApiSettings {
      * @param string url Url to post to
      * @param Headers headers What headers to include
      */
-    private doGet(getData, url, headers) {
-        this.createHeaders(headers);
+    private doGet(getData, url, headers) 
+    {
         let options = new RequestOptions({params: getData, headers: headers});
         return this.http.get(ApiSettings.API_ENDPOINT + url, options)
             .toPromise()
@@ -121,8 +143,8 @@ export class ApiSettings {
      * @param string url Url to post to
      * @param Headers headers What headers to include
      */
-    private doDelete(data, url, headers) {
-        this.createHeaders(headers);
+    private doDelete(data, url, headers) 
+    {
         let options = new RequestOptions({params: data, headers: headers});
         return this.http.delete(ApiSettings.API_ENDPOINT + url, options)
             .toPromise()
@@ -134,11 +156,42 @@ export class ApiSettings {
             });
     }
 
+
+
+    /**
+     * Upload file to server
+     * @param any data Data to send to server
+     * @param string url Url to post to
+     */
+    private doUpload(data, url, headers) 
+    {
+        this.loading = this.loadingCtrl.create();
+        this.loading.present();
+
+        const fileTransfer: FileTransferObject = this.transfer.create();
+
+        let options: FileUploadOptions = {
+            headers: headers,
+            params: data
+        }
+
+        return fileTransfer.upload(data.filePath, ApiSettings.API_ENDPOINT + url, options)
+        .then((data) => {
+            this.loading.dismiss();
+            return Promise.resolve(JSON.parse(data.response));
+        }, (error) => {
+            this.loading.dismiss();
+            return Promise.reject(error);
+        });
+    }
+
+
     /**
      * put login data into a storage
      * @param any loginData Data consists of user_id, token and suername
      */
-    storageSetLoginData(loginData) {
+    storageSetLoginData(loginData) 
+    {
         return this.storage.setItem('token', loginData.token)
             .then(
             () => {
@@ -162,7 +215,8 @@ export class ApiSettings {
         );
     }
 
-    storageRemoveLoginData() {
+    storageRemoveLoginData() 
+    {
         this.storage.remove('token');
         this.storage.remove('username');
         this.storage.remove('user_id');

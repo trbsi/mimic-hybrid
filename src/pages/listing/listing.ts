@@ -66,7 +66,19 @@ export class ListingPage {
         //filter mimics by user
         if (this.navParams.get('user_id')) {
             this.filterMimics['user_id'] = this.navParams.get('user_id');
+
+            //use this parameter to put that specific original mimic on the first place of a list
+            if (this.navParams.get('original_mimic_id')) {
+                this.filterMimics['original_mimic_id'] = this.navParams.get('original_mimic_id'); 
+            }
+
+            //use this parameter to put that specific response mimic on the first place of a list
+            if (this.navParams.get('response_mimic_id')) {
+                this.filterMimics['response_mimic_id'] = this.navParams.get('response_mimic_id'); 
+            }
         }
+
+        
     }
 
     ionViewDidLoad() {
@@ -86,6 +98,12 @@ export class ListingPage {
 
             this.originalMimicSlide.slideTo(0, 0, false);  //set slide back to index 0
             this.responseMimicSlide.slideTo(0, 0, false);  //set slide back to index 0
+
+            //if responses are empty disable sliding
+            if(this.currentMimicResponses.length == 0) {
+                this.responseMimicSlide.lockSwipeToNext(true);
+                this.responseMimicSlide.lockSwipeToPrev(true);
+            }
         });
     }
 
@@ -285,7 +303,7 @@ export class ListingPage {
     private loadMoreOriginals() {
         // this.originalMimicSlide.lockSwipeToNext(true);
         this.originalMimicPaging += 1; //increase paging
-        this.listingService.getAllMimics({page: this.originalMimicPaging})
+        this.listingService.getAllMimics(Object.assign(this.filterMimics, {page: this.originalMimicPaging}))
             .then((data) => {
                 this.mimicsList = this.mimicsList.concat(data.mimics);
                 //  this.originalMimicSlide.lockSwipeToNext(false);
@@ -348,6 +366,14 @@ export class ListingPage {
      */
     private setCurrentMimicResponses(currentMimicOriginalIndex) {
         this.currentMimicResponses = this.mimicsList[currentMimicOriginalIndex].mimic_responses;
+        //if responses are empty disable sliding
+        if(this.currentMimicResponses.length == 0) {
+            this.responseMimicSlide.lockSwipeToNext(true);
+            this.responseMimicSlide.lockSwipeToPrev(true);
+        } else {
+            this.responseMimicSlide.lockSwipeToNext(false);
+            this.responseMimicSlide.lockSwipeToPrev(false);
+        }
         this.currentResponseMimic = this.currentMimicResponses[0];
         this.videoResponse = []; //reset our video array
         this.responseMimicSlide.slideTo(0, 0, false);  //set slide back to index 0 

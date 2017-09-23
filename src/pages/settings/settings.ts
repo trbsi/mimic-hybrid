@@ -15,8 +15,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from "../../providers/language/language.service";
 import { LanguageModel } from "../../providers/language/language.model";
 //import { AppRate } from '@ionic-native/app-rate';
-import { ImagePicker } from '@ionic-native/image-picker';
-import { Crop } from '@ionic-native/crop';
 
 @Component({
     selector: 'settings-page',
@@ -38,8 +36,6 @@ export class SettingsPage {
                 public languageService:LanguageService,
                 public profileService:ProfileService,
                 //public appRate:AppRate,
-                public imagePicker:ImagePicker,
-                public cropService:Crop,
                 public platform:Platform) {
         this.loading = this.loadingCtrl.create();
 
@@ -97,28 +93,5 @@ export class SettingsPage {
      }*/
 
     /*openImagePicker() {
-     this.imagePicker.hasReadPermission().then(
-     (result) => {
-     if (result == false) {
-     // no callbacks required as this opens a popup which returns async
-     this.imagePicker.requestReadPermission();
-     }
-     else if (result == true) {
-     this.imagePicker.getPictures({maximumImagesCount: 1}).then(
-     (results) => {
-     for (var i = 0; i < results.length; i++) {
-     this.cropService.crop(results[i], {quality: 75}).then(
-     newImage => {
-     this.profileService.setUserImage(newImage);
-     this.profile.user.image = newImage;
-     },
-     error => console.error("Error cropping image", error)
-     );
-     }
-     }, (err) => console.log(err)
-     );
-     }
-     }
-     )
      }*/
 }

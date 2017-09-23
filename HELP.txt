@@ -1,5 +1,5 @@
 Ionic app takes too long to start | ionic ios first start takes too long
-https://forum.ionicframework.com/t/ionic-app-takes-too-long-to-start/97546
+https://forum.ionicframework.com/t/ionic-app-takes-too-long-to-start/97546 -> https://ionicframework.com/docs/cli/cordova/build/
 
 Vertical align center
 https://css-tricks.com/centering-css-complete-guide/
@@ -123,3 +123,35 @@ https://stackoverflow.com/questions/40062241/set-height-as-a-ratio-of-width-with
 Linker command failed with exit code 1 (use -v to see invocation)
 https://github.com/phonegap/phonegap-plugin-push/issues/1240
 *What I did  is this command: "ionic cordova platform rm ios" and then I pushed changes to ionic git and created a build
+
+Camera plugin
+https://github.com/apache/cordova-plugin-camera#module_Camera.PictureSourceType
+https://ionicframework.com/docs/native/camera/
+
+How to open video picker view or gallery in ionic?
+https://forum.ionicframework.com/t/how-to-open-video-picker-view-or-gallery-in-ionic/34419
+
+How to debug the app remotely
+Run app on android: ionic cordova run android --liverload
+Then open chrome and do open page: chrome://inspect/
+There you will see devices you can debug in Chrome's Console 
+
+Warnings about file access with live reload  | Not allowed to load local resource
+https://github.com/ionic-team/ionic-cli/issues/287
+
+Cannot find module '@angular/tsc-wrapped/src/tsc'
+npm install --save-dev @angular/tsc-wrapped
+
+
+How to crop image aspect ratio
+https://forum.ionicframework.com/t/how-to-crop-image-with-resize-width-and-height/102804/5
+Plugin for that: https://www.npmjs.com/package/cordova-plugin-k-imagecropper
+
+Class not found
+Just do this: "ionic cordova platform rm android" and then "ionic cordova platform add android"
+
+Manifest merger failed : uses-sdk:minSdkVersion 16 cannot be smaller than version 18 declared in library
+Change this in your config.xml, increase value:     <preference name="android-minSdkVersion" value="18" />
+
+Error: Cannot find module "@ionic-native/file"
+Do: npm install --save @ionic-native/file

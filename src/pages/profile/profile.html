@@ -38,6 +38,14 @@
                         </a>
                     </ion-col>
                 </ion-row>
+                <ion-row class="profile-action-row" *ngIf="userId">
+                    <ion-col no-padding>
+                        <button ion-button block small (click)="follow()">
+                            <span *ngIf="profile.i_am_following_you == false">Follow</span>
+                            <span *ngIf="profile.i_am_following_you == true">Unfollow</span>
+                        </button>
+                    </ion-col>
+                </ion-row>
                 <!--<ion-row class="profile-action-row">
                     <ion-col no-padding>
                         <button ion-button block small (click)="goToSettings()">
@@ -78,11 +86,11 @@
         <div *ngSwitchCase="'original'" class="grid-view">
             <ion-row wrap class="grid-row" *ngIf="mimics && mimics.length > 0">
                 <ion-col width-33 class="grid-item" *ngFor="let mimic of mimics; let i = index;">
-                    <preload-image [ratio]="{w:1, h:1}" (click)="presentActionSheet('original', mimic.id, i)"
+                    <preload-image [ratio]="{w:1, h:1}" (click)="presentActionSheet('original', mimic, i)"
                                    [src]="mimic.file_url" *ngIf="mimic.mimic_type == 'picture'"
                                    class="square-image"></preload-image>
 
-                    <preload-image [ratio]="{w:1, h:1}" (click)="presentActionSheet('original', mimic.id, i)"
+                    <preload-image [ratio]="{w:1, h:1}" (click)="presentActionSheet('original', mimic, i)"
                                    src="./assets/images/video.png" *ngIf="mimic.mimic_type == 'video'"
                                    class="square-image"></preload-image>
                 </ion-col>
@@ -96,11 +104,11 @@
         <div *ngSwitchCase="'response'" class="grid-view">
             <ion-row wrap class="grid-row" *ngIf="responses && responses.length > 0">
                 <ion-col width-33 class="grid-item" *ngFor="let mimic of responses; let i = index;">
-                    <preload-image [ratio]="{w:1, h:1}" (click)="presentActionSheet('response', mimic.id, i)"
+                    <preload-image [ratio]="{w:1, h:1}" (click)="presentActionSheet('response', mimic, i)"
                                    [src]="mimic.file_url" *ngIf="mimic.mimic_type == 'picture'"
                                    class="square-image"></preload-image>
 
-                    <preload-image [ratio]="{w:1, h:1}" (click)="presentActionSheet('response', mimic.id, i)"
+                    <preload-image [ratio]="{w:1, h:1}" (click)="presentActionSheet('response', mimic, i)"
                                    src="./assets/images/video.png" *ngIf="mimic.mimic_type == 'video'"
                                    class="square-image"></preload-image>
                 </ion-col>

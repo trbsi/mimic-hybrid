@@ -1,4 +1,6 @@
 profile-page {
+
+  //MOJE
   .spinner {
     margin: 0 auto;
     margin-top: 25%;
@@ -10,6 +12,18 @@ profile-page {
     margin-top: 30%;
   }
 
+  .split-custom-top
+  {
+    height: 40%;
+    background: white;
+  }
+
+  .split-custom-bottom
+  {
+    height: 60%;
+  }
+  //MOJE
+  
   .profile-content {
     background-color: color($colors, mimic, base);
 

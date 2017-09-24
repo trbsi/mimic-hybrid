@@ -1,4 +1,3 @@
-
 add-mimic {
   //MOJE
   
@@ -19,16 +18,14 @@ add-mimic {
      padding: 0; 
   }
 
-  .split-custom {
+  .split-custom-top {
     height: 45%;
     border-bottom: 1px solid color($colors, mimic, base);
     background: white;
+  }
 
-    //stick content o this screen to the bottom of this screen
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-
+  .split-custom-bottom {
+    height: 55%;
   }
   
   .height-100 {

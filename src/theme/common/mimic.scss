@@ -206,6 +206,13 @@ $playlist-item-play-icon-height: 3rem;
   justify-content: center;
 }
 
+//stick content of this screen to the bottom of this screen
+.vertical-align-bottom {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
 hr.split-line {
   display: block;
   border: 0;
@@ -222,7 +229,7 @@ hr.split-line {
   background-color: color($colors, mimic, base);
 }
 
-//SQUARE IMAGES
+//SQUARE IMAGES https://stackoverflow.com/a/38926886/1860890
 .square-image {
   width: 100%;
   height: 100%;

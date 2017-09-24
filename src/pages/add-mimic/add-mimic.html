@@ -19,7 +19,7 @@
             <div class="post-example-view height-100">
                 <form class="sample-form post-form height-100" [formGroup]="post_form" (ngSubmit)="submit()">
                 <section class="form-section height-100">
-                    <div class="split-custom">
+                    <div class="split-custom-top vertical-align-bottom">
                         <div class="top-slide" *ngIf="!imageFile && !videoFile"> 
                             Your
                             <img src="./assets/images/mimic_logo_text.png" >
@@ -49,7 +49,7 @@
                             </vg-player>
                         </div>
                     </div>
-                    <div class="split">
+                    <div class="split-custom-bottom">
                         <div class="bottom-slide">
                             <ion-grid>
                                 <ion-row>

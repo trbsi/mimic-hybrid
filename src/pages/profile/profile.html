@@ -5,15 +5,15 @@
 </ion-header>
 
 <ion-content class="profile-content" no-bounce>
-    <div class="split-custom-top">
-        <div class="spinner" *ngIf="!profile">
-            <div class="rect1"></div>
-            <div class="rect2"></div>
-            <div class="rect3"></div>
-            <div class="rect4"></div>
-            <div class="rect5"></div>
-        </div>
-        <div class="user-details" *ngIf="profile">
+    <div class="spinner" *ngIf="!profile">
+        <div class="rect1"></div>
+        <div class="rect2"></div>
+        <div class="rect3"></div>
+        <div class="rect4"></div>
+        <div class="rect5"></div>
+    </div>
+    <div class="split-custom-top" *ngIf="profile">
+        <div class="user-details">
             <ion-row class="user-main-data-row">
                 <ion-col no-padding width-33>
                     <preload-image class="user-image" [ratio]="{w:0.5, h:0.5}" [(src)]="profile.profile_picture"

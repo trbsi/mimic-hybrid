@@ -15,7 +15,7 @@
     <div class="split-custom-top" *ngIf="profile">
         <div class="user-details">
             <ion-row class="user-main-data-row">
-                <ion-col no-padding width-25>
+                <ion-col no-padding width-20>
                     <preload-image class="user-image" [ratio]="{w:0.5, h:0.5}" [(src)]="profile.profile_picture"
                                    alt="profile.username" title="profile.username"></preload-image>
                 </ion-col>
@@ -39,8 +39,10 @@
                             </a>
                         </ion-col>
                         <ion-col width-33 class="social-presence-item">
+                            <a href="#">
                                 <h2 class="social-presence-value">{{profile.number_of_mimics}}</h2>
                                 <h4 class="social-presence-title">Mimics</h4>
+                            </a>
                         </ion-col>
                     </ion-row>
                     <ion-row class="profile-action-row" *ngIf="userId">

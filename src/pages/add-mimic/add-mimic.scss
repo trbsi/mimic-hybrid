@@ -19,14 +19,10 @@ add-mimic {
   }
 
   .split-custom-top {
-    height: 45%;
     border-bottom: 1px solid color($colors, mimic, base);
     background: white;
   }
 
-  .split-custom-bottom {
-    height: 55%;
-  }
   
   .height-100 {
     top: 0;

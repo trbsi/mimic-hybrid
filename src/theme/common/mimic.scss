@@ -228,6 +228,7 @@ hr.split-line {
 .content {
   background-color: color($colors, mimic, base);
 }
+//SPLIT SCREEN LAYOUT
 
 //SQUARE IMAGES https://stackoverflow.com/a/38926886/1860890
 .square-image {
@@ -296,3 +297,12 @@ hr.split-line {
     -webkit-transform: scaleY(1.0);
   }
 }
+//SPINNER
+
+
+//OTHER
+.mimic-submit-btn {
+  background: white;
+  color: color($colors, mimic, base);
+}
+//OTHER

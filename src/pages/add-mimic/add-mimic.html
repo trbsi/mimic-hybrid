@@ -4,7 +4,7 @@
     </ion-navbar>
 </ion-header>
 <ion-content class="forms-examples-content" no-bounce>
-    <div>
+    <div style="z-index: 100">
         <ion-segment [(ngModel)]="currentSegment" (ionChange)="onSegmentChanged($event)">
         <ion-segment-button value="camera" (ionSelect)="onSegmentSelected($event)">
             Camera
@@ -51,12 +51,9 @@
                     </div>
                     <div class="split">
                         <div class="bottom-slide">
-                            <ion-item *ngIf="!originalMimicId">
-                                <ion-input type="text" placeholder="Hashtags like: #dog #dogs..." formControlName="hashtags"></ion-input>
-                            </ion-item>
                             <ion-grid>
                                 <ion-row>
-                                    <ion-col style="padding: 0">
+                                    <ion-col>
                                         <button  *ngSwitchCase="'camera'" ion-button type="button" class="upload-image-button" (click)="captureMedia('image')">
                                         <ion-icon name="camera"></ion-icon>
                                         </button>
@@ -64,7 +61,7 @@
                                         <ion-icon name="camera"></ion-icon>
                                         </button>
                                     </ion-col>
-                                    <ion-col style="padding: 0">
+                                    <ion-col>
                                         <button  *ngSwitchCase="'camera'" ion-button type="button" class="upload-image-button" (click)="captureMedia('video')">
                                         <ion-icon name="videocam"></ion-icon>
                                         </button>
@@ -74,6 +71,9 @@
                                     </ion-col>
                                 </ion-row>
                             </ion-grid>
+                             <ion-item *ngIf="!originalMimicId">
+                                <ion-input type="text" placeholder="Hashtags like: #dog #dogs..." formControlName="hashtags"></ion-input>
+                            </ion-item>
                         </div>
                         <ion-grid>
                             <ion-row>

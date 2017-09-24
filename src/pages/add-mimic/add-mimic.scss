@@ -1,15 +1,28 @@
+
 add-mimic {
+  //MOJE
+  
+  //segments
+  .segment-ios .segment-button.segment-activated {
+    color:  color($colors, mimic, base);
+  }
+
+  .segment-ios .segment-button {
+    color: white;
+    background: color($colors, mimic, base);
+    border: none;
+  }
+  //segments
 
   .bottom-slide {
      height: slides-height();
      padding: 0; 
-     background-color: white;
-
   }
 
   .split-custom {
     height: 45%;
     border-bottom: 1px solid color($colors, mimic, base);
+    background: white;
 
     //stick content o this screen to the bottom of this screen
     display: flex;
@@ -24,6 +37,7 @@ add-mimic {
     left: 0;
     right: 0;
     position: absolute;
+    z-index: -1; //because of ion-segment part
   }
 
   .top-slide
@@ -45,6 +59,8 @@ add-mimic {
 
 
   }
+  //MOJE
+  
 
   ion-header {
     @include header-styles(color($colors, mimic, base), WHITE);
@@ -80,7 +96,7 @@ add-mimic {
       }
 
       ion-item {
-        @include basic-input-style(white, color($colors, mimic, base), color($colors, mimic, base));
+        @include basic-input-style(color($colors, mimic, base), white, white);
         ion-input {
           border-bottom: 1px solid color($colors, mimic, base);
         }
@@ -134,7 +150,6 @@ add-mimic {
               max-width: 100%;
               font-size: 3.8em;
 
-              border: 1px solid color($colors, mimic, base);
               border-radius: 10px;
             }
 

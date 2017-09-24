@@ -59,6 +59,7 @@ import { MediaCapture } from '@ionic-native/media-capture';
 import { VideoEditor } from '@ionic-native/video-editor';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
+import { Push } from '@ionic-native/push';
 
 //Functionalities
 import { FacebookLoginPage } from '../pages/facebook-login/facebook-login';
@@ -159,6 +160,7 @@ export function createTranslateLoader(http:Http) {
         VideoEditor,
         File,
         FileTransfer,
+        Push,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

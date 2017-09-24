@@ -5,6 +5,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { LoginPage } from '../pages/login/login';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { Push, PushObject, PushOptions } from '@ionic-native/push';
 
 @Component({
     selector: 'app-root',
@@ -29,7 +30,9 @@ export class MyApp {
                 public splashScreen:SplashScreen,
                 public statusBar:StatusBar,
                 public translate:TranslateService,
-                public toastCtrl:ToastController) {
+                public toastCtrl:ToastController,
+                private push: Push) 
+    {
         translate.setDefaultLang('en');
         translate.use('en');
 
@@ -38,6 +41,22 @@ export class MyApp {
             // Here you can do any higher level native things you might need.
             this.splashScreen.hide();
             this.statusBar.styleDefault();
+
+
+            const options: PushOptions = {
+               ios: {
+                   alert: 'true',
+                   badge: true,
+                   sound: 'false'
+               }
+            };
+
+            const pushObject: PushObject = this.push.init(options);
+
+            pushObject.on('notification').subscribe((notification: any) => console.log('Received a notification', notification));
+
+            pushObject.on('registration').subscribe((registration: any) => console.log('Device registered', registration));
+
         });
 
         this.translate.onLangChange.subscribe((event:LangChangeEvent) => {
@@ -52,19 +71,5 @@ export class MyApp {
 
         });
 
-    }
-
-    openPage(page) {
-        // close the menu when clicking a link from the menu
-        this.menu.close();
-        // navigate to the new page if it is not the current page
-        this.nav.setRoot(page.component);
-    }
-
-    pushPage(page) {
-        // close the menu when clicking a link from the menu
-        this.menu.close();
-        // rootNav is now deprecated (since beta 11) (https://forum.ionicframework.com/t/cant-access-rootnav-after-upgrade-to-beta-11/59889)
-        this.app.getRootNav().push(page.component);
     }
 }

@@ -150,14 +150,13 @@ profile-page {
       }
 
       .grid-view {
-        padding: 2px 0px 2px;
+        padding: 2px 0px 2px 3px;
 
         .grid-row {
-          padding: 0px 2px;
+          padding: 0px 0px;
 
           .grid-item {
-            padding: 0px 0px 1px;
-            margin: 0 auto;
+            padding: 1px 1px 1px;
           }
         }
 

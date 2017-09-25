@@ -93,6 +93,7 @@ export class AddMimic {
         }
 
         this.addMimicService.addMimic(data).then((data) => {
+            //@TODO - show success msg and redirect user to home page
             console.log("server response", data);
         });
 
@@ -201,6 +202,7 @@ export class AddMimic {
     }
 
     /**
+     * @TODO - testirati ovo
      * Call video editor
      * @param string videoPath Path to a video
      */
@@ -216,6 +218,7 @@ export class AddMimic {
     }
 
     /**
+     * @TODO - testirati ovo
      * Call our cropper
      * @param string imagePath
      * @param string type Current segment: "camera" or "library"

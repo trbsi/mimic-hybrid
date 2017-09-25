@@ -1,4 +1,14 @@
 login-page {
+
+  .alt-button {
+      margin: 0px;
+      background-color: color($colors, mimic, base);
+      font-size: 1.4rem;
+      color: $white;
+      display: block;
+
+    }
+
   .login-content {
     .alt-options {
       .button {

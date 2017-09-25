@@ -155,3 +155,8 @@ Change this in your config.xml, increase value:     <preference name="android-mi
 
 Error: Cannot find module "@ionic-native/file"
 Do: npm install --save @ionic-native/file
+
+Detect when app comes from background or goes to background
+https://ionicframework.com/docs/api/platform/Platform/
+this.platform.resume.subscribe(() => { console.log(" This will appear only in Android//iOS. nothing at chrome") });
+this.platform.pause.subscribe(() => { console.log(" This will appear only in Android//iOS. nothing at chrome") });

@@ -46,23 +46,17 @@ export class MyApp {
 
             //this is to show all extra buttons on iphone keyboard
             keyboard.hideKeyboardAccessoryBar(false);
-
-
-            const options: PushOptions = {
-               ios: {
-                   alert: 'true',
-                   badge: true,
-                   sound: 'false'
-               }
-            };
-
-            const pushObject: PushObject = this.push.init(options);
-
-            pushObject.on('notification').subscribe((notification: any) => console.log('Received a notification', notification));
-
-            pushObject.on('registration').subscribe((registration: any) => console.log('Device registered', registration));
-
+            this.getPushToken();
         });
+
+
+        //@TODO , kada uđe u app tada probaj poslati rekvest naserver za token
+        platform.resume.subscribe(() => {
+            console.log('usao');
+            //this.getPushToken();
+        });
+        //platform.pause.subscribe(() => { console.log(" izisao iz appa") });
+
 
         this.translate.onLangChange.subscribe((event:LangChangeEvent) => {
             if (event.lang == 'ar') {
@@ -76,5 +70,21 @@ export class MyApp {
 
         });
 
+    }
+
+    private getPushToken() 
+    {
+        //@TODO riješi do kraja notifikacije
+        const options: PushOptions = {
+            ios: {
+                alert: 'true',
+                badge: true,
+                sound: 'false'
+            }
+        };
+
+        const pushObject: PushObject = this.push.init(options);
+        pushObject.on('notification').subscribe((notification: any) => console.log('Received a notification', notification));
+        pushObject.on('registration').subscribe((registration: any) => console.log('Device registered', registration));
     }
 }

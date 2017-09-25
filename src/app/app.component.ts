@@ -6,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { LoginPage } from '../pages/login/login';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Push, PushObject, PushOptions } from '@ionic-native/push';
+import { Keyboard } from '@ionic-native/keyboard';
 
 @Component({
     selector: 'app-root',
@@ -31,7 +32,8 @@ export class MyApp {
                 public statusBar:StatusBar,
                 public translate:TranslateService,
                 public toastCtrl:ToastController,
-                private push: Push) 
+                private push: Push,
+                private keyboard: Keyboard) 
     {
         translate.setDefaultLang('en');
         translate.use('en');
@@ -41,6 +43,9 @@ export class MyApp {
             // Here you can do any higher level native things you might need.
             this.splashScreen.hide();
             this.statusBar.styleDefault();
+
+            //this is to show all extra buttons on iphone keyboard
+            keyboard.hideKeyboardAccessoryBar(false);
 
 
             const options: PushOptions = {

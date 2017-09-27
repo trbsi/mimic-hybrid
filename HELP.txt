@@ -155,3 +155,6 @@ Change this in your config.xml, increase value:     <preference name="android-mi
 
 Error: Cannot find module "@ionic-native/file"
 Do: npm install --save @ionic-native/file
+
+Ionic 2 - Error : net::ERR_CONNECTION_TIMED_OUT when run on android device
+https://stackoverflow.com/questions/45303914/ionic-2-error-neterr-connection-timed-out-when-run-on-android-device

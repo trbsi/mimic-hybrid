@@ -95,17 +95,12 @@ export class AddMimic {
         }
 
         this.addMimicService.addMimic(data).then((data) => {
-<<<<<<< HEAD
             var callbackData = 
             {
                 uploadedMimic: data.mimics[0],
                 mimicType: (this.originalMimicId) ? "response": "original"
             };
             this.viewCtrl.dismiss(callbackData);
-=======
-            //@TODO - show success msg and redirect user to home page
-            console.log("server response", data);
->>>>>>> da5dab5b47c4a857ced380d155ded301d308ba57
         });
 
         

@@ -125,7 +125,6 @@ export class ListingPage {
     private presentProfileModal(params) {
        let profileModal = this.modalCtrl.create(AddMimic, params);
        profileModal.onDidDismiss(data => {
-         console.log("test", data);
             if(data) {
                 switch (data.mimicType) {
                     case "original":

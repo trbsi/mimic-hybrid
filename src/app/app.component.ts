@@ -30,7 +30,7 @@ export class MyApp {
                 public app:App,
                 public splashScreen:SplashScreen,
                 public statusBar:StatusBar,
-                public translate:TranslateService,
+                public translate:TranslateService, 
                 public toastCtrl:ToastController,
                 private push: Push,
                 private keyboard: Keyboard) 

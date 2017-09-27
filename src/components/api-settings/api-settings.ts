@@ -181,7 +181,15 @@ export class ApiSettings {
             return Promise.resolve(JSON.parse(data.response));
         }, (error) => {
             this.loading.dismiss();
-            return Promise.reject(error);
+
+            let alert = this.alertCtrl.create({
+                title: 'There was a problem',
+                subTitle: JSON.parse(error.body).error.message,
+                buttons: ['Ok']
+            }); 
+            alert.present();
+
+            return Promise.reject(JSON.parse(error.body));
         });
     }
 

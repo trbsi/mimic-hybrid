@@ -5,6 +5,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { LoginPage } from '../pages/login/login';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { Push, PushObject, PushOptions } from '@ionic-native/push';
+import { Keyboard } from '@ionic-native/keyboard';
 
 @Component({
     selector: 'app-root',
@@ -29,7 +31,10 @@ export class MyApp {
                 public splashScreen:SplashScreen,
                 public statusBar:StatusBar,
                 public translate:TranslateService,
-                public toastCtrl:ToastController) {
+                public toastCtrl:ToastController,
+                private push: Push,
+                private keyboard: Keyboard) 
+    {
         translate.setDefaultLang('en');
         translate.use('en');
 
@@ -38,7 +43,20 @@ export class MyApp {
             // Here you can do any higher level native things you might need.
             this.splashScreen.hide();
             this.statusBar.styleDefault();
+
+            //this is to show all extra buttons on iphone keyboard
+            keyboard.hideKeyboardAccessoryBar(false);
+            this.getPushToken();
         });
+
+
+        //@TODO , kada uđe u app tada probaj poslati rekvest naserver za token
+        platform.resume.subscribe(() => {
+            console.log('usao');
+            //this.getPushToken();
+        });
+        //platform.pause.subscribe(() => { console.log(" izisao iz appa") });
+
 
         this.translate.onLangChange.subscribe((event:LangChangeEvent) => {
             if (event.lang == 'ar') {
@@ -54,17 +72,19 @@ export class MyApp {
 
     }
 
-    openPage(page) {
-        // close the menu when clicking a link from the menu
-        this.menu.close();
-        // navigate to the new page if it is not the current page
-        this.nav.setRoot(page.component);
-    }
+    private getPushToken() 
+    {
+        //@TODO riješi do kraja notifikacije
+        const options: PushOptions = {
+            ios: {
+                alert: 'true',
+                badge: true,
+                sound: 'false'
+            }
+        };
 
-    pushPage(page) {
-        // close the menu when clicking a link from the menu
-        this.menu.close();
-        // rootNav is now deprecated (since beta 11) (https://forum.ionicframework.com/t/cant-access-rootnav-after-upgrade-to-beta-11/59889)
-        this.app.getRootNav().push(page.component);
+        const pushObject: PushObject = this.push.init(options);
+        pushObject.on('notification').subscribe((notification: any) => console.log('Received a notification', notification));
+        pushObject.on('registration').subscribe((registration: any) => console.log('Device registered', registration));
     }
 }

@@ -160,4 +160,13 @@ Ionic 2 - Error : net::ERR_CONNECTION_TIMED_OUT when run on android device
 https://stackoverflow.com/questions/45303914/ionic-2-error-neterr-connection-timed-out-when-run-on-android-device
 
 Ionic2 navController pop with params (CallBack)
+User Modals for that
 https://stackoverflow.com/questions/42318870/ionic2-navcontroller-pop-with-params-callback
+
+Detect when app comes from background or goes to background
+https://ionicframework.com/docs/api/platform/Platform/
+this.platform.resume.subscribe(() => { console.log(" This will appear only in Android//iOS. nothing at chrome") });
+this.platform.pause.subscribe(() => { console.log(" This will appear only in Android//iOS. nothing at chrome") });
+
+PhoneGap build private bitbucket
+https://www.monkehworks.com/using-private-bitbucket-repositories-with-phonegap-build/

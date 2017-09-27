@@ -95,12 +95,17 @@ export class AddMimic {
         }
 
         this.addMimicService.addMimic(data).then((data) => {
+<<<<<<< HEAD
             var callbackData = 
             {
                 uploadedMimic: data.mimics[0],
                 mimicType: (this.originalMimicId) ? "response": "original"
             };
             this.viewCtrl.dismiss(callbackData);
+=======
+            //@TODO - show success msg and redirect user to home page
+            console.log("server response", data);
+>>>>>>> da5dab5b47c4a857ced380d155ded301d308ba57
         });
 
         
@@ -208,6 +213,7 @@ export class AddMimic {
     }
 
     /**
+     * @TODO - testirati ovo
      * Call video editor
      * @param string videoPath Path to a video
      */
@@ -223,6 +229,7 @@ export class AddMimic {
     }
 
     /**
+     * @TODO - testirati ovo
      * Call our cropper
      * @param string imagePath
      * @param string type Current segment: "camera" or "library"

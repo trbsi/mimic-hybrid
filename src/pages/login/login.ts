@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController } from 'ionic-angular';
+import { NavController, LoadingController, ModalController } from 'ionic-angular';
 
 import { ListingPage } from '../listing/listing';
 import { PostLogin } from '../post-login/post-login';
+import { TermsOfServicePage } from '../terms-of-service/terms-of-service';
+import { PrivacyPolicyPage } from '../privacy-policy/privacy-policy';
 
 import { FacebookLoginService } from '../facebook-login/facebook-login.service';
 //import { GoogleLoginService } from '../google-login/google-login.service';
@@ -24,6 +26,7 @@ export class LoginPage {
                 //public googleLoginService:GoogleLoginService,
                 public twitterLoginService:TwitterLoginService,
                 public loadingCtrl:LoadingController,
+                public modal:ModalController,
                 public apiSettings:ApiSettings) {
         this.redirectUserToTheRightPage();
         this.main_page = {component: PostLogin};
@@ -140,4 +143,14 @@ export class LoginPage {
             });
     }
 
+
+    showTermsModal() {
+        let modal = this.modal.create(TermsOfServicePage);
+        modal.present();
+    }
+
+    showPrivacyModal() {
+        let modal = this.modal.create(PrivacyPolicyPage);
+        modal.present();
+    }
 }

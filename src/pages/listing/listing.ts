@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, NavParams } from 'ionic-angular';
+import { NavController, LoadingController, NavParams, ModalController } from 'ionic-angular';
 
 import 'rxjs/Rx';
 
@@ -56,7 +56,9 @@ export class ListingPage {
                 public loadingCtrl:LoadingController, public facebookLoginService:FacebookLoginService,
                 public twitterLoginService:TwitterLoginService,
                 public apiSettings:ApiSettings, public listingService:ListingService,
-                public navParams:NavParams) {
+                public navParams:NavParams,
+                public modalCtrl: ModalController) 
+    {
         this.mainMenuOpened = false;
         //filter mimics by hashtag
         if (this.navParams.get('hashtag_id')) {
@@ -83,7 +85,7 @@ export class ListingPage {
 
     ionViewDidLoad() {
         this.getMimicsFromServer();
-    }
+    }    
 
     private getMimicsFromServer() {
         this.listingService.getAllMimics(this.filterMimics).then((data) => {
@@ -96,8 +98,7 @@ export class ListingPage {
             this.currentMimicResponses = this.currentOriginalMimic['mimic_responses'];
             this.currentResponseMimic = this.currentMimicResponses[0];
 
-            this.originalMimicSlide.slideTo(0, 0, false);  //set slide back to index 0
-            this.responseMimicSlide.slideTo(0, 0, false);  //set slide back to index 0
+            this.slideAllMimicsToBeginning();
 
             //if responses are empty disable sliding
             if(this.currentMimicResponses.length == 0) {
@@ -106,6 +107,44 @@ export class ListingPage {
             }
         });
     }
+
+    /**
+     * Slide original and response mimics to beginning, thus showing on screen mimics under inde 0. 
+     * Used when refreshing the page and adding new original mimic
+     */
+    private slideAllMimicsToBeginning()
+    {
+        this.originalMimicSlide.slideTo(0, 0, false);  //set slide back to index 0
+        this.responseMimicSlide.slideTo(0, 0, false);  //set slide back to index 0
+    }
+
+    /**
+     * I need to use modal here because this is the only way to pass data from modal to this controller
+     * @param any params Any params going to profile modal
+     */
+    private presentProfileModal(params) {
+       let profileModal = this.modalCtrl.create(AddMimic, params);
+       profileModal.onDidDismiss(data => {
+         console.log("test", data);
+            if(data) {
+                switch (data.mimicType) {
+                    case "original":
+                        this.mimicsList.unshift(data.uploadedMimic);
+                        this.currentMimicResponses = []; //we have no responses
+                        this.currentResponseMimic = null; //we have no current response mimic
+                        this.slideAllMimicsToBeginning();
+                        break;
+                    case "response":
+                        this.currentMimicResponses.unshift(data.uploadedMimic);
+                        this.currentResponseMimic = data.uploadedMimic; // current response mimic is this uploaded one
+                        this.responseMimicSlide.slideTo(0, 0, false);  //set slide back to index 0
+                        break;
+                }
+            }
+       }); 
+       profileModal.present();
+     }
+
 
     /**
      * Open specific page
@@ -127,7 +166,7 @@ export class ListingPage {
                 this.nav.push(Search);
                 break;
             case "add-mimic":
-                this.nav.push(AddMimic);
+                 this.presentProfileModal({});
                 break;
         }
     }
@@ -202,10 +241,12 @@ export class ListingPage {
      * @param int id Original mimic id
      */
     replyToMimic(id) {
-        this.nav.push(AddMimic, {
+        var params = {
             original_mimic_id: id,
-            reply_to_mimic: true
-        });
+            reply_to_mimic: true,
+        };
+
+        this.presentProfileModal(params);
     }
 
     logout(fab:FabContainer) {

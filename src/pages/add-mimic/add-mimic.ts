@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, SegmentButton, AlertController, NavParams } from 'ionic-angular';
+import { NavController, SegmentButton, AlertController, NavParams, ViewController } from 'ionic-angular';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { VgAPI } from 'videogular2/core';
@@ -31,7 +31,9 @@ export class AddMimic {
                 private camera: Camera,
                 private mediaCapture: MediaCapture,
                 private videoEditor: VideoEditor,
-                private addMimicService: AddMimicService) {
+                private addMimicService: AddMimicService,
+                private viewCtrl: ViewController) 
+    {
 
         this.currentSegment = 'camera';
 
@@ -93,7 +95,12 @@ export class AddMimic {
         }
 
         this.addMimicService.addMimic(data).then((data) => {
-            console.log("server response", data);
+            var callbackData = 
+            {
+                uploadedMimic: data.mimics[0],
+                mimicType: (this.originalMimicId) ? "response": "original"
+            };
+            this.viewCtrl.dismiss(callbackData);
         });
 
         
@@ -257,6 +264,14 @@ export class AddMimic {
         if(resetWholeForm) {
             this.post_form.reset();
         }
+    }
+
+    /**
+     * Close modal
+     */
+    closeModal()
+    {
+        this.viewCtrl.dismiss();
     }
 
     //VIDEOS

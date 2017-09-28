@@ -44,6 +44,7 @@
                 <div class="rect5"></div>
             </div>
             <ion-slide *ngFor="let data of mimicsList; let i = index;">
+                <div class="placeholder"></div> 
                 <img *ngIf="data.mimic.mimic_type == 'picture'" src="{{data.mimic.file_url}}">
 
                 <div *ngIf="data.mimic.mimic_type == 'video'" class="video-player-container">
@@ -90,6 +91,7 @@
                     <span class="no-mimics-gray-text">Post a Mimic and get upvotes and followers!</span>
             </ion-slide>
             <ion-slide *ngFor="let data of currentMimicResponses; let i = index;">
+                <div class="placeholder"></div> 
                 <img *ngIf="data.mimic_type == 'picture'" src="{{data.file_url}}">
                 <div *ngIf="data.mimic_type == 'video'" class="video-player-container">
                     <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event, 'response', i)">

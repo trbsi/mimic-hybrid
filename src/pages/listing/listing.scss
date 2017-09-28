@@ -243,6 +243,15 @@ listing-page {
     position: absolute;
     //mycode
   }
+
+  .placeholder
+  {
+    width: 100%;
+    height: slides-height();
+    z-index: -2;
+    background: black;
+    position: absolute;
+  }
   //------SLIDES-------
 
 

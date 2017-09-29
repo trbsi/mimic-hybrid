@@ -110,9 +110,6 @@
         <variable name="APP_NAME" value="Mimic" />
     </plugin>
     <plugin name="cordova-plugin-file-transfer" spec="^1.6.3" />
-    <plugin name="cordova-plugin-geolocation" spec="^2.4.3">
-        <variable name="GEOLOCATION_USAGE_DESCRIPTION" value=" " />
-    </plugin>
     <plugin name="cordova-plugin-googleplus" spec="^5.1.1">
         <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.1092390853283-icg6lqtcg6k270de9c8tv3i7qehlqtor" />
     </plugin>
@@ -135,4 +132,5 @@
         <variable name="FABRIC_KEY" value="a0fc2a9f47f38a658f2e86705afac1da2fd430a4" />
     </plugin>
     <plugin name="phonegap-plugin-push" spec="^2.0.0" />
+    <plugin name="cordova-plugin-google-analytics" spec="^1.8.3" />
 </widget>

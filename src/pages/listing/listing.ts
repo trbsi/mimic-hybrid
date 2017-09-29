@@ -26,6 +26,7 @@ import { ListingService } from '../listing/listing.service';
     templateUrl: 'listing.html',
 })
 export class ListingPage {
+    timeoutHandle:any;
     listing:ListingModel = new ListingModel();
     loading:any;
     mainMenuOpened:boolean;
@@ -405,20 +406,28 @@ export class ListingPage {
      * When you change original mimic you have to set new responses to show for that mimic
      */
     private setCurrentMimicResponses(currentMimicOriginalIndex) {
-        this.currentMimicResponses = this.mimicsList[currentMimicOriginalIndex].mimic_responses;
-        //if responses are empty disable sliding
-        if(this.currentMimicResponses.length == 0) {
-            this.responseMimicSlide.lockSwipeToNext(true);
-            this.responseMimicSlide.lockSwipeToPrev(true);
-        } else {
-            this.responseMimicSlide.lockSwipeToNext(false);
-            this.responseMimicSlide.lockSwipeToPrev(false);
-        }
-        this.currentResponseMimic = this.currentMimicResponses[0];
-        this.videoResponse = []; //reset our video array
-        this.responseMimicSlide.slideTo(0, 0, false);  //set slide back to index 0 
-        this.responseMimicPaging = 0; //reset paging
-        this.responseMimicsCount = this.mimicsList[currentMimicOriginalIndex].mimic.responses_count;  //set new response count
+        var self = this;
+
+        clearTimeout(this.timeoutHandle);
+
+        this.timeoutHandle = setTimeout(function(){
+            console.log(currentMimicOriginalIndex);
+            self.currentMimicResponses = self.mimicsList[currentMimicOriginalIndex].mimic_responses;
+            //if responses are empty disable sliding
+            if(self.currentMimicResponses.length == 0) {
+                self.responseMimicSlide.lockSwipeToNext(true);
+                self.responseMimicSlide.lockSwipeToPrev(true);
+            } else {
+                self.responseMimicSlide.lockSwipeToNext(false);
+                self.responseMimicSlide.lockSwipeToPrev(false);
+            }
+            self.currentResponseMimic = self.currentMimicResponses[0];
+            self.videoResponse = []; //reset our video array
+            self.responseMimicSlide.slideTo(0, 0, false);  //set slide back to index 0 
+            self.responseMimicPaging = 0; //reset paging
+            self.responseMimicsCount = self.mimicsList[currentMimicOriginalIndex].mimic.responses_count;  //set new response count
+
+        }, 1200);
     }
 
     //SLIDES

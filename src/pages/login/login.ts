@@ -38,23 +38,16 @@ export class LoginPage {
     private redirectUserToTheRightPage() {
         //this.nav.setRoot(ListingPage); //@TODO makni ovo
         //see if user is loggedin, if he is check if he set username
-        this.storage.getItem('token')
+        this.storage.getItem('user')
             .then((data) => {
                 //if he has username you can redirect to main screen
-                this.storage.getItem('username').then((data) => {
-                    //username not set, redirect to post login
-                    if (data == false || data == null) {
-                        this.nav.setRoot(PostLogin);
-                    } else {
-                        this.nav.setRoot(ListingPage);
-                    }
-
-                }, (error) => {
+                if (data.username == false || data.username == null) {
                     this.nav.setRoot(PostLogin);
-                });
-
+                } else {
+                    this.nav.setRoot(ListingPage);
+                }
             },
-                error => {
+            error => {
                 console.log(error);
             }
         );

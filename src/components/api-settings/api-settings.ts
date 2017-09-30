@@ -8,6 +8,8 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-nati
 
 export class ApiSettings {
     public static API_ENDPOINT = 'http://mimic.testapi.website/api/'; //@TODO change to live
+    public static APP_VERSION = '1.0.0';
+    public static GA_TRACKER_ID = 'UA-102917576-1';
     allow_entry:string = 'almasi:slatkasi';
     loading:any;
 
@@ -60,11 +62,11 @@ export class ApiSettings {
         this.loading.present();
 
         var headers = new Headers();
-        return this.storage.getItem('token')
+        return this.storage.getItem('user')
             .then(
-            (token) => {
+            (data) => {
                 this.createHeaders(headers, type);
-                headers.append('Authorization', 'Bearer ' + token);
+                headers.append('Authorization', 'Bearer ' + data.token);
                 this.loading.dismiss();
 
                 if (type == 'post') {
@@ -78,7 +80,7 @@ export class ApiSettings {
                 }
 
             },
-            //couldn't find token, do normal post
+            //couldn't find user, do normal post
             (error) => {
                 this.createHeaders(headers, type);
                 //@TODO remove this, this is just for testing
@@ -200,34 +202,18 @@ export class ApiSettings {
      */
     storageSetLoginData(loginData) 
     {
-        return this.storage.setItem('token', loginData.token)
-            .then(
-            () => {
-                console.log('Token set');
-                return this.storage.setItem('username', loginData.username)
-                    .then(
-                    () => {
-                        console.log('Username set!');
-                        return this.storage.setItem('user_id', loginData.user_id)
-                            .then(
-                            () => {
-                                console.log('User ID set!')
-                            },
-                                error => console.error('Error storing ser ID', error)
-                        );
-                    },
-                        error => console.error('Error storing username', error)
-                );
+        return this.storage.setItem('user', {'token': loginData.token, 'username': loginData.username, 'user_id': loginData.user_id})
+            .then(() => 
+            {
+                console.log('User storage set');
             },
-                error => console.error('Error storing token', error)
+            error => console.error('Error storing user storage', error)
         );
     }
 
     storageRemoveLoginData() 
     {
-        this.storage.remove('token');
-        this.storage.remove('username');
-        this.storage.remove('user_id');
+        this.storage.remove('user');
     }
 
 

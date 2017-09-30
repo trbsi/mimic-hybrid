@@ -45,7 +45,6 @@
         "bourbon": "4.2.7",
         "cordova-admob-sdk": "^0.7.0",
         "cordova-android": "^6.2.3",
-        "cordova-plugin-admob-free": "^0.9.0",
         "cordova-plugin-camera": "^2.4.1",
         "cordova-plugin-compat": "^1.1.0",
         "cordova-plugin-console": "^1.0.7",
@@ -87,7 +86,7 @@
         "ionic": "3.12.0",
         "typescript": "2.3.4"
     },
-    "description": "ion2-FullApp: The Best Ionic 2 Starter app.",
+    "description": "Mimic",
     "config": {
         "ionic_sass": "./config/sass.config.js"
     },
@@ -106,7 +105,6 @@
             "cordova-plugin-whitelist": {},
             "cordova-plugin-x-socialsharing": {},
             "ionic-plugin-keyboard": {},
-            "cordova-plugin-admob-free": {},
             "cordova-plugin-email-composer": {},
             "twitter-connect-plugin": {
                 "FABRIC_KEY": "a0fc2a9f47f38a658f2e86705afac1da2fd430a4"

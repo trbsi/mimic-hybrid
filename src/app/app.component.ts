@@ -65,7 +65,7 @@ export class MyApp {
 
             },
             error => {
-                console.log(error);
+                //user not found
             });
 
         });

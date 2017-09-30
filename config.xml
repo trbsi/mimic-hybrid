@@ -97,7 +97,6 @@
     <allow-navigation href="http://192.168.1.71:8100" />
     <allow-navigation href="http://192.168.1.8:8100" />
     <engine name="android" spec="^6.2.3" />
-    <plugin name="cordova-plugin-admob-free" spec="^0.9.0" />
     <plugin name="cordova-plugin-camera" spec="^2.4.1">
         <variable name="CAMERA_USAGE_DESCRIPTION" value="Record a video or take a picture" />
         <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="Choose a video or a picture" />

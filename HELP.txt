@@ -170,3 +170,8 @@ this.platform.pause.subscribe(() => { console.log(" This will appear only in And
 
 PhoneGap build private bitbucket
 https://www.monkehworks.com/using-private-bitbucket-repositories-with-phonegap-build/
+
+
+clang: error: linker command failed with exit code 1
+library not found for -lGoogleToolboxForMac
+*Da popravim to trebao sam dodati neke librarije, pogeldaj screenshot Screenshot at Oct 03 21-41-32.png

@@ -28,6 +28,8 @@
     <preference name="TwitterConsumerKey" value="lxYOizP79U8rU9lVT0nLQax8h" />
     <preference name="TwitterConsumerSecret" value="y4ngeuCuwjp5tIziYMdkyWCarz0lZ0HGoDpXuq8qVIYemzABdl" />
     <preference name="loadUrlTimeoutValue" value="700000" />
+    <preference name="pods_ios_min_version" value="8.0" />
+    <preference name="pods_use_frameworks" value="true" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
@@ -98,14 +100,18 @@
     <allow-navigation href="http://192.168.1.12:8100" />
     <allow-navigation href="http://192.168.1.71:8100" />
     <allow-navigation href="http://192.168.1.8:8100" />
+    <allow-navigation href="http://192.168.1.65:8100" />
+    <allow-navigation href="http://31.147.61.245:8100" />
+    <engine name="android" spec="^6.2.3" />
+    <plugin name="cordova-plugin-add-swift-support" spec="^1.7.0" />
     <plugin name="cordova-plugin-camera" spec="^2.4.1">
         <variable name="CAMERA_USAGE_DESCRIPTION" value="Record a video or take a picture" />
         <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="Choose a video or a picture" />
     </plugin>
-    <plugin name="cordova-plugin-compat" spec="^1.1.0" />
-    <plugin name="cordova-plugin-console" spec="^1.0.7" />
+    <plugin name="cordova-plugin-compat" spec="^1.2.0" />
+    <plugin name="cordova-plugin-console" spec="^1.1.0" />
     <plugin name="cordova-plugin-device" spec="^1.1.6" />
-    <plugin name="cordova-plugin-email-composer" spec="^0.8.7" />
+    <plugin name="cordova-plugin-email-composer" spec="^0.8.10" />
     <plugin name="cordova-plugin-facebook4" spec="^1.9.1">
         <variable name="APP_ID" value="770098823161620" />
         <variable name="APP_NAME" value="Mimic" />
@@ -117,26 +123,29 @@
         <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.1092390853283-icg6lqtcg6k270de9c8tv3i7qehlqtor" />
     </plugin>
     <plugin name="cordova-plugin-inappbrowser" spec="^1.7.1" />
-    <plugin name="cordova-plugin-ionic" spec="^1.1.8">
+    <plugin name="cordova-plugin-ionic" spec="^1.1.9">
         <variable name="APP_ID" value="62f3e944" />
         <variable name="CHANNEL_NAME" value="Master" />
         <variable name="UPDATE_METHOD" value="auto" />
+        <variable name="UPDATE_API" value="https://api.ionicjs.com" />
+        <variable name="MAX_STORE" value="2" />
     </plugin>
     <plugin name="cordova-plugin-k-imagecropper" spec="^1.1.7" />
-    <plugin name="cordova-plugin-media-capture" spec="^1.4.3" />
+    <plugin name="cordova-plugin-media-capture" spec="^1.4.3">
+        <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
+        <variable name="MICROPHONE_USAGE_DESCRIPTION" value=" " />
+        <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value=" " />
+    </plugin>
     <plugin name="cordova-plugin-nativestorage" spec="^2.2.2" />
     <plugin name="cordova-plugin-splashscreen" spec="^4.0.3" />
     <plugin name="cordova-plugin-statusbar" spec="^2.2.3" />
     <plugin name="cordova-plugin-video-editor" spec="^1.1.3" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.2" />
-    <plugin name="cordova-plugin-x-socialsharing" spec="^5.1.8" />
+    <plugin name="cordova-plugin-x-socialsharing" spec="^5.2.0" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
     <plugin name="twitter-connect-plugin" spec="^0.6.0">
         <variable name="FABRIC_KEY" value="a0fc2a9f47f38a658f2e86705afac1da2fd430a4" />
     </plugin>
-    <allow-navigation href="http://192.168.1.65:8100" />
-    <allow-navigation href="http://31.147.61.245:8100" />
-    <plugin name="cordova-plugin-add-swift-support" spec="^1.7.0" />
     <plugin name="phonegap-plugin-push" spec="^2.0.0" />
     <engine name="ios" spec="~4.4.0" />
 </widget>

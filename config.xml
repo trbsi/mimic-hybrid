@@ -28,8 +28,6 @@
     <preference name="TwitterConsumerKey" value="lxYOizP79U8rU9lVT0nLQax8h" />
     <preference name="TwitterConsumerSecret" value="y4ngeuCuwjp5tIziYMdkyWCarz0lZ0HGoDpXuq8qVIYemzABdl" />
     <preference name="loadUrlTimeoutValue" value="700000" />
-    <preference name="pods_ios_min_version" value="8.0" />
-    <preference name="pods_use_frameworks" value="true" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />

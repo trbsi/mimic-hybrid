@@ -3,7 +3,7 @@
     <name>Mimic</name>
     <description>Split your world</description>
     <author email="mimicapp.official@gmail.com" href="http://www.gomimic.com">Mimic</author>
-    <content original-src="index.html" src="http://192.168.0.17:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <preference name="KeyboardDisplayRequiresUserAction" value="false" />
     <preference name="AllowInlineMediaPlayback" value="true" />
@@ -100,9 +100,7 @@
     <allow-navigation href="http://192.168.1.8:8100" />
     <allow-navigation href="http://192.168.1.65:8100" />
     <allow-navigation href="http://31.147.61.245:8100" />
-    <allow-navigation href="http://192.168.0.17:8100" />
     <engine name="android" spec="^6.2.3" />
-    <engine name="ios" spec="^4.4.0" />
     <plugin name="cordova-plugin-add-swift-support" spec="^1.7.0" />
     <plugin name="cordova-plugin-camera" spec="^2.4.1">
         <variable name="CAMERA_USAGE_DESCRIPTION" value="Record a video or take a picture" />
@@ -143,8 +141,10 @@
     <plugin name="cordova-plugin-whitelist" spec="^1.3.2" />
     <plugin name="cordova-plugin-x-socialsharing" spec="^5.2.0" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
-    <plugin name="phonegap-plugin-push" spec="^2.0.0" />
     <plugin name="twitter-connect-plugin" spec="^0.6.0">
         <variable name="FABRIC_KEY" value="a0fc2a9f47f38a658f2e86705afac1da2fd430a4" />
     </plugin>
+    <allow-navigation href="http://192.168.0.17:8100" />
+    <plugin name="phonegap-plugin-push" spec="^2.0.0" />
+    <engine name="ios" spec="~4.4.0" />
 </widget>

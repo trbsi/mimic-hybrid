@@ -36,7 +36,7 @@ export class LoginPage {
      * Redirect user to mimics page or post login page
      */
     private redirectUserToTheRightPage() {
-        this.nav.setRoot(ListingPage); //@TODO makni ovo
+
         //see if user is loggedin, if he is check if he set username
         this.storage.getItem('user')
             .then((data) => {

@@ -50,7 +50,6 @@ export class AddMimic {
         } else {
             this.title = "Add Mimic";
         }
-
     }
 
     onSegmentChanged(segmentButton:SegmentButton) {
@@ -247,10 +246,23 @@ export class AddMimic {
                 this.currentFile = this.imageFile = cropData['imgPath'];
             }
 
+            //click on btn to call returnToScreen function
+            document.getElementById("hidden-btn").click();
+            
         }.bind(this)
         , function(error) {
             console.log(error);
         });
+    }
+
+    /**
+    * This is dummy function. The problem is when I choose image and then I call cropper it works fine but my image is not being displayed.
+    * Once I click on ion segment btn or input field image is displayed. It's like at that moment I return from cropper screen
+    * This is workaround to actually display image. I click on hidden button which calls this funtion
+    */
+    returnToScreen()
+    {
+        return true;
     }
 
     /**

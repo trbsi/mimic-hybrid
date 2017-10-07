@@ -79,6 +79,7 @@
                             <ion-row>
                                 <ion-col>
                                     <button class="mimic-submit-btn" ion-button block type="submit" [disabled]="!post_form.valid && !originalMimicId">Go on</button>
+                                    <button id="hidden-btn" (click)="returnToScreen()"  type="button" style="display:none"></button>
                                 </ion-col>
                                 <ion-col>
                                     <button ion-button block type="button" (click)="closeModal()"  color="dark">Cancel</button>

@@ -149,5 +149,7 @@
     <plugin name="phonegap-plugin-push" spec="^2.0.0" />
     <plugin name="twitter-connect-plugin" spec="^0.6.0">
         <variable name="FABRIC_KEY" value="a0fc2a9f47f38a658f2e86705afac1da2fd430a4" />
+        <variable name="TWITTER_KEY" value="OvntIH1oTeYf4bXJdaCG8Sok9" />
+        <variable name="TWITTER_SECRET" value="Mhxi6A36dPSVCcPMMXisWH5HJqlJhF0vgSgUQAryEojRbdLNuL" />
     </plugin>
 </widget>

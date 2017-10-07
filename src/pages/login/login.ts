@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, ModalController } from 'ionic-angular';
+import { NavController, LoadingController, ModalController, Platform } from 'ionic-angular';
 
 import { ListingPage } from '../listing/listing';
 import { PostLogin } from '../post-login/post-login';
@@ -27,8 +27,13 @@ export class LoginPage {
                 public twitterLoginService:TwitterLoginService,
                 public loadingCtrl:LoadingController,
                 public modal:ModalController,
-                public apiSettings:ApiSettings) {
-        this.redirectUserToTheRightPage();
+                public platform: Platform,
+                public apiSettings:ApiSettings) 
+    {
+        this.platform.ready().then((readySource) => {
+          this.redirectUserToTheRightPage();
+        });
+        
         this.main_page = {component: PostLogin};
     }
 
@@ -36,7 +41,6 @@ export class LoginPage {
      * Redirect user to mimics page or post login page
      */
     private redirectUserToTheRightPage() {
-
         //see if user is loggedin, if he is check if he set username
         this.storage.getItem('user')
             .then((data) => {

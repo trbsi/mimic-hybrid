@@ -231,8 +231,6 @@ export class AddMimic {
      */
     private callCropper(imagePath, type)
     {
-        let self = this;
-
         var options = {
             url: imagePath,              // required.
             ratio: "16/9",               // required. (here you can define your custom ration) "1/1" for square images
@@ -244,14 +242,13 @@ export class AddMimic {
         window['plugins'].k.imagecropper.open(options, function(cropData) {
             // its return an object with the cropped image cached url, cropped width & height, you need to manually delete the image from the application cache.
             if(type == "camera") {
-                self.currentFile = self.imageFile = cropData['imgPath'];
-                self.currentSegment = type;
+                this.currentFile = this.imageFile = cropData['imgPath'];
             } else if (type == "library") {
-                self.currentFile = self.imageFile = cropData['imgPath'];
-                self.currentSegment = type;
+                this.currentFile = this.imageFile = cropData['imgPath'];
             }
 
-        }, function(error) {
+        }.bind(this)
+        , function(error) {
             console.log(error);
         });
     }

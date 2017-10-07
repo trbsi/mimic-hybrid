@@ -1,6 +1,6 @@
 import { Component, /*ViewChild, Input*/ } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { AlertController } from 'ionic-angular';
+import { AlertController, LoadingController } from 'ionic-angular';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { LoginPage } from '../login/login';
 import { ListingPage } from '../listing/listing';
@@ -17,6 +17,8 @@ import { NativeStorage } from '@ionic-native/native-storage';
 export class PostLogin {
 
     submit_username:FormGroup;
+    loading:any;
+
     //@ViewChild('usernameInput') usernameInput;
 
     constructor(public nav:NavController,
@@ -25,6 +27,7 @@ export class PostLogin {
                 public twitterLoginService:TwitterLoginService,
                 public postLoginService:PostLoginService,
                 public apiSettings:ApiSettings,
+                public loadingCtrl:LoadingController, 
                 private storage:NativeStorage) {
         this.submit_username = new FormGroup({
             username: new FormControl('', Validators.required),
@@ -42,20 +45,29 @@ export class PostLogin {
      * Submit username
      */
     submitUsername() {
+        this.loading = this.loadingCtrl.create();
+        
         this.postLoginService.setUsername(this.submit_username.value.username)
             .then((res) => {
-                console.log(res);
+                this.loading.present();
                 //if everything is ok, set username in storage
                 if (res.status == true) {
-                    this.storage.setItem('username', this.submit_username.value.username)
+                    this.storage.getItem('user')
+                    .then((userData) => {
+                        userData.username = this.submit_username.value.username;
+                        this.storage.setItem('user', userData)
                         .then(() => {
+                            this.loading.dismiss();
                             this.nav.setRoot(ListingPage);
                         },
                         (error) => {
                             console.error('Error storing item', error);
                         });
+                    })
+                    .catch((error) => {
+                        console.log("error", error);
+                    });
                 }
-
             })
             .catch((error) => {
                 console.log("error", error);

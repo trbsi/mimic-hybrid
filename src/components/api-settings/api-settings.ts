@@ -13,8 +13,11 @@ export class ApiSettings {
     allow_entry:string = 'almasi:slatkasi';
     loading:any;
 
-    constructor(public http:Http, private storage:NativeStorage, private alertCtrl:AlertController,
-                public loadingCtrl:LoadingController, private transfer: FileTransfer) 
+    constructor(public http:Http, 
+        private storage:NativeStorage, 
+        private alertCtrl:AlertController,
+        public loadingCtrl:LoadingController, 
+        private transfer: FileTransfer) 
     {
 
     }
@@ -52,11 +55,11 @@ export class ApiSettings {
 
     /**
      * Post data to sevrer
-     * @param any postData Data to post to the server
+     * @param any serverData Data to post to the server
      * @param string url Url to post to
      * @param string type What type of request to send: get, post
      */
-    sendRequest(data, url, type) 
+    sendRequest(serverData, url, type) 
     {
         this.loading = this.loadingCtrl.create();
         this.loading.present();
@@ -64,19 +67,19 @@ export class ApiSettings {
         var headers = new Headers();
         return this.storage.getItem('user')
             .then(
-            (data) => {
+            (userData) => {
                 this.createHeaders(headers, type);
-                headers.append('Authorization', 'Bearer ' + data.token);
+                headers.append('Authorization', 'Bearer ' + userData.token);
                 this.loading.dismiss();
 
                 if (type == 'post') {
-                    return this.doPost(data, url, headers);
+                    return this.doPost(serverData, url, headers);
                 } else if (type == 'get') {
-                    return this.doGet(data, url, headers);
+                    return this.doGet(serverData, url, headers);
                 } else if (type == 'delete') {
-                    return this.doDelete(data, url, headers);
+                    return this.doDelete(serverData, url, headers);
                 } else if (type == 'upload') {
-                    return this.doUpload(data, url, headers);
+                    return this.doUpload(serverData, url, headers);
                 }
 
             },
@@ -88,13 +91,13 @@ export class ApiSettings {
                 this.loading.dismiss();
 
                 if (type == 'post') {
-                    return this.doPost(data, url, headers);
+                    return this.doPost(serverData, url, headers);
                 } else if (type == 'get') {
-                    return this.doGet(data, url, headers);
+                    return this.doGet(serverData, url, headers);
                 } else if (type == 'delete') {
-                    return this.doDelete(data, url, headers);
+                    return this.doDelete(serverData, url, headers);
                 } else if (type == 'upload') {
-                    return this.doUpload(data, url, headers);
+                    return this.doUpload(serverData, url, headers);
                 }
 
             }

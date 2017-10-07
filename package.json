@@ -109,7 +109,9 @@
             "ionic-plugin-keyboard": {},
             "cordova-plugin-email-composer": {},
             "twitter-connect-plugin": {
-                "FABRIC_KEY": "a0fc2a9f47f38a658f2e86705afac1da2fd430a4"
+                "FABRIC_KEY": "a0fc2a9f47f38a658f2e86705afac1da2fd430a4",
+                "TWITTER_KEY": "OvntIH1oTeYf4bXJdaCG8Sok9",
+                "TWITTER_SECRET": "Mhxi6A36dPSVCcPMMXisWH5HJqlJhF0vgSgUQAryEojRbdLNuL"
             },
             "cordova-plugin-googleplus": {
                 "REVERSED_CLIENT_ID": "com.googleusercontent.apps.1092390853283-icg6lqtcg6k270de9c8tv3i7qehlqtor"

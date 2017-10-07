@@ -257,6 +257,11 @@ export class ListingPage {
             message: 'Do you want to logout?',
             buttons: [
                 {
+                    text: 'No',
+                    handler: () => {
+                    }
+                },
+                {
                     text: 'Yes',
                     role: 'cancel',
                     handler: () => {
@@ -264,11 +269,6 @@ export class ListingPage {
                         this.facebookLoginService.doFacebookLogout();
                         this.twitterLoginService.doTwitterLogout();
                         this.nav.setRoot(LoginPage);
-                    }
-                },
-                {
-                    text: 'No',
-                    handler: () => {
                     }
                 }
             ]
@@ -411,7 +411,6 @@ export class ListingPage {
         clearTimeout(this.timeoutHandle);
 
         this.timeoutHandle = setTimeout(function(){
-            console.log(currentMimicOriginalIndex);
             self.currentMimicResponses = self.mimicsList[currentMimicOriginalIndex].mimic_responses;
             //if responses are empty disable sliding
             if(self.currentMimicResponses.length == 0) {

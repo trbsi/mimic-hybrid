@@ -244,11 +244,11 @@ export class AddMimic {
         })
         .then((fileUri: string) => {
             this.createVideoThumb(fileUri);
-            console.log('video transcode success', fileUri));
-        }
+            console.log('video transcode success', fileUri);
+        })
         .catch((error: any) => {
-            console.log('video transcode error', error));
-        }
+            console.log('video transcode error', error);
+        });
     }
 
     /**
@@ -268,8 +268,8 @@ export class AddMimic {
         .then((data) => {
             console.log(data);
             this.videoThumb = data;
-        }) 
-        .catch((error) {
+        })
+        .catch((error) => {
 
         });
     }
@@ -300,8 +300,7 @@ export class AddMimic {
             //click on btn to call returnToScreen function
             document.getElementById("hidden-btn").click();
             
-        }.bind(this)
-        , function(error) {
+        }.bind(this), function(error) {
             console.log(error);
         });
     }

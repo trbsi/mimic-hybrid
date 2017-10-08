@@ -59,10 +59,13 @@ export class ApiSettings {
      * @param string url Url to post to
      * @param string type What type of request to send: get, post
      */
-    sendRequest(serverData, url, type) 
+    sendRequest(serverData, url, type, showLoading = true) 
     {
         this.loading = this.loadingCtrl.create();
-        this.loading.present();
+
+        if(showLoading === true) {
+            this.loading.present();
+        }
 
         var headers = new Headers();
         return this.storage.getItem('user')

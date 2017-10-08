@@ -63,6 +63,7 @@ import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { Push } from '@ionic-native/push';
 import { GoogleAnalytics } from '@ionic-native/google-analytics';
+import { Device } from '@ionic-native/device';
 
 //Functionalities
 import { FacebookLoginPage } from '../pages/facebook-login/facebook-login';
@@ -168,6 +169,7 @@ export function createTranslateLoader(http:Http) {
         FileTransfer,
         Push,
         GoogleAnalytics,
+        Device,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

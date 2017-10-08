@@ -9,7 +9,9 @@ import { Push, PushObject, PushOptions } from '@ionic-native/push';
 import { Keyboard } from '@ionic-native/keyboard';
 import { GoogleAnalytics } from '@ionic-native/google-analytics';
 import { ApiSettings } from '../components/api-settings/api-settings';
+import { AppService } from './app.service';
 import { NativeStorage } from '@ionic-native/native-storage';
+import { Device } from '@ionic-native/device';
 
 @Component({
     selector: 'app-root',
@@ -36,7 +38,9 @@ export class MyApp {
                 private keyboard: Keyboard,
                 private ga: GoogleAnalytics,
                 private apiSettings: ApiSettings,
-                private storage:NativeStorage) 
+                private device: Device,
+                private appService: AppService,
+                private storage:NativeStorage)  
     {
         translate.setDefaultLang('en');
         translate.use('en');
@@ -92,11 +96,13 @@ export class MyApp {
     }
 
     private getPushToken() 
-    {
-        this.push.hasPermission()
-          .then((res: any) => {       
-            //'We have permission to send push notifications');
-            if (res.isEnabled) {
+    {  
+
+        this.storage.getItem('user').then((user) => 
+        {
+            this.push.hasPermission()
+            .then((res: any) => {
+                //'We have permission to send push notifications');
                 const options: PushOptions = {
                     ios: {
                         alert: 'true',
@@ -107,18 +113,31 @@ export class MyApp {
 
                 const pushObject: PushObject = this.push.init(options);
                 pushObject.on('notification').subscribe((notification: any) => {
-                    console.log('Received a notification', notification));
-                }
+                    console.log('Received a notification', notification);
+                });
+
                 pushObject.on('registration').subscribe((registration: any) => {
-                    console.log('Device registered', registration));
-                    this.apiSettings.savePushToken(registration);
-                }
+                    //registration: {registrationId: "24e90e7bbee5103d1f8feaa9150f5f8f9e4b6b148f51f83add41ad7295c74291", registrationType: "APNS"}
+                    var pushData = {
+                        push_token: registration.registrationId,
+                        device: 'ios',
+                        device_id: this.device.uuid
+                    };
+
+                    //Save push data on server
+                    this.appService.savePushToken(pushData);
+                    
+                });
+
                 pushObject.on('error').subscribe(error => console.error('Error with Push plugin', error));
-            } else {
-              //'We do not have permission to send push notifications;
-            }
-        }, (error) => {
-            //console.log(error);
+                
+            }, 
+            (error) => {
+                console.log(error);
+            });
+        },
+        (error) => {
+            //user not found
         });
     }
 }

@@ -182,3 +182,6 @@ npm i ios-sim@latest
 
 Cannot read property '0' of undefined
 https://github.com/npm/npm/issues/17858#issuecomment-316631139
+
+TypeError: Cannot read property 'find' of null 
+https://github.com/ionic-team/ionic-cli/issues/2623#issuecomment-321457766

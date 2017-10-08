@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, ModalController, Platform } from 'ionic-angular';
+import { NavController, LoadingController, ModalController } from 'ionic-angular';
 
 import { ListingPage } from '../listing/listing';
 import { PostLogin } from '../post-login/post-login';
@@ -18,24 +18,19 @@ import { NativeStorage } from '@ionic-native/native-storage';
     templateUrl: 'login.html'
 })
 export class LoginPage {
-    main_page:{ component: any };
     loading:any;
 
-    constructor(public nav:NavController, private storage:NativeStorage, public login_service:LoginService,
+    constructor(public nav:NavController, public login_service:LoginService,
                 public facebookLoginService:FacebookLoginService,
                 //public googleLoginService:GoogleLoginService,
-                public twitterLoginService:TwitterLoginService,
+                public twitterLoginService:TwitterLoginService, 
                 public loadingCtrl:LoadingController,
                 public modal:ModalController,
-                public platform: Platform,
+                private storage:NativeStorage,
                 public apiSettings:ApiSettings) 
     {
-        this.platform.ready().then((readySource) => {
-          this.redirectUserToTheRightPage();
-        });
-        
-        this.main_page = {component: PostLogin};
     }
+
 
     /**
      * Redirect user to mimics page or post login page
@@ -59,18 +54,6 @@ export class LoginPage {
 
     //@TODO - not necessary, just for testing
     doLogin() {
-        this.storage.setItem('token', 'value').then
-        (
-            () => console.log('Stored item!'),
-                error => console.error('Error storing item', error)
-        );
-
-        this.storage.setItem('username', false).then
-        (
-            () => console.log('Stored item!'),
-                error => console.error('Error storing item', error)
-        );
-
         this.nav.setRoot(ListingPage);
     }
 
@@ -104,13 +87,13 @@ export class LoginPage {
      this.googleLoginService.trySilentLogin()
      .then((data) => {
      // user is previously logged with Google and we have his data we will let him access the app
-     this.nav.setRoot(this.main_page.component);
+     this.nav.setRoot();
      }, (error) => {
      //we don't have the user data so we will ask him to log in
      this.googleLoginService.doGoogleLogin()
      .then((res) => {
      this.loading.dismiss();
-     this.nav.setRoot(this.main_page.component);
+     this.nav.setRoot();
      }, (err) => {
      console.log("Google Login error", err);
      });

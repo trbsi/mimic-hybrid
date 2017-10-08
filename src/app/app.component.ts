@@ -3,7 +3,7 @@ import { Platform, Nav } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
-import { LoginPage } from '../pages/login/login';
+import { RootPage } from '../pages/root/root';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Push, PushObject, PushOptions } from '@ionic-native/push';
 import { Keyboard } from '@ionic-native/keyboard';
@@ -20,7 +20,7 @@ export class MyApp {
     @ViewChild(Nav) nav:Nav;
 
     // make Login the root (or first) page
-    rootPage:any = LoginPage;
+    rootPage:any = RootPage;
     // rootPage: any = FunctionalitiesPage;
     // rootPage: any = TabsNavigationPage;
     textDir:string = "ltr";

@@ -6,6 +6,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { Http } from '@angular/http';
 
 //USING
+import { RootPage } from '../pages/root/root';
 import { Search } from '../pages/search/search';
 import { ListingPage } from '../pages/listing/listing';
 import { LoginPage } from '../pages/login/login';
@@ -75,6 +76,7 @@ export function createTranslateLoader(http:Http) {
 @NgModule({
     declarations: [
         //USING
+        RootPage,
         Search,
         ListingPage,
         MyApp,
@@ -115,6 +117,7 @@ export function createTranslateLoader(http:Http) {
     entryComponents: [
         //USING
         MyApp,
+        RootPage,
         Search,
         ListingPage,
         LoginPage,

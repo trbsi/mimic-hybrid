@@ -61,11 +61,10 @@ export class ApiSettings {
      */
     sendRequest(serverData, url, type, showLoading = true) 
     {
-        this.loading = this.loadingCtrl.create();
-
         if(showLoading === true) {
+            this.loading = this.loadingCtrl.create();
             this.loading.present();
-        }
+        } 
 
         var headers = new Headers();
         return this.storage.getItem('user')
@@ -75,13 +74,13 @@ export class ApiSettings {
                 headers.append('Authorization', 'Bearer ' + userData.token);
 
                 if (type == 'post') {
-                    return this.doPost(serverData, url, headers);
+                    return this.doPost(serverData, url, headers, showLoading);
                 } else if (type == 'get') {
-                    return this.doGet(serverData, url, headers);
+                    return this.doGet(serverData, url, headers, showLoading);
                 } else if (type == 'delete') {
-                    return this.doDelete(serverData, url, headers);
+                    return this.doDelete(serverData, url, headers, showLoading);
                 } else if (type == 'upload') {
-                    return this.doUpload(serverData, url, headers);
+                    return this.doUpload(serverData, url, headers, showLoading);
                 }
 
             },
@@ -90,13 +89,13 @@ export class ApiSettings {
                 this.createHeaders(headers, type);
 
                 if (type == 'post') {
-                    return this.doPost(serverData, url, headers);
+                    return this.doPost(serverData, url, headers, showLoading);
                 } else if (type == 'get') {
-                    return this.doGet(serverData, url, headers);
+                    return this.doGet(serverData, url, headers, showLoading);
                 } else if (type == 'delete') {
-                    return this.doDelete(serverData, url, headers);
+                    return this.doDelete(serverData, url, headers, showLoading);
                 } else if (type == 'upload') {
-                    return this.doUpload(serverData, url, headers);
+                    return this.doUpload(serverData, url, headers, showLoading);
                 }
 
             }
@@ -109,17 +108,21 @@ export class ApiSettings {
      * @param string url Url to post to
      * @param Headers headers What headers to include
      */
-    private doPost(postData, url, headers) 
+    private doPost(postData, url, headers, showLoading) 
     {
         let options = new RequestOptions({headers: headers});
         return this.http.post(ApiSettings.API_ENDPOINT + url, postData, options)
             .toPromise()
             .then((response) => { 
-                this.loading.dismiss();
+                if(showLoading === true) {
+                    this.loading.dismiss();
+                }
                 return this.handleSuccess(response);
             })
             .catch((error) => {
-                this.loading.dismiss();
+                if(showLoading === true) {
+                    this.loading.dismiss();
+                }
                 return this.handleError(error);
             });
     }
@@ -130,17 +133,21 @@ export class ApiSettings {
      * @param string url Url to post to
      * @param Headers headers What headers to include
      */
-    private doGet(getData, url, headers) 
+    private doGet(getData, url, headers, showLoading) 
     {
         let options = new RequestOptions({params: getData, headers: headers});
         return this.http.get(ApiSettings.API_ENDPOINT + url, options)
             .toPromise()
             .then((response) => {
-                this.loading.dismiss();
+                if(showLoading === true) {
+                    this.loading.dismiss();
+                }
                 return this.handleSuccess(response);
             })
             .catch((error) => {
-                this.loading.dismiss();
+                if(showLoading === true) {
+                    this.loading.dismiss();
+                }
                 return this.handleError(error);
             });
     }
@@ -151,17 +158,21 @@ export class ApiSettings {
      * @param string url Url to post to
      * @param Headers headers What headers to include
      */
-    private doDelete(data, url, headers) 
+    private doDelete(data, url, headers, showLoading) 
     {
         let options = new RequestOptions({params: data, headers: headers});
         return this.http.delete(ApiSettings.API_ENDPOINT + url, options)
             .toPromise()
             .then((response) => {
-                this.loading.dismiss();
+                if(showLoading === true) {
+                    this.loading.dismiss();
+                }
                 return this.handleSuccess(response);
             })
             .catch((error) => {
-                this.loading.dismiss();
+                if(showLoading === true) {
+                    this.loading.dismiss();
+                }
                 return this.handleError(error);
             });
     }
@@ -173,11 +184,8 @@ export class ApiSettings {
      * @param any data Data to send to server
      * @param string url Url to post to
      */
-    private doUpload(data, url, headers) 
+    private doUpload(data, url, headers, showLoading) 
     {
-        this.loading = this.loadingCtrl.create();
-        this.loading.present();
-
         const fileTransfer: FileTransferObject = this.transfer.create();
 
         let options: FileUploadOptions = {
@@ -187,10 +195,14 @@ export class ApiSettings {
 
         return fileTransfer.upload(data.filePath, ApiSettings.API_ENDPOINT + url, options)
         .then((data) => {
-            this.loading.dismiss();
+            if(showLoading === true) {
+                this.loading.dismiss();
+            }
             return Promise.resolve(JSON.parse(data.response));
         }, (error) => {
-            this.loading.dismiss();
+            if(showLoading === true) {
+                this.loading.dismiss();
+            }
 
             let alert = this.alertCtrl.create({
                 title: 'There was a problem',

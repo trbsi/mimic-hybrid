@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, NavParams, ModalController } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
 
 import 'rxjs/Rx';
 
@@ -28,7 +28,6 @@ import { ListingService } from '../listing/listing.service';
 export class ListingPage {
     timeoutHandle:any;
     listing:ListingModel = new ListingModel();
-    loading:any;
     mainMenuOpened:boolean;
 
     //NAV PARAMS
@@ -54,7 +53,7 @@ export class ListingPage {
     @ViewChild('responseMimicSlide') responseMimicSlide:Slides;
 
     constructor(public nav:NavController, private alertCtrl:AlertController,
-                public loadingCtrl:LoadingController, public facebookLoginService:FacebookLoginService,
+                public facebookLoginService:FacebookLoginService,
                 public twitterLoginService:TwitterLoginService,
                 public apiSettings:ApiSettings, public listingService:ListingService,
                 public navParams:NavParams,

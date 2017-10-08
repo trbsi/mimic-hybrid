@@ -97,7 +97,6 @@ export class MyApp {
 
     private getPushToken() 
     {  
-
         this.storage.getItem('user').then((user) => 
         {
             this.push.hasPermission()

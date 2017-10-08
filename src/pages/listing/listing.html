@@ -12,7 +12,6 @@
     </ion-header>
     -->
 <ion-content class="listing-content" no-bounce>
-    <div class="overlay" *ngIf="mainMenuOpened"></div>
     <div class="split" id="split-top" *ngIf="mimicsList">
         <!-- MIMIC ORIGINAL INFO -->
         <ion-list class="mimic-info" id="mimic-info-top" *ngIf="currentOriginalMimic">
@@ -65,7 +64,7 @@
                             </ion-row>
                         </vg-controls>
                         <video webkit-playsinline playsinline #original [vgMedia]="original" id="original"
-                               class="expand-horizontally" preload="auto">
+                               class="expand-horizontally" preload="auto" poster="https://www.w3schools.com/css/img_fjords.jpg">
                             <source src="{{data.mimic.file_url}}">
                         </video>
                     </vg-player>
@@ -111,7 +110,7 @@
                             </ion-row>
                         </vg-controls>
                         <video webkit-playsinline playsinline #response [vgMedia]="response" id="response"
-                               class="expand-horizontally" preload="auto">
+                               class="expand-horizontally" preload="auto" poster="https://www.w3schools.com/css/img_fjords.jpg">
                             <source src="{{data.file_url}}">
                         </video>
                     </vg-player>
@@ -170,3 +169,4 @@
         </button>
     </ion-fab>
 </ion-content>
+<div class="overlay" *ngIf="mainMenuOpened"></div>

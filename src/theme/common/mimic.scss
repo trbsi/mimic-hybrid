@@ -26,7 +26,7 @@ $playlist-item-play-icon-height: 3rem;
 @function top-mimic-info-position() {
   $sixteen-nine-percent: ((9 / 16) * 100);
   $left: 100 - $sixteen-nine-percent;
-  @return ($left / 4)+%; //Sanja's formula
+  @return (($sixteen-nine-percent - $left) / 2)+%; //Sanja's formula
 }
 
 @function bottom-mimic-info-position() {

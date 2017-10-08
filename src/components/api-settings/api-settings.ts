@@ -70,7 +70,6 @@ export class ApiSettings {
             (userData) => {
                 this.createHeaders(headers, type);
                 headers.append('Authorization', 'Bearer ' + userData.token);
-                this.loading.dismiss();
 
                 if (type == 'post') {
                     return this.doPost(serverData, url, headers);
@@ -86,9 +85,6 @@ export class ApiSettings {
             //couldn't find user, do normal post
             (error) => {
                 this.createHeaders(headers, type);
-                //@TODO remove this, this is just for testing
-                headers.append('Authorization', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjcsImlzcyI6Imh0dHA6Ly9taW1pYy50ZXN0YXBpLndlYnNpdGUvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE1MDU2ODI2NjAsImV4cCI6MTUwODM4MjY2MCwibmJmIjoxNTA1NjgyNjYwLCJqdGkiOiJ1QWhWNE5oNnlrZ2o0UzF2In0.mAtyFB3ZDt38Rel-o7sXN-8Z7SQq8B4YHAa-HChZba0');
-                this.loading.dismiss();
 
                 if (type == 'post') {
                     return this.doPost(serverData, url, headers);
@@ -135,9 +131,11 @@ export class ApiSettings {
         return this.http.get(ApiSettings.API_ENDPOINT + url, options)
             .toPromise()
             .then((response) => {
+                this.loading.dismiss();
                 return this.handleSuccess(response);
             })
             .catch((error) => {
+                this.loading.dismiss();
                 return this.handleError(error);
             });
     }
@@ -154,9 +152,11 @@ export class ApiSettings {
         return this.http.delete(ApiSettings.API_ENDPOINT + url, options)
             .toPromise()
             .then((response) => {
+                this.loading.dismiss();
                 return this.handleSuccess(response);
             })
             .catch((error) => {
+                this.loading.dismiss();
                 return this.handleError(error);
             });
     }
@@ -193,7 +193,7 @@ export class ApiSettings {
                 buttons: ['Ok']
             }); 
             alert.present();
-
+            
             return Promise.reject(JSON.parse(error.body));
         });
     }

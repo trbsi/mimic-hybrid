@@ -223,7 +223,6 @@ export class AddMimic {
     }
 
     /**
-     * @TODO - testirati ovo
      * Call our cropper
      * @param string imagePath
      * @param string type Current segment: "camera" or "library"

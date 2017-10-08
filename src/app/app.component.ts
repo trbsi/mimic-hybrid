@@ -70,11 +70,8 @@ export class MyApp {
 
         });
 
-
-        //@TODO , kada uđe u app tada probaj poslati rekvest naserver za token
         platform.resume.subscribe(() => {
-            console.log('usao');
-            //this.getPushToken();
+            this.getPushToken();
         });
         //platform.pause.subscribe(() => { console.log(" izisao iz appa") });
 
@@ -95,17 +92,27 @@ export class MyApp {
 
     private getPushToken() 
     {
-        //@TODO riješi do kraja notifikacije
-        const options: PushOptions = {
-            ios: {
-                alert: 'true',
-                badge: true,
-                sound: 'false'
-            }
-        };
+        this.push.hasPermission()
+          .then((res: any) => {       
+            //'We have permission to send push notifications');
+            if (res.isEnabled) {
+                const options: PushOptions = {
+                    ios: {
+                        alert: 'true',
+                        badge: true,
+                        sound: 'false'
+                    }
+                };
 
-        const pushObject: PushObject = this.push.init(options);
-        pushObject.on('notification').subscribe((notification: any) => console.log('Received a notification', notification));
-        pushObject.on('registration').subscribe((registration: any) => console.log('Device registered', registration));
+                const pushObject: PushObject = this.push.init(options);
+                pushObject.on('notification').subscribe((notification: any) => console.log('Received a notification', notification));
+                pushObject.on('registration').subscribe((registration: any) => console.log('Device registered', registration));
+                pushObject.on('error').subscribe(error => console.error('Error with Push plugin', error));
+            } else {
+              //'We do not have permission to send push notifications;
+            }
+        }, (error) => {
+            //console.log(error);
+        });
     }
 }

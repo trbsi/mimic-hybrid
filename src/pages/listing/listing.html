@@ -11,8 +11,8 @@
     </ion-navbar>
     </ion-header>
     -->
+<div class="overlay" *ngIf="mainMenuOpened"></div>
 <ion-content class="listing-content" no-bounce>
-    <div class="overlay" *ngIf="mainMenuOpened"></div>
     <div class="split" id="split-top" *ngIf="mimicsList">
         <!-- MIMIC ORIGINAL INFO -->
         <ion-list class="mimic-info" id="mimic-info-top" *ngIf="currentOriginalMimic">

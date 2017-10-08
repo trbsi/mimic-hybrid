@@ -111,10 +111,12 @@ export class ApiSettings {
         let options = new RequestOptions({headers: headers});
         return this.http.post(ApiSettings.API_ENDPOINT + url, postData, options)
             .toPromise()
-            .then((response) => {
+            .then((response) => { 
+                this.loading.dismiss();
                 return this.handleSuccess(response);
             })
             .catch((error) => {
+                this.loading.dismiss();
                 return this.handleError(error);
             });
     }

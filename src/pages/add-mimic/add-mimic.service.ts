@@ -16,4 +16,13 @@ export class AddMimicService {
         return this.apiSettings.sendRequest(data, 'mimic/add', 'upload');
     }
 
+    /**
+     * Upload video thumb
+     * @param object data Object containing different data
+     */
+    uploadVideoThumb(data) 
+    {
+        return this.apiSettings.sendRequest(data, 'mimic/upload-video-thumb', 'upload');
+    }
+
 }

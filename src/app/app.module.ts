@@ -39,6 +39,7 @@ import { LanguageService } from '../providers/language/language.service';
 import { LoginService } from '../pages/login/login.service';
 import { PostLoginService } from '../pages/post-login/post-login.service';
 import { AddMimicService } from '../pages/add-mimic/add-mimic.service';
+import { AppService } from '../app/app.service';
 
 //USING MODULE
 import { BrowserModule } from '@angular/platform-browser';
@@ -149,6 +150,7 @@ export function createTranslateLoader(http:Http) {
         PostLoginService,
         ListingService,
         AddMimicService,
+        AppService,
 
         SplashScreen,
         StatusBar,

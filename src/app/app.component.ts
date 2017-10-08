@@ -35,6 +35,7 @@ export class MyApp {
                 private push: Push,
                 private keyboard: Keyboard,
                 private ga: GoogleAnalytics,
+                private apiSettings: ApiSettings,
                 private storage:NativeStorage) 
     {
         translate.setDefaultLang('en');
@@ -105,8 +106,13 @@ export class MyApp {
                 };
 
                 const pushObject: PushObject = this.push.init(options);
-                pushObject.on('notification').subscribe((notification: any) => console.log('Received a notification', notification));
-                pushObject.on('registration').subscribe((registration: any) => console.log('Device registered', registration));
+                pushObject.on('notification').subscribe((notification: any) => {
+                    console.log('Received a notification', notification));
+                }
+                pushObject.on('registration').subscribe((registration: any) => {
+                    console.log('Device registered', registration));
+                    this.apiSettings.savePushToken(registration);
+                }
                 pushObject.on('error').subscribe(error => console.error('Error with Push plugin', error));
             } else {
               //'We do not have permission to send push notifications;

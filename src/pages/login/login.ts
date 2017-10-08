@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, ModalController } from 'ionic-angular';
+import { NavController, ModalController } from 'ionic-angular';
 
 import { ListingPage } from '../listing/listing';
 import { PostLogin } from '../post-login/post-login';
@@ -18,13 +18,11 @@ import { NativeStorage } from '@ionic-native/native-storage';
     templateUrl: 'login.html'
 })
 export class LoginPage {
-    loading:any;
 
     constructor(public nav:NavController, public login_service:LoginService,
                 public facebookLoginService:FacebookLoginService,
                 //public googleLoginService:GoogleLoginService,
                 public twitterLoginService:TwitterLoginService, 
-                public loadingCtrl:LoadingController,
                 public modal:ModalController,
                 private storage:NativeStorage,
                 public apiSettings:ApiSettings) 
@@ -58,8 +56,6 @@ export class LoginPage {
     }
 
     doFacebookLogin() {
-        this.loading = this.loadingCtrl.create();
-
         this.facebookLoginService.doFacebookLogin()
             .then((res) => {
                 //send request to server
@@ -73,14 +69,12 @@ export class LoginPage {
                         console.log("FB login error", error);
                     });
 
-                this.loading.dismiss();
             }, (err) => {
                 console.log("Facebook Server Login error", err);
             });
     }
 
     /*doGoogleLogin() {
-     this.loading = this.loadingCtrl.create();
 
      // Here we will check if the user is already logged in because we don't want to ask users to log in each time they open the app
 
@@ -92,7 +86,6 @@ export class LoginPage {
      //we don't have the user data so we will ask him to log in
      this.googleLoginService.doGoogleLogin()
      .then((res) => {
-     this.loading.dismiss();
      this.nav.setRoot();
      }, (err) => {
      console.log("Google Login error", err);
@@ -101,8 +94,6 @@ export class LoginPage {
      }*/
 
     doTwitterLogin() {
-        this.loading = this.loadingCtrl.create();
-
         //we don't have the user data so we will ask him to log in
         this.twitterLoginService.doTwitterLogin()
             .then((res) => {
@@ -116,8 +107,6 @@ export class LoginPage {
                     .catch(error => {
                         console.log("FB login error", error);
                     });
-
-                this.loading.dismiss();
             }, (err) => {
                 console.log("Twitter Login error", err);
             });

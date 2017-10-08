@@ -18,6 +18,7 @@ export class AddMimic {
 
     imageFile:any;
     videoFile:any;
+    videoThumb:any;
     currentFile:any; //this is current file user chose to upload
     videoDuration = 15;
 
@@ -88,7 +89,6 @@ export class AddMimic {
             data['filePath'] = this.currentFile;
 
         } else {
-
             data['original_mimic_id'] = this.originalMimicId;
             data['filePath'] = this.currentFile;
         }
@@ -99,7 +99,31 @@ export class AddMimic {
                 uploadedMimic: data.mimics[0],
                 mimicType: (this.originalMimicId) ? "response": "original"
             };
-            this.viewCtrl.dismiss(callbackData);
+
+            //if there is video thumb, upload it
+            if(this.videoThumb) {
+                var videoThumbData = {
+                    video_thumb: this.videoThumb
+                };
+ 
+                //this is response mimic
+                if(this.originalMimicId) {
+                    videoThumbData['response_mimic_id'] = callbackData.uploadedMimic.id;
+                } 
+                //this is original mimic
+                else {
+                    videoThumbData['original_mimic_id'] = callbackData.uploadedMimic.id;
+                }
+
+                //upload it to server
+                this.addMimicService.uploadVideoThumb(videoThumbData).then((videoThumbResponse) => {
+                    if(videoThumbResponse.success === true) {
+                        this.viewCtrl.dismiss(callbackData);
+                    }
+                });
+            } else {
+                this.viewCtrl.dismiss(callbackData);
+            }            
         });
 
         
@@ -218,8 +242,36 @@ export class AddMimic {
           outputFileName: 'output',
           outputFileType: this.videoEditor.OutputFileType.MPEG4
         })
-        .then((fileUri: string) => console.log('video transcode success', fileUri))
-        .catch((error: any) => console.log('video transcode error', error));
+        .then((fileUri: string) => {
+            this.createVideoThumb(fileUri);
+            console.log('video transcode success', fileUri));
+        }
+        .catch((error: any) => {
+            console.log('video transcode error', error));
+        }
+    }
+
+    /**
+    * Create thumbnail for video 
+    */
+    private createVideoThumb(fileUri) 
+    {
+        var options = {
+            fileUri: fileUri,
+            atTime: 5,
+            //width: 320,
+            //height: 480,
+            quality: 100
+        };
+
+        this.videoEditor.createThumbnail(options)
+        .then((data) => {
+            console.log(data);
+            this.videoThumb = data;
+        }) 
+        .catch((error) {
+
+        });
     }
 
     /**

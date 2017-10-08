@@ -180,3 +180,5 @@ Error: Cannot read property ‘replace’ of undefined
 cd platforms/ios/cordova;
 npm i ios-sim@latest
 
+Cannot read property '0' of undefined
+https://github.com/npm/npm/issues/17858#issuecomment-316631139

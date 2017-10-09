@@ -16,7 +16,7 @@ import { NativeStorage } from '@ionic-native/native-storage';
 @Component({
     selector: 'login-page',
     templateUrl: 'login.html'
-})
+}) 
 export class LoginPage {
 
     constructor(public nav:NavController, public login_service:LoginService,

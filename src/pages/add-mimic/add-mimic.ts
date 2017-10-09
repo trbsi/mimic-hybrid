@@ -264,14 +264,14 @@ export class AddMimic {
             quality: 100
         };
 
-        this.videoEditor.createThumbnail(options)
+       /* this.videoEditor.createThumbnail(options)
         .then((data) => {
             console.log(data);
             this.videoThumb = data;
         })
         .catch((error) => {
 
-        });
+        });*/
     }
 
     /**

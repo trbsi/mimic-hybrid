@@ -104,15 +104,30 @@ export class MyApp {
                 //'We have permission to send push notifications');
                 const options: PushOptions = {
                     ios: {
-                        alert: 'true',
+                        alert: true,
                         badge: true,
-                        sound: 'false'
+                        sound: true,
+                        clearBadge: true
                     }
                 };
 
                 const pushObject: PushObject = this.push.init(options);
                 pushObject.on('notification').subscribe((notification: any) => {
                     console.log('Received a notification', notification);
+
+                    //remove notification div if it exists
+                    if(document.getElementById("my-notification")) {
+                        document.getElementById("my-notification").remove();
+                    }
+
+                    //append div and show alert
+                    var d1 = document.getElementsByClassName('ion-page')[0];
+                    d1.insertAdjacentHTML('beforeend', '<div id="my-notification">'+
+                    '<span id="notification-title">'+notification.title+'</span>'+
+                    '<span id="notification-body">'+notification.message+'</span>'+
+                    '</div>');
+                    document.getElementById('my-notification').className ='notification-alert';
+
                 });
 
                 pushObject.on('registration').subscribe((registration: any) => {

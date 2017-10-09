@@ -3,7 +3,7 @@
     <name>Mimic</name>
     <description>Split your world</description>
     <author email="mimicapp.official@gmail.com" href="http://www.gomimic.com">Mimic</author>
-    <content original-src="index.html" src="http://192.168.0.17:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <preference name="KeyboardDisplayRequiresUserAction" value="false" />
     <preference name="AllowInlineMediaPlayback" value="true" />
@@ -113,7 +113,6 @@
     </plugin>
     <plugin name="cordova-plugin-compat" spec="^1.2.0" />
     <plugin name="cordova-plugin-console" spec="^1.1.0" />
-    <plugin name="cordova-plugin-device" spec="^1.1.6" />
     <plugin name="cordova-plugin-email-composer" spec="^0.8.10" />
     <plugin name="cordova-plugin-facebook4" spec="^1.9.1">
         <variable name="APP_ID" value="770098823161620" />
@@ -145,4 +144,5 @@
         <variable name="TWITTER_KEY" value="OvntIH1oTeYf4bXJdaCG8Sok9" />
         <variable name="TWITTER_SECRET" value="Mhxi6A36dPSVCcPMMXisWH5HJqlJhF0vgSgUQAryEojRbdLNuL" />
     </plugin>
+    <plugin name="cordova-plugin-device" spec="^1.1.6" />
 </widget>

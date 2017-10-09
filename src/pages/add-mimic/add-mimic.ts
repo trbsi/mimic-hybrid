@@ -15,10 +15,11 @@ export class AddMimic {
     post_form:any;
     title:string;
     currentSegment:string;
+    startSpinner = false; //when video is uploaded it takes time to show up there so we need spinner
 
     imageFile:any;
     videoFile:any;
-    videoThumb:any;
+    videoThumb = null;
     currentFile:any; //this is current file user chose to upload
     videoDuration = 15;
 
@@ -237,13 +238,16 @@ export class AddMimic {
      */
     private callVideoEditor(videoPath)
     {
+        this.startSpinner = true;
         this.videoEditor.transcodeVideo({
           fileUri: videoPath,
-          outputFileName: 'output',
-          outputFileType: this.videoEditor.OutputFileType.MPEG4
+          outputFileName: Math.random().toString(36).substring(7),
+          outputFileType: this.videoEditor.OutputFileType.MPEG4,
+          saveToLibrary: false
         })
         .then((fileUri: string) => {
             this.createVideoThumb(fileUri);
+            this.videoFile = "file://"+fileUri;
             console.log('video transcode success', fileUri);
         })
         .catch((error: any) => {
@@ -261,17 +265,20 @@ export class AddMimic {
             atTime: 5,
             //width: 320,
             //height: 480,
-            quality: 100
+            quality: 100,
+            outputFileName: 'video_thumb'
         };
 
-       /* this.videoEditor.createThumbnail(options)
+        this.videoEditor.createThumbnail(options)
         .then((data) => {
-            console.log(data);
-            this.videoThumb = data;
+            console.log("thumb", data);
+            this.videoThumb = 'file://'+data;
+            this.startSpinner = false;
         })
         .catch((error) => {
-
-        });*/
+            console.log("video thumbnail", error);
+            this.startSpinner = false;
+        });
     }
 
     /**

@@ -53,6 +53,26 @@ add-mimic {
 
 
   }
+
+  //spinner
+  .spinner { 
+    margin: 0 auto; //center horizontal center
+  }
+
+  .spinner > div {
+    background-color: color($colors, mimic, base);
+  }
+  //spinner
+
+  //mimic placeholder
+  #your-mimic-placeholder {
+    height: 100%;
+  }
+  
+  #mimic-logo {
+    display: block;
+  }
+
   //MOJE
   
 

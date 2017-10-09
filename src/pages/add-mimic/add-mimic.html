@@ -21,8 +21,18 @@
                 <section class="form-section height-100">
                     <div class="split split-custom-top vertical-align-bottom">
                         <div class="top-slide" *ngIf="!imageFile && !videoFile"> 
-                            Your
-                            <img src="./assets/images/mimic_logo_text.png" >
+                            <div class="spinner" id="spinner-top" *ngIf="startSpinner">
+                                <div class="rect1"></div>
+                                <div class="rect2"></div>
+                                <div class="rect3"></div>
+                                <div class="rect4"></div>
+                                <div class="rect5"></div>
+                            </div>
+
+                            <div *ngIf="!startSpinner" id="your-mimic-placeholder">
+                                Your
+                                <img src="./assets/images/mimic_logo_text.png" id="mimic-logo">
+                            </div>
                         </div>
                         <preload-image *ngIf="imageFile" [ratio]="{w:16, h:9}" [src]="imageFile"></preload-image>
                         <div *ngIf="videoFile" class="video-player-container">
@@ -42,7 +52,7 @@
                                     </ion-col>
                                 </ion-row>
                                 </vg-controls>
-                                <video webkit-playsinline playsinline #videoFile [vgMedia]="videoFile" id="videoFile" class="expand-horizontally" preload="auto"  poster="https://www.w3schools.com/css/img_fjords.jpg">
+                                <video webkit-playsinline playsinline #videoFile [vgMedia]="videoFile" id="videoFile" class="expand-horizontally" preload="auto" poster="{{this.videoThumb}}">
                                 <source src="{{this.videoFile}}">
                                 </video>
                             </vg-player>

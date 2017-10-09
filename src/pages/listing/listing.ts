@@ -425,7 +425,7 @@ export class ListingPage {
             self.responseMimicPaging = 0; //reset paging
             self.responseMimicsCount = self.mimicsList[currentMimicOriginalIndex].mimic.responses_count;  //set new response count
 
-        }, 1200);
+        }, 1000);
     }
 
     //SLIDES

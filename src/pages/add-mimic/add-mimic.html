@@ -35,8 +35,7 @@
                             </div>
                         </div>
                         <preload-image *ngIf="imageFile" [ratio]="{w:16, h:9}" [src]="imageFile"></preload-image>
-                        <preload-image *ngIf="videoFile" [ratio]="{w:16, h:9}" [src]="videoFile"></preload-image>
-                        <div *ngIf="imageFile" class="video-player-container">
+                        <div *ngIf="videoFile" class="video-player-container">
                             <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event)">
                                 <vg-buffering></vg-buffering>
                                 <vg-overlay-play></vg-overlay-play>

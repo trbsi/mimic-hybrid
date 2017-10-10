@@ -1,6 +1,18 @@
 profile-page {
 
   //MOJE
+  .video-placeholder {
+    @include play-icon-styles($black, 4rem);
+    &:before, &:hover, &:active, &:link, &:visited {
+      position: absolute;
+      z-index: 100;
+      margin: 0 auto;
+      left: 0;
+      right: 0;
+      top: 25%;
+    }
+  }
+
   .spinner {
     margin: 0 auto;
     margin-top: 25%;

@@ -7,7 +7,7 @@ import { ProfileService } from './profile.service';
 
 import 'rxjs/Rx';
 
-@Component({
+@Component({ 
     selector: 'profile-page',
     templateUrl: 'profile.html'
 })

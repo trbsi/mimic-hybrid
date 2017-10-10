@@ -5,7 +5,7 @@ $player-play-icon-height: 4rem;
 $playlist-item-font-size: 12px;
 $playlist-item-play-icon-height: 3rem;
 
-@mixin play-icon-styles($background, $size, $color) {
+@mixin play-icon-styles($background, $size) {
   &:before, &:hover, &:active, &:link, &:visited {
     font-family: "Ionicons";
     // As the play arrow ('\f487' in Ionicons font) is a weird shape, we need to use a hack to visually center horizontally.
@@ -106,7 +106,7 @@ $playlist-item-play-icon-height: 3rem;
           //  margin-bottom: $player-controls-height;
           // }
 
-          @include play-icon-styles($white, $player-play-icon-height, $theme-color-2);
+          @include play-icon-styles($white, $player-play-icon-height);
 
           &:before, &:hover, &:active, &:link, &:visited {
             // To make the icon vertically centered excluding the controls height

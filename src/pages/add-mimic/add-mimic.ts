@@ -247,7 +247,7 @@ export class AddMimic {
         })
         .then((fileUri: string) => {
             this.createVideoThumb(fileUri);
-            this.videoFile = "file://"+fileUri;
+            this.videoFile = fileUri;
             console.log('video transcode success', fileUri);
         })
         .catch((error: any) => {

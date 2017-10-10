@@ -17,7 +17,8 @@ export class AddMimic {
     title:string;
     currentSegment:string;
     startSpinner = false; //when video is uploaded it takes time to show up there so we need spinner
-
+    loading:any;
+    
     imageFile:any;
     videoFile:any;
     videoThumb = null;

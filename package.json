@@ -85,7 +85,7 @@
     "devDependencies": {
         "@angular/tsc-wrapped": "^4.4.3",
         "@ionic/app-scripts": "3.0.0",
-        "ionic": "3.12.0",
+        "ionic": "3.13.0",
         "typescript": "2.3.4"
     },
     "description": "Mimic",

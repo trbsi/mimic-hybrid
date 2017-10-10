@@ -185,3 +185,6 @@ https://github.com/npm/npm/issues/17858#issuecomment-316631139
 
 TypeError: Cannot read property 'find' of null 
 https://github.com/ionic-team/ionic-cli/issues/2623#issuecomment-321457766
+
+clear cache directory and files in it
+https://stackoverflow.com/questions/45594978/ionic-2-get-size-cache-directory-and-clear-it

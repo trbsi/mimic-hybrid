@@ -190,7 +190,9 @@ export class ApiSettings {
 
         let options: FileUploadOptions = {
             headers: headers,
-            params: data
+            params: data,
+            fileKey: 'file', //this is how you fetch file on backend
+            fileName: data['fileName']
         }
 
         return fileTransfer.upload(data.filePath, ApiSettings.API_ENDPOINT + url, options)

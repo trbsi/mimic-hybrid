@@ -13,7 +13,7 @@ export class AddMimicService {
      */
     addMimic(data) 
     {
-        return this.apiSettings.sendRequest(data, 'mimic/add', 'upload');
+        return this.apiSettings.sendRequest(data, 'mimic/add', 'upload', false);
     }
 
     /**
@@ -22,7 +22,7 @@ export class AddMimicService {
      */
     uploadVideoThumb(data) 
     {
-        return this.apiSettings.sendRequest(data, 'mimic/upload-video-thumb', 'upload');
+        return this.apiSettings.sendRequest(data, 'mimic/upload-video-thumb', 'upload', false);
     }
 
 }

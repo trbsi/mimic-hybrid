@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, SegmentButton, AlertController, NavParams, ViewController } from 'ionic-angular';
+import { NavController, SegmentButton, AlertController, NavParams, ViewController, LoadingController } from 'ionic-angular';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { VgAPI } from 'videogular2/core';
@@ -21,6 +21,8 @@ export class AddMimic {
     videoFile:any;
     videoThumb = null;
     currentFile:any; //this is current file user chose to upload
+    currentFileName:any; //this is imporant for FileUploadOptions to set fileName because it sends it to the server like that and server recognized file type with that
+    currentVideoThumbFileName:any; //the same as for currentFileName
     videoDuration = 15;
 
     originalMimicId:number;
@@ -34,6 +36,7 @@ export class AddMimic {
                 private mediaCapture: MediaCapture,
                 private videoEditor: VideoEditor,
                 private addMimicService: AddMimicService,
+                public loadingCtrl:LoadingController, 
                 private viewCtrl: ViewController) 
     {
 
@@ -85,15 +88,18 @@ export class AddMimic {
         var form_data = this.post_form.value; 
         
         var data = {};
+        data['filePath'] = this.currentFile;
+        data['fileName'] = this.currentFileName;
+
         if(!this.originalMimicId) {
             data['hashtags'] = form_data.hashtags;
-            data['filePath'] = this.currentFile;
 
         } else {
             data['original_mimic_id'] = this.originalMimicId;
-            data['filePath'] = this.currentFile;
         }
 
+        this.loading = this.loadingCtrl.create();
+        this.loading.present();
         this.addMimicService.addMimic(data).then((data) => {
             var callbackData = 
             {
@@ -104,7 +110,8 @@ export class AddMimic {
             //if there is video thumb, upload it
             if(this.videoThumb) {
                 var videoThumbData = {
-                    filePath: this.videoThumb
+                    filePath: this.videoThumb,
+                    fileName: this.currentVideoThumbFileName
                 };
  
                 //this is response mimic
@@ -115,14 +122,18 @@ export class AddMimic {
                 else {
                     videoThumbData['original_mimic_id'] = callbackData.uploadedMimic.id;
                 }
-
+                console.log("informacije o video thumb", videoThumbData);
                 //upload it to server
                 this.addMimicService.uploadVideoThumb(videoThumbData).then((videoThumbResponse) => {
                     if(videoThumbResponse.success === true) {
+                        this.loading.dismiss();
                         this.viewCtrl.dismiss(callbackData);
                     }
+                }).catch((error) => {
+                    this.loading.dismiss();
                 });
             } else {
+                this.loading.dismiss();
                 this.viewCtrl.dismiss(callbackData);
             }            
         });
@@ -185,7 +196,6 @@ export class AddMimic {
             switch (type) 
             {
                 case "video":
-                    data = "file://"+data; //https://github.com/jbavari/cordova-plugin-video-editor/issues/11
                     this.callVideoEditor(data);
                     break;
                 case "image":
@@ -238,17 +248,18 @@ export class AddMimic {
      */
     private callVideoEditor(videoPath)
     {
-        this.startSpinner = true;
+        this.currentFileName = Math.random().toString(36).substring(7)+".mp4";
+        this.startSpinner = true; 
         this.videoEditor.transcodeVideo({
           fileUri: videoPath,
-          outputFileName: Math.random().toString(36).substring(7),
+          outputFileName: this.currentFileName,
           outputFileType: this.videoEditor.OutputFileType.MPEG4,
           saveToLibrary: false
         })
         .then((fileUri: string) => {
             this.createVideoThumb(fileUri);
-            this.currentFile = this.videoFile = fileUri;
-            console.log('video transcode success', fileUri);
+            this.currentFile = this.videoFile = 'file://'+fileUri;
+            console.log('video transcode success', this.videoFile);
         })
         .catch((error: any) => {
             console.log('video transcode error', error);
@@ -270,10 +281,11 @@ export class AddMimic {
         };
 
         this.videoEditor.createThumbnail(options)
-        .then((data) => {
-            console.log("thumb", data);
+        .then((data) => { 
+            this.currentVideoThumbFileName = "video_thumb_image.jpg";
             this.videoThumb = 'file://'+data;
             this.startSpinner = false;
+            console.log("thumb", this.videoThumb);
         })
         .catch((error) => {
             console.log("video thumbnail", error);
@@ -298,6 +310,7 @@ export class AddMimic {
         //https://stackoverflow.com/questions/38000418/using-windows-plugins-with-ionic-2-typescript
         window['plugins'].k.imagecropper.open(options, function(cropData) {
             // its return an object with the cropped image cached url, cropped width & height, you need to manually delete the image from the application cache.
+            this.currentFileName = "mimic_image.jpg";
             if(type == "camera") {
                 this.currentFile = this.imageFile = cropData['imgPath'];
             } else if (type == "library") {

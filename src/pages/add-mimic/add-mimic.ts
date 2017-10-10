@@ -122,7 +122,7 @@ export class AddMimic {
                 else {
                     videoThumbData['original_mimic_id'] = callbackData.uploadedMimic.id;
                 }
-                console.log("informacije o video thumb", videoThumbData);
+
                 //upload it to server
                 this.addMimicService.uploadVideoThumb(videoThumbData).then((videoThumbResponse) => {
                     if(videoThumbResponse.success === true) {

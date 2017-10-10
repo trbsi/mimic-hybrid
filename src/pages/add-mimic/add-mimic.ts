@@ -6,6 +6,7 @@ import { VgAPI } from 'videogular2/core';
 import { MediaCapture, MediaFile, CaptureError, CaptureImageOptions, CaptureVideoOptions } from '@ionic-native/media-capture';
 import { VideoEditor } from '@ionic-native/video-editor';
 import { AddMimicService } from '../add-mimic/add-mimic.service';
+import { File } from '@ionic-native/file';
 
 @Component({
     selector: 'add-mimic',
@@ -23,7 +24,7 @@ export class AddMimic {
     currentFile:any; //this is current file user chose to upload
     currentFileName:any; //this is imporant for FileUploadOptions to set fileName because it sends it to the server like that and server recognized file type with that
     currentVideoThumbFileName:any; //the same as for currentFileName
-    videoDuration = 15;
+    videoDuration = 10;
 
     originalMimicId:number;
 
@@ -37,6 +38,7 @@ export class AddMimic {
                 private videoEditor: VideoEditor,
                 private addMimicService: AddMimicService,
                 public loadingCtrl:LoadingController, 
+                private file: File,
                 private viewCtrl: ViewController) 
     {
 
@@ -100,6 +102,7 @@ export class AddMimic {
 
         this.loading = this.loadingCtrl.create();
         this.loading.present();
+
         this.addMimicService.addMimic(data).then((data) => {
             var callbackData = 
             {
@@ -126,13 +129,16 @@ export class AddMimic {
                 //upload it to server
                 this.addMimicService.uploadVideoThumb(videoThumbData).then((videoThumbResponse) => {
                     if(videoThumbResponse.success === true) {
+                        this.removeCachedFiles();
                         this.loading.dismiss();
                         this.viewCtrl.dismiss(callbackData);
                     }
                 }).catch((error) => {
+                    this.removeCachedFiles();
                     this.loading.dismiss();
                 });
             } else {
+                this.removeCachedFiles();
                 this.loading.dismiss();
                 this.viewCtrl.dismiss(callbackData);
             }            
@@ -364,4 +370,24 @@ export class AddMimic {
         this.videoPlayer = api;
     }
     //VIDEOS
+
+
+    /**
+     * Remove all files from cache directory so it doesn't make app size big
+     */
+    private removeCachedFiles()
+    {
+        this.file.listDir(this.file.cacheDirectory,'')
+        .then((result) => {
+            for(let file of result){
+                if(file.isFile == true) {
+
+                    this.file.removeFile(this.file.cacheDirectory, file.name)
+                    .then((success) => { console.log(success); })
+                    .catch((error) => { console.log(error); });
+
+                }
+            }
+        }) ;
+    }
 }

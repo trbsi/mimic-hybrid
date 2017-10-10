@@ -104,7 +104,7 @@ export class AddMimic {
             //if there is video thumb, upload it
             if(this.videoThumb) {
                 var videoThumbData = {
-                    video_thumb: this.videoThumb
+                    filePath: this.videoThumb
                 };
  
                 //this is response mimic
@@ -247,7 +247,7 @@ export class AddMimic {
         })
         .then((fileUri: string) => {
             this.createVideoThumb(fileUri);
-            this.videoFile = fileUri;
+            this.currentFile = this.videoFile = fileUri;
             console.log('video transcode success', fileUri);
         })
         .catch((error: any) => {

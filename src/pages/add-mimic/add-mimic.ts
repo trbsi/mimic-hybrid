@@ -280,8 +280,8 @@ export class AddMimic {
           saveToLibrary: false
         })
         .then((fileUri: string) => {
-            this.createVideoThumb(fileUri);
             this.currentFile = this.videoFile = 'file://'+fileUri;
+            this.createVideoThumb();
             console.log('video transcode success', this.videoFile);
         })
         .catch((error: any) => {
@@ -292,16 +292,17 @@ export class AddMimic {
     /**
     * Create thumbnail for video 
     */
-    private createVideoThumb(fileUri) 
+    private createVideoThumb() 
     {
         var options = {
-            fileUri: fileUri,
+            fileUri: this.videoFile,
             atTime: 5,
             //width: 320,
             //height: 480,
             quality: 100,
-            outputFileName: 'video_thumb'
+            outputFileName: this.currentVideoThumbFileName
         };
+        console.log(options);
 
         this.videoEditor.createThumbnail(options)
         .then((data) => { 

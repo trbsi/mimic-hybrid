@@ -178,7 +178,7 @@ export class MyApp {
         (error) => {
             this.storage.setItem('clear-mimic-cache', this.getCurrentDate());
         });
-        
+         
     }
 
     /**

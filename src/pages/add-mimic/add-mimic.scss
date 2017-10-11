@@ -7,7 +7,7 @@ add-mimic {
   }
 
   .segment-ios .segment-button {
-    color: #C2C2C2;
+    color: white;
     /*background: color($colors, mimic, base);*/
     border: none;
   }
@@ -26,12 +26,7 @@ add-mimic {
 
   
   .height-100 {
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    position: absolute;
-    z-index: -1; //because of ion-segment part
+    //exists but currently not being used
   }
 
   .top-slide

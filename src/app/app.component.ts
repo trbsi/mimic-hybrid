@@ -12,6 +12,7 @@ import { ApiSettings } from '../components/api-settings/api-settings';
 import { AppService } from './app.service';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Device } from '@ionic-native/device';
+import { File } from '@ionic-native/file';
 
 @Component({
     selector: 'app-root',
@@ -40,6 +41,7 @@ export class MyApp {
                 private apiSettings: ApiSettings,
                 private device: Device,
                 private appService: AppService,
+                private file: File,
                 private storage:NativeStorage)  
     {
         translate.setDefaultLang('en');
@@ -77,6 +79,7 @@ export class MyApp {
 
         platform.resume.subscribe(() => {
             this.getPushToken();
+            this.removeCachedFiles();
         });
         //platform.pause.subscribe(() => { console.log(" izisao iz appa") });
 
@@ -154,4 +157,37 @@ export class MyApp {
             //user not found
         });
     }
+
+    /**
+     * Remove all files from cache directory of mimic so it doesn't make app size big
+     */
+    private removeCachedFiles()
+    {
+        this.storage.getItem('clear-mimic-cache').then((savedDate) => 
+        {console.log(savedDate);console.log(this.getCurrentDate());
+            //if dates are different remove cached file
+            if(savedDate !== this.getCurrentDate()) {
+                this.file.removeRecursively(this.file.cacheDirectory, 'com.mimic.gomimic/nsurlcache/fsCachedData')
+                .then((success) => { 
+                    console.log(success);
+                    this.storage.setItem('clear-mimic-cache', this.getCurrentDate());
+                })
+                .catch((error) => { console.log(error); });
+            }
+        },
+        (error) => {
+            this.storage.setItem('clear-mimic-cache', this.getCurrentDate());
+        });
+        
+    }
+
+    /**
+     * Get current date
+     */
+    private getCurrentDate()
+    {
+        var today = new Date();
+        return today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    }
+
 }

@@ -24,7 +24,7 @@ export class AddMimic {
     videoThumb = null;
     currentFile:any; //this is current file user chose to upload
     currentFileName:any; //this is imporant for FileUploadOptions to set fileName because it sends it to the server like that and server recognized file type with that
-    currentVideoThumbFileName:any; //the same as for currentFileName
+    currentVideoThumbFileName = "mimic_video_thumb_image.jpg"; //the same as for currentFileName
     videoDuration = 10;
 
     originalMimicId:number;
@@ -63,6 +63,7 @@ export class AddMimic {
     onSegmentChanged(segmentButton:SegmentButton) {
         this.resetSubmitForm(false);
         this.currentSegment = segmentButton.value; 
+        this.removeCachedFiles();
     }
 
     onSegmentSelected(segmentButton:SegmentButton) {
@@ -152,19 +153,22 @@ export class AddMimic {
      * Show alert
      * @param string type "camera" or "library"
      */
-    private presentAlert(type) {
-        var subTitle;
+    private presentAlert(type, customTitle = null) {
+        var title;
         switch (type) {
             case "camera":
-                subTitle = 'Take a picture or record a video';
+                title = 'Take a picture or record a video';
                 break;
             case "library":
-                subTitle = 'Choose a picture or a video';
+                title = 'Choose a picture or a video';
+                break;
+            case 'custom':
+                title = customTitle;
                 break;
         }
 
         let alert = this.alertCtrl.create({
-            title: subTitle,
+            title: title,
             buttons: ['OK']
         });
         alert.present();
@@ -203,7 +207,16 @@ export class AddMimic {
             switch (type) 
             {
                 case "video":
-                    this.callVideoEditor(data);
+                    this.videoEditor.getVideoInfo({fileUri: data}).then((videoInfo) => {
+                        //it return duration in some weird unit where 1sec = 50 durations
+                        if(videoInfo.duration / 50 > this.videoDuration) {
+                            this.presentAlert('custom', "Video's duration can't be more than "+this.videoDuration+" seconds")
+                        } else {
+                            this.callVideoEditor(data);
+                        }
+                    }).catch((error) => {
+                        console.log(error); 
+                    });
                     break;
                 case "image":
                     //this.imageFile = 'data:image/jpeg;base64,' + data; //when testing base64
@@ -255,7 +268,10 @@ export class AddMimic {
      */
     private callVideoEditor(videoPath)
     {
-        this.currentFileName = Math.random().toString(36).substring(7)+".mp4";
+        //remove some mimic files if they are there
+        this.removeCachedFiles();
+        
+        this.currentFileName = "mimic_video.mp4";
         this.startSpinner = true; 
         this.videoEditor.transcodeVideo({
           fileUri: videoPath,
@@ -289,7 +305,6 @@ export class AddMimic {
 
         this.videoEditor.createThumbnail(options)
         .then((data) => { 
-            this.currentVideoThumbFileName = "video_thumb_image.jpg";
             this.videoThumb = 'file://'+data;
             this.startSpinner = false;
             console.log("thumb", this.videoThumb);
@@ -307,6 +322,9 @@ export class AddMimic {
      */
     private callCropper(imagePath, type)
     {
+        //remove some mimic files if they are there
+        this.removeCachedFiles();
+
         var options = {
             url: imagePath,              // required.
             ratio: "16/9",               // required. (here you can define your custom ration) "1/1" for square images
@@ -359,6 +377,7 @@ export class AddMimic {
      */
     closeModal()
     {
+        this.removeCachedFiles();
         this.viewCtrl.dismiss();
     }
 
@@ -381,8 +400,7 @@ export class AddMimic {
         this.file.listDir(this.file.cacheDirectory,'')
         .then((result) => {
             for(let file of result){
-                if(file.isFile == true) {
-
+                if(file.isFile == true && file.name.indexOf('mimic') !== -1) {
                     this.file.removeFile(this.file.cacheDirectory, file.name)
                     .then((success) => { console.log(success); })
                     .catch((error) => { console.log(error); });

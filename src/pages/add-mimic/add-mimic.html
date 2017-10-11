@@ -52,7 +52,7 @@
                                     </ion-col>
                                 </ion-row>
                                 </vg-controls>
-                                <video webkit-playsinline playsinline #videoFile [vgMedia]="videoFile" id="videoFile" class="expand-horizontally" preload="auto" poster="{{this.videoThumb}}">
+                                <video webkit-playsinline playsinline #previewVideo [vgMedia]="previewVideo" id="previewVideo" class="expand-horizontally" preload="auto" poster="{{this.videoThumb}}">
                                 <source src="{{this.videoFile}}">
                                 </video>
                             </vg-player>

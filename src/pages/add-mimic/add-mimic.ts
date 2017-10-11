@@ -268,10 +268,7 @@ export class AddMimic {
      */
     private callVideoEditor(videoPath)
     {
-        //remove some mimic files if they are there
-        this.removeCachedFiles();
-        
-        this.currentFileName = "mimic_video.mp4";
+        this.currentFileName = "mimic_"+Math.random().toString(36).substring(7)+".mp4";
         this.startSpinner = true; 
         this.videoEditor.transcodeVideo({
           fileUri: videoPath,
@@ -301,8 +298,7 @@ export class AddMimic {
             //height: 480,
             quality: 100,
             outputFileName: this.currentVideoThumbFileName
-        };
-        console.log(options);
+        }; 
 
         this.videoEditor.createThumbnail(options)
         .then((data) => { 
@@ -323,9 +319,6 @@ export class AddMimic {
      */
     private callCropper(imagePath, type)
     {
-        //remove some mimic files if they are there
-        this.removeCachedFiles();
-
         var options = {
             url: imagePath,              // required.
             ratio: "16/9",               // required. (here you can define your custom ration) "1/1" for square images

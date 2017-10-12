@@ -24,7 +24,7 @@ export class AddMimic {
     videoThumb = null;
     currentFile:any; //this is current file user chose to upload
     currentFileName:any; //this is imporant for FileUploadOptions to set fileName because it sends it to the server like that and server recognized file type with that
-    currentVideoThumbFileName = "mimic_video_thumb_image.jpg"; //the same as for currentFileName
+    currentVideoThumbFileName:any; //the same as for currentFileName
     videoDuration = 10;
 
     originalMimicId:number;
@@ -268,7 +268,7 @@ export class AddMimic {
      */
     private callVideoEditor(videoPath)
     {
-        this.currentFileName = "mimic_"+Math.random().toString(36).substring(7)+".mp4";
+        this.currentFileName = "mimic_media_"+this.randomString()+".mp4";
         this.startSpinner = true; 
         this.videoEditor.transcodeVideo({
           fileUri: videoPath,
@@ -291,13 +291,14 @@ export class AddMimic {
     */
     private createVideoThumb() 
     {
+        this.currentVideoThumbFileName = 'mimic_media_'+this.randomString()+'.jpg';
         var options = {
             fileUri: this.videoFile,
             atTime: 5,
             //width: 320,
             //height: 480,
             quality: 100,
-            outputFileName: this.currentVideoThumbFileName
+            outputFileName: this.currentVideoThumbFileName,
         }; 
 
         this.videoEditor.createThumbnail(options)
@@ -329,7 +330,7 @@ export class AddMimic {
         //https://stackoverflow.com/questions/38000418/using-windows-plugins-with-ionic-2-typescript
         window['plugins'].k.imagecropper.open(options, function(cropData) {
             // its return an object with the cropped image cached url, cropped width & height, you need to manually delete the image from the application cache.
-            this.currentFileName = "mimic_image.jpg";
+            this.currentFileName = "mimic_media_image.jpg";
             if(type == "camera") {
                 this.currentFile = this.imageFile = cropData['imgPath'];
             } else if (type == "library") {
@@ -402,5 +403,13 @@ export class AddMimic {
                 }
             }
         }) ;
+    }
+
+    /**
+     * Generate random string
+     */
+    private randomString()
+    {
+        return Math.random().toString(36).substring(10);
     }
 }

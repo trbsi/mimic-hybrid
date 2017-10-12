@@ -12,8 +12,8 @@ export class ListingService {
      * Get all mimics
      * @param object data Object containing different data
      */
-    getAllMimics(data) {
-        return this.apiSettings.sendRequest(data, 'mimic/list', 'get');
+    getAllMimics(data, showLoading = true) {
+        return this.apiSettings.sendRequest(data, 'mimic/list', 'get', showLoading);
     }
 
     /**

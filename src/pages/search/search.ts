@@ -7,6 +7,7 @@ import { SearchService } from './search.service';
 import { ViewChild } from '@angular/core';
 import { Searchbar } from 'ionic-angular';
 import { ListingPage } from '../listing/listing';
+import { ProfilePage } from '../profile/profile';
 
 @Component({
     selector: 'search-page',
@@ -63,9 +64,9 @@ export class Search {
                 });
                 break;
             case "@":
-                this.nav.setRoot(ListingPage, {
+                this.nav.push(ProfilePage, {
                     user_id: data.id
-                });
+                });  
                 break;
         }
 

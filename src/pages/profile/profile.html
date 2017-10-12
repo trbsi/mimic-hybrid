@@ -117,8 +117,8 @@
                             <preload-image [ratio]="{w:1, h:1}" (click)="presentActionSheet('response', mimic, i)"
                                            [src]="mimic.file_url" *ngIf="mimic.mimic_type == 'picture'"
                                            class="square-image"></preload-image>
-                            <div class="video-placeholder">                
-                                <preload-image [ratio]="{w:1, h:1}" (click)="presentActionSheet('response', mimic, i)" [src]="mimic.video_thumb_url" *ngIf="mimic.mimic_type == 'video'" class="square-image"></preload-image>
+                            <div class="video-placeholder" *ngIf="mimic.mimic_type == 'video'">                
+                                <preload-image [ratio]="{w:1, h:1}" (click)="presentActionSheet('response', mimic, i)" [src]="mimic.video_thumb_url"  class="square-image"></preload-image>
                             </div>
                         </ion-col>
                     </ion-row>

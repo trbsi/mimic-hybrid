@@ -62,7 +62,9 @@ export class ApiSettings {
     sendRequest(serverData, url, type, showLoading = true) 
     {
         if(showLoading === true) {
-            this.loading = this.loadingCtrl.create();
+            this.loading = this.loadingCtrl.create({
+                content: 'Give Mimic a second :)',
+            });
             this.loading.present();
         } 
 

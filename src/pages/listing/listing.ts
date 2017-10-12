@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController } from 'ionic-angular';
+import { NavController, NavParams, ModalController, LoadingController } from 'ionic-angular';
 
 import 'rxjs/Rx';
 
@@ -52,12 +52,15 @@ export class ListingPage {
     @ViewChild('originalMimicSlide') originalMimicSlide:Slides;
     @ViewChild('responseMimicSlide') responseMimicSlide:Slides;
 
-    constructor(public nav:NavController, private alertCtrl:AlertController,
-                public facebookLoginService:FacebookLoginService,
-                public twitterLoginService:TwitterLoginService,
-                public apiSettings:ApiSettings, public listingService:ListingService,
-                public navParams:NavParams,
-                public modalCtrl: ModalController) 
+    constructor(public nav:NavController, 
+        private alertCtrl:AlertController,
+        public facebookLoginService:FacebookLoginService,
+        public twitterLoginService:TwitterLoginService,
+        public apiSettings:ApiSettings, 
+        public listingService:ListingService,
+        public navParams:NavParams,
+        public loadingCtrl: LoadingController,
+        public modalCtrl: ModalController) 
     {
         this.mainMenuOpened = false;
         //filter mimics by hashtag
@@ -122,9 +125,9 @@ export class ListingPage {
      * I need to use modal here because this is the only way to pass data from modal to this controller
      * @param any params Any params going to profile modal
      */
-    private presentProfileModal(params) {
-       let profileModal = this.modalCtrl.create(AddMimic, params);
-       profileModal.onDidDismiss(data => {
+    private presentAddMimicModal(params) {
+       let addMimicModal = this.modalCtrl.create(AddMimic, params);
+       addMimicModal.onDidDismiss(data => {
             if(data) {
                 switch (data.mimicType) {
                     case "original":
@@ -141,7 +144,7 @@ export class ListingPage {
                 }
             }
        }); 
-       profileModal.present();
+       addMimicModal.present();
      }
 
 
@@ -165,7 +168,7 @@ export class ListingPage {
                 this.nav.push(Search);
                 break;
             case "add-mimic":
-                 this.presentProfileModal({});
+                 this.presentAddMimicModal({});
                 break;
         }
     }
@@ -245,7 +248,7 @@ export class ListingPage {
             reply_to_mimic: true,
         };
 
-        this.presentProfileModal(params);
+        this.presentAddMimicModal(params);
     }
 
     logout(fab:FabContainer) {
@@ -341,12 +344,19 @@ export class ListingPage {
      * Load more original mimics
      */
     private loadMoreOriginals() {
-        // this.originalMimicSlide.lockSwipeToNext(true);
+        this.originalMimicSlide.lockSwipeToNext(true);
+        const loading = this.loadingCtrl.create({
+            content: 'Loading more Mimics...',
+        });
+        loading.present();
+
+       // this.originalMimicSlide.lockSwipeToNext(true);
         this.originalMimicPaging += 1; //increase paging
-        this.listingService.getAllMimics(Object.assign(this.filterMimics, {page: this.originalMimicPaging}))
+        this.listingService.getAllMimics(Object.assign(this.filterMimics, {page: this.originalMimicPaging}), false)
             .then((data) => {
                 this.mimicsList = this.mimicsList.concat(data.mimics);
-                //  this.originalMimicSlide.lockSwipeToNext(false);
+                this.originalMimicSlide.lockSwipeToNext(false);
+                loading.dismiss();
             });
     }
 
@@ -391,12 +401,17 @@ export class ListingPage {
      * Load more mimic responses
      */
     private loadMoreResponses() {
-        //this.responseMimicSlide.lockSwipeToNext(true); 
+        this.responseMimicSlide.lockSwipeToNext(true); 
+        const loading = this.loadingCtrl.create({
+            content: 'Loading more Mimics...',
+        });
+        loading.present();
         this.responseMimicPaging += 1; //increase paging
         this.listingService.loadMoreResponses(this.responseMimicPaging, this.currentOriginalMimic['mimic'].id)
             .then((data) => {
                 this.currentMimicResponses = this.currentMimicResponses.concat(data.mimics);
-                //this.responseMimicSlide.lockSwipeToNext(false);
+                this.responseMimicSlide.lockSwipeToNext(false);
+                loading.dismiss();
             });
     }
 

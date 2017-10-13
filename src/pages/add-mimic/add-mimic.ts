@@ -121,14 +121,14 @@ export class AddMimic {
  
                 //this is response mimic
                 if(this.originalMimicId) {
-                    videoThumbData['response_mimic_id'] = callbackData.uploadedMimic.mimic.id;
+                    videoThumbData['response_mimic_id'] = callbackData.uploadedMimic.id;
                 } 
                 //this is original mimic
                 else {
                     videoThumbData['original_mimic_id'] = callbackData.uploadedMimic.mimic.id;
                 }
 
-                //upload it to server
+                 //upload it to server
                 this.addMimicService.uploadVideoThumb(videoThumbData).then((videoThumbResponse) => {
                     if(videoThumbResponse.success === true) {
                         this.removeCachedFiles();

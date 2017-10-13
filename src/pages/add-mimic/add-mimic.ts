@@ -121,11 +121,11 @@ export class AddMimic {
  
                 //this is response mimic
                 if(this.originalMimicId) {
-                    videoThumbData['response_mimic_id'] = callbackData.uploadedMimic.id;
+                    videoThumbData['response_mimic_id'] = callbackData.uploadedMimic.mimic.id;
                 } 
                 //this is original mimic
                 else {
-                    videoThumbData['original_mimic_id'] = callbackData.uploadedMimic.id;
+                    videoThumbData['original_mimic_id'] = callbackData.uploadedMimic.mimic.id;
                 }
 
                 //upload it to server

@@ -7,7 +7,6 @@ import { RootPage } from '../pages/root/root';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Push, PushObject, PushOptions } from '@ionic-native/push';
 import { Keyboard } from '@ionic-native/keyboard';
-import { GoogleAnalytics } from '@ionic-native/google-analytics';
 import { ApiSettings } from '../components/api-settings/api-settings';
 import { AppService } from './app.service';
 import { NativeStorage } from '@ionic-native/native-storage';
@@ -31,13 +30,12 @@ export class MyApp {
     pages:Array<{title: any, icon: string, component: any}>;
     pushPages:Array<{title: any, icon: string, component: any}>;
 
-    constructor(platform:Platform,
+    constructor(private platform:Platform,
                 public splashScreen:SplashScreen,
                 public statusBar:StatusBar,
                 public translate:TranslateService, 
                 private push: Push,
                 private keyboard: Keyboard,
-                private ga: GoogleAnalytics,
                 private apiSettings: ApiSettings,
                 private device: Device,
                 private appService: AppService,
@@ -56,25 +54,6 @@ export class MyApp {
             //this is to show all extra buttons on iphone keyboard
             keyboard.hideKeyboardAccessoryBar(false);
             this.getPushToken();
-
-            this.storage.getItem('user').then((user) => 
-            {
-                //google analytics
-                this.ga.startTrackerWithId(ApiSettings.GA_TRACKER_ID).then(() => 
-                {
-                    console.log('Google analytics is ready now');
-                    //the component is ready and you can call any method here
-                    this.ga.setAllowIDFACollection(true);
-                    this.ga.setAppVersion(ApiSettings.APP_VERSION);
-                    this.ga.setUserId(user.user_id);
-                })
-                .catch(e => console.log('Error starting GoogleAnalytics', e));  
-
-            },
-            error => {
-                //user not found
-            });
-
         });
 
         platform.resume.subscribe(() => {

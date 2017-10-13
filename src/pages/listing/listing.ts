@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, ModalController, LoadingController, Platform } from 'ionic-angular';
 
 import 'rxjs/Rx';
 
@@ -20,6 +20,8 @@ import { FacebookLoginService } from '../facebook-login/facebook-login.service';
 import { TwitterLoginService } from '../twitter-login/twitter-login.service';
 import { ApiSettings } from '../../components/api-settings/api-settings';
 import { ListingService } from '../listing/listing.service';
+import { GoogleAnalytics } from '@ionic-native/google-analytics';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 @Component({
     selector: 'listing-page',
@@ -59,7 +61,10 @@ export class ListingPage {
         public apiSettings:ApiSettings, 
         public listingService:ListingService,
         public navParams:NavParams,
+        private ga: GoogleAnalytics,
         public loadingCtrl: LoadingController,
+        private platform:Platform,
+        private storage:NativeStorage,
         public modalCtrl: ModalController) 
     {
         this.mainMenuOpened = false;
@@ -83,7 +88,26 @@ export class ListingPage {
             }
         }
 
-        
+        platform.ready().then(() => {
+            this.storage.getItem('user').then((user) => 
+            {
+                //google analytics
+                this.ga.startTrackerWithId(ApiSettings.GA_TRACKER_ID).then(() => 
+                {
+                    console.log('Google analytics is ready now');
+                    //the component is ready and you can call any method here
+                    this.ga.setAllowIDFACollection(true);
+                    this.ga.setAppVersion(ApiSettings.APP_VERSION);
+                    this.ga.setUserId(user.user_id);
+                })
+                .catch(e => console.log('Error starting GoogleAnalytics', e));  
+
+            },
+            error => {
+                //user not found
+            });
+
+        });        
     }
 
     ionViewDidLoad() {

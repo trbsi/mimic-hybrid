@@ -21,6 +21,7 @@ export class AddMimic {
     
     imageFile:any;
     videoFile:any;
+    videoFileDuration:any;
     videoThumb = null;
     currentFile:any; //this is current file user chose to upload
     currentFileName:any; //this is imporant for FileUploadOptions to set fileName because it sends it to the server like that and server recognized file type with that
@@ -42,7 +43,6 @@ export class AddMimic {
                 private file: File,
                 private viewCtrl: ViewController) 
     {
-
         this.currentSegment = 'camera';
 
         this.post_form = new FormGroup({
@@ -195,39 +195,34 @@ export class AddMimic {
         const options: CameraOptions = {
           quality: 100,
           destinationType: this.camera.DestinationType.FILE_URI,
-          encodingType: this.camera.EncodingType.JPEG,
           mediaType: data['mediaType'],
           sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
         }
 
         this.camera.getPicture(options).then((data) => 
-        {
+        { console.log("uri", data);
             // data is either a base64 encoded string or a file URI
             // If it's base64:
-            switch (type) 
+            switch (type)
             {
                 case "video":
                     this.videoEditor.getVideoInfo({fileUri: data}).then((videoInfo) => {
-                        //it return duration in some weird unit where 1sec = 50 durations
-                        if(videoInfo.duration / 50 > this.videoDuration) {
-                            this.presentAlert('custom', "Video's duration can't be more than "+this.videoDuration+" seconds")
-                        } else {
-                            this.callVideoEditor(data);
-                        }
+                        console.log("videon info", videoInfo);
+                        this.callVideoEditor(data);
                     }).catch((error) => {
                         console.log(error); 
                     });
                     break;
                 case "image":
                     //this.imageFile = 'data:image/jpeg;base64,' + data; //when testing base64
-                    this.callCropper(data, 'library');
+                    this.callCropper(data);
                     break;
             }
         }, (err) => {
             console.log(err);
         });
     }
-
+ 
     /**
      * Take a picture of record a video
      * @param type string Type of media to get: "video" or "image"
@@ -242,7 +237,7 @@ export class AddMimic {
                 (data: MediaFile[]) => {
                     console.log(data);
                     //this.imageFile = data[0]['localURL']; //testing with localURL
-                    this.callCropper(data[0]['fullPath'], 'camera');
+                    this.callCropper(data[0]['fullPath']);
                 },
                 (err: CaptureError) => console.log(err)
             );
@@ -268,6 +263,7 @@ export class AddMimic {
      */
     private callVideoEditor(videoPath)
     {
+        videoPath = this.returnFilePath(videoPath);
         this.currentFileName = "mimic_media_"+this.randomString()+".mp4";
         this.startSpinner = true; 
         this.videoEditor.transcodeVideo({
@@ -277,7 +273,7 @@ export class AddMimic {
           saveToLibrary: false
         })
         .then((fileUri: string) => {
-            this.currentFile = this.videoFile = 'file://'+fileUri;
+            this.currentFile = this.videoFile = this.returnFilePath(fileUri);
             this.createVideoThumb();
             console.log('video transcode success', this.videoFile);
         })
@@ -292,34 +288,48 @@ export class AddMimic {
     private createVideoThumb() 
     {
         this.currentVideoThumbFileName = 'mimic_media_'+this.randomString()+'.jpg';
+
         var options = {
             fileUri: this.videoFile,
-            atTime: 5,
+            atTime: 1,
             //width: 320,
             //height: 480,
             quality: 100,
             outputFileName: this.currentVideoThumbFileName,
         }; 
 
-        this.videoEditor.createThumbnail(options)
-        .then((data) => { 
-            this.videoThumb = 'file://'+data;
-            this.startSpinner = false;
-            console.log("thumb", this.videoThumb);
-        })
-        .catch((error) => {
-            console.log("video thumbnail", error);
-            this.startSpinner = false;
+        //get video info so you can get its length for thum
+        this.videoEditor.getVideoInfo({fileUri: this.videoFile})
+        .then((videoInfo) => {
+            console.log(videoInfo);
+            //it return duration in some weird unit where 1sec = 50 durations
+            if(this.videoFileDuration > 4) {
+                options.atTime = 4;
+            }
+
+            this.videoEditor.createThumbnail(options)
+            .then((thumbPath) => { 
+                this.videoThumb = this.returnFilePath(thumbPath);
+                console.log("thumb", this.videoThumb);
+            })
+            .catch((error) => {
+                console.log("video thumbnail", error);
+                this.startSpinner = false;
+            });
+        }).catch((error) => {
+            console.log(error); 
         });
+       
+        
     }
 
     /**
      * Call our cropper
      * @param string imagePath
-     * @param string type Current segment: "camera" or "library"
      */
-    private callCropper(imagePath, type)
+    private callCropper(imagePath)
     {
+        imagePath = this.returnFilePath(imagePath);
         var options = {
             url: imagePath,              // required.
             ratio: "16/9",               // required. (here you can define your custom ration) "1/1" for square images
@@ -330,13 +340,8 @@ export class AddMimic {
         //https://stackoverflow.com/questions/38000418/using-windows-plugins-with-ionic-2-typescript
         window['plugins'].k.imagecropper.open(options, function(cropData) {
             // its return an object with the cropped image cached url, cropped width & height, you need to manually delete the image from the application cache.
-            this.currentFileName = "mimic_media_image.jpg";
-            if(type == "camera") {
-                this.currentFile = this.imageFile = cropData['imgPath'];
-            } else if (type == "library") {
-                this.currentFile = this.imageFile = cropData['imgPath'];
-            }
-
+            this.currentFileName = "mimic_media_"+this.randomString()+"_image.jpg";
+            this.currentFile = this.imageFile = cropData['imgPath'];
             //click on btn to call returnToScreen function
             document.getElementById("hidden-btn").click();
             
@@ -366,7 +371,7 @@ export class AddMimic {
             this.post_form.reset();
         }
     }
-
+ 
     /**
      * Close modal
      */
@@ -383,6 +388,16 @@ export class AddMimic {
      */
     onPlayerReady(api:VgAPI) {
         this.videoPlayer = api;
+
+        //get video duration and reject it if it's too long
+        this.videoPlayer.getDefaultMedia().subscriptions.loadedMetadata.subscribe(() => {
+            this.videoFileDuration = this.videoPlayer.duration;
+            if(this.videoPlayer.duration > this.videoDuration) {
+                this.videoFile = this.currentFile = null;
+                this.presentAlert('custom', "Duration of a video can't be more than "+this.videoDuration+" seconds");
+            }
+            this.startSpinner = false;
+        });
     }
     //VIDEOS
 
@@ -410,6 +425,18 @@ export class AddMimic {
      */
     private randomString()
     {
-        return Math.random().toString(36).substring(10);
+        return Math.random().toString(36).substring(5);
+    }
+
+    /**
+     * If there is not "file://" in path then append that
+     */
+    private returnFilePath(path)
+    {
+        if(path.indexOf('file://') === -1) {
+            return 'file://'+path;
+        }
+ 
+        return path;
     }
 }

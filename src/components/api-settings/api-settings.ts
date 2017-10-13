@@ -211,7 +211,7 @@ export class ApiSettings {
             let alert = this.alertCtrl.create({
                 title: 'There was a problem',
                 subTitle: JSON.parse(error.body).error.message,
-                buttons: ['Ok']
+                buttons: ['Ok'] 
             }); 
             alert.present();
             

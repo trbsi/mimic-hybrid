@@ -102,7 +102,9 @@ export class AddMimic {
             data['original_mimic_id'] = this.originalMimicId;
         }
 
-        this.loading = this.loadingCtrl.create();
+        this.loading = this.loadingCtrl.create({
+            content: "We're uploading your Mimic",
+        });
         this.loading.present();
 
         this.addMimicService.addMimic(data).then((data) => {

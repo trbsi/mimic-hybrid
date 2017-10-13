@@ -158,6 +158,7 @@ export class ListingPage {
                         this.mimicsList.unshift(data.uploadedMimic);
                         this.currentMimicResponses = []; //we have no responses
                         this.currentResponseMimic = null; //we have no current response mimic
+                        this.currentOriginalMimic = data.uploadedMimic;
                         this.slideAllMimicsToBeginning();
                         break;
                     case "response":

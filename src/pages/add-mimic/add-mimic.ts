@@ -102,7 +102,7 @@ export class AddMimic {
             data['original_mimic_id'] = this.originalMimicId;
         }
 
-        this.loading = this.loadingCtrl.create({
+        this.loading = this.loadingCtrl.create({ 
             content: "We're uploading your Mimic",
         });
         this.loading.present();
@@ -133,6 +133,8 @@ export class AddMimic {
                  //upload it to server
                 this.addMimicService.uploadVideoThumb(videoThumbData).then((videoThumbResponse) => {
                     if(videoThumbResponse.success === true) {
+                        //set video_thumb_url
+                        callbackData.uploadedMimic.mimic.video_thumb_url = videoThumbResponse.video_thumb_url;
                         this.removeCachedFiles();
                         this.loading.dismiss();
                         this.viewCtrl.dismiss(callbackData);
@@ -202,7 +204,7 @@ export class AddMimic {
         }
 
         this.camera.getPicture(options).then((data) => 
-        { console.log("uri", data);
+        { 
             // data is either a base64 encoded string or a file URI
             // If it's base64:
             switch (type)

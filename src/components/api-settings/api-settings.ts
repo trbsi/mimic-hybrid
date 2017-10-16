@@ -7,7 +7,8 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-nati
 @NgModule()
 
 export class ApiSettings {
-    public static API_ENDPOINT = 'http://mimic.testapi.website/api/'; //@TODO change to live
+    //public static API_ENDPOINT = 'http://mimic.testapi.website/api/';
+    public static API_ENDPOINT = 'http://www.gomimic.com/api/';
     public static APP_VERSION = '1.0.0';
     public static GA_TRACKER_ID = 'UA-107329891-1';
     allow_entry:string = 'almasi:slatkasi';

@@ -253,7 +253,7 @@ export class AddMimic {
             .then(
                 (data: MediaFile[]) => {
                     console.log(data);
-                    //this.videoFile = data[0]['localURL']; //@TODO better use fullPath here like: data[0].fullPath
+                    //this.videoFile = data[0]['localURL']; // better use fullPath here like: data[0].fullPath
                     this.callVideoEditor(data[0]['fullPath']);
                 },
                 (err: CaptureError) => console.log(err)
@@ -263,7 +263,6 @@ export class AddMimic {
     }
 
     /**
-     * @TODO - testirati ovo
      * Call video editor
      * @param string videoPath Path to a video
      */

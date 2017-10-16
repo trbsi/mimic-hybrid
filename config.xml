@@ -145,4 +145,11 @@
         <variable name="TWITTER_KEY" value="OvntIH1oTeYf4bXJdaCG8Sok9" />
         <variable name="TWITTER_SECRET" value="Mhxi6A36dPSVCcPMMXisWH5HJqlJhF0vgSgUQAryEojRbdLNuL" />
     </plugin>
+    <plugin name="cordova-plugin-ionic" spec="^2.0.1">
+        <variable name="APP_ID" value="62f3e944" />
+        <variable name="CHANNEL_NAME" value="Master" />
+        <variable name="UPDATE_METHOD" value="background" />
+        <variable name="UPDATE_API" value="https://api.ionicjs.com" />
+        <variable name="MAX_STORE" value="2" />
+    </plugin>
 </widget>

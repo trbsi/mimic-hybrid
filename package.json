@@ -57,6 +57,7 @@
         "cordova-plugin-google-analytics": "^1.8.3",
         "cordova-plugin-googleplus": "^5.1.1",
         "cordova-plugin-inappbrowser": "^1.7.1",
+        "cordova-plugin-ionic": "^2.0.1",
         "cordova-plugin-k-imagecropper": "^1.1.7",
         "cordova-plugin-media-capture": "^1.4.3",
         "cordova-plugin-nativestorage": "^2.2.2",
@@ -132,7 +133,14 @@
             "cordova-plugin-compat": {},
             "cordova-plugin-file": {},
             "cordova-plugin-add-swift-support": {},
-            "phonegap-plugin-push": {}
+            "phonegap-plugin-push": {},
+            "cordova-plugin-ionic": {
+                "APP_ID": "62f3e944",
+                "CHANNEL_NAME": "Master",
+                "UPDATE_METHOD": "background",
+                "UPDATE_API": "https://api.ionicjs.com",
+                "MAX_STORE": "2"
+            }
         },
         "platforms": [
             "ios"

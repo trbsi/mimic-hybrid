@@ -197,7 +197,9 @@ export class AddMimic {
         }
 
         const options: CameraOptions = {
-          quality: 100,
+          quality: 60,
+          targetWidth: 1600,
+          targetHeight: 900,
           destinationType: this.camera.DestinationType.FILE_URI,
           mediaType: data['mediaType'],
           sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
@@ -298,7 +300,7 @@ export class AddMimic {
             atTime: 1,
             //width: 320,
             //height: 480,
-            quality: 100,
+            quality: 60,
             outputFileName: this.currentVideoThumbFileName,
         }; 
 
@@ -338,7 +340,7 @@ export class AddMimic {
             url: imagePath,              // required.
             ratio: "16/9",               // required. (here you can define your custom ration) "1/1" for square images
             title: "Crop the image",      // optional. android only. (here you can put title of image cropper activity) default: Image Cropper
-            autoZoomEnabled: false      // optional. android only. for iOS its always true (if it is true then cropper will automatically adjust the view) default: true
+            autoZoomEnabled: false,      // optional. android only. for iOS its always true (if it is true then cropper will automatically adjust the view) default: true
         }
 
         //https://stackoverflow.com/questions/38000418/using-windows-plugins-with-ionic-2-typescript

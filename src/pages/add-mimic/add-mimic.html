@@ -14,8 +14,8 @@
         </ion-segment-button>
         </ion-segment>
     </div>
-    <div [ngSwitch]="currentSegment" style="height: calc(100% - 3.2rem);">
-        <form class="sample-form post-form" [formGroup]="post_form" (ngSubmit)="submit()" style="height: calc(100% - 60px);"> 
+    <div [ngSwitch]="currentSegment" style="min-height: calc(100% - 3.2rem);">
+        <form class="sample-form post-form" [formGroup]="post_form" (ngSubmit)="submit()" style="height: calc(100%);"> 
         <div class="split split-custom-top vertical-align-bottom">
             <div class="top-slide" *ngIf="!imageFile && !videoFile">
                 <div class="spinner" id="spinner-top" *ngIf="startSpinner">

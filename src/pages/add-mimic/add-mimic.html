@@ -14,91 +14,82 @@
         </ion-segment-button>
         </ion-segment>
     </div>
-    <div class="height-100" [ngSwitch]="currentSegment">
-        <div class="forms-wrapper height-100">
-            <div class="post-example-view height-100">
-                <form class="sample-form post-form height-100" [formGroup]="post_form" (ngSubmit)="submit()">
-                <section class="form-section height-100">
-                    <div class="split split-custom-top vertical-align-bottom">
-                        <div class="top-slide" *ngIf="!imageFile && !videoFile"> 
-                            <div class="spinner" id="spinner-top" *ngIf="startSpinner">
-                                <div class="rect1"></div>
-                                <div class="rect2"></div>
-                                <div class="rect3"></div>
-                                <div class="rect4"></div>
-                                <div class="rect5"></div>
-                            </div>
-
-                            <div *ngIf="!startSpinner" id="your-mimic-placeholder" class="vertical-align-center">
-                                Your
-                                <img src="./assets/images/mimic_logo_text.png" id="mimic-logo">
-                            </div>
-                        </div>
-                        <preload-image *ngIf="imageFile" [ratio]="{w:16, h:9}" [src]="imageFile"></preload-image>
-                        <div *ngIf="videoFile" class="video-player-container">
-                            <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event)">
-                                <vg-buffering></vg-buffering>
-                                <vg-overlay-play></vg-overlay-play>
-                                <vg-controls [vgAutohide]="false" [vgAutohideTime]="2">
-                                <ion-row class="controls-row">
-                                    <ion-col no-padding width-18>
-                                        <vg-time-display [vgProperty]="'left'" [vgFormat]="'mm:ss'"></vg-time-display>
-                                    </ion-col>
-                                    <ion-col no-padding width-64>
-                                        <vg-scrub-bar>
-                                            <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
-                                            <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
-                                        </vg-scrub-bar>
-                                    </ion-col>
-                                </ion-row>
-                                </vg-controls>
-                                <video webkit-playsinline playsinline #previewVideo [vgMedia]="previewVideo" id="previewVideo" class="expand-horizontally" preload="auto" poster="{{this.videoThumb}}">
-                                <source src="{{this.videoFile}}">
-                                </video>
-                            </vg-player>
-                        </div>
-                    </div>
-                    <div class="split">
-                        <div class="bottom-slide">
-                            <ion-grid>
-                                <ion-row>
-                                    <ion-col>
-                                        <button  *ngSwitchCase="'camera'" ion-button type="button" class="upload-image-button" (click)="captureMedia('image')">
-                                        <ion-icon name="camera"></ion-icon>
-                                        </button>
-                                        <button  *ngSwitchCase="'library'" ion-button type="button" class="upload-image-button" (click)="openDeviceLibrary('image')">
-                                        <ion-icon name="camera"></ion-icon>
-                                        </button>
-                                    </ion-col>
-                                    <ion-col>
-                                        <button  *ngSwitchCase="'camera'" ion-button type="button" class="upload-image-button" (click)="captureMedia('video')">
-                                        <ion-icon name="videocam"></ion-icon>
-                                        </button>
-                                        <button  *ngSwitchCase="'library'" ion-button type="button" class="upload-image-button" (click)="openDeviceLibrary('video')">
-                                        <ion-icon name="videocam"></ion-icon>
-                                        </button>
-                                    </ion-col>
-                                </ion-row>
-                            </ion-grid>
-                             <ion-item *ngIf="!originalMimicId">
-                                <ion-input type="text" placeholder="Hashtags like: #dog #dogs..." formControlName="hashtags"></ion-input>
-                            </ion-item>
-                        </div>
-                        <ion-grid>
-                            <ion-row>
-                                <ion-col>
-                                    <button class="mimic-submit-btn" ion-button block type="submit" [disabled]="(!post_form.valid && !originalMimicId) || (startSpinner === true)">Go on</button>
-                                    <button id="hidden-btn" (click)="returnToScreen()"  type="button" style="display:none"></button>
-                                </ion-col>
-                                <ion-col>
-                                    <button ion-button block type="button" (click)="closeModal()"  color="dark">Cancel</button>
-                                </ion-col>
-                            </ion-row>
-                        </ion-grid>
-                    </div>
-                </section>
-                </form>
+    <div [ngSwitch]="currentSegment" style="height: calc(100% - 3.2rem);">
+        <form class="sample-form post-form" [formGroup]="post_form" (ngSubmit)="submit()" style="height: calc(100% - 60px);"> 
+        <div class="split split-custom-top vertical-align-bottom">
+            <div class="top-slide" *ngIf="!imageFile && !videoFile">
+                <div class="spinner" id="spinner-top" *ngIf="startSpinner">
+                    <div class="rect1"></div>
+                    <div class="rect2"></div> 
+                    <div class="rect3"></div>
+                    <div class="rect4"></div>
+                    <div class="rect5"></div> 
+                </div>
+                <div *ngIf="!startSpinner" id="your-mimic-placeholder" class="vertical-align-center">
+                    Your
+                    <img src="./assets/images/mimic_logo_text.png" id="mimic-logo">
+                </div>
+            </div>
+            <preload-image *ngIf="imageFile" [ratio]="{w:16, h:9}" [src]="imageFile"></preload-image>
+            <div *ngIf="videoFile" class="video-player-container">
+                <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event)">
+                    <vg-buffering></vg-buffering>
+                    <vg-overlay-play></vg-overlay-play>
+                    <vg-controls [vgAutohide]="false" [vgAutohideTime]="2">
+                    <ion-row class="controls-row">
+                        <ion-col no-padding width-18>
+                            <vg-time-display [vgProperty]="'left'" [vgFormat]="'mm:ss'"></vg-time-display>
+                        </ion-col>
+                        <ion-col no-padding width-64>
+                            <vg-scrub-bar>
+                                <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                                <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+                            </vg-scrub-bar>
+                        </ion-col>
+                    </ion-row>
+                    </vg-controls>
+                    <video webkit-playsinline playsinline #previewVideo [vgMedia]="previewVideo" id="previewVideo" class="expand-horizontally" preload="auto" poster="{{this.videoThumb}}">
+                    <source src="{{this.videoFile}}">
+                    </video>
+                </vg-player>
             </div>
         </div>
+        <div class="split"> 
+                <ion-grid>
+                    <ion-row>
+                        <ion-col>
+                            <button  *ngSwitchCase="'camera'" ion-button type="button" class="upload-image-button" (click)="captureMedia('image')">
+                            <ion-icon name="camera"></ion-icon>
+                            </button>
+                            <button  *ngSwitchCase="'library'" ion-button type="button" class="upload-image-button" (click)="openDeviceLibrary('image')">
+                            <ion-icon name="camera"></ion-icon>
+                            </button>
+                        </ion-col>
+                        <ion-col>
+                            <button  *ngSwitchCase="'camera'" ion-button type="button" class="upload-image-button" (click)="captureMedia('video')">
+                            <ion-icon name="videocam"></ion-icon>
+                            </button>
+                            <button  *ngSwitchCase="'library'" ion-button type="button" class="upload-image-button" (click)="openDeviceLibrary('video')">
+                            <ion-icon name="videocam"></ion-icon>
+                            </button>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+                <ion-item *ngIf="!originalMimicId">
+                    <ion-input type="text" placeholder="Hashtags like: #dog #dogs..." formControlName="hashtags"></ion-input>
+                </ion-item>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col>
+                            <button class="mimic-submit-btn" ion-button block type="submit" [disabled]="(!post_form.valid && !originalMimicId) || (startSpinner === true)">Go on</button>
+                            <button id="hidden-btn" (click)="returnToScreen()"  type="button" style="display:none"></button>
+                        </ion-col>
+                        <ion-col>
+                            <button ion-button block type="button" (click)="closeModal()"  color="dark">Cancel</button>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+        </div>
+        </form>
     </div>
 </ion-content>

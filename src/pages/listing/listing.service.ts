@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import 'rxjs/add/operator/toPromise';
 import { ApiSettings } from '../../components/api-settings/api-settings';
 
-@Injectable() 
+@Injectable()
 export class ListingService {
     constructor(public apiSettings:ApiSettings) {
     }

@@ -1,9 +1,9 @@
 add-mimic {
   //MOJE
-  
+
   //segments
   .segment-ios .segment-button.segment-activated {
-    color:  color($colors, mimic, base);
+    color: color($colors, mimic, base);
   }
 
   .segment-ios .segment-button {
@@ -18,8 +18,7 @@ add-mimic {
     background: white;
   }
 
-  .top-slide
-  {
+  .top-slide {
     img {
       max-width: 10rem;
       margin: 0 auto;
@@ -35,11 +34,10 @@ add-mimic {
     text-align: center;
     background: white;
 
-
   }
 
   //spinner
-  .spinner { 
+  .spinner {
     margin: 0 auto; //center horizontal center
   }
 
@@ -52,12 +50,11 @@ add-mimic {
   #your-mimic-placeholder {
     height: 100%;
   }
-  
+
   #mimic-logo {
     display: block;
   }
   //MOJE
-  
 
   ion-header {
     @include header-styles(color($colors, mimic, base), WHITE);
@@ -90,7 +87,7 @@ add-mimic {
         ion-input {
           border-bottom: 1px solid color($colors, mimic, base);
         }
-        
+
         &.item {
           margin-top: 14px;
 
@@ -115,7 +112,6 @@ add-mimic {
         }
       }
     }
-
 
     .upload-image-button {
       width: 100%;

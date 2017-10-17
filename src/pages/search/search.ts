@@ -66,7 +66,7 @@ export class Search {
             case "@":
                 this.nav.push(ProfilePage, {
                     user_id: data.id
-                });  
+                });
                 break;
         }
 

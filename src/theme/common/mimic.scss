@@ -21,6 +21,7 @@ $playlist-item-play-icon-height: 3rem;
     border-radius: 50%;
   }
 }
+
 //VIDEO
 
 @function top-mimic-info-position() {
@@ -38,156 +39,156 @@ $playlist-item-play-icon-height: 3rem;
 @function slides-height() {
   @return calc(100vw * 9 / 16);
 }
+
 //-----------------------MIXINS AND FUNCTIONS------------------------
 
+//VIDEOS
+//hide native play button
+.IIV::-webkit-media-controls-play-button,
+.IIV::-webkit-media-controls-start-playback-button {
+  opacity: 0;
+  pointer-events: none;
+  width: 5px;
+}
 
-  //VIDEOS
-  //hide native play button
-  .IIV::-webkit-media-controls-play-button,
-  .IIV::-webkit-media-controls-start-playback-button {
-    opacity: 0;
-    pointer-events: none;
-    width: 5px;
-  }
+//hide native play button
+video::-webkit-media-controls {
+  display: none !important;
+}
 
-  //hide native play button
-  video::-webkit-media-controls {
-    display: none !important;
-  }
+.video-player-container {
+  // Most videos come in 16:9 aspect ratio
+  // If 16 -> 100% width => 9 -> 56.25% width
+  padding-bottom: 56.25%;
+  position: relative;
+  height: 0px;
 
-  .video-player-container {
-    // Most videos come in 16:9 aspect ratio
-    // If 16 -> 100% width => 9 -> 56.25% width
-    padding-bottom: 56.25%;
-    position: relative;
-    height: 0px;
+  vg-player.video-player {
+    font-family: "Ionicons";
+    position: absolute;
 
-    vg-player.video-player {
-      font-family: "Ionicons";
-      position: absolute;
-
-      video {
-        &.expand-horizontally {
-          width: 100%;
-        }
-
-        &.expand-vertically {
-          height: 100%;
-        }
+    video {
+      &.expand-horizontally {
+        width: 100%;
       }
 
-      // Player styles
-      vg-buffering {
-        .vg-buffering {
-          .loadingSpinner {
-            border-right-color: $theme-color-2;
-            border-bottom-color: $theme-color-2;
-            box-shadow: none;
+      &.expand-vertically {
+        height: 100%;
+      }
+    }
+
+    // Player styles
+    vg-buffering {
+      .vg-buffering {
+        .loadingSpinner {
+          border-right-color: $theme-color-2;
+          border-bottom-color: $theme-color-2;
+          box-shadow: none;
+        }
+      }
+    }
+
+    vg-overlay-play {
+      .overlay-play-container.vg-icon-play_arrow {
+        // &:before {
+        //  font-family: "Ionicons";
+        //  // As the play arrow ('\f487' in Ionicons font) is a weird shape, we need to use a hack to visually center horizontally.
+        //  // We are going to prepend the 1/6 of em unicode ('\2006'). More info here: (http://www.cs.tut.fi/~jkorpela/chars/spaces.html)
+        //   content: "\2006\f487";
+        //   color: $theme-color-2;
+        //  background: rgba($white, .8);
+        //  font-size: $player-play-icon-height - 1;
+        //   width: $player-play-icon-height;
+        //   height: $player-play-icon-height;
+        //  line-height: $player-play-icon-height;
+        //   text-align: center;
+        //   border-radius: 50%;
+        //  // To make the icon vertically centered excluding the controls height
+        //  margin-bottom: $player-controls-height;
+        // }
+
+        @include play-icon-styles($white, $player-play-icon-height);
+
+        &:before, &:hover, &:active, &:link, &:visited {
+          // To make the icon vertically centered excluding the controls height
+          margin-bottom: $player-controls-height;
+        }
+      }
+    }
+
+    vg-controls {
+      background: rgba(color($colors, mimic, base), 0);
+      height: $player-controls-height;
+
+      .controls-row {
+        width: 100%;
+        height: 100%;
+
+        vg-time-display {
+          height: 100%;
+          width: 100%;
+          line-height: $player-controls-height;
+          font-size: 1.2rem;
+          font-weight: 500;
+          text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+        }
+
+        vg-scrub-bar {
+          display: none;
+          height: 100%;
+          position: absolute;
+          margin: 0px;
+
+          vg-scrub-bar-current-time {
+            background-color: $black-b;
+            height: 3px;
+
+            .background {
+              background-color: color($colors, mimic, base);
+              border: none;
+              z-index: 3;
+              position: relative;
+
+              &::after {
+                content: '';
+                position: absolute;
+                top: -8px;
+                right: -10px;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background: #fff;
+                box-shadow: 0 3px 1px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.13), 0 0 0 1px rgba(0, 0, 0, 0.02);
+                pointer-events: none;
+              }
+            }
+          }
+
+          vg-scrub-bar-buffering-time {
+            height: 3px;
+
+            .background {
+              background-color: $white-d;
+            }
           }
         }
-      }
 
-      vg-overlay-play {
-        .overlay-play-container.vg-icon-play_arrow {
-          // &:before {
-          //  font-family: "Ionicons";
-          //  // As the play arrow ('\f487' in Ionicons font) is a weird shape, we need to use a hack to visually center horizontally.
-          //  // We are going to prepend the 1/6 of em unicode ('\2006'). More info here: (http://www.cs.tut.fi/~jkorpela/chars/spaces.html)
-          //   content: "\2006\f487";
-          //   color: $theme-color-2;
-          //  background: rgba($white, .8);
-          //  font-size: $player-play-icon-height - 1;
-          //   width: $player-play-icon-height;
-          //   height: $player-play-icon-height;
-          //  line-height: $player-play-icon-height;
-          //   text-align: center;
-          //   border-radius: 50%;
-          //  // To make the icon vertically centered excluding the controls height
-          //  margin-bottom: $player-controls-height;
-          // }
-
-          @include play-icon-styles($white, $player-play-icon-height);
-
-          &:before, &:hover, &:active, &:link, &:visited {
-            // To make the icon vertically centered excluding the controls height
-            margin-bottom: $player-controls-height;
-          }
-        }
-      }
-
-      vg-controls {
-        background: rgba(color($colors, mimic, base), 0);
-        height: $player-controls-height;
-
-        .controls-row {
-          width: 100%;
-          height: 100%;
-
+        ion-col:first-child {
           vg-time-display {
-            height: 100%;
-            width: 100%;
-            line-height: $player-controls-height;
-            font-size: 1.2rem;
-            font-weight: 500;
-            text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+            padding-right: 15%;
           }
-
-          vg-scrub-bar {
-            display: none;
-            height: 100%;
-            position: absolute;
-            margin: 0px;
-
-            vg-scrub-bar-current-time {
-              background-color: $black-b;
-              height: 3px;
-
-              .background {
-                background-color: color($colors, mimic, base);
-                border: none;
-                z-index: 3;
-                position: relative;
-
-                &::after {
-                  content: '';
-                  position: absolute;
-                  top: -8px;
-                  right: -10px;
-                  width: 20px;
-                  height: 20px;
-                  border-radius: 50%;
-                  background: #fff;
-                  box-shadow: 0 3px 1px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.13), 0 0 0 1px rgba(0, 0, 0, 0.02);
-                  pointer-events: none;
-                }
-              }
-            }
-
-            vg-scrub-bar-buffering-time {
-              height: 3px;
-
-              .background {
-                background-color: $white-d;
-              }
-            }
-          }
-
-          ion-col:first-child {
-            vg-time-display {
-              padding-right: 15%;
-            }
-          }
-          ion-col:last-child {
-            vg-time-display {
-              padding-left: 15%;
-            }
+        }
+        ion-col:last-child {
+          vg-time-display {
+            padding-left: 15%;
           }
         }
       }
     }
   }
-  //VIDEOS
+}
 
+//VIDEOS
 
 //SPLIT SCREEN LAYOUT
 .split {
@@ -202,9 +203,9 @@ $playlist-item-play-icon-height: 3rem;
 
 //stick content of this screen to the bottom of this screen
 .vertical-align-bottom {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 hr.split-line {
@@ -222,6 +223,7 @@ hr.split-line {
 .content {
   background-color: color($colors, mimic, base);
 }
+
 //SPLIT SCREEN LAYOUT
 
 //SQUARE IMAGES https://stackoverflow.com/a/38926886/1860890
@@ -291,94 +293,95 @@ hr.split-line {
     -webkit-transform: scaleY(1.0);
   }
 }
-//SPINNER
 
+//SPINNER
 
 //NOTIFICATION BAR
 .notification-alert {
-    -webkit-animation-name: notification-alert;
-    animation-name: notification-alert;
-    -webkit-animation-duration: 5s;
-    animation-duration: 5s;
+  -webkit-animation-name: notification-alert;
+  animation-name: notification-alert;
+  -webkit-animation-duration: 5s;
+  animation-duration: 5s;
 
-    background: color($colors, mimic-dark, base);
-    height: 10rem;
-    text-align: center;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 10000;
+  background: color($colors, mimic-dark, base);
+  height: 10rem;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10000;
 
-    -webkit-box-shadow: 0px 0px 30px -6px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 0px 30px -6px rgba(0,0,0,0.75);
-    box-shadow: 0px 0px 30px -6px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 0px 0px 30px -6px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 30px -6px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 30px -6px rgba(0, 0, 0, 0.75);
 
-    color: white;
-    text-decoration: none;
-    visibility: hidden; /*important so it stays hidden*/
-    padding-top: 1.5rem; //move text little bit dow because of status bar
-    //align center
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  color: white;
+  text-decoration: none;
+  visibility: hidden; /*important so it stays hidden*/
+  padding-top: 1.5rem; //move text little bit dow because of status bar
+  //align center
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
 }
 
 .notification-alert:target {
-    display: none;
+  display: none;
 }
 
 #notification-title {
-  font-size:2rem;
+  font-size: 2rem;
   display: block;
 }
 
 #notification-body {
-   font-size:1.5rem;
+  font-size: 1.5rem;
 }
 
 @-webkit-keyframes notification-alert {
-    0% {
-        -webkit-transform: translateY(-200%);
-        transform: translateY(-200%);
-        visibility: visible;
-    }
-    25% {
-        -webkit-transform: translateY(0);
-        transform: translateY(0);
-    }
-    50% {
-        -webkit-transform: translateY(0);
-        transform: translateY(0);
-    }
-    100% {
-        visibility: hidden;
-        -webkit-transform: translateY(-200%);
-        transform: translateY(-200%);
-    }
+  0% {
+    -webkit-transform: translateY(-200%);
+    transform: translateY(-200%);
+    visibility: visible;
+  }
+  25% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  50% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  100% {
+    visibility: hidden;
+    -webkit-transform: translateY(-200%);
+    transform: translateY(-200%);
+  }
 }
 
 @keyframes notification-alert {
-    0% {
-        -webkit-transform: translateY(-200%);
-        transform: translateY(-200%);
-        visibility: visible;
-    }
-    25% {
-        -webkit-transform: translateY(0);
-        transform: translateY(0);
-    }
-    50% {
-        -webkit-transform: translateY(0);
-        transform: translateY(0);
-    }
-    100% {
-        visibility: hidden;
-        -webkit-transform: translateY(-200%);
-        transform: translateY(-200%);
-    }
+  0% {
+    -webkit-transform: translateY(-200%);
+    transform: translateY(-200%);
+    visibility: visible;
+  }
+  25% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  50% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  100% {
+    visibility: hidden;
+    -webkit-transform: translateY(-200%);
+    transform: translateY(-200%);
+  }
 }
+
 //NOTIFICATION BAR
 
 //OTHER
@@ -386,4 +389,5 @@ hr.split-line {
   background: white;
   color: color($colors, mimic, base);
 }
+
 //OTHER

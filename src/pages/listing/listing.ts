@@ -54,19 +54,18 @@ export class ListingPage {
     @ViewChild('originalMimicSlide') originalMimicSlide:Slides;
     @ViewChild('responseMimicSlide') responseMimicSlide:Slides;
 
-    constructor(public nav:NavController, 
-        private alertCtrl:AlertController,
-        public facebookLoginService:FacebookLoginService,
-        public twitterLoginService:TwitterLoginService,
-        public apiSettings:ApiSettings, 
-        public listingService:ListingService,
-        public navParams:NavParams,
-        private ga: GoogleAnalytics,
-        public loadingCtrl: LoadingController,
-        private platform:Platform,
-        private storage:NativeStorage,
-        public modalCtrl: ModalController) 
-    {
+    constructor(public nav:NavController,
+                private alertCtrl:AlertController,
+                public facebookLoginService:FacebookLoginService,
+                public twitterLoginService:TwitterLoginService,
+                public apiSettings:ApiSettings,
+                public listingService:ListingService,
+                public navParams:NavParams,
+                private ga:GoogleAnalytics,
+                public loadingCtrl:LoadingController,
+                private platform:Platform,
+                private storage:NativeStorage,
+                public modalCtrl:ModalController) {
         this.mainMenuOpened = false;
         //filter mimics by hashtag
         if (this.navParams.get('hashtag_id')) {
@@ -79,40 +78,38 @@ export class ListingPage {
 
             //use this parameter to put that specific original mimic on the first place of a list
             if (this.navParams.get('original_mimic_id')) {
-                this.filterMimics['original_mimic_id'] = this.navParams.get('original_mimic_id'); 
+                this.filterMimics['original_mimic_id'] = this.navParams.get('original_mimic_id');
             }
 
             //use this parameter to put that specific response mimic on the first place of a list
             if (this.navParams.get('response_mimic_id')) {
-                this.filterMimics['response_mimic_id'] = this.navParams.get('response_mimic_id'); 
+                this.filterMimics['response_mimic_id'] = this.navParams.get('response_mimic_id');
             }
         }
 
         platform.ready().then(() => {
-            this.storage.getItem('user').then((user) => 
-            {
-                //google analytics
-                this.ga.startTrackerWithId(ApiSettings.GA_TRACKER_ID).then(() => 
-                {
-                    console.log('Google analytics is ready now');
-                    //the component is ready and you can call any method here
-                    this.ga.setAllowIDFACollection(true);
-                    this.ga.setAppVersion(ApiSettings.APP_VERSION);
-                    this.ga.setUserId(user.user_id);
-                })
-                .catch(e => console.log('Error starting GoogleAnalytics', e));  
+            this.storage.getItem('user').then((user) => {
+                    //google analytics
+                    this.ga.startTrackerWithId(ApiSettings.GA_TRACKER_ID).then(() => {
+                        console.log('Google analytics is ready now');
+                        //the component is ready and you can call any method here
+                        this.ga.setAllowIDFACollection(true);
+                        this.ga.setAppVersion(ApiSettings.APP_VERSION);
+                        this.ga.setUserId(user.user_id);
+                    })
+                        .catch(e => console.log('Error starting GoogleAnalytics', e));
 
-            },
-            error => {
-                //user not found
-            });
+                },
+                    error => {
+                    //user not found
+                });
 
-        });        
+        });
     }
 
     ionViewDidLoad() {
         this.getMimicsFromServer();
-    }    
+    }
 
     private getMimicsFromServer() {
         this.listingService.getAllMimics(this.filterMimics).then((data) => {
@@ -128,7 +125,7 @@ export class ListingPage {
             this.slideAllMimicsToBeginning();
 
             //if responses are empty disable sliding
-            if(this.currentMimicResponses.length == 0) {
+            if (this.currentMimicResponses.length == 0) {
                 this.responseMimicSlide.lockSwipeToNext(true);
                 this.responseMimicSlide.lockSwipeToPrev(true);
             }
@@ -136,11 +133,10 @@ export class ListingPage {
     }
 
     /**
-     * Slide original and response mimics to beginning, thus showing on screen mimics under inde 0. 
+     * Slide original and response mimics to beginning, thus showing on screen mimics under inde 0.
      * Used when refreshing the page and adding new original mimic
      */
-    private slideAllMimicsToBeginning()
-    {
+    private slideAllMimicsToBeginning() {
         this.originalMimicSlide.slideTo(0, 0, false);  //set slide back to index 0
         this.responseMimicSlide.slideTo(0, 0, false);  //set slide back to index 0
     }
@@ -150,9 +146,9 @@ export class ListingPage {
      * @param any params Any params going to profile modal
      */
     private presentAddMimicModal(params) {
-       let addMimicModal = this.modalCtrl.create(AddMimic, params);
-       addMimicModal.onDidDismiss(data => {
-            if(data) {
+        let addMimicModal = this.modalCtrl.create(AddMimic, params);
+        addMimicModal.onDidDismiss(data => {
+            if (data) {
                 switch (data.mimicType) {
                     case "original":
                         this.mimicsList.unshift(data.uploadedMimic);
@@ -168,9 +164,9 @@ export class ListingPage {
                         break;
                 }
             }
-       }); 
-       addMimicModal.present();
-     }
+        });
+        addMimicModal.present();
+    }
 
 
     /**
@@ -193,7 +189,7 @@ export class ListingPage {
                 this.nav.push(Search);
                 break;
             case "add-mimic":
-                 this.presentAddMimicModal({});
+                this.presentAddMimicModal({});
                 break;
         }
     }
@@ -375,7 +371,7 @@ export class ListingPage {
         });
         loading.present();
 
-       // this.originalMimicSlide.lockSwipeToNext(true);
+        // this.originalMimicSlide.lockSwipeToNext(true);
         this.originalMimicPaging += 1; //increase paging
         this.listingService.getAllMimics(Object.assign(this.filterMimics, {page: this.originalMimicPaging}), false)
             .then((data) => {
@@ -424,7 +420,7 @@ export class ListingPage {
      * Load more mimic responses
      */
     private loadMoreResponses() {
-        this.responseMimicSlide.lockSwipeToNext(true); 
+        this.responseMimicSlide.lockSwipeToNext(true);
         const loading = this.loadingCtrl.create({
             content: 'Loading more Mimics...',
         });
@@ -447,10 +443,10 @@ export class ListingPage {
 
         clearTimeout(this.timeoutHandle);
 
-        this.timeoutHandle = setTimeout(function(){
+        this.timeoutHandle = setTimeout(function () {
             self.currentMimicResponses = self.mimicsList[currentMimicOriginalIndex].mimic_responses;
             //if responses are empty disable sliding
-            if(self.currentMimicResponses.length == 0) {
+            if (self.currentMimicResponses.length == 0) {
                 self.responseMimicSlide.lockSwipeToNext(true);
                 self.responseMimicSlide.lockSwipeToPrev(true);
             } else {

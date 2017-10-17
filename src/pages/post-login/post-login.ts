@@ -27,7 +27,7 @@ export class PostLogin {
                 public twitterLoginService:TwitterLoginService,
                 public postLoginService:PostLoginService,
                 public apiSettings:ApiSettings,
-                public loadingCtrl:LoadingController, 
+                public loadingCtrl:LoadingController,
                 private storage:NativeStorage) {
         this.submit_username = new FormGroup({
             username: new FormControl('', Validators.required),
@@ -46,27 +46,27 @@ export class PostLogin {
      */
     submitUsername() {
         this.loading = this.loadingCtrl.create();
-        
+
         this.postLoginService.setUsername(this.submit_username.value.username)
             .then((res) => {
                 this.loading.present();
                 //if everything is ok, set username in storage
                 if (res.status == true) {
                     this.storage.getItem('user')
-                    .then((userData) => {
-                        userData.username = this.submit_username.value.username;
-                        this.storage.setItem('user', userData)
-                        .then(() => {
-                            this.loading.dismiss();
-                            this.nav.setRoot(ListingPage);
-                        },
-                        (error) => {
-                            console.error('Error storing item', error);
+                        .then((userData) => {
+                            userData.username = this.submit_username.value.username;
+                            this.storage.setItem('user', userData)
+                                .then(() => {
+                                    this.loading.dismiss();
+                                    this.nav.setRoot(ListingPage);
+                                },
+                                (error) => {
+                                    console.error('Error storing item', error);
+                                });
+                        })
+                        .catch((error) => {
+                            console.log("error", error);
                         });
-                    })
-                    .catch((error) => {
-                        console.log("error", error);
-                    });
                 }
             })
             .catch((error) => {

@@ -11,8 +11,8 @@ export class FacebookLoginService {
     FB_APP_ID:number = 770098823161620;
 
     constructor(//public http:Http,
-                public nativeStorage:NativeStorage,
-                public fb:Facebook) {
+        public nativeStorage:NativeStorage,
+        public fb:Facebook) {
         this.fb.browserInit(this.FB_APP_ID, "v2.8");
     }
 
@@ -79,8 +79,8 @@ export class FacebookLoginService {
      }*/
 
     /*private handleError(error:any):Promise<any> {
-        console.error('An error occurred', error); // for demo purposes only
-        return Promise.reject(error.message || error);
-    }*/
+     console.error('An error occurred', error); // for demo purposes only
+     return Promise.reject(error.message || error);
+     }*/
 
 }

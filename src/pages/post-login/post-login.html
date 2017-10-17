@@ -8,12 +8,14 @@
     <div>
         <form class="" [formGroup]="submit_username" (ngSubmit)="submitUsername()">
             <ion-item class="choose_username">
-                <ion-label style="color: white; white-space: normal" stacked>Allowed: letters, numbers, '.' and '-', min 4 characters
+                <ion-label style="color: white; white-space: normal" stacked>Allowed: letters, numbers, '.' and '-', min
+                    4 characters
                 </ion-label>
                 <ion-input #usernameInput type="username" placeholder="Choose a username" formControlName="username"
                            pattern="^[a-zA-Z0-9_.-]{4,}$"></ion-input>
             </ion-item>
-            <button ion-button block large style="margin-top: 15%" type="submit" class="mimic-submit-btn" [disabled]="!submit_username.valid">Go
+            <button ion-button block large style="margin-top: 15%" type="submit" class="mimic-submit-btn"
+                    [disabled]="!submit_username.valid">Go
                 on
             </button>
         </form>

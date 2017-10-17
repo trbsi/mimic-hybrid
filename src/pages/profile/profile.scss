@@ -3,7 +3,7 @@ profile-page {
   //MOJE
   .video-placeholder {
     $size: 4rem;
-    &:before  {
+    &:before {
       font-family: "Ionicons";
       // As the play arrow ('\f487' in Ionicons font) is a weird shape, we need to use a hack to visually center horizontally.
       // We are going to prepend the 1/6 of em unicode ('\2006'). More info here: (http://www.cs.tut.fi/~jkorpela/chars/spaces.html)
@@ -37,18 +37,16 @@ profile-page {
     margin-top: 30%;
   }
 
-  .split-custom-top
-  {
+  .split-custom-top {
     height: 40%;
     background: white;
   }
 
-  .split-custom-bottom
-  {
+  .split-custom-bottom {
     height: 60%;
   }
   //MOJE
-  
+
   .profile-content {
     background-color: color($colors, mimic, base);
 

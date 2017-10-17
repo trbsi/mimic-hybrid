@@ -102,7 +102,7 @@ export function createTranslateLoader(http:Http) {
         //ShowHideInput,
     ],
     imports: [
-        BrowserModule, 
+        BrowserModule,
         HttpModule,
         IonicModule.forRoot(MyApp),
         TranslateModule.forRoot({

@@ -7,7 +7,7 @@ import { ProfileService } from './profile.service';
 
 import 'rxjs/Rx';
 
-@Component({ 
+@Component({
     selector: 'profile-page',
     templateUrl: 'profile.html'
 })
@@ -46,36 +46,36 @@ export class ProfilePage {
 
     goToFollowersList() {
         var data = {};
-        if(this.userId) {
+        if (this.userId) {
             data['user_id'] = this.userId;
         }
 
         this.profileService.followers(data)
-        .then(data => {
-            // close the menu when clicking a link from the menu
-            this.menu.close();
-            this.app.getRootNav().push(FollowersPage, {
-                users: data.followers,
-                type: 'followers'
+            .then(data => {
+                // close the menu when clicking a link from the menu
+                this.menu.close();
+                this.app.getRootNav().push(FollowersPage, {
+                    users: data.followers,
+                    type: 'followers'
+                });
             });
-        });
     }
 
     goToFollowingList() {
         var data = {};
-        if(this.userId) {
+        if (this.userId) {
             data['user_id'] = this.userId;
         }
-        
+
         this.profileService.following(data)
-        .then(data => {
-            // close the menu when clicking a link from the menu
-            this.menu.close();
-            this.app.getRootNav().push(FollowersPage, {
-                users: data.following,
-                type: 'following'
+            .then(data => {
+                // close the menu when clicking a link from the menu
+                this.menu.close();
+                this.app.getRootNav().push(FollowersPage, {
+                    users: data.following,
+                    type: 'following'
+                });
             });
-        });
     }
 
     onSegmentChanged(segmentButton:SegmentButton) {
@@ -176,15 +176,14 @@ export class ProfilePage {
      * @param any type Mimic type: "response" or "original"
      * @param int mimic Mimic object
      */
-    private viewMimic(type, mimic)
-    {
-        var data = { };
+    private viewMimic(type, mimic) {
+        var data = {};
         switch (type) {
             case "original":
                 //so you can put this original mimic to the first place in the list
                 data['original_mimic_id'] = mimic.id;
                 data['user_id'] = mimic.user_id;
-                break;            
+                break;
             case "response":
                 //those two go together because you need to get original mimic to set it to the first place to pll its response and put it to the first place
                 data['response_mimic_id'] = mimic.id;
@@ -229,18 +228,17 @@ export class ProfilePage {
     /**
      * Follow or unfollow this user
      */
-    follow()
-    {
+    follow() {
         this.profileService.follow({id: this.userId})
             .then(data => {
                 if (data.type == 'followed') {
                     this.profile.i_am_following_you = true;
                     //increase number of followers by one
-                    this.profile.followers+=1;
+                    this.profile.followers += 1;
                 } else if (data.type == 'unfollowed') {
                     this.profile.i_am_following_you = false;
                     //decrease number of followers by one
-                    this.profile.followers-=1;
+                    this.profile.followers -= 1;
                 }
             });
     }

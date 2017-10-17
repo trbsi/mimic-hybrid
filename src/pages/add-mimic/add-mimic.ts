@@ -18,7 +18,7 @@ export class AddMimic {
     currentSegment:string;
     startSpinner = false; //when video is uploaded it takes time to show up there so we need spinner
     loading:any;
-    
+
     imageFile:any;
     videoFile:any;
     videoFileDuration:any;
@@ -31,25 +31,24 @@ export class AddMimic {
     originalMimicId:number;
 
     //VIDEO
-    videoPlayer: any;
+    videoPlayer:any;
 
     constructor(public nav:NavController, public navParams:NavParams,
                 public alertCtrl:AlertController,
-                private camera: Camera,
-                private mediaCapture: MediaCapture,
-                private videoEditor: VideoEditor,
-                private addMimicService: AddMimicService,
-                public loadingCtrl:LoadingController, 
-                private file: File,
-                private viewCtrl: ViewController) 
-    {
+                private camera:Camera,
+                private mediaCapture:MediaCapture,
+                private videoEditor:VideoEditor,
+                private addMimicService:AddMimicService,
+                public loadingCtrl:LoadingController,
+                private file:File,
+                private viewCtrl:ViewController) {
         this.currentSegment = 'camera';
 
         this.post_form = new FormGroup({
             hashtags: new FormControl('', Validators.required)
         });
-        
-        if(this.navParams.get('original_mimic_id')) {
+
+        if (this.navParams.get('original_mimic_id')) {
             this.originalMimicId = this.navParams.get('original_mimic_id');
         }
 
@@ -62,7 +61,7 @@ export class AddMimic {
 
     onSegmentChanged(segmentButton:SegmentButton) {
         this.resetSubmitForm(false);
-        this.currentSegment = segmentButton.value; 
+        this.currentSegment = segmentButton.value;
         this.removeCachedFiles();
     }
 
@@ -77,62 +76,62 @@ export class AddMimic {
         //check if image or video has been chosen/taken
         switch (this.currentSegment) {
             case "camera":
-                if(!this.videoFile  && !this.imageFile) {
+                if (!this.videoFile && !this.imageFile) {
                     this.presentAlert(this.currentSegment);
                     return;
                 }
                 break;
             case "library":
-                if(!this.videoFile  && !this.imageFile) {
+                if (!this.videoFile && !this.imageFile) {
                     this.presentAlert(this.currentSegment);
                     return;
                 }
-                break; 
+                break;
         }
-        var form_data = this.post_form.value; 
-        
+        var form_data = this.post_form.value;
+
         var data = {};
         data['filePath'] = this.currentFile;
         data['fileName'] = this.currentFileName;
 
-        if(!this.originalMimicId) {
+        if (!this.originalMimicId) {
             data['hashtags'] = form_data.hashtags;
 
         } else {
             data['original_mimic_id'] = this.originalMimicId;
         }
 
-        this.loading = this.loadingCtrl.create({ 
+        this.loading = this.loadingCtrl.create({
             content: "We're uploading your Mimic",
         });
         this.loading.present();
 
         this.addMimicService.addMimic(data).then((data) => {
-            var callbackData = 
+            var callbackData =
             {
                 uploadedMimic: data.mimics[0],
-                mimicType: (this.originalMimicId) ? "response": "original"
+                mimicType: (this.originalMimicId) ? "response" : "original"
             };
 
             //if there is video thumb, upload it
-            if(this.videoThumb) {
+            if (this.videoThumb) {
                 var videoThumbData = {
                     filePath: this.videoThumb,
                     fileName: this.currentVideoThumbFileName
                 };
- 
+
                 //this is response mimic
-                if(this.originalMimicId) {
+                if (this.originalMimicId) {
                     videoThumbData['response_mimic_id'] = callbackData.uploadedMimic.id;
-                } 
+                }
                 //this is original mimic
                 else {
                     videoThumbData['original_mimic_id'] = callbackData.uploadedMimic.mimic.id;
                 }
 
-                 //upload it to server
+                //upload it to server
                 this.addMimicService.uploadVideoThumb(videoThumbData).then((videoThumbResponse) => {
-                    if(videoThumbResponse.success === true) {
+                    if (videoThumbResponse.success === true) {
                         //set video_thumb_url
                         callbackData.uploadedMimic.mimic.video_thumb_url = videoThumbResponse.video_thumb_url;
                         this.removeCachedFiles();
@@ -147,10 +146,10 @@ export class AddMimic {
                 this.removeCachedFiles();
                 this.loading.dismiss();
                 this.viewCtrl.dismiss(callbackData);
-            }            
+            }
         });
 
-        
+
     }
 
     /**
@@ -182,8 +181,7 @@ export class AddMimic {
      * Upload image or video from device
      * @param type string Type of media to get: "video" or "image"
      */
-    openDeviceLibrary(type) 
-    {
+    openDeviceLibrary(type) {
         var data = {};
         this.currentFile = this.imageFile = this.videoFile = null;
 
@@ -196,27 +194,25 @@ export class AddMimic {
                 break;
         }
 
-        const options: CameraOptions = {
-          quality: 60,
-          targetWidth: 1600,
-          targetHeight: 900,
-          destinationType: this.camera.DestinationType.FILE_URI,
-          mediaType: data['mediaType'],
-          sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+        const options:CameraOptions = {
+            quality: 60,
+            targetWidth: 1600,
+            targetHeight: 900,
+            destinationType: this.camera.DestinationType.FILE_URI,
+            mediaType: data['mediaType'],
+            sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
         }
 
-        this.camera.getPicture(options).then((data) => 
-        { 
+        this.camera.getPicture(options).then((data) => {
             // data is either a base64 encoded string or a file URI
             // If it's base64:
-            switch (type)
-            {
+            switch (type) {
                 case "video":
                     this.videoEditor.getVideoInfo({fileUri: data}).then((videoInfo) => {
                         console.log("videon info", videoInfo);
                         this.callVideoEditor(data);
                     }).catch((error) => {
-                        console.log(error); 
+                        console.log(error);
                     });
                     break;
                 case "image":
@@ -228,71 +224,68 @@ export class AddMimic {
             console.log(err);
         });
     }
- 
+
     /**
      * Take a picture of record a video
      * @param type string Type of media to get: "video" or "image"
      */
-    captureMedia(type) 
-    {
+    captureMedia(type) {
         this.currentFile = this.imageFile = this.videoFile = null;
-        if(type == 'image') {
-            let options: CaptureImageOptions = { limit: 1 };
+        if (type == 'image') {
+            let options:CaptureImageOptions = {limit: 1};
             this.mediaCapture.captureImage(options)
-            .then(
-                (data: MediaFile[]) => {
+                .then(
+                (data:MediaFile[]) => {
                     console.log(data);
                     //this.imageFile = data[0]['localURL']; //testing with localURL
                     this.callCropper(data[0]['fullPath']);
                 },
-                (err: CaptureError) => console.log(err)
+                (err:CaptureError) => console.log(err)
             );
         } else if (type == 'video') {
-            let options: CaptureVideoOptions = { limit: 1, duration: this.videoDuration };
+            let options:CaptureVideoOptions = {limit: 1, duration: this.videoDuration};
             this.mediaCapture.captureVideo(options)
-            .then(
-                (data: MediaFile[]) => {
+                .then(
+                (data:MediaFile[]) => {
                     console.log(data);
                     //this.videoFile = data[0]['localURL']; // better use fullPath here like: data[0].fullPath
                     this.callVideoEditor(data[0]['fullPath']);
                 },
-                (err: CaptureError) => console.log(err)
+                (err:CaptureError) => console.log(err)
             );
         }
-        
+
     }
 
     /**
      * Call video editor
      * @param string videoPath Path to a video
      */
-    private callVideoEditor(videoPath)
-    {
+    private callVideoEditor(videoPath) {
         videoPath = this.returnFilePath(videoPath);
-        this.currentFileName = "mimic_media_"+this.randomString()+".mp4";
-        this.startSpinner = true; 
+        this.currentFileName = "mimic_media_" + this.randomString() + ".mp4";
+        this.startSpinner = true;
         this.videoEditor.transcodeVideo({
-          fileUri: videoPath,
-          outputFileName: this.currentFileName,
-          outputFileType: this.videoEditor.OutputFileType.MPEG4,
-          saveToLibrary: false
+            fileUri: videoPath,
+            outputFileName: this.currentFileName,
+            outputFileType: this.videoEditor.OutputFileType.MPEG4,
+            saveToLibrary: false
         })
-        .then((fileUri: string) => {
-            this.currentFile = this.videoFile = this.returnFilePath(fileUri);
-            this.createVideoThumb();
-            console.log('video transcode success', this.videoFile);
-        })
-        .catch((error: any) => {
-            console.log('video transcode error', error);
-        });
+            .then((fileUri:string) => {
+                this.currentFile = this.videoFile = this.returnFilePath(fileUri);
+                this.createVideoThumb();
+                console.log('video transcode success', this.videoFile);
+            })
+            .catch((error:any) => {
+                console.log('video transcode error', error);
+            });
     }
 
     /**
-    * Create thumbnail for video 
-    */
-    private createVideoThumb() 
-    {
-        this.currentVideoThumbFileName = 'mimic_media_'+this.randomString()+'.jpg';
+     * Create thumbnail for video
+     */
+    private createVideoThumb() {
+        this.currentVideoThumbFileName = 'mimic_media_' + this.randomString() + '.jpg';
 
         var options = {
             fileUri: this.videoFile,
@@ -301,39 +294,38 @@ export class AddMimic {
             //height: 480,
             quality: 60,
             outputFileName: this.currentVideoThumbFileName,
-        }; 
+        };
 
         //get video info so you can get its length for thum
         this.videoEditor.getVideoInfo({fileUri: this.videoFile})
-        .then((videoInfo) => {
-            console.log(videoInfo);
-            //it return duration in some weird unit where 1sec = 50 durations
-            if(this.videoFileDuration > 4) {
-                options.atTime = 4;
-            }
+            .then((videoInfo) => {
+                console.log(videoInfo);
+                //it return duration in some weird unit where 1sec = 50 durations
+                if (this.videoFileDuration > 4) {
+                    options.atTime = 4;
+                }
 
-            this.videoEditor.createThumbnail(options)
-            .then((thumbPath) => { 
-                this.videoThumb = this.returnFilePath(thumbPath);
-                console.log("thumb", this.videoThumb);
-            })
-            .catch((error) => {
-                console.log("video thumbnail", error);
-                this.startSpinner = false;
+                this.videoEditor.createThumbnail(options)
+                    .then((thumbPath) => {
+                        this.videoThumb = this.returnFilePath(thumbPath);
+                        console.log("thumb", this.videoThumb);
+                    })
+                    .catch((error) => {
+                        console.log("video thumbnail", error);
+                        this.startSpinner = false;
+                    });
+            }).catch((error) => {
+                console.log(error);
             });
-        }).catch((error) => {
-            console.log(error); 
-        });
-       
-        
+
+
     }
 
     /**
      * Call our cropper
      * @param string imagePath
      */
-    private callCropper(imagePath)
-    {
+    private callCropper(imagePath) {
         imagePath = this.returnFilePath(imagePath);
         var options = {
             url: imagePath,              // required.
@@ -343,45 +335,42 @@ export class AddMimic {
         }
 
         //https://stackoverflow.com/questions/38000418/using-windows-plugins-with-ionic-2-typescript
-        window['plugins'].k.imagecropper.open(options, function(cropData) {
+        window['plugins'].k.imagecropper.open(options, function (cropData) {
             // its return an object with the cropped image cached url, cropped width & height, you need to manually delete the image from the application cache.
-            this.currentFileName = "mimic_media_"+this.randomString()+"_image.jpg";
+            this.currentFileName = "mimic_media_" + this.randomString() + "_image.jpg";
             this.currentFile = this.imageFile = cropData['imgPath'];
             //click on btn to call returnToScreen function
             document.getElementById("hidden-btn").click();
-            
-        }.bind(this), function(error) {
+
+        }.bind(this), function (error) {
             console.log(error);
         });
     }
 
     /**
-    * This is dummy function. The problem is when I choose image and then I call cropper it works fine but my image is not being displayed.
-    * Once I click on ion segment btn or input field image is displayed. It's like at that moment I return from cropper screen
-    * This is workaround to actually display image. I click on hidden button which calls this funtion
-    */
-    returnToScreen()
-    {
+     * This is dummy function. The problem is when I choose image and then I call cropper it works fine but my image is not being displayed.
+     * Once I click on ion segment btn or input field image is displayed. It's like at that moment I return from cropper screen
+     * This is workaround to actually display image. I click on hidden button which calls this funtion
+     */
+    returnToScreen() {
         return true;
     }
 
     /**
      * Reset submit form and all values
      */
-    resetSubmitForm(resetWholeForm)
-    {
+    resetSubmitForm(resetWholeForm) {
         this.currentFile = null;
         this.imageFile = this.videoFile = null;
-        if(resetWholeForm) {
+        if (resetWholeForm) {
             this.post_form.reset();
         }
     }
- 
+
     /**
      * Close modal
      */
-    closeModal()
-    {
+    closeModal() {
         this.removeCachedFiles();
         this.viewCtrl.dismiss();
     }
@@ -397,51 +386,53 @@ export class AddMimic {
         //get video duration and reject it if it's too long
         this.videoPlayer.getDefaultMedia().subscriptions.loadedMetadata.subscribe(() => {
             this.videoFileDuration = this.videoPlayer.duration;
-            if(this.videoPlayer.duration > this.videoDuration) {
+            if (this.videoPlayer.duration > this.videoDuration) {
                 this.videoFile = this.currentFile = null;
-                this.presentAlert('custom', "Duration of a video can't be more than "+this.videoDuration+" seconds");
+                this.presentAlert('custom', "Duration of a video can't be more than " + this.videoDuration + " seconds");
             }
             this.startSpinner = false;
         });
     }
+
     //VIDEOS
 
 
     /**
      * Remove all files from cache directory so it doesn't make app size big
      */
-    private removeCachedFiles()
-    {
-        this.file.listDir(this.file.cacheDirectory,'')
-        .then((result) => {
-            for(let file of result){
-                if(file.isFile == true && file.name.indexOf('mimic') !== -1) {
-                    this.file.removeFile(this.file.cacheDirectory, file.name)
-                    .then((success) => { console.log(success); })
-                    .catch((error) => { console.log(error); });
+    private removeCachedFiles() {
+        this.file.listDir(this.file.cacheDirectory, '')
+            .then((result) => {
+                for (let file of result) {
+                    if (file.isFile == true && file.name.indexOf('mimic') !== -1) {
+                        this.file.removeFile(this.file.cacheDirectory, file.name)
+                            .then((success) => {
+                                console.log(success);
+                            })
+                            .catch((error) => {
+                                console.log(error);
+                            });
 
+                    }
                 }
-            }
-        }) ;
+            });
     }
 
     /**
      * Generate random string
      */
-    private randomString()
-    {
+    private randomString() {
         return Math.random().toString(36).substring(5);
     }
 
     /**
      * If there is not "file://" in path then append that
      */
-    private returnFilePath(path)
-    {
-        if(path.indexOf('file://') === -1) {
-            return 'file://'+path;
+    private returnFilePath(path) {
+        if (path.indexOf('file://') === -1) {
+            return 'file://' + path;
         }
- 
+
         return path;
     }
 }

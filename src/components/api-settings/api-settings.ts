@@ -14,12 +14,11 @@ export class ApiSettings {
     allow_entry:string = 'almasi:slatkasi';
     loading:any;
 
-    constructor(public http:Http, 
-        private storage:NativeStorage, 
-        private alertCtrl:AlertController,
-        public loadingCtrl:LoadingController, 
-        private transfer: FileTransfer) 
-    {
+    constructor(public http:Http,
+                private storage:NativeStorage,
+                private alertCtrl:AlertController,
+                public loadingCtrl:LoadingController,
+                private transfer:FileTransfer) {
 
     }
 
@@ -28,29 +27,26 @@ export class ApiSettings {
      * @param {Headers} headers [description]
      * @param string type What type of request to send: get, post
      */
-    private createHeaders(headers:Headers, type) 
-    {
+    private createHeaders(headers:Headers, type) {
         headers.append('AllowEntry', btoa(this.allow_entry));
-        if(type != 'upload') {
+        if (type != 'upload') {
             headers.append('Content-Type', 'application/json');
         }
     }
 
 
-    private handleError(error) 
-    {
+    private handleError(error) {
         let alert = this.alertCtrl.create({
             title: 'There was a problem',
             subTitle: error.json().error.message,
             buttons: ['Ok']
-        }); 
+        });
         alert.present();
 
         return Promise.reject(error.json());
     }
 
-    private handleSuccess(success) 
-    {
+    private handleSuccess(success) {
         return Promise.resolve(success.json());
     }
 
@@ -60,14 +56,13 @@ export class ApiSettings {
      * @param string url Url to post to
      * @param string type What type of request to send: get, post
      */
-    sendRequest(serverData, url, type, showLoading = true) 
-    {
-        if(showLoading === true) {
+    sendRequest(serverData, url, type, showLoading = true) {
+        if (showLoading === true) {
             this.loading = this.loadingCtrl.create({
                 content: 'Give Mimic a second :)',
             });
             this.loading.present();
-        } 
+        }
 
         var headers = new Headers();
         return this.storage.getItem('user')
@@ -111,19 +106,18 @@ export class ApiSettings {
      * @param string url Url to post to
      * @param Headers headers What headers to include
      */
-    private doPost(postData, url, headers, showLoading) 
-    {
+    private doPost(postData, url, headers, showLoading) {
         let options = new RequestOptions({headers: headers});
         return this.http.post(ApiSettings.API_ENDPOINT + url, postData, options)
             .toPromise()
-            .then((response) => { 
-                if(showLoading === true) {
+            .then((response) => {
+                if (showLoading === true) {
                     this.loading.dismiss();
                 }
                 return this.handleSuccess(response);
             })
             .catch((error) => {
-                if(showLoading === true) {
+                if (showLoading === true) {
                     this.loading.dismiss();
                 }
                 return this.handleError(error);
@@ -136,19 +130,18 @@ export class ApiSettings {
      * @param string url Url to post to
      * @param Headers headers What headers to include
      */
-    private doGet(getData, url, headers, showLoading) 
-    {
+    private doGet(getData, url, headers, showLoading) {
         let options = new RequestOptions({params: getData, headers: headers});
         return this.http.get(ApiSettings.API_ENDPOINT + url, options)
             .toPromise()
             .then((response) => {
-                if(showLoading === true) {
+                if (showLoading === true) {
                     this.loading.dismiss();
                 }
                 return this.handleSuccess(response);
             })
             .catch((error) => {
-                if(showLoading === true) {
+                if (showLoading === true) {
                     this.loading.dismiss();
                 }
                 return this.handleError(error);
@@ -161,19 +154,18 @@ export class ApiSettings {
      * @param string url Url to post to
      * @param Headers headers What headers to include
      */
-    private doDelete(data, url, headers, showLoading) 
-    {
+    private doDelete(data, url, headers, showLoading) {
         let options = new RequestOptions({params: data, headers: headers});
         return this.http.delete(ApiSettings.API_ENDPOINT + url, options)
             .toPromise()
             .then((response) => {
-                if(showLoading === true) {
+                if (showLoading === true) {
                     this.loading.dismiss();
                 }
                 return this.handleSuccess(response);
             })
             .catch((error) => {
-                if(showLoading === true) {
+                if (showLoading === true) {
                     this.loading.dismiss();
                 }
                 return this.handleError(error);
@@ -181,17 +173,15 @@ export class ApiSettings {
     }
 
 
-
     /**
      * Upload file to server
      * @param any data Data to send to server
      * @param string url Url to post to
      */
-    private doUpload(data, url, headers, showLoading) 
-    {
-        const fileTransfer: FileTransferObject = this.transfer.create();
+    private doUpload(data, url, headers, showLoading) {
+        const fileTransfer:FileTransferObject = this.transfer.create();
 
-        let options: FileUploadOptions = {
+        let options:FileUploadOptions = {
             headers: headers,
             params: data,
             fileKey: 'file', //this is how you fetch file on backend
@@ -199,25 +189,25 @@ export class ApiSettings {
         }
 
         return fileTransfer.upload(data.filePath, ApiSettings.API_ENDPOINT + url, options)
-        .then((data) => {
-            if(showLoading === true) {
-                this.loading.dismiss();
-            }
-            return Promise.resolve(JSON.parse(data.response));
-        }, (error) => {
-            if(showLoading === true) {
-                this.loading.dismiss();
-            }
+            .then((data) => {
+                if (showLoading === true) {
+                    this.loading.dismiss();
+                }
+                return Promise.resolve(JSON.parse(data.response));
+            }, (error) => {
+                if (showLoading === true) {
+                    this.loading.dismiss();
+                }
 
-            let alert = this.alertCtrl.create({
-                title: 'There was a problem',
-                subTitle: JSON.parse(error.body).error.message,
-                buttons: ['Ok'] 
-            }); 
-            alert.present();
-            
-            return Promise.reject(JSON.parse(error.body));
-        });
+                let alert = this.alertCtrl.create({
+                    title: 'There was a problem',
+                    subTitle: JSON.parse(error.body).error.message,
+                    buttons: ['Ok']
+                });
+                alert.present();
+
+                return Promise.reject(JSON.parse(error.body));
+            });
     }
 
 
@@ -225,19 +215,20 @@ export class ApiSettings {
      * put login data into a storage
      * @param any loginData Data consists of user_id, token and suername
      */
-    storageSetLoginData(loginData) 
-    {
-        return this.storage.setItem('user', {'token': loginData.token, 'username': loginData.username, 'user_id': loginData.user_id})
-            .then(() => 
-            {
+    storageSetLoginData(loginData) {
+        return this.storage.setItem('user', {
+            'token': loginData.token,
+            'username': loginData.username,
+            'user_id': loginData.user_id
+        })
+            .then(() => {
                 console.log('User storage set');
             },
-            error => console.error('Error storing user storage', error)
+                error => console.error('Error storing user storage', error)
         );
     }
 
-    storageRemoveLoginData() 
-    {
+    storageRemoveLoginData() {
         this.storage.remove('user');
     }
 

@@ -12,12 +12,9 @@ import 'rxjs/Rx';
     templateUrl: 'root.html'
 })
 export class RootPage {
-    constructor(
-        public nav:NavController, 
-        public platform: Platform,
-        private storage:NativeStorage
-        ) 
-    {
+    constructor(public nav:NavController,
+                public platform:Platform,
+                private storage:NativeStorage) {
         this.platform.ready().then((readySource) => {
             this.redirectUserToTheRightPage();
         });
@@ -38,7 +35,7 @@ export class RootPage {
                     this.nav.setRoot(ListingPage);
                 }
             },
-            error => {
+                error => {
                 this.nav.setRoot(LoginPage);
             }
         );

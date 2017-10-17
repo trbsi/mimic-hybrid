@@ -16,17 +16,16 @@ import { NativeStorage } from '@ionic-native/native-storage';
 @Component({
     selector: 'login-page',
     templateUrl: 'login.html'
-}) 
+})
 export class LoginPage {
 
     constructor(public nav:NavController, public login_service:LoginService,
                 public facebookLoginService:FacebookLoginService,
                 //public googleLoginService:GoogleLoginService,
-                public twitterLoginService:TwitterLoginService, 
+                public twitterLoginService:TwitterLoginService,
                 public modal:ModalController,
                 private storage:NativeStorage,
-                public apiSettings:ApiSettings) 
-    {
+                public apiSettings:ApiSettings) {
     }
 
 
@@ -44,7 +43,7 @@ export class LoginPage {
                     this.nav.setRoot(ListingPage);
                 }
             },
-            error => {
+                error => {
                 console.log(error);
             }
         );

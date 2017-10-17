@@ -4,7 +4,7 @@ import 'rxjs/add/operator/toPromise';
 import { ApiSettings } from '../components/api-settings/api-settings';
 
 @Injectable()
-export class AppService { 
+export class AppService {
 
     constructor(public apiSettings:ApiSettings) {
     }

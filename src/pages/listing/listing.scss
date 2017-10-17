@@ -13,7 +13,6 @@
 $ratio-width: 16;
 $ratio-height: 9;
 
-
 listing-page {
   $categories-heading-image-height: 150px;
   $categories-grid-padding: 10px;
@@ -81,9 +80,6 @@ listing-page {
   }
   //------menu------
 
-
-
-
   //-----mimic info style-----
   //bottom and up mimic info with hasthags and profile, set it to absolute so you can move it
   .list, .list-ios {
@@ -145,9 +141,6 @@ listing-page {
 
   //-----mimic info style-----
 
-
-
-
   //-----upvote button area-----
   .item-ios .item-button {
     height: 30px;
@@ -158,11 +151,8 @@ listing-page {
   }
   //-----upvote button area-----
 
-
-
-
   //------SLIDES-------
-  
+
   //no mimics
   .no-mimics-yellow-text {
     color: color($colors, mimic, base);
@@ -184,8 +174,8 @@ listing-page {
     }
 
     img {
-       max-width: 7rem;
-       margin-top: 10%;
+      max-width: 7rem;
+      margin-top: 10%;
     }
   }
 
@@ -244,8 +234,7 @@ listing-page {
     //mycode
   }
 
-  .placeholder
-  {
+  .placeholder {
     width: 100%;
     height: slides-height();
     z-index: -2;
@@ -253,7 +242,6 @@ listing-page {
     position: absolute;
   }
   //------SLIDES-------
-
 
   .listing-header {
     .header-logo {

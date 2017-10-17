@@ -339,17 +339,17 @@ export class ListingPage {
             return;
         }
 
-        //if this is the end, try to get more mimics (preload them)
-        if (this.originalMimicSlide.isEnd()) {
-            this.loadMoreOriginals();
-        }
-
         //set current original mimic you are looking at
         this.currentOriginalMimic = this.mimicsList[newIndex];
         //set new current mimic response and reset numbering
         this.setCurrentMimicResponses(newIndex);
         //when slide is changed pause previous video
         this.slideChanged(type, newIndex - 1);
+
+        //if this is the end, try to get more mimics (preload them)
+        if (this.originalMimicSlide.isEnd()) {
+            this.loadMoreOriginals();
+        }
     }
 
     loadPrevOriginal(type) {
@@ -399,17 +399,15 @@ export class ListingPage {
             return;
         }
 
-        //if this is the end, try to get more mimics
-        if (this.responseMimicSlide.isEnd()) {
-            this.loadMoreResponses();
-        }
-
         //set current response mimic you are looking at
         this.currentResponseMimic = this.currentMimicResponses[newIndex];
         //when slide is changed pause previous video
         this.slideChanged(type, newIndex - 1);
 
-
+        //if this is the end, try to get more mimics
+        if (this.responseMimicSlide.isEnd()) {
+            this.loadMoreResponses();
+        }
     }
 
     loadPrevResponse(type) {

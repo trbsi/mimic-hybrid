@@ -83,6 +83,7 @@ export class MyApp {
                         //'We have permission to send push notifications');
                         const options:PushOptions = {
                             ios: {
+                                fcmSandbox: false,
                                 alert: true,
                                 badge: true,
                                 sound: true,

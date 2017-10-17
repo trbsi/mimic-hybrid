@@ -77,62 +77,64 @@ export class MyApp {
     }
 
     private getPushToken() {
-        this.storage.getItem('user').then((user) => {
-                this.push.hasPermission()
-                    .then((res:any) => {
-                        //'We have permission to send push notifications');
-                        const options:PushOptions = {
-                            ios: {
-                                fcmSandbox: false,
-                                alert: true,
-                                badge: true,
-                                sound: true,
-                                clearBadge: true
-                            }
-                        };
+        this.push.hasPermission()
+        .then((res:any) => {
+            //'We have permission to send push notifications');
+            const options:PushOptions = {
+                ios: {
+                    fcmSandbox: false,
+                    alert: true,
+                    badge: true,
+                    sound: true,
+                    clearBadge: true
+                }
+            };
 
-                        const pushObject:PushObject = this.push.init(options);
-                        pushObject.on('notification').subscribe((notification:any) => {
-                            console.log('Received a notification', notification);
+            const pushObject:PushObject = this.push.init(options);
+            pushObject.on('notification').subscribe((notification:any) => {
+                console.log('Received a notification', notification);
 
-                            //remove notification div if it exists
-                            if (document.getElementById("my-notification")) {
-                                document.getElementById("my-notification").remove();
-                            }
+                //remove notification div if it exists
+                if (document.getElementById("my-notification")) {
+                    document.getElementById("my-notification").remove();
+                }
 
-                            //append div and show alert
-                            var d1 = document.getElementsByClassName('ion-page')[0];
-                            d1.insertAdjacentHTML('beforeend', '<div id="my-notification">' +
-                                '<span id="notification-title">' + notification.title + '</span>' +
-                                '<span id="notification-body">' + notification.message + '</span>' +
-                                '</div>');
-                            document.getElementById('my-notification').className = 'notification-alert';
+                //append div and show alert
+                var d1 = document.getElementsByClassName('ion-page')[0];
+                d1.insertAdjacentHTML('beforeend', '<div id="my-notification">' +
+                    '<span id="notification-title">' + notification.title + '</span>' +
+                    '<span id="notification-body">' + notification.message + '</span>' +
+                    '</div>');
+                document.getElementById('my-notification').className = 'notification-alert';
 
-                        });
-
-                        pushObject.on('registration').subscribe((registration:any) => {
-                            //registration: {registrationId: "24e90e7bbee5103d1f8feaa9150f5f8f9e4b6b148f51f83add41ad7295c74291", registrationType: "APNS"}
-                            var pushData = {
-                                push_token: registration.registrationId,
-                                device: 'ios',
-                                device_id: this.device.uuid
-                            };
-
-                            //Save push data on server
-                            this.appService.savePushToken(pushData);
-
-                        });
-
-                        pushObject.on('error').subscribe(error => console.error('Error with Push plugin', error));
-
-                    },
-                    (error) => {
-                        console.log(error);
-                    });
-            },
-            (error) => {
-                //user not found
             });
+
+            pushObject.on('registration').subscribe((registration:any) => {
+                //registration: {registrationId: "24e90e7bbee5103d1f8feaa9150f5f8f9e4b6b148f51f83add41ad7295c74291", registrationType: "APNS"}
+                var pushData = {
+                    push_token: registration.registrationId,
+                    device: 'ios',
+                    device_id: this.device.uuid
+                };
+                
+                this.storage.getItem('user').then((user) => {
+                    //Save push data on server
+                    this.appService.savePushToken(pushData);
+                },
+                (error) => {
+                //user not found
+                });
+
+
+            });
+
+            pushObject.on('error').subscribe(error => console.error('Error with Push plugin', error));
+
+        },
+        (error) => {
+            console.log(error);
+        });
+           
     }
 
     /**

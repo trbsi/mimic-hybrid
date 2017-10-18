@@ -330,17 +330,17 @@ export class ListingPage {
     loadNextOriginal(type) {
         let newIndex = this.originalMimicSlide.getActiveIndex();
 
-        //if newIndex is bigger than total count just return this so nothing can happen
-        if (newIndex + 1 > this.originalMimicsCount) {
-            return;
-        }
-
         //set current original mimic you are looking at
         this.currentOriginalMimic = this.mimicsList[newIndex];
         //set new current mimic response and reset numbering
         this.setCurrentMimicResponses(newIndex);
         //when slide is changed pause previous video
         this.slideChanged(type, newIndex - 1);
+
+        //if newIndex is bigger than total count just return this so nothing can happen  and so you can load more mimics and increase pagination
+        if (newIndex + 1 >= this.originalMimicsCount) {
+            return;
+        }
 
         //if this is the end, try to get more mimics (preload them)
         if (this.originalMimicSlide.isEnd()) {
@@ -390,15 +390,15 @@ export class ListingPage {
 
         var newIndex = this.responseMimicSlide.getActiveIndex();
 
-        //if newIndex is bigger than total count just return this so nothing can happen
-        if (newIndex + 1 >= this.responseMimicsCount) {
-            return;
-        }
-
         //set current response mimic you are looking at
         this.currentResponseMimic = this.currentMimicResponses[newIndex];
         //when slide is changed pause previous video
         this.slideChanged(type, newIndex - 1);
+
+        //if newIndex is bigger than total count just return this so nothing can happen and so you can load more mimics and increase pagination
+        if (newIndex + 1 >= this.responseMimicsCount) {
+            return;
+        }
 
         //if this is the end, try to get more mimics
         if (this.responseMimicSlide.isEnd()) {

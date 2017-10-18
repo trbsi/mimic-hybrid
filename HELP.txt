@@ -197,3 +197,24 @@ xxx has conflicting provisioning settings. xxx is automatically signed for devel
         value to "iPhone Developer" in the build settings editor, or switch to manual signing in the project editor.
         Code signing is required for product type 'Application' in SDK 'iOS 10.3'
 https://forum.ionicframework.com/t/ios-build-release-error-is-automatically-signed-for-development-but-a-conflicting-code-signing-identity-iphone-distribution-has-been-manually-specified/100633/7?u=dariot
+
+
+* da bi radilo onaj live deploy app se mora ubiti i pokrenuti kako bi se kod updateao
+
+Error: Variable(s) missing: APP_ID, APP_NAME
+- samo ponovno instaliraj taj plugin, tipa facebook plugin
+
+Adding iOS platform
+Bio je problem sa dodavanjem ios platforme zbog facebooka
+Dodao sam facebook opet preko: ionic cordova plugin add...
+Pa sam dodao ios platformu: ionic cordova paltform add
+Nakon tog sam postavio development team, unutar Build Phases taba > Link Binary With Libraries sam dodao moje ".a" fileove koji su nedostajali zbog linker errora
+Nakon tog sam  ovo
+https://github.com/phonegap/phonegap-plugin-push/issues/1825#issuecomment-312882899
+"pod setup" unutar ionic foldera, pa sam usao u platforms/ios i "pod install"
+Cesto mi se dogadalo da je bio error nesto "diff/ Podfile.lock", mislim da sam tu samo maknuo "Automatically manage signing" i cleanao project
+
+
+Find provisioning profile uuid
+https://coderwall.com/p/znqi-w/finding-the-uuid-of-an-iphone-provisioning-profile
+https://stackoverflow.com/questions/24353061/ios-provisioning-profile-number-in-xcode -> answer is in the question, look at the picture

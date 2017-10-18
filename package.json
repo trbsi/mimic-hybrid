@@ -44,7 +44,7 @@
         "@types/googlemaps": "3.25.38",
         "angular2-text-mask": "8.0.1",
         "bourbon": "4.2.7",
-        "cordova-ios": "^4.4.0",
+        "cordova-ios": "^4.5.2",
         "cordova-plugin-add-swift-support": "^1.7.0",
         "cordova-plugin-camera": "^2.4.1",
         "cordova-plugin-compat": "^1.2.0",
@@ -122,9 +122,9 @@
                 "PHOTOLIBRARY_USAGE_DESCRIPTION": "Choose a video or a picture"
             },
             "cordova-plugin-media-capture": {
-                "CAMERA_USAGE_DESCRIPTION": " ",
-                "MICROPHONE_USAGE_DESCRIPTION": " ",
-                "PHOTOLIBRARY_USAGE_DESCRIPTION": " "
+                "CAMERA_USAGE_DESCRIPTION": "Record a video or take a picture",
+                "MICROPHONE_USAGE_DESCRIPTION": "Allow Mimic to access your microphone",
+                "PHOTOLIBRARY_USAGE_DESCRIPTION": "Choose a video or a picture"
             },
             "cordova-plugin-k-imagecropper": {},
             "cordova-plugin-video-editor": {},

@@ -331,7 +331,7 @@ export class ListingPage {
         let newIndex = this.originalMimicSlide.getActiveIndex();
 
         //if newIndex is bigger than total count just return this so nothing can happen
-        if (newIndex + 1 >= this.originalMimicsCount) {
+        if (newIndex + 1 > this.originalMimicsCount) {
             return;
         }
 

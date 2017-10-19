@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, MenuController, App, NavParams, SegmentButton, ActionSheetController } from 'ionic-angular';
+import { NavController, MenuController, App, NavParams, SegmentButton, ActionSheetController, AlertController } from 'ionic-angular';
 import { FollowersPage } from '../followers/followers';
 import { ListingPage } from '../listing/listing';
 //import { SettingsPage } from '../settings/settings';
 import { ProfileService } from './profile.service';
+import { ApiSettings } from '../../components/api-settings/api-settings';
 
 import 'rxjs/Rx';
 
@@ -23,7 +24,10 @@ export class ProfilePage {
                 public app:App,
                 public navParams:NavParams,
                 public profileService:ProfileService,
-                public actionSheetCtrl:ActionSheetController) {
+                public actionSheetCtrl:ActionSheetController,
+                public alertCtrl: AlertController, 
+                public apiSettings:ApiSettings) 
+    {
         this.display = "original";
         if (this.navParams.get('user_id')) {
             this.userId = this.navParams.get('user_id');
@@ -241,5 +245,45 @@ export class ProfilePage {
                     this.profile.followers -= 1;
                 }
             });
+    }
+
+    /**
+     * Block this user
+     */
+    blockUser()
+    { 
+        const alert = this.alertCtrl.create({
+        title: 'Are you sure?',
+        message: "Are you sure you want to block this user?",
+        buttons: [
+          {
+            text: 'No',
+            role: 'cancel',
+            handler: () => {
+              
+            }
+          },
+          {
+            text: 'Yes',
+            handler: () => {
+                this.profileService.blockUser({user_id: this.userId})
+                .then((data) => {
+                    this.apiSettings.presentAlert(
+                        'Success',
+                        "This user has been blocked"
+                    );
+                })
+                .catch((error) => {
+                    this.apiSettings.presentAlert(
+                        'Success',
+                        "This user has been blocked"
+                    );
+                });
+            }
+          }
+        ]
+      });
+      alert.present();
+        
     }
 }

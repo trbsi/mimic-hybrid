@@ -3,7 +3,7 @@
     <name>Mimic</name>
     <description>Split your world</description>
     <author email="mimicapp.official@gmail.com" href="http://www.gomimic.com">Mimic</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://192.168.0.17:8100" />
     <access origin="*" />
     <preference name="KeyboardDisplayRequiresUserAction" value="false" />
     <preference name="AllowInlineMediaPlayback" value="true" />
@@ -132,6 +132,12 @@
         <variable name="UPDATE_METHOD" value="background" />
         <variable name="UPDATE_API" value="https://api.ionicjs.com" />
         <variable name="MAX_STORE" value="2" />
+    </plugin>
+    <plugin name="cordova-plugin-ios-camera-permissions" spec="^1.2.0">
+        <variable name="CAMERA_USAGE_DESCRIPTION" value="Record a video or take a picture" />
+        <variable name="MICROPHONE_USAGE_DESCRIPTION" value="Allow Mimic to access your microphone" />
+        <variable name="PHOTOLIBRARY_ADD_USAGE_DESCRIPTION" value="Mimic wants to access photo library" />
+        <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="Choose a video or a picture" />
     </plugin>
     <plugin name="cordova-plugin-k-imagecropper" spec="^1.1.7" />
     <plugin name="cordova-plugin-media-capture" spec="^1.4.3">

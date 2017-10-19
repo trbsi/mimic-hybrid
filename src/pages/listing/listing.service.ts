@@ -47,4 +47,13 @@ export class ListingService {
         console.log(data);
         return this.apiSettings.sendRequest(data, 'mimic/load-responses', 'get');
     }
+
+    /**
+     * Report mimic
+     * @param object data Object of data
+     */
+    reportMimic(data)
+    {
+        return this.apiSettings.sendRequest(data, 'mimic/report', 'post');
+    }
 }

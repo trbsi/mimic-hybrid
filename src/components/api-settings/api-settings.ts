@@ -232,5 +232,18 @@ export class ApiSettings {
         this.storage.remove('user');
     }
 
+    /**
+     * Present alert
+     * @param string title    
+     * @param string subTitle 
+     */
+    presentAlert(title, subTitle) {
+      const alert = this.alertCtrl.create({
+        title: title,
+        subTitle: subTitle,
+        buttons: ['OK']
+      });
+      alert.present();
+    }
 
 }

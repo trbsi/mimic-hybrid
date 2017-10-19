@@ -11,3 +11,14 @@ I had a problem with Push and Firebase. I did “pod setup” inside ionic folde
 Sometimes I got an error something like: “diff/ Podfile.lock”. I removed “Pods” folder and Podfile.lock inside platforms/ios and did “pod install”. I even Unchecked and checked “Automatically manage signing” and cleaned project in XCode.
 
 In order to build an app I had to mnually choose profiles
+
+
+#Important commands
+
+- for setting permissions
+cordova plugin add cordova-plugin-ios-camera-permissions --variable CAMERA_USAGE_DESCRIPTION="Record a video or take a picture" --variable MICROPHONE_USAGE_DESCRIPTION="Allow Mimic to access your microphone" --variable PHOTOLIBRARY_ADD_USAGE_DESCRIPTION="Mimic wants to access photo library" --variable PHOTOLIBRARY_USAGE_DESCRIPTION="Choose a video or a picture" --save
+
+- for creating auto deploy
+ cordova plugin add cordova-plugin-ionic --save --variable APP_ID="62f3e944" --variable CHANNEL_NAME="Master" --variable UPDATE_METHOD="background"
+
+

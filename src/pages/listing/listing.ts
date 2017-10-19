@@ -482,5 +482,25 @@ export class ListingPage {
     }
 
     //VIDEOS
+    
+    /**
+     * Report mimic
+     */
+    reportMimic()
+    {console.log(this.currentOriginalMimic['mimic'].id); 
+        this.listingService.reportMimic({original_mimic_id: this.currentOriginalMimic['mimic'].id})
+        .then((data) => {
+            this.apiSettings.presentAlert(
+                'Mimic has been reported',
+                "We'll review this Mimic and remove inappropriate content"
+            );
+        })
+        .catch((error) => {
+            this.apiSettings.presentAlert(
+                'Mimic has been reported',
+                "We'll review this Mimic and remove inappropriate content"
+            );
+        });
+    }
 
 }

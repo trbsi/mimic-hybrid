@@ -47,9 +47,12 @@
                     </ion-row>
                     <ion-row class="profile-action-row" *ngIf="userId">
                         <ion-col no-padding>
-                            <button ion-button block small (click)="follow()">
+                            <button ion-button small (click)="follow()">
                                 <span *ngIf="profile.i_am_following_you == false">Follow</span>
                                 <span *ngIf="profile.i_am_following_you == true">Unfollow</span>
+                            </button>
+                            <button ion-button small (click)="blockUser()">
+                                Block user
                             </button>
                         </ion-col>
                     </ion-row>

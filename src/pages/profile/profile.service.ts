@@ -48,4 +48,11 @@ export class ProfileService {
     following(data) {
         return this.apiSettings.sendRequest(data, 'profile/following', 'get');
     }
+
+    /**
+     * Block user
+     */
+    blockUser(data) {
+        return this.apiSettings.sendRequest(data, 'profile/block', 'post');
+    }
 }

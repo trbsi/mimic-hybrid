@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
+import { NavController, ModalController, AlertController } from 'ionic-angular';
 
 import { ListingPage } from '../listing/listing';
 import { PostLogin } from '../post-login/post-login';
@@ -25,6 +25,7 @@ export class LoginPage {
                 public twitterLoginService:TwitterLoginService,
                 public modal:ModalController,
                 private storage:NativeStorage,
+                public alertCtrl: AlertController,
                 public apiSettings:ApiSettings) {
     }
 
@@ -55,22 +56,42 @@ export class LoginPage {
     }
 
     doFacebookLogin() {
-        this.facebookLoginService.doFacebookLogin()
-            .then((res) => {
-                //send request to server
-                this.login_service.loginOnServer(res, 'facebook')
-                    .then(response => {
-                        this.apiSettings.storageSetLoginData(response).then(() => {
-                            this.redirectUserToTheRightPage();
+        const alert = this.alertCtrl.create({
+        title: 'Agree to the terms and conditions',
+        message: "By logging in you agree to Mimic's terms of use and privacy policy.",
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            handler: () => {
+              
+            }
+          },
+          {
+            text: 'I agree',
+            handler: () => {
+                this.facebookLoginService.doFacebookLogin()
+                .then((res) => {
+                    //send request to server
+                    this.login_service.loginOnServer(res, 'facebook')
+                        .then(response => {
+                            this.apiSettings.storageSetLoginData(response).then(() => {
+                                this.redirectUserToTheRightPage();
+                            });
+                        })
+                        .catch(error => {
+                            console.log("FB login error", error);
                         });
-                    })
-                    .catch(error => {
-                        console.log("FB login error", error);
-                    });
 
-            }, (err) => {
-                console.log("Facebook Server Login error", err);
-            });
+                }, (err) => {
+                    console.log("Facebook Server Login error", err);
+                });
+            }
+          }
+        ]
+      });
+      alert.present();
+
     }
 
     /*doGoogleLogin() {
@@ -93,22 +114,42 @@ export class LoginPage {
      }*/
 
     doTwitterLogin() {
-        //we don't have the user data so we will ask him to log in
-        this.twitterLoginService.doTwitterLogin()
-            .then((res) => {
-                //send request to server
-                this.login_service.loginOnServer(res, 'twitter')
-                    .then((response) => {
-                        this.apiSettings.storageSetLoginData(response).then(() => {
-                            this.redirectUserToTheRightPage();
-                        });
-                    })
-                    .catch(error => {
-                        console.log("FB login error", error);
+        const alert = this.alertCtrl.create({
+        title: 'Agree to the terms and conditions',
+        message: "By logging in you agree to Mimic's terms of use and privacy policy.",
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            handler: () => {
+              
+            }
+          },
+          {
+            text: 'I agree',
+            handler: () => {
+                //we don't have the user data so we will ask him to log in
+                this.twitterLoginService.doTwitterLogin()
+                    .then((res) => {
+                        //send request to server
+                        this.login_service.loginOnServer(res, 'twitter')
+                            .then((response) => {
+                                this.apiSettings.storageSetLoginData(response).then(() => {
+                                    this.redirectUserToTheRightPage();
+                                });
+                            })
+                            .catch(error => {
+                                console.log("FB login error", error);
+                            });
+                    }, (err) => {
+                        console.log("Twitter Login error", err);
                     });
-            }, (err) => {
-                console.log("Twitter Login error", err);
-            });
+            }
+          }
+        ]
+      });
+      alert.present();
+
     }
 
 
@@ -121,4 +162,5 @@ export class LoginPage {
         let modal = this.modal.create(PrivacyPolicyPage);
         modal.present();
     }
+
 }

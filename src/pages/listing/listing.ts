@@ -487,7 +487,7 @@ export class ListingPage {
      * Report mimic
      */
     reportMimic()
-    {console.log(this.currentOriginalMimic['mimic'].id); 
+    {alert(this.currentOriginalMimic['mimic'].id); 
         this.listingService.reportMimic({original_mimic_id: this.currentOriginalMimic['mimic'].id})
         .then((data) => {
             this.apiSettings.presentAlert(

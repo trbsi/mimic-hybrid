@@ -263,7 +263,7 @@ export class ProfilePage {
               
             }
           },
-          {
+          { 
             text: 'Yes',
             handler: () => {
                 this.profileService.blockUser({user_id: this.userId})

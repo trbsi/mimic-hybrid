@@ -131,14 +131,18 @@ export class AddMimic {
 
                 //upload it to server
                 this.addMimicService.uploadVideoThumb(videoThumbData).then((videoThumbResponse) => {
+alert(videoThumbResponse.success);
                     if (videoThumbResponse.success === true) {
                         //set video_thumb_url
+
                         callbackData.uploadedMimic['mimic'].video_thumb_url = videoThumbResponse.video_thumb_url;
+alert(callbackData.uploadedMimic['mimic'].video_thumb_url);
                         this.removeCachedFiles();
                         this.loading.dismiss();
                         this.viewCtrl.dismiss(callbackData);
                     }
                 }).catch((error) => {
+alert("error");
                     this.removeCachedFiles();
                     this.loading.dismiss();
                 });

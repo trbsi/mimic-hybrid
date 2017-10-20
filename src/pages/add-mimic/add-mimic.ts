@@ -133,13 +133,18 @@ export class AddMimic {
                 this.addMimicService.uploadVideoThumb(videoThumbData).then((videoThumbResponse) => {
                     if (videoThumbResponse.success === true) {
                         //set video_thumb_url
-
+                        alert(videoThumbResponse.success);
+                        alert(videoThumbResponse.video_thumb_url);
+                        
                         //this is response mimic
                         if (this.originalMimicId) {
+                            alert(callbackData.uploadedMimic.video_thumb_url);
                              callbackData.uploadedMimic.video_thumb_url = videoThumbResponse.video_thumb_url;
+                             alert(callbackData.uploadedMimic.video_thumb_url);
                         }
                         //this is original mimic
                         else {
+                            alert("usao tu");
                             callbackData.uploadedMimic.mimic.video_thumb_url = videoThumbResponse.video_thumb_url;
                         }
                        
@@ -148,6 +153,7 @@ export class AddMimic {
                         this.viewCtrl.dismiss(callbackData);
                     }
                 }).catch((error) => {
+                    alert("error");
                     this.removeCachedFiles();
                     this.loading.dismiss();
                 });

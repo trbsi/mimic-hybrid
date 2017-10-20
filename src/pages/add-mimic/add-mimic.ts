@@ -144,7 +144,7 @@ export class AddMimic {
                         }
                         //this is original mimic
                         else {
-                            alert("usao tu");
+                            alert("usao tu"); 
                             callbackData.uploadedMimic.mimic.video_thumb_url = videoThumbResponse.video_thumb_url;
                         }
                        

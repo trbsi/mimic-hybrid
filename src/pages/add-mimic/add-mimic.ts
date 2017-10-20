@@ -133,7 +133,7 @@ export class AddMimic {
                 this.addMimicService.uploadVideoThumb(videoThumbData).then((videoThumbResponse) => {
                     if (videoThumbResponse.success === true) {
                         //set video_thumb_url
-                        callbackData.uploadedMimic.mimic.video_thumb_url = videoThumbResponse.video_thumb_url;
+                        callbackData.uploadedMimic['mimic'].video_thumb_url = videoThumbResponse.video_thumb_url;
                         this.removeCachedFiles();
                         this.loading.dismiss();
                         this.viewCtrl.dismiss(callbackData);

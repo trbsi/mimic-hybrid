@@ -85,7 +85,6 @@ export class ApiSettings {
             //couldn't find user, do normal post
             (error) => {
                 this.createHeaders(headers, type);
-                headers.append('Authorization', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjk2LCJpc3MiOiJodHRwOi8vd3d3LmdvbWltaWMuY29tL2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNTA4MTg5OTk4LCJleHAiOjE1MTA4ODk5OTgsIm5iZiI6MTUwODE4OTk5OCwianRpIjoiN3lNNFdrRjBZU1BMaFRraSJ9.D27R5COvWgHOMWSWvQ_83-aQ5rqmKjTShRfu9bvuACY');
 
                 if (type == 'post') {
                     return this.doPost(serverData, url, headers, showLoading);

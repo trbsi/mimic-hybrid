@@ -30,7 +30,9 @@
                         <img src="./assets/images/mimic_logo_text.png" id="mimic-logo">
                     </div>
                 </div>
-                <preload-image *ngIf="imageFile" [ratio]="{w:16, h:9}" [src]="imageFile"></preload-image>
+                <div class="mimic-preview-img-placeholder">
+                    <img *ngIf="imageFile" [src]="imageFile" class="mimic-preview-img">
+                </div>
                 <div *ngIf="videoFile" class="video-player-container">
                     <vg-player class="video-player" (onPlayerReady)="onPlayerReady($event)">
                         <vg-buffering></vg-buffering>

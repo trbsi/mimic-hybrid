@@ -54,6 +54,17 @@ add-mimic {
   #mimic-logo {
     display: block;
   }
+
+  .mimic-preview-img-placeholder {
+    height: slides-height(); 
+    width: 100%;
+    text-align: center;
+    img.mimic-preview-img { 
+      height: slides-height(); 
+      width: auto; 
+    }
+  }
+   
   //MOJE
 
   ion-header {

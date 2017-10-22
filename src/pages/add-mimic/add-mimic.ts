@@ -34,7 +34,7 @@ export class AddMimic {
     videoPlayer:any;
 
     constructor(public nav:NavController, public navParams:NavParams,
-                public alertCtrl:AlertController,
+                public alertCtrl:AlertController, 
                 private camera:Camera,
                 private mediaCapture:MediaCapture,
                 private videoEditor:VideoEditor,

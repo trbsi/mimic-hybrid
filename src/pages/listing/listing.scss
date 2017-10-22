@@ -187,6 +187,11 @@ listing-page {
   //make our slide only 56.25% of height to retain same height
   .slide-zoom {
     height: slides-height();
+    
+    img.slide-mimic-img { 
+        height: slides-height(); 
+        width: auto; 
+    } 
   }
 
   .top-slides {

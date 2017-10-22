@@ -335,6 +335,8 @@ export class AddMimic {
      */
     private callCropper(imagePath) {
         imagePath = this.returnFilePath(imagePath);
+        this.currentFile = this.imageFile = imagePath;
+        /*
         var options = {
             url: imagePath,              // required.
             ratio: "16/9",               // required. (here you can define your custom ration) "1/1" for square images
@@ -353,6 +355,7 @@ export class AddMimic {
         }.bind(this), function (error) {
             console.log(error);
         });
+        */
     }
 
     /**

@@ -96,6 +96,7 @@ export class ListingPage {
                         this.ga.setAllowIDFACollection(true);
                         this.ga.setAppVersion(ApiSettings.APP_VERSION);
                         this.ga.setUserId(user.user_id);
+                        this.ga.trackView('home');
                     })
                         .catch(e => console.log('Error starting GoogleAnalytics', e));
 

@@ -93,7 +93,7 @@ export class ListingPage {
                     this.ga.startTrackerWithId(ApiSettings.GA_TRACKER_ID).then(() => {
                         console.log('Google analytics is ready now');
                         //the component is ready and you can call any method here
-                        this.ga.setAllowIDFACollection(true);
+                        //this.ga.setAllowIDFACollection(true);
                         this.ga.setAppVersion(ApiSettings.APP_VERSION);
                         this.ga.setUserId(user.user_id);
                         this.ga.trackView('home');

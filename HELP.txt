@@ -214,7 +214,6 @@ https://github.com/phonegap/phonegap-plugin-push/issues/1825#issuecomment-312882
 "pod setup" unutar ionic foldera, pa sam usao u platforms/ios i "pod install"
 Cesto mi se dogadalo da je bio error nesto "diff/ Podfile.lock", mislim da sam tu samo maknuo "Automatically manage signing" i cleanao project
 
-
 Find provisioning profile uuid
 https://coderwall.com/p/znqi-w/finding-the-uuid-of-an-iphone-provisioning-profile
 https://stackoverflow.com/questions/24353061/ios-provisioning-profile-number-in-xcode -> answer is in the question, look at the picture

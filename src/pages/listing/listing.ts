@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+ import { Component } from '@angular/core';
 import { NavController, NavParams, ModalController, LoadingController, Platform } from 'ionic-angular';
 
 import 'rxjs/Rx';
@@ -46,6 +46,7 @@ export class ListingPage {
     originalMimicPaging = 0;
     responseMimicPaging = 0;
     filterMimics = {};
+    currentOriginalMimicIndex = 0; // current index from mimicsList array user is currently at
 
     //VIDEO
     videoOriginal = []; //original video instances
@@ -159,7 +160,10 @@ export class ListingPage {
                         this.slideAllMimicsToBeginning();
                         break;
                     case "response":
-                        this.currentMimicResponses.unshift(data.uploadedMimic);
+                        //push response mimic to variable tat hold current responses of original mimic
+                        //this.currentMimicResponses.unshift(data.uploadedMimic);
+                        //push response mimic to "mimic_responses"
+                        this.mimicsList[this.currentOriginalMimicIndex]['mimic_responses'].unshift(data.uploadedMimic);
                         this.currentResponseMimic = data.uploadedMimic; // current response mimic is this uploaded one
                         this.responseMimicSlide.slideTo(0, 0, false);  //set slide back to index 0
                         break;
@@ -440,6 +444,9 @@ export class ListingPage {
      * When you change original mimic you have to set new responses to show for that mimic
      */
     private setCurrentMimicResponses(currentMimicOriginalIndex) {
+        //set current original mimic index
+        this.currentOriginalMimicIndex = currentMimicOriginalIndex;
+
         var self = this;
 
         clearTimeout(this.timeoutHandle);

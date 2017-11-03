@@ -160,10 +160,13 @@ export class ListingPage {
                         this.slideAllMimicsToBeginning();
                         break;
                     case "response":
-                        //push response mimic to variable tat hold current responses of original mimic
-                        //this.currentMimicResponses.unshift(data.uploadedMimic);
                         //push response mimic to "mimic_responses"
                         this.mimicsList[this.currentOriginalMimicIndex]['mimic_responses'].unshift(data.uploadedMimic);
+                        if(this.currentMimicResponses.length === 0) {
+                            //set currentMimicResponses variable to get data from mimicsList
+                            this.currentMimicResponses = this.mimicsList[this.currentOriginalMimicIndex]['mimic_responses'];
+                        }
+                        
                         this.currentResponseMimic = data.uploadedMimic; // current response mimic is this uploaded one
                         this.responseMimicSlide.slideTo(0, 0, false);  //set slide back to index 0
                         break;

@@ -7,7 +7,7 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-nati
 @NgModule()
 
 export class ApiSettings {
-    //public static API_ENDPOINT = 'http://mimic.testapi.website/api/';
+    //public static API_ENDPOINT = 'http://mimic.blitzerapp.website/api/';
     public static API_ENDPOINT = 'http://mimic.blitzerapp.com/api/';
     public static APP_VERSION = '1.2';
     public static GA_TRACKER_ID = 'UA-107329891-1';

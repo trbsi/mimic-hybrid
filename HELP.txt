@@ -217,3 +217,7 @@ Cesto mi se dogadalo da je bio error nesto "diff/ Podfile.lock", mislim da sam t
 Find provisioning profile uuid
 https://coderwall.com/p/znqi-w/finding-the-uuid-of-an-iphone-provisioning-profile
 https://stackoverflow.com/questions/24353061/ios-provisioning-profile-number-in-xcode -> answer is in the question, look at the picture
+
+Check for internet connection
+https://www.thepolyglotdeveloper.com/2016/01/determine-network-availability-in-an-ionic-2-mobile-app/
+https://ionicframework.com/docs/native/network/

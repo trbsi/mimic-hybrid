@@ -24,10 +24,7 @@ import { FollowersPage } from '../pages/followers/followers';
 //import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
 import { TermsOfServicePage } from '../pages/terms-of-service/terms-of-service';
 import { PrivacyPolicyPage } from '../pages/privacy-policy/privacy-policy';
-
 import { PreloadImage } from '../components/preload-image/preload-image';
-//import { ShowHideContainer } from '../components/show-hide-password/show-hide-container';
-//import { ShowHideInput } from '../components/show-hide-password/show-hide-input';
 
 //USING SERVICES
 import { ListingService } from '../pages/listing/listing.service';
@@ -64,6 +61,7 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 import { Push } from '@ionic-native/push';
 import { GoogleAnalytics } from '@ionic-native/google-analytics';
 import { Device } from '@ionic-native/device';
+import { Network } from '@ionic-native/network';
 
 //Functionalities
 import { FacebookLoginPage } from '../pages/facebook-login/facebook-login';
@@ -170,6 +168,7 @@ export function createTranslateLoader(http:Http) {
         Push,
         GoogleAnalytics,
         Device,
+        Network,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

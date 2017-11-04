@@ -12,6 +12,10 @@ import { AppService } from './app.service';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Device } from '@ionic-native/device';
 import { File } from '@ionic-native/file';
+import { Network } from '@ionic-native/network';
+
+declare var navigator: any;
+declare var Connection: any;
 
 @Component({
     selector: 'app-root',
@@ -40,7 +44,9 @@ export class MyApp {
                 private device:Device,
                 private appService:AppService,
                 private file:File,
-                private storage:NativeStorage) {
+                private storage:NativeStorage,
+                private network: Network) 
+    {
         translate.setDefaultLang('en');
         translate.use('en');
 
@@ -53,14 +59,17 @@ export class MyApp {
             //this is to show all extra buttons on iphone keyboard
             keyboard.hideKeyboardAccessoryBar(false);
             this.getPushToken();
+            this.onConnectionStatusChange();
+            this.checkConnectionStatus();
         });
 
         platform.resume.subscribe(() => {
             this.getPushToken();
             this.removeCachedFiles();
+            this.checkConnectionStatus();
         });
         //platform.pause.subscribe(() => { console.log(" izisao iz appa") });
-
+ 
 
         this.translate.onLangChange.subscribe((event:LangChangeEvent) => {
             if (event.lang == 'ar') {
@@ -168,6 +177,48 @@ export class MyApp {
     private getCurrentDate() {
         var today = new Date();
         return today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    }
+
+    /**
+     * Do something when connection status has been changed
+     */
+    private onConnectionStatusChange() 
+    {
+        var title = "No internet connection";
+        var subTitle = "For full Mimic experience please connect to the internet.";
+
+        // watch network for a disconnect
+        let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
+            this.apiSettings.presentAlert(title, subTitle);
+        });
+
+        // stop disconnect watch
+        //disconnectSubscription.unsubscribe();
+    }
+
+    /*+
+     * Check connection status
+     */
+    private checkConnectionStatus()
+    {
+        var title = "No internet connection";
+        var subTitle = "For full Mimic experience please connect to the internet.";
+
+        // check for connection type
+        var networkState = navigator.connection.type;
+        /*var states = {};
+        states[Connection.UNKNOWN]  = 'Unknown connection';
+        states[Connection.ETHERNET] = 'Ethernet connection';
+        states[Connection.WIFI]     = 'WiFi connection';
+        states[Connection.CELL_2G]  = 'Cell 2G connection';
+        states[Connection.CELL_3G]  = 'Cell 3G connection';
+        states[Connection.CELL_4G]  = 'Cell 4G connection';
+        states[Connection.CELL]     = 'Cell generic connection';
+        states[Connection.NONE]     = 'No network connection';*/
+
+        if(networkState === Connection.NONE) {
+            this.apiSettings.presentAlert(title, subTitle);
+        }
     }
 
 }

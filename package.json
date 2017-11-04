@@ -57,7 +57,6 @@
         "cordova-plugin-google-analytics": "^1.8.3",
         "cordova-plugin-googleplus": "^5.1.1",
         "cordova-plugin-inappbrowser": "^1.7.1",
-        "cordova-plugin-ionic": "^2.0.1",
         "cordova-plugin-ios-camera-permissions": "^1.2.0",
         "cordova-plugin-k-imagecropper": "^1.1.7",
         "cordova-plugin-media-capture": "^1.4.3",
@@ -140,13 +139,6 @@
                 "MICROPHONE_USAGE_DESCRIPTION": "Allow Mimic to access your microphone",
                 "PHOTOLIBRARY_ADD_USAGE_DESCRIPTION": "Mimic wants to access photo library",
                 "PHOTOLIBRARY_USAGE_DESCRIPTION": "Choose a video or a picture"
-            },
-            "cordova-plugin-ionic": {
-                "APP_ID": "62f3e944",
-                "CHANNEL_NAME": "Master",
-                "UPDATE_METHOD": "background",
-                "UPDATE_API": "https://api.ionicjs.com",
-                "MAX_STORE": "2"
             }
         },
         "platforms": [

@@ -160,13 +160,17 @@ export class ListingPage {
                         this.slideAllMimicsToBeginning();
                         break;
                     case "response":
-                        //push response mimic to "mimic_responses"
-                        this.mimicsList[this.currentOriginalMimicIndex]['mimic_responses'].unshift(data.uploadedMimic);
                         if(this.currentMimicResponses.length === 0) {
+                            //push response mimic to "mimic_responses"
+                            this.mimicsList[this.currentOriginalMimicIndex]['mimic_responses'].push(data.uploadedMimic);
+
                             //set currentMimicResponses variable to get data from mimicsList
                             this.currentMimicResponses = this.mimicsList[this.currentOriginalMimicIndex]['mimic_responses'];
+                        } else {
+                            //unshift (push to the zero index) response mimic to "mimic_responses"
+                            this.mimicsList[this.currentOriginalMimicIndex]['mimic_responses'].unshift(data.uploadedMimic);
                         }
-                        
+                                                
                         this.currentResponseMimic = data.uploadedMimic; // current response mimic is this uploaded one
                         this.responseMimicSlide.slideTo(0, 0, false);  //set slide back to index 0
                         break;

@@ -57,7 +57,7 @@
         "cordova-plugin-file-transfer": "^1.6.3",
         "cordova-plugin-google-analytics": "^1.8.3",
         "cordova-plugin-googleplus": "^5.1.1",
-        "cordova-plugin-inappbrowser": "^1.7.1",
+        "cordova-plugin-inappbrowser": "^3.1.0",
         "cordova-plugin-ios-camera-permissions": "^1.2.0",
         "cordova-plugin-k-imagecropper": "^1.1.7",
         "cordova-plugin-media-capture": "^1.4.3",

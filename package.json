@@ -87,7 +87,7 @@
     },
     "devDependencies": {
         "@angular/tsc-wrapped": "^4.4.3",
-        "@ionic/app-scripts": "3.0.0",
+        "@ionic/app-scripts": "3.2.4",
         "ionic": "3.16.0",
         "typescript": "2.3.4"
     },
